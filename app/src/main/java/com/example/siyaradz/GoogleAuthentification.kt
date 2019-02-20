@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.FragmentActivity
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
@@ -22,7 +24,9 @@ class GoogleAuthentification {
 
     constructor(context: Context,signInOptions:GoogleSignInOptions) {
         context as Activity
-        this.googleClient = GoogleApiClient.Builder(context).enableAutoManage(context as FragmentActivity,context as GoogleApiClient.OnConnectionFailedListener).addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build()
+        this.googleClient = GoogleApiClient.Builder(context).enableAutoManage(context as FragmentActivity,context as GoogleApiClient.OnConnectionFailedListener)
+            .addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions)
+            .build()
         this.userName = context.findViewById(R.id.userName)
         this.signInButton = context.findViewById(R.id.googleSignIn)
         this.signOutButton = context.findViewById(R.id.googleSignOut)
@@ -47,16 +51,20 @@ class GoogleAuthentification {
             updateUi(false)
         }
     }
-    public fun handleResult(result: GoogleSignInResult){
+
+    public fun handleResult(result: GoogleSignInResult,context:Context){
         if (result.isSuccess){
             var account =result.signInAccount
+
             var name = account?.displayName
             var email =account?.email
             userName.text = email
+            Log.i("token","${account!!.idToken}")
             updateUi(true)
 
         }else{
             updateUi(false)
+            Log.i("prb","! successs")
         }
 
     }
