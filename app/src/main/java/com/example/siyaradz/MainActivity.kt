@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    var callbackManager = CallbackManager.Factory.create()
+    var callbackManager = CallbackManager.Factory.create()!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
