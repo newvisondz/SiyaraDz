@@ -10,7 +10,9 @@ import android.widget.Toast
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.Scope
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
@@ -23,9 +25,11 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
         setSupportActionBar(toolbar)
 
         val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestScopes(Scope(Scopes.APP_STATE))
+            .requestServerAuthCode(getString(R.string.server_client_id))
             .requestEmail()
-            .requestIdToken(getString(R.string.server_client_id))
             .build()
+
         authentification = GoogleAuthentification(this, signInOptions)
 
 
