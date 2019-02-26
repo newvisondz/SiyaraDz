@@ -2,4 +2,6 @@
     <string name="app_name">SiyaraDz</string>
     <string name="action_settings">Settings</string>
     <string name="server_client_id">127354430664-hk6dcbqghd155soavfon2hr4ud7sqeli.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">320960728554804</string>
+    <string name="fb_login_protocol_scheme">fb320960728554804</string>
 </resources>

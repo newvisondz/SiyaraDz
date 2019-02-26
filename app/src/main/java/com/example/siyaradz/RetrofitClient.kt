@@ -1,19 +1,9 @@
 package com.example.siyaradz
 
-import android.util.Base64
-import com.google.android.gms.common.api.Api
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
-
-import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-import java.io.IOException
-import java.util.logging.Level
-import okhttp3.logging.HttpLoggingInterceptor
-
 
 
 class RetrofitClient private constructor() {
