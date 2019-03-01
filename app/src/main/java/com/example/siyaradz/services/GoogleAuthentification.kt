@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.siyaradz.R
 import com.example.siyaradz.Tokens.GoogleToken
+import com.example.siyaradz.views.BrandDisplay
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
@@ -18,14 +19,13 @@ import com.google.android.gms.common.api.GoogleApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.example.siyaradz.views.BrandDisplay
 
 
 class GoogleAuthentification {
     private var googleClient: GoogleApiClient? = null
     val REQ_CODE: Int = 9001
     private var userName: TextView
-    private  var context:Context
+    private var context: Context
     internal var signInButton: SignInButton
     internal var signOutButton: Button
 
@@ -39,7 +39,7 @@ class GoogleAuthentification {
         this.userName = context.findViewById(R.id.userName)
         this.signInButton = context.findViewById(R.id.googleSignIn)
         this.signOutButton = context.findViewById(R.id.googleSignOut)
-        this.context=context
+        this.context = context
     }
 
     fun getuserName(): TextView {
@@ -74,6 +74,7 @@ class GoogleAuthentification {
                 override fun onFailure(call: Call<GoogleToken>?, t: Throwable?) {
                     t!!.printStackTrace()
                 }
+
                 override fun onResponse(call: Call<GoogleToken>?, response: Response<GoogleToken>?) {
                     if (response!!.isSuccessful && response.body() != null) {
                         val intent = Intent(context, BrandDisplay::class.java)
