@@ -8,7 +8,11 @@ import com.example.siyaradz.R
 import com.example.siyaradz.adapters.MarquesAdapter
 import com.example.siyaradz.model.FabricantsList
 import com.example.siyaradz.services.RetrofitClient
+import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_brand_display.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 
@@ -27,18 +31,17 @@ class BrandDisplay : AppCompatActivity() {
             .serverDataApi
             .getAllBrands(" id", "id marque", "1")
 
-        call.enqueue(object : retrofit2.Callback<FabricantsList> {
-            override fun onResponse(call: Call<FabricantsList>, response: Response<FabricantsList>) {
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    brands = response.body()!!
-                    Log.i("response", response.body().toString())
-                    initRecycerView()
-                } else {
-                    Log.i("fail on response", "the format is wrong")
+                    //brands = response.body()!!
+                    //var json: JSONObject = response.body() as JSONObjectn
+                    var json=response.body()!!.asJsonObject
+                    Log.i("response",json.getAsJsonArray("fabricants").toString())
+                    //initRecycerView()
                 }
             }
-
-            override fun onFailure(call: Call<FabricantsList>, t: Throwable) {
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 t.printStackTrace()
             }
         })
