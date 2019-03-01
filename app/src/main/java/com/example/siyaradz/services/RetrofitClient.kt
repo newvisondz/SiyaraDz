@@ -7,11 +7,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class RetrofitClient private constructor() {
+class RetrofitClient {
     private val retrofit: Retrofit
+    private val BASE_URL = "https://sayara-dz.herokuapp.com/"
 
-    val api: AuthentificationApi
+    val authentificationApi: AuthentificationApi
         get() = retrofit.create(AuthentificationApi::class.java)
+
+    val serverDataApi:ServerDataApi
+        get() = retrofit.create(ServerDataApi::class.java)
 
 
     init {
@@ -30,18 +34,4 @@ class RetrofitClient private constructor() {
             .build()
     }
 
-    companion object {
-
-        private const val BASE_URL = "https://sayara-dz.herokuapp.com/"
-        private var mInstance: RetrofitClient? = null
-
-        val instance: RetrofitClient
-            @Synchronized get() {
-                if (mInstance == null) {
-                    mInstance =
-                        RetrofitClient()
-                }
-                return mInstance!!
-            }
-    }
 }

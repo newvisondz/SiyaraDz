@@ -11,7 +11,6 @@ import android.widget.Toast
 import com.example.siyaradz.R
 import com.example.siyaradz.services.GoogleAuthentification
 import com.example.siyaradz.services.RetrofitClient
-import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -71,9 +70,8 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                 val accessToken = loginResult.accessToken.token
 
                 Log.i("accessToken", accessToken)
-                val call = RetrofitClient
-                    .instance
-                    .api
+                val call = RetrofitClient()
+                    .authentificationApi
                     .sendKeysFacebook(accessToken)
 
                 call.enqueue(object : Callback<String> {

@@ -19,7 +19,7 @@ class MarquesAdapter(private val marques: List<Marque>, private val context: Con
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
          var marque= this.marques[i]
-        viewHolder.brandName.text=marque.nom
+        viewHolder.brandName.text=marque.marque
     }
 
     override fun getItemCount(): Int {

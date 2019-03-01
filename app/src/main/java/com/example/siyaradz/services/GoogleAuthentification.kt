@@ -42,10 +42,6 @@ class GoogleAuthentification {
         this.context=context
     }
 
-    fun getgoogleClient(): GoogleApiClient? {
-        return this.googleClient
-    }
-
     fun getuserName(): TextView {
         return this.userName
     }
@@ -70,8 +66,8 @@ class GoogleAuthentification {
 
             userName.text = email
 
-            val call = RetrofitClient.instance
-                .api
+            val call = RetrofitClient()
+                .authentificationApi
                 .sendKeysGoogle(account!!.serverAuthCode!!, account.requestedScopes.toString())
 
             call.enqueue(object : Callback<GoogleToken> {
