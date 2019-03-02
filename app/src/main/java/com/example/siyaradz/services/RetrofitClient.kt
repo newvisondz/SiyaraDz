@@ -1,5 +1,6 @@
 package com.example.siyaradz.services
 
+import com.example.siyaradz.services.Auth.AuthentificationApi
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

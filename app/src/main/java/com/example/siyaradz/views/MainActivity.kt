@@ -9,7 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.siyaradz.R
-import com.example.siyaradz.services.GoogleAuthentification
+import com.example.siyaradz.services.Auth.GoogleAuthentification
 import com.example.siyaradz.services.RetrofitClient
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback

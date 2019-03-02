@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.example.siyaradz.R
+import com.example.siyaradz.Utils.JSONFormatter
 import com.example.siyaradz.adapters.MarquesAdapter
 import com.example.siyaradz.model.Marque
 import com.example.siyaradz.services.RetrofitClient
-import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_brand_display.*
@@ -18,6 +18,8 @@ import retrofit2.Response
 class BrandDisplay : AppCompatActivity() {
     private lateinit var brands: List<Marque>
     private var adapter: MarquesAdapter? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brand_display)
@@ -25,7 +27,6 @@ class BrandDisplay : AppCompatActivity() {
     }
 
     private fun getContent() {
-
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(" id", "id marque", "1")
@@ -33,14 +34,12 @@ class BrandDisplay : AppCompatActivity() {
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    val json = response.body()!!.asJsonObject
-                    val element = json.getAsJsonArray("fabricants")
                     val listType = object : TypeToken<List<Marque>>() {}.type
-                    brands = Gson().fromJson(element, listType)
+                    var test =JSONFormatter()
+                    brands=test.jsonFormatter(response.body()!!,listType,"fabricants")
                     initRecycerView()
                 }
             }
-
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 t.printStackTrace()
             }
