@@ -9,7 +9,7 @@ import com.example.siyaradz.R
 import com.example.siyaradz.model.Marque
 import kotlinx.android.synthetic.main.brand_marks_items.view.*
 
-class MarquesAdapter(private val marques: List<Marque>, private val context: Context) :
+class MarquesAdapter(private val marques: MutableList<Marque>, private val context: Context) :
     RecyclerView.Adapter<MarquesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
@@ -18,7 +18,7 @@ class MarquesAdapter(private val marques: List<Marque>, private val context: Con
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-         var marque= this.marques[i]
+         val marque= this.marques[i]
         viewHolder.brandName.text=marque.marque
     }
 
@@ -27,6 +27,13 @@ class MarquesAdapter(private val marques: List<Marque>, private val context: Con
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val brandName = itemView.brand_name
+        val brandName = itemView.brand_name!!
+    }
+
+    public fun addBrand(brands:List<Marque>) {
+        for (marque in brands) {
+            this.marques.add(marque)
+        }
+        notifyDataSetChanged()
     }
 }
