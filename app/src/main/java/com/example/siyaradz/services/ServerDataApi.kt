@@ -20,6 +20,7 @@ interface ServerDataApi {
     fun getAllBrands(
         @Query("sort") sort: String,
         @Query("select") select: String,
-        @Query("page") page: String
+        @Query("page") page: String,
+        @Query("perpage") perPage: String
     ): Call<JsonElement>
 }

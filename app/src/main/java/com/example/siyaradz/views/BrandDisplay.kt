@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.widget.Toast
 import com.example.siyaradz.R
 import com.example.siyaradz.Utils.JSONFormatter
 import com.example.siyaradz.adapters.MarquesAdapter
@@ -32,7 +31,7 @@ class BrandDisplay : AppCompatActivity() {
     private var totalItemsCount: Int = 0
     private var previousTotal: Int = 0
 
-    private var viewThreshold = 2
+    private var viewThreshold = 6
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +67,7 @@ class BrandDisplay : AppCompatActivity() {
     private fun getContent() {
         val call = RetrofitClient()
             .serverDataApi
-            .getAllBrands(" id", "id marque", "1")
+            .getAllBrands(" id", "id marque", pageNumber.toString(), viewThreshold.toString())
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
@@ -79,6 +78,7 @@ class BrandDisplay : AppCompatActivity() {
                     initRecycerView()
                 }
             }
+
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -96,17 +96,16 @@ class BrandDisplay : AppCompatActivity() {
     private fun performPagination() {
         val call = RetrofitClient()
             .serverDataApi
-            .getAllBrands(" id", "id marque", pageNumber.toString())
+            .getAllBrands(" id", "id marque", pageNumber.toString(), viewThreshold.toString())
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<List<Marque>>() {}.type
                     adapter!!.addBrand(jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants"))
-                } else {
-                    Toast.makeText(this@BrandDisplay, "No more items to display", Toast.LENGTH_SHORT)
                 }
             }
+
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 t.printStackTrace()
             }
