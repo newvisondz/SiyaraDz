@@ -1,17 +1,12 @@
 package com.example.siyaradz.Tokens
 
-class GoogleToken(){
-    private var email:String?=null
-    private var id:String?=null
-    private var token:String?=null
+class GoogleToken(private var _email: String, private var _id: String, private var _token: String) {
+    var email: String = _email
+    var id: String = _id
+    var token: String = _token
 
-    constructor(email:String,id:String,token:String):this(){
-        this.email=email
-        this.id=id
-        this.token=token
-    }
 
     override fun toString(): String {
-        return this.email!!
+        return this.email
     }
 }

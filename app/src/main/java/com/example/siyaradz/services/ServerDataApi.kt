@@ -14,7 +14,7 @@ interface ServerDataApi {
         @Query("select") select: String,
         @Query("page") page: String,
         @Query("marque") marque: String
-    ): Call<List<Marque>>
+    ): Call<JsonElement>
 
     @GET("fabricant/model")
     fun getAllBrands(

@@ -45,11 +45,6 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
             .build()
 
         authentification = GoogleAuthentification(this, signInOptions)
-
-
-        authentification!!.getuserName().visibility = View.GONE
-
-
         authentification!!.signInButton.setOnClickListener {
             authentification!!.signIn(this)
         }
@@ -100,7 +95,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 
 
     override fun onConnectionFailed(p0: ConnectionResult) {
-        Toast.makeText(this, "Une faible connection internet ", Toast.LENGTH_SHORT)
+        Toast.makeText(this, "Une faible connection internet ", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -122,7 +117,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == authentification!!.REQ_CODE) {
-            var result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             this.authentification!!.handleResult(result)
         }
     }
