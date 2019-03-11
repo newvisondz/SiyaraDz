@@ -4,4 +4,10 @@
     <string name="server_client_id">127354430664-hk6dcbqghd155soavfon2hr4ud7sqeli.apps.googleusercontent.com</string>
     <string name="facebook_app_id">320960728554804</string>
     <string name="fb_login_protocol_scheme">fb320960728554804</string>
+    <string name="hello_blank_fragment">Hello</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="neuf">neuf</string>
+    <string name="occasion">occasion</string>
+    <string name="profile">profile</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
