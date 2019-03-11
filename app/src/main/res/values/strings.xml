@@ -10,4 +10,6 @@
     <string name="occasion">occasion</string>
     <string name="profile">profile</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="connect_with_google">Connect with Google</string>
+    <string name="connect_with_facebook">Connect with FACEBOOK</string>
 </resources>

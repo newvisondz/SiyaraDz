@@ -1,6 +1,8 @@
 package com.example.siyaradz.views
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -15,18 +17,16 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.Scope
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private var callbackManager = CallbackManager.Factory.create()!!
     private var authentification: GoogleAuthentification? = null
-    
+    private var userInfo: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        userInfo = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
 
         val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestScopes(Scope(Scopes.APP_STATE))
@@ -38,13 +38,10 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
         authentification!!.signInButton.setOnClickListener {
             authentification!!.signIn(this)
         }
-        authentification!!.signOutButton.setOnClickListener {
-            authentification!!.signOut()
-        }
-        start.setOnClickListener{
-            var intent=Intent(this, NavigationActivity::class.java)
-            startActivity(intent)
-        }
+//        authentification!!.signOutButton.setOnClickListener {
+//            authentification!!.signOut()
+//        }
+
     }
 
 

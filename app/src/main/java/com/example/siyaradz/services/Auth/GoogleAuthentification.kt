@@ -13,6 +13,7 @@ import com.example.siyaradz.Tokens.GoogleToken
 import com.example.siyaradz.Utils.PrefrencesHandler
 import com.example.siyaradz.services.RetrofitClient
 import com.example.siyaradz.views.BrandDisplay
+import com.example.siyaradz.views.NavigationActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
@@ -27,8 +28,8 @@ class GoogleAuthentification {
     private var googleClient: GoogleApiClient? = null
     val REQ_CODE: Int = 9001
     private var context: Context
-    internal var signInButton: SignInButton
-    internal var signOutButton: Button
+    internal var signInButton: Button
+   // internal var signOutButton: Button
     private var userInfo: SharedPreferences
     private var prefrencesHandler: PrefrencesHandler
 
@@ -40,15 +41,15 @@ class GoogleAuthentification {
             .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions)
             .build()
 
-        this.signInButton = context.findViewById(R.id.googleSignIn)
-        this.signOutButton = context.findViewById(R.id.googleSignOut)
+        this.signInButton = context.findViewById(R.id.loging)
+        //this.signOutButton = context.findViewById(R.id.googleSignOut)
         this.context = context
         userInfo = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         prefrencesHandler = PrefrencesHandler()
     }
 
 
-    public fun signIn(context: Context) {
+     fun signIn(context: Context) {
         var intent: Intent = Auth.GoogleSignInApi.getSignInIntent(googleClient)
         context as Activity
         context.startActivityForResult(intent, REQ_CODE)
@@ -58,6 +59,7 @@ class GoogleAuthentification {
         Auth.GoogleSignInApi.signOut(googleClient).setResultCallback {
             updateUi(false)
         }
+      prefrencesHandler.removeUserToken(userInfo)
     }
 
     public fun handleResult(result: GoogleSignInResult) {
@@ -73,26 +75,20 @@ class GoogleAuthentification {
                     override fun onFailure(call: Call<GoogleToken>?, t: Throwable?) {
                         t!!.printStackTrace()
                     }
-
                     override fun onResponse(call: Call<GoogleToken>?, response: Response<GoogleToken>?) {
                         if (response!!.isSuccessful) {
                             prefrencesHandler.setUserPrefrences(userInfo, response.body()!!)
-                            val intent = Intent(context, BrandDisplay::class.java)
+                            val intent = Intent(context, NavigationActivity::class.java)
                             context.startActivity(intent)
 
-                        } else {
-                            Log.i("Response null", response.body().toString())
                         }
                     }
                 })
             } else {
-                Log.i("prefs",prefrencesHandler.getUserToken(userInfo))
-                val intent = Intent(context, BrandDisplay::class.java)
+                Log.i("prefs", prefrencesHandler.getUserToken(userInfo))
+                val intent = Intent(context, NavigationActivity::class.java)
                 context.startActivity(intent)
             }
-            //updateUi(true)
-        } else {
-            //updateUi(false)
         }
     }
 
