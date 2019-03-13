@@ -16,5 +16,20 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="LargeDarkBold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@string/font_bold</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:textSize">@dimen/font_large</item>
+    </style>
+
+    <style name="MediumLight">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@string/font_light</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textColor">@color/colorSecondaryLight</item>
+    </style>
 
 </resources>

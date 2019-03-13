@@ -5,7 +5,9 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.*
 import com.example.siyaradz.R
 import com.example.siyaradz.views.fragments.NeufFragment
@@ -23,8 +25,9 @@ class NavigationActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
-        container.adapter = mSectionsPagerAdapter
 
+        container.adapter = mSectionsPagerAdapter
+        container.offscreenPageLimit =3
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
     }
@@ -36,33 +39,32 @@ class NavigationActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        val id = item.itemId
-
-        if (id == R.id.action_settings) {
+        if (item.itemId == R.id.action_settings) {
             return true
         }
-
         return super.onOptionsItemSelected(item)
     }
 
 
-    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
-        override fun getItem(position: Int): Fragment {
-            var fragment: Fragment? = null
+        override fun getItem(position: Int): Fragment? {
+
             when (position) {
                 0 -> {
-                    fragment = NeufFragment.newInstance("", "")
+                    Log.i("position",position.toString()+"neuf")
+                    return NeufFragment()
                 }
                 1 -> {
-                    fragment = OccasionFragment.newInstance("", "")
+                    Log.i("position",position.toString()+"occasion")
+                    return OccasionFragment()
                 }
                 2 -> {
-                    fragment = ProfileFragment.newInstance("", "")
+                    Log.i("position",position.toString()+"profile")
+                    return ProfileFragment()
                 }
             }
-            return fragment!!
+            return null
         }
 
         override fun getCount(): Int {
@@ -70,14 +72,4 @@ class NavigationActivity : AppCompatActivity() {
         }
     }
 
-    class PlaceholderFragment : Fragment() {
-
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            return inflater.inflate(R.layout.fragment_neuf, container, false)
-        }
-
-    }
 }
