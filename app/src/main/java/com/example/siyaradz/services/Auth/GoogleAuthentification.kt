@@ -12,12 +12,10 @@ import com.example.siyaradz.R
 import com.example.siyaradz.Tokens.GoogleToken
 import com.example.siyaradz.Utils.PrefrencesHandler
 import com.example.siyaradz.services.RetrofitClient
-import com.example.siyaradz.views.BrandDisplay
 import com.example.siyaradz.views.NavigationActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.GoogleApiClient
 import retrofit2.Call
 import retrofit2.Callback
