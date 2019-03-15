@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.inputmethod.EditorInfo
 import com.example.siyaradz.R
 import com.example.siyaradz.Utils.JSONFormatter
 import com.example.siyaradz.adapters.MarquesAdapter
@@ -20,13 +20,11 @@ import retrofit2.Call
 import retrofit2.Response
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM1 = "search"
 
 
 class NeufFragment : Fragment() {
+
 
     private var param1: String? = null
     private var param2: String? = null
@@ -36,7 +34,6 @@ class NeufFragment : Fragment() {
     private val layoutManger = LinearLayoutManager(context)
     private val jsonFormatter = JSONFormatter()
     private var pageNumber: Int = 1
-
 
 
     private var isloading: Boolean = true
@@ -49,9 +46,9 @@ class NeufFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -91,6 +88,7 @@ class NeufFragment : Fragment() {
             }
         })
     }
+
 
     private fun getContent() {
         val call = RetrofitClient()
@@ -141,12 +139,31 @@ class NeufFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
+        fun newInstance(searchText: String) =
             NeufFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(ARG_PARAM1, searchText)
                 }
             }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        val searchItem = menu!!.findItem(R.id.marque_filter)
+        val searchView = searchItem.actionView as SearchView
+
+        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter!!.filter.filter(newText)
+                return false
+            }
+        })
+    }
+
+
 }

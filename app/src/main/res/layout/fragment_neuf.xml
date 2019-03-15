@@ -2,11 +2,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/neuf_frag"
     android:layout_height="match_parent"
     tools:context=".views.NavigationActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:id="@+id/brands_recycler_view"
         android:layout_height="wrap_content" />
 
