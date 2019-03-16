@@ -1,5 +1,6 @@
 package com.example.siyaradz.views.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -7,23 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.siyaradz.R
 import kotlinx.android.synthetic.main.fragment_profile.*
-
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import java.util.*
 
 
 class ProfileFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +22,9 @@ class ProfileFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        frag3.text="FRAg3 "
+        date_choice.setOnClickListener {
+            displayDatePicker()
+        }
     }
 
     companion object {
@@ -42,9 +32,18 @@ class ProfileFragment : Fragment() {
         fun newInstance() =
             ProfileFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun displayDatePicker() {
+        var cal = Calendar.getInstance()
+        var day = cal.get(Calendar.DAY_OF_MONTH)
+        var month = cal.get(Calendar.MONTH)
+        var year = cal.get(Calendar.YEAR)
+        val dpd = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            birth_date.text = "$year/$monthOfYear/$dayOfMonth"
+        }, year, month, day)
+        dpd.show()
     }
 }

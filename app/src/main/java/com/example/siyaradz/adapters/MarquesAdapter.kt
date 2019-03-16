@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.Toast
 import com.example.siyaradz.R
 import com.example.siyaradz.model.Marque
 import kotlinx.android.synthetic.main.brand_marks_items.view.*
@@ -19,12 +20,16 @@ class MarquesAdapter(private var marques: MutableList<Marque>, private val conte
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view = LayoutInflater.from(this.context).inflate(R.layout.brand_marks_items, viewGroup, false)
+        view.setOnClickListener {
+            Toast.makeText(context,"working",Toast.LENGTH_SHORT).show()
+        }
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val marque = this.marques[i]
         viewHolder.brandName.text = marque.marque
+
     }
 
     override fun getItemCount(): Int {

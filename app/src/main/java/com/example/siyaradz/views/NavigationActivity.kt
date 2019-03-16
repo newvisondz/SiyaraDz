@@ -31,17 +31,6 @@ class NavigationActivity : AppCompatActivity() {
         container.offscreenPageLimit = 2
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
-
-//        marque_filter!!.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String): Boolean {
-//                return false
-//            }
-//
-//            override fun onQueryTextChange(newText: String): Boolean {
-//                searchText!!.append(newText)
-//                return false
-//            }
-//        })
     }
 
     inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {

@@ -27,7 +27,6 @@ class NeufFragment : Fragment() {
 
 
     private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var brands: MutableList<Marque>
     private var adapter: MarquesAdapter? = null
@@ -52,10 +51,7 @@ class NeufFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
 
         return inflater.inflate(R.layout.fragment_neuf, container, false)
     }
@@ -90,6 +86,7 @@ class NeufFragment : Fragment() {
     }
 
 
+
     private fun getContent() {
         val call = RetrofitClient()
             .serverDataApi
@@ -98,8 +95,8 @@ class NeufFragment : Fragment() {
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
+
                     val listType = object : TypeToken<MutableList<Marque>>() {}.type
-                    Log.i("response", response.body().toString())
                     brands = jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants")
                     initRecycerView()
                 }
@@ -119,6 +116,7 @@ class NeufFragment : Fragment() {
     }
 
     private fun performPagination() {
+        prgsBar.visibility=View.VISIBLE
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(" id", "id marque", pageNumber.toString(), viewThreshold.toString())
@@ -127,7 +125,11 @@ class NeufFragment : Fragment() {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<List<Marque>>() {}.type
-                    adapter!!.addBrand(jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants"))
+                    lateinit var tmp:MutableList<Marque>
+                    tmp=jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants")
+                    brands.addAll(tmp)
+                    adapter!!.addBrand(tmp)
+                    prgsBar.visibility=View.GONE
                 }
             }
 

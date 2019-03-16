@@ -1,6 +1,5 @@
 package com.example.siyaradz.services
 
-import com.example.siyaradz.model.Marque
 import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.http.GET
