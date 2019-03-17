@@ -37,10 +37,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun displayDatePicker() {
-        var cal = Calendar.getInstance()
-        var day = cal.get(Calendar.DAY_OF_MONTH)
-        var month = cal.get(Calendar.MONTH)
-        var year = cal.get(Calendar.YEAR)
+        val cal = Calendar.getInstance()
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+        val month = cal.get(Calendar.MONTH)
+        val year = cal.get(Calendar.YEAR)
         val dpd = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             birth_date.text = "$year/$monthOfYear/$dayOfMonth"
         }, year, month, day)

@@ -19,7 +19,6 @@ class NavigationActivity : AppCompatActivity() {
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
     private var searchText: StringBuilder? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
@@ -37,13 +36,13 @@ class NavigationActivity : AppCompatActivity() {
         override fun getItem(position: Int): Fragment? {
             when (position) {
                 0 -> {
-                    return NeufFragment.newInstance(searchText.toString())
+                    return NeufFragment.newInstance()
                 }
                 1 -> {
-                    return OccasionFragment()
+                    return OccasionFragment.newInstance()
                 }
                 2 -> {
-                    return ProfileFragment()
+                    return ProfileFragment.newInstance()
                 }
             }
             return null

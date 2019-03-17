@@ -1,15 +1,17 @@
 package com.example.siyaradz.views.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import com.example.siyaradz.R
 import com.example.siyaradz.Utils.JSONFormatter
+import com.example.siyaradz.Utils.PrefrencesHandler
 import com.example.siyaradz.adapters.MarquesAdapter
 import com.example.siyaradz.model.Marque
 import com.example.siyaradz.services.RetrofitClient
@@ -20,13 +22,10 @@ import retrofit2.Call
 import retrofit2.Response
 
 
-private const val ARG_PARAM1 = "search"
-
-
 class NeufFragment : Fragment() {
 
-
-    private var param1: String? = null
+    private var prefs = PrefrencesHandler()
+    private var userInfo: SharedPreferences? = null
 
     private lateinit var brands: MutableList<Marque>
     private var adapter: MarquesAdapter? = null
@@ -47,17 +46,17 @@ class NeufFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         return inflater.inflate(R.layout.fragment_neuf, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         getContent()
         this.brands_recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -86,11 +85,13 @@ class NeufFragment : Fragment() {
     }
 
 
-
     private fun getContent() {
         val call = RetrofitClient()
             .serverDataApi
-            .getAllBrands(" id", "id marque", pageNumber.toString(), viewThreshold.toString())
+            .getAllBrands(
+                prefs.getUserToken(userInfo!!)!!, " id",
+                "id marque", pageNumber.toString(), viewThreshold.toString()
+            )
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
@@ -116,20 +117,26 @@ class NeufFragment : Fragment() {
     }
 
     private fun performPagination() {
-        prgsBar.visibility=View.VISIBLE
+        prgsBar.visibility = View.VISIBLE
         val call = RetrofitClient()
             .serverDataApi
-            .getAllBrands(" id", "id marque", pageNumber.toString(), viewThreshold.toString())
+            .getAllBrands(
+                prefs.getUserToken(userInfo!!)!!,
+                " id",
+                "id marque",
+                pageNumber.toString(),
+                viewThreshold.toString()
+            )
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<List<Marque>>() {}.type
-                    lateinit var tmp:MutableList<Marque>
-                    tmp=jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants")
+                    lateinit var tmp: MutableList<Marque>
+                    tmp = jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants")
                     brands.addAll(tmp)
                     adapter!!.addBrand(tmp)
-                    prgsBar.visibility=View.GONE
+                    prgsBar.visibility = View.GONE
                 }
             }
 
@@ -141,10 +148,9 @@ class NeufFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(searchText: String) =
+        fun newInstance() =
             NeufFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, searchText)
                 }
             }
     }
@@ -160,6 +166,7 @@ class NeufFragment : Fragment() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
+
             override fun onQueryTextChange(newText: String): Boolean {
                 adapter!!.filter.filter(newText)
                 return false

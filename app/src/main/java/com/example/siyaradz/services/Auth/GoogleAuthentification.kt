@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v4.app.FragmentActivity
-import android.util.Log
-import android.view.View
 import android.widget.Button
 import com.example.siyaradz.R
 import com.example.siyaradz.Tokens.GoogleToken
@@ -27,7 +25,7 @@ class GoogleAuthentification {
     val REQ_CODE: Int = 9001
     private var context: Context
     internal var signInButton: Button
-   // internal var signOutButton: Button
+    // internal var signOutButton: Button
     private var userInfo: SharedPreferences
     private var prefrencesHandler: PrefrencesHandler
 
@@ -47,7 +45,7 @@ class GoogleAuthentification {
     }
 
 
-     fun signIn(context: Context) {
+    fun signIn(context: Context) {
         var intent: Intent = Auth.GoogleSignInApi.getSignInIntent(googleClient)
         context as Activity
         context.startActivityForResult(intent, REQ_CODE)
@@ -55,9 +53,9 @@ class GoogleAuthentification {
 
     public fun signOut() {
         Auth.GoogleSignInApi.signOut(googleClient).setResultCallback {
-            updateUi(false)
+            //updateUi(false)
         }
-      prefrencesHandler.removeUserToken(userInfo)
+        prefrencesHandler.removeUserToken(userInfo)
     }
 
     public fun handleResult(result: GoogleSignInResult) {
@@ -73,31 +71,19 @@ class GoogleAuthentification {
                     override fun onFailure(call: Call<GoogleToken>?, t: Throwable?) {
                         t!!.printStackTrace()
                     }
+
                     override fun onResponse(call: Call<GoogleToken>?, response: Response<GoogleToken>?) {
                         if (response!!.isSuccessful) {
                             prefrencesHandler.setUserPrefrences(userInfo, response.body()!!)
                             val intent = Intent(context, NavigationActivity::class.java)
                             context.startActivity(intent)
-
                         }
                     }
                 })
             } else {
-                Log.i("prefs", prefrencesHandler.getUserToken(userInfo))
                 val intent = Intent(context, NavigationActivity::class.java)
                 context.startActivity(intent)
             }
-        }
-    }
-
-    public fun updateUi(isLogedIn: Boolean) {
-        if (isLogedIn) {
-            // userName.visibility = View.VISIBLE
-            signInButton.visibility = View.GONE
-
-        } else {
-            // userName.visibility = View.GONE
-            signInButton.visibility = View.VISIBLE
         }
     }
 }

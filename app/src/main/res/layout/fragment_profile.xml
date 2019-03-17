@@ -47,6 +47,7 @@
                 android:background="@android:color/transparent"
                 android:baselineAligned="false"
                 android:ems="10"
+                android:hint="..."
                 android:inputType="textPersonName"
                 android:textColor="@color/colorSecondary" />
         </LinearLayout>
@@ -64,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <ImageView
-                android:layout_width="12dp"
+                android:layout_width="17dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:baselineAligned="false"
@@ -74,7 +75,7 @@
                 android:id="@+id/birth_date"
                 android:layout_width="233dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:labelFor="@id/username"
@@ -115,7 +116,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
-                android:labelFor="@id/username"
+                android:labelFor="@id/useradr"
                 android:text="Adresse :"
                 android:textSize="18sp" />
 
@@ -127,6 +128,7 @@
                 android:background="@android:color/transparent"
                 android:baselineAligned="false"
                 android:ems="10"
+                android:hint="..."
                 android:inputType="textPersonName"
                 android:textColor="@color/colorSecondary" />
         </LinearLayout>
@@ -157,7 +159,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
-                android:labelFor="@id/username"
+                android:labelFor="@id/usertel"
                 android:text="Telephone :"
                 android:textSize="18sp" />
 
@@ -169,6 +171,7 @@
                 android:background="@android:color/transparent"
                 android:baselineAligned="false"
                 android:ems="10"
+                android:hint="..."
                 android:inputType="textPersonName"
                 android:textColor="@color/colorSecondary" />
         </LinearLayout>
@@ -186,7 +189,7 @@
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="17dp"
+                android:layout_width="18dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:baselineAligned="false"
@@ -199,7 +202,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
-                android:labelFor="@id/username"
+                android:labelFor="@id/usermail"
                 android:text="E-mail :"
                 android:textSize="18sp" />
 
@@ -211,6 +214,7 @@
                 android:background="@android:color/transparent"
                 android:baselineAligned="false"
                 android:ems="10"
+                android:hint="..."
                 android:inputType="textPersonName"
                 android:textColor="@color/colorSecondary" />
         </LinearLayout>

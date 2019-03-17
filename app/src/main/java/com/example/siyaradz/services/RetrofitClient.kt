@@ -15,7 +15,7 @@ class RetrofitClient {
     val authentificationApi: AuthentificationApi
         get() = retrofit.create(AuthentificationApi::class.java)
 
-    val serverDataApi:ServerDataApi
+    val serverDataApi: ServerDataApi
         get() = retrofit.create(ServerDataApi::class.java)
 
 
@@ -26,10 +26,12 @@ class RetrofitClient {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(interceptor)
+
             .build()
 
         retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
+
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
