@@ -9,9 +9,12 @@
     <string name="neuf">neuf</string>
     <string name="occasion">occasion</string>
     <string name="profile">profile</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="connect_with_google">Connect with Google</string>
     <string name="connect_with_facebook">Connect with FACEBOOK</string>
+    <string name="_used">OCCASION</string>
+    <string name="_filter">FILTRER</string>
+    <string name="_new">NEUF</string>
+    <string name="_profile">PROFILE</string>
 
     <!--some fonts -->
     <string name="font_bold">sans-serif-medium</string>

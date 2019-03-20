@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/tabs">
+
+    <fragment
+        android:id="@+id/tabs"
+        android:name="com.newvisiondz.sayaradz.views.fragments.Tabs"
+        android:label="fragment_tabs"
+        tools:layout="@layout/fragment_tabs">
+        <action
+            android:id="@+id/action_tabs_to_models"
+            app:destination="@id/models"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" >
+            <argument
+                android:name="brandId"
+                android:defaultValue="0" />
+        </action>
+        <action
+            android:id="@+id/action_tabs_to_bidView"
+            app:destination="@id/bidView"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/fade_out">
+            <argument
+                android:name="bidId"
+                android:defaultValue="0" />
+        </action>
+        <action
+            android:id="@+id/action_tabs_to_profileForm"
+            app:destination="@id/profileForm" />
+        <action
+            android:id="@+id/action_tabs_to_myBids"
+            app:destination="@id/myBids" />
+        <action
+            android:id="@+id/action_tabs_to_myVersions"
+            app:destination="@id/myVersions" />
+        <action
+            android:id="@+id/action_tabs_to_myModels"
+            app:destination="@id/myModels" />
+        <action
+            android:id="@+id/action_tabs_to_myOffers"
+            app:destination="@id/myOffers" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/models"
+        android:name="com.newvisiondz.sayaradz.views.fragments.Models"
+        android:label="fragment_models"
+        tools:layout="@layout/fragment_models">
+        <action
+            android:id="@+id/action_models_to_modelView"
+            app:destination="@id/modelView"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/fade_out">
+            <argument
+                android:name="modelId"
+                android:defaultValue="0" />
+        </action>
+        <argument
+            android:name="brandId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/modelView"
+        android:name="com.newvisiondz.sayaradz.views.fragments.ModelView"
+        android:label="fragment_model_view"
+        tools:layout="@layout/fragment_model_view">
+        <action
+            android:id="@+id/action_modelView_to_dataSheetView"
+            app:destination="@id/dataSheetView"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/fade_out" >
+            <argument
+                android:name="modelId"
+                android:defaultValue="0" />
+        </action>
+        <argument
+            android:name="modelId"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_modelView_to_orderForm"
+            app:destination="@id/orderForm" />
+    </fragment>
+    <fragment
+        android:id="@+id/dataSheetView"
+        android:name="com.newvisiondz.sayaradz.views.fragments.DataSheetView"
+        android:label="fragment_data_sheet_view">
+        <argument
+            android:name="modelId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/bidView"
+        android:name="com.newvisiondz.sayaradz.views.fragments.BidView"
+        android:label="fragment_bid_view"
+        tools:layout="@layout/fragment_bid_view" >
+        <argument
+            android:name="bidId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_bidView_to_bidForm"
+            app:destination="@id/bidForm" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderForm"
+        android:name="com.newvisiondz.sayaradz.views.fragments.OrderForm"
+        android:label="OrderForm"
+        tools:layout="@layout/fragment_order_form"/>
+    <fragment
+        android:id="@+id/bidForm"
+        android:name="com.newvisiondz.sayaradz.views.fragments.BidForm"
+        android:label="fragment_bid_form"
+        tools:layout="@layout/fragment_bid_form" />
+    <fragment
+        android:id="@+id/profileForm"
+        android:name="com.newvisiondz.sayaradz.views.fragments.ProfileForm"
+        android:label="fragment_profile_form"
+        tools:layout="@layout/fragment_profile_form" />
+    <fragment
+        android:id="@+id/myBids"
+        android:name="com.newvisiondz.sayaradz.views.fragments.MyBids"
+        android:label="fragment_my_bids"
+        tools:layout="@layout/fragment_my_bids" >
+        <action
+            android:id="@+id/action_myBids_to_bidView"
+            app:destination="@id/bidView" />
+    </fragment>
+    <fragment
+        android:id="@+id/myModels"
+        android:name="com.newvisiondz.sayaradz.views.fragments.MyModels"
+        android:label="fragment_my_models"
+        tools:layout="@layout/fragment_my_models" >
+        <action
+            android:id="@+id/action_myModels_to_modelView"
+            app:destination="@id/modelView" />
+    </fragment>
+    <fragment
+        android:id="@+id/myVersions"
+        android:name="com.newvisiondz.sayaradz.views.fragments.MyVersions"
+        android:label="fragment_my_versions"
+        tools:layout="@layout/fragment_my_versions" >
+        <action
+            android:id="@+id/action_myVersions_to_modelView"
+            app:destination="@id/modelView" />
+    </fragment>
+    <fragment
+        android:id="@+id/myOffers"
+        android:name="com.newvisiondz.sayaradz.views.fragments.MyOffers"
+        android:label="fragment_my_offers"
+        tools:layout="@layout/fragment_my_offers" >
+        <action
+            android:id="@+id/action_myOffers_to_bidView"
+            app:destination="@id/bidView" />
+    </fragment>
+</navigation>
