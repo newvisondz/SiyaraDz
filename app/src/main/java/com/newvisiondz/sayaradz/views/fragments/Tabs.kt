@@ -5,8 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.view.ViewPager
+//import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,18 +46,17 @@ class Tabs : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_tabs, container, false)
+    }
 
-        val view = inflater.inflate(R.layout.fragment_tabs, container, false)
-
-//        val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
-        //val pager =  view.findViewById<ViewPager>(R.id.pager)
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         val adapter = TabPagerAdapter(childFragmentManager,tab_layout.tabCount)
-        pager.adapter = adapter
 
-        pager.offscreenPageLimit =1
-       // tab_layout.setupWithViewPager(pager)
+        pager.adapter = adapter
+        //tab_layout.setupWithViewPager(pager)
+        pager.offscreenPageLimit =2
+
 
         pager.addOnPageChangeListener(
             TabLayout.TabLayoutOnPageChangeListener(tab_layout))
@@ -77,7 +75,7 @@ class Tabs : Fragment() {
             }
 
         })
-        return view
+
     }
 
 

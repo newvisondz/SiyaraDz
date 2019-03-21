@@ -86,8 +86,6 @@ class GoogleAuthentification {
                 val intent = Intent(context, NavigationActivity::class.java)
                 context.startActivity(intent)
             }
-        }else {
-            Log.i("sednreq","not working")
         }
     }
 }

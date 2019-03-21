@@ -64,27 +64,21 @@ class Brands : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_brands, container, false)
+        return inflater.inflate(R.layout.fragment_brands, container, false)
+    }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         val viewManager = LinearLayoutManager(this.context)
-
-
         val brandSet = Brand.BrandSet(
             mutableListOf(
-                Brand(0, "Mercedes", "R.drawable.mercedes"),
-                Brand(1, "Volkswagen", "R.drawable.mercedes"),
-                Brand(2, "Skoda", "R.drawable.mercedes"),
-                Brand(3, "Mercedes", "R.drawable.mercedes")
+                Brand("", "Mercedes", "R.drawable.mercedes"),
+                Brand("1", "Volkswagen", "R.drawable.mercedes"),
+                Brand("2", "Skoda", "R.drawable.mercedes"),
+                Brand("3", "Mercedes", "R.drawable.mercedes")
             )
         )
-
-      //  brands = brandSet.filterByName("Merc", "Volk").get()
-        //   val brandsAdapter =
         getContent()
-
-
-        return view
     }
 
     override fun onResume() {
@@ -118,7 +112,7 @@ class Brands : Fragment() {
     private fun getContent() {
         val call = RetrofitClient()
             .serverDataApi
-            .getAllBrands(prefs.getUserToken(userInfo!!)!!)
+            .getAllBrands("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1Mjk5ODk4OSwiZXhwIjoxNTUzNjAzNzg5fQ.TgbhPdVzftgqVejbftalfAoivFF59bmKTirogRFE4vE")
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {

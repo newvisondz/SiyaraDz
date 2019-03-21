@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 class Brand() {
     @SerializedName("id")
     @Expose
-    var id = 0
+    var id = ""
     @SerializedName("brand")
     @Expose
     var name = ""
@@ -16,7 +16,7 @@ class Brand() {
 
   //  var manufacturer = ""
 
-    constructor(id: Int, name: String, imageId: String):this(){
+    constructor(id: String, name: String, imageId: String):this(){
         this.id = id
         this.name = name
         //this.manufacturer = manufacturer
