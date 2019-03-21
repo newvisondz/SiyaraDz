@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.services.Auth.GoogleAuthentification
@@ -34,6 +35,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
         authentification = GoogleAuthentification(this, signInOptions)
         authentification!!.signInButton.setOnClickListener {
+            Log.i("sendreq","buttonreq")
             authentification!!.signIn(this)
         }
 //        authentification!!.signOutButton.setOnClickListener {

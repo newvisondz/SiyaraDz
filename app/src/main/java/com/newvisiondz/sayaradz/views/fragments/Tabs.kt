@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.adapters.TabPagerAdapter
+import kotlinx.android.synthetic.main.fragment_tabs.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -50,19 +51,18 @@ class Tabs : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_tabs, container, false)
 
-        val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
-        val pager =  view.findViewById<ViewPager>(R.id.pager)
+//        val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
+        //val pager =  view.findViewById<ViewPager>(R.id.pager)
 
-        val adapter = TabPagerAdapter(childFragmentManager,
-            tabLayout.tabCount)
+        val adapter = TabPagerAdapter(childFragmentManager,tab_layout.tabCount)
         pager.adapter = adapter
 
         pager.offscreenPageLimit =1
-        //tabLayout.setupWithViewPager(pager)
+       // tab_layout.setupWithViewPager(pager)
 
         pager.addOnPageChangeListener(
-            TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-        tabLayout.addOnTabSelectedListener(object :
+            TabLayout.TabLayoutOnPageChangeListener(tab_layout))
+        tab_layout.addOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 pager.currentItem = tab.position

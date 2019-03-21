@@ -5,16 +5,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v4.app.FragmentActivity
+import android.util.Log
 import android.widget.Button
-import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Tokens.GoogleToken
-import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
-import com.newvisiondz.sayaradz.services.RetrofitClient
-import com.newvisiondz.sayaradz.views.NavigationActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.api.GoogleApiClient
+import com.newvisiondz.sayaradz.R
+import com.newvisiondz.sayaradz.Tokens.GoogleToken
+import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
+import com.newvisiondz.sayaradz.services.RetrofitClient
+import com.newvisiondz.sayaradz.views.MainActivity
+import com.newvisiondz.sayaradz.views.NavigationActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,7 +63,7 @@ class GoogleAuthentification {
     public fun handleResult(result: GoogleSignInResult) {
         if (result.isSuccess) {
             val account = result.signInAccount
-
+            Log.i("sendreq","Google")
             if (prefrencesHandler.getUserToken(userInfo).equals("Not Found")) {
                 val call = RetrofitClient()
                     .authentificationApi
@@ -75,7 +77,7 @@ class GoogleAuthentification {
                     override fun onResponse(call: Call<GoogleToken>?, response: Response<GoogleToken>?) {
                         if (response!!.isSuccessful) {
                             prefrencesHandler.setUserPrefrences(userInfo, response.body()!!)
-                            val intent = Intent(context, NavigationActivity::class.java)
+                            val intent = Intent(context, MainActivity::class.java)
                             context.startActivity(intent)
                         }
                     }
@@ -84,6 +86,8 @@ class GoogleAuthentification {
                 val intent = Intent(context, NavigationActivity::class.java)
                 context.startActivity(intent)
             }
+        }else {
+            Log.i("sednreq","not working")
         }
     }
 }

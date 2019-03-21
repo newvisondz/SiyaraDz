@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_navigation.*
 class NavigationActivity : AppCompatActivity() {
 
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
-    private var searchText: StringBuilder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -94,7 +94,6 @@ class Neuf : Fragment() {
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-
                     val listType = object : TypeToken<MutableList<Brand>>() {}.type
                     brands = jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants")
                     initRecycerView()
