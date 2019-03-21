@@ -19,6 +19,8 @@ interface ServerDataApi {
 
     @GET("manufacturers/")
     fun getAllBrands(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Query("page") page: String,
+        @Query("perpage") perPage: String
     ): Call<JsonElement>
 }

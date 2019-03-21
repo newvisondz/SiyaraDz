@@ -14,9 +14,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.i("activity","nice")
         val navController = findNavController(R.id.navigation_host)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         findViewById<Toolbar>(R.id.toolbar).setupWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("PROB","cc")
     }
 }

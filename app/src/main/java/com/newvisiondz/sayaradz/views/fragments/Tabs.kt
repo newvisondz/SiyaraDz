@@ -56,8 +56,6 @@ class Tabs : Fragment() {
         pager.adapter = adapter
         //tab_layout.setupWithViewPager(pager)
         pager.offscreenPageLimit =2
-
-
         pager.addOnPageChangeListener(
             TabLayout.TabLayoutOnPageChangeListener(tab_layout))
         tab_layout.addOnTabSelectedListener(object :

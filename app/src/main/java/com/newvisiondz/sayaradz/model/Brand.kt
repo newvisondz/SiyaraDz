@@ -5,13 +5,10 @@ import com.google.gson.annotations.SerializedName
 
 class Brand() {
     @SerializedName("id")
-    @Expose
     var id = ""
     @SerializedName("brand")
-    @Expose
     var name = ""
     @SerializedName("logo")
-    @Expose
     var logo = ""
 
   //  var manufacturer = ""

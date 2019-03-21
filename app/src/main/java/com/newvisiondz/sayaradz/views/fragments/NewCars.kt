@@ -43,7 +43,6 @@ class NewCars : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.i("activity","nice")
         return inflater.inflate(R.layout.fragment_new_cars, container, false)
     }
 
@@ -56,15 +55,6 @@ class NewCars : Fragment() {
         if (context is OnFragmentInteractionListener) {
             listener = context
         }
-//        else {
-//            //throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-//        }
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
     }
 
     override fun onDetach() {

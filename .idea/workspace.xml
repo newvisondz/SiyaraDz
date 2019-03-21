@@ -13,7 +13,7 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
@@ -29,10 +29,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/TabPagerAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/TabPagerAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/JSONFormatter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/JSONFormatter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/Brand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/Brand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/GoogleAuthentification.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/GoogleAuthentification.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Brands.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Brands.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/NewCars.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/NewCars.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Tabs.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Tabs.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,25 +96,25 @@
           <entry key="dummy" value="3" />
           <entry key="gradle" value="77" />
           <entry key="java" value="140" />
-          <entry key="kt" value="9669" />
+          <entry key="kt" value="10256" />
           <entry key="properties" value="3" />
           <entry key="txt" value="237" />
-          <entry key="xml" value="2018" />
+          <entry key="xml" value="2023" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="77" />
           <entry key="JAVA" value="140" />
-          <entry key="Kotlin" value="9669" />
+          <entry key="Kotlin" value="10256" />
           <entry key="PLAIN_TEXT" value="240" />
           <entry key="Properties" value="3" />
-          <entry key="XML" value="2018" />
+          <entry key="XML" value="2023" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="58" />
+          <entry key="project.closed" value="60" />
           <entry key="project.open.time.1" value="6" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="1" />
@@ -122,8 +124,8 @@
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.2" value="3" />
           <entry key="project.open.time.22" value="1" />
-          <entry key="project.open.time.23" value="1" />
-          <entry key="project.open.time.24" value="3" />
+          <entry key="project.open.time.23" value="2" />
+          <entry key="project.open.time.24" value="4" />
           <entry key="project.open.time.25" value="2" />
           <entry key="project.open.time.26" value="4" />
           <entry key="project.open.time.27" value="4" />
@@ -138,7 +140,7 @@
           <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="2" />
-          <entry key="project.opened" value="57" />
+          <entry key="project.opened" value="59" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -148,11 +150,11 @@
           <entry key="java" value="15" />
           <entry key="jpg" value="1" />
           <entry key="json" value="2" />
-          <entry key="kt" value="271" />
+          <entry key="kt" value="277" />
           <entry key="png" value="3" />
           <entry key="properties" value="8" />
           <entry key="svg" value="4" />
-          <entry key="xml" value="246" />
+          <entry key="xml" value="247" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -162,10 +164,10 @@
           <entry key="Image" value="4" />
           <entry key="JAVA" value="15" />
           <entry key="JSON" value="2" />
-          <entry key="Kotlin" value="271" />
+          <entry key="Kotlin" value="277" />
           <entry key="Properties" value="8" />
           <entry key="SVG" value="4" />
-          <entry key="XML" value="246" />
+          <entry key="XML" value="247" />
         </counts>
       </usages-collector>
     </session>
@@ -175,30 +177,56 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/NewCars.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_new_cars.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="11" column="65" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="65" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Brands.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="77" column="24" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="24" />
+            <state relative-caret-position="130">
+              <caret line="155" column="46" selection-start-line="155" selection-start-column="46" selection-end-line="155" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BrandsAdapter.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="52" column="8" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/JSONFormatter.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Neuf.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1980">
+              <caret line="116" column="33" selection-start-line="116" selection-start-column="33" selection-end-line="116" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/MainActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="13" column="56" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -206,8 +234,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/Brand.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-358">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="69">
+              <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
               <folding>
                 <element signature="e#40#131#0" expanded="true" />
               </folding>
@@ -218,7 +246,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/TabPagerAdapter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-40">
+            <state relative-caret-position="20">
               <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
@@ -227,20 +255,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Tabs.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+            <state relative-caret-position="920">
+              <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-manifest" />
         </entry>
       </file>
     </leaf>
@@ -268,6 +286,7 @@
       <find>size</find>
       <find>args</find>
       <find>toast</find>
+      <find>prgsBar</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -2673,7 +2692,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/siyaradz/services/RetrofitClient.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
@@ -2706,23 +2724,24 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Bids.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/OldCars.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Profile.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BrandsAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Models.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/ModelView.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/NavigationActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Neuf.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/LoginActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/MainActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/NewCars.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/GoogleAuthentification.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/TabPagerAdapter.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Tabs.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_new_cars.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/NewCars.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Tabs.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/MainActivity.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/Brand.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/JSONFormatter.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BrandsAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Brands.kt" />
       </list>
     </option>
@@ -2769,9 +2788,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2782,11 +2798,6 @@
             <path>
               <item name="SiyaraDz" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
-            </path>
-            <path>
-              <item name="SiyaraDz" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
             </path>
             <path>
@@ -2800,12 +2811,30 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="sayaradz" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SiyaraDz" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="sayaradz" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SiyaraDz" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="sayaradz" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="fragments" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3169,10 +3198,10 @@
       <window_info id="Designer" order="6" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Version Control" order="0" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="1" sideWeight="0.628593" visible="true" weight="0.6456559" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="1" sideWeight="0.628593" visible="true" weight="0.70187396" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49924356" weight="0.32885906" />
       <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49924356" weight="0.5922819" />
-      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.3721634" side_tool="true" weight="0.43030304" />
+      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.3721634" side_tool="true" weight="0.42930153" />
       <window_info anchor="bottom" id="Run" order="5" weight="0.44804087" />
       <window_info anchor="bottom" id="Build" order="6" sideWeight="0.628593" weight="0.36456558" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.18228279" />
@@ -3394,20 +3423,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Neuf.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1540">
-          <caret line="94" column="42" selection-start-line="94" selection-start-column="42" selection-end-line="94" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_brands.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -3423,13 +3438,6 @@
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/JSONFormatter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -3475,9 +3483,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-179">
           <caret line="45" column="55" selection-start-line="45" selection-start-column="55" selection-end-line="45" selection-end-column="55" />
-          <folding>
-            <element signature="e#50#291#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3495,31 +3500,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/5d44327be0ec391b843ca9d3bc7ef17d/jars/classes.jar!/android/support/v4/app/FragmentStatePagerAdapter.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="82">
           <caret line="65" selection-start-line="65" selection-end-line="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Tabs.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/TabPagerAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-40">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
@@ -3554,48 +3538,93 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
+        <state relative-caret-position="260">
+          <caret line="22" column="19" lean-forward="true" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
         </state>
       </provider>
       <provider editor-type-id="android-manifest" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/NewCars.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_new_cars.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
+        <state relative-caret-position="220">
           <caret line="11" column="65" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="65" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BrandsAdapter.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/NewCars.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="23" column="83" selection-start-line="23" selection-start-column="83" selection-end-line="23" selection-end-column="83" />
+        <state relative-caret-position="522">
+          <caret line="59" column="4" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="4" />
+          <folding>
+            <element signature="e#50#316#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Neuf.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1980">
+          <caret line="116" column="33" selection-start-line="116" selection-start-column="33" selection-end-line="116" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="13" column="56" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/TabPagerAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Tabs.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="920">
+          <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/Brand.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-358">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="69">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
           <folding>
             <element signature="e#40#131#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/JSONFormatter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BrandsAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="52" column="8" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Brands.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="77" column="24" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="24" />
+        <state relative-caret-position="130">
+          <caret line="155" column="46" selection-start-line="155" selection-start-column="46" selection-end-line="155" selection-end-column="46" />
         </state>
       </provider>
     </entry>

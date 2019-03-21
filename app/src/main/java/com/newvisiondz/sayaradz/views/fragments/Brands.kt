@@ -6,6 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +20,10 @@ import com.newvisiondz.sayaradz.adapters.BrandsAdapter
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import kotlinx.android.synthetic.main.fragment_brands.*
+import kotlinx.android.synthetic.main.fragment_neuf.*
 import retrofit2.Call
 import retrofit2.Response
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,7 +42,7 @@ class Brands : Fragment() {
 
     private lateinit var brands: MutableList<Brand>
     private var adapter: BrandsAdapter? = null
-    private val layoutManger = LinearLayoutManager(context)
+    // private val layoutManger = LinearLayoutManager(context)
     private val jsonFormatter = JSONFormatter()
     private var pageNumber: Int = 1
 
@@ -69,27 +73,19 @@ class Brands : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewManager = LinearLayoutManager(this.context)
-        val brandSet = Brand.BrandSet(
-            mutableListOf(
-                Brand("", "Mercedes", "R.drawable.mercedes"),
-                Brand("1", "Volkswagen", "R.drawable.mercedes"),
-                Brand("2", "Skoda", "R.drawable.mercedes"),
-                Brand("3", "Mercedes", "R.drawable.mercedes")
-            )
-        )
         getContent()
     }
 
     override fun onResume() {
         super.onResume()
-    /*    this.brands_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        this.brands_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                this@Brands.visibleItemsCount = layoutManger.childCount
-                this@Brands.totalItemsCount = layoutManger.itemCount
-                this@Brands.pastVisibleItems = layoutManger.findFirstVisibleItemPosition()
+                this@Brands.visibleItemsCount = brands_list.layoutManager!!.childCount
+                this@Brands.totalItemsCount = brands_list.layoutManager!!.itemCount
+                this@Brands.pastVisibleItems =
+                    (brands_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
 
                 if (dy > 0) {
                     if (isloading) {
@@ -100,19 +96,22 @@ class Brands : Fragment() {
                     }
                     if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
                         pageNumber++
-                        //performPagination()
+                        performPagination()
                         isloading = true
                     }
                 }
 
             }
-        })*/
+        })
     }
 
     private fun getContent() {
         val call = RetrofitClient()
             .serverDataApi
-            .getAllBrands("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1Mjk5ODk4OSwiZXhwIjoxNTUzNjAzNzg5fQ.TgbhPdVzftgqVejbftalfAoivFF59bmKTirogRFE4vE")
+            .getAllBrands(
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1Mjk5ODk4OSwiZXhwIjoxNTUzNjAzNzg5fQ.TgbhPdVzftgqVejbftalfAoivFF59bmKTirogRFE4vE"
+                , (pageNumber).toString(), (viewThreshold).toString()
+            )
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
@@ -122,6 +121,7 @@ class Brands : Fragment() {
                     initRecycerView()
                 }
             }
+
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -131,9 +131,38 @@ class Brands : Fragment() {
     fun initRecycerView() {
         brands_list.apply {
             setHasFixedSize(true)
-            layoutManager = layoutManger
+            layoutManager = LinearLayoutManager(context)
             adapter = BrandsAdapter(brands, this.context as Context)
         }
+
+    }
+
+    private fun performPagination() {
+        //  prgsBar.visibility = View.VISIBLE
+        val call = RetrofitClient()
+            .serverDataApi
+            .getAllBrands(
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1Mjk5ODk4OSwiZXhwIjoxNTUzNjAzNzg5fQ.TgbhPdVzftgqVejbftalfAoivFF59bmKTirogRFE4vE"
+                , (pageNumber).toString(), (viewThreshold).toString()
+            )
+
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                if (response.isSuccessful) {
+                    val listType = object : TypeToken<List<Brand>>() {}.type
+                    lateinit var tmp: MutableList<Brand>
+                    tmp = jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants")
+                   if (tmp.size != 0) {
+                       brands.addAll(tmp)
+                       adapter!!.addBrand(tmp)
+                   }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
     }
 
 
