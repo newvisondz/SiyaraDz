@@ -1,6 +1,7 @@
 package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.support.design.card.MaterialCardView
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -9,10 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.Navigation.findNavController
+import com.google.gson.JsonElement
+import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Brand
+import com.newvisiondz.sayaradz.services.RetrofitClient
 import com.newvisiondz.sayaradz.views.fragments.TabsDirections
 import kotlinx.android.synthetic.main.brand_marks_items.view.*
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 
 
 class BrandsAdapter(private var brands: MutableList<Brand>, private val context: Context) :
@@ -37,6 +44,24 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         val marque = this.brands[i]
         viewHolder.brandName.text = marque.name
 
+        val call = RetrofitClient()
+            .serverDataApi
+            .getBrandImage(marque.logo)
+
+        call.enqueue(object : retrofit2.Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    val bitmap = BitmapFactory.decodeStream(response.body()!!.byteStream())
+                    marque.image=bitmap
+                    viewHolder.brandImage.setImageBitmap(marque.image)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
+
     }
 
     override fun getItemCount(): Int {
@@ -45,9 +70,10 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val brandName = itemView.brand_name!!
-        val card = itemView.brand_card
-        val brandImage =itemView.brand_image
-        val brandManufacturer = itemView.brand_manufacturer
+        val card = itemView.brand_card!!
+        val brandImage = itemView.brand_image!!
+//        val brandManufacturer = itemView.brand_manufacturer
+
     }
 
     fun addBrand(brands: List<Brand>) {
@@ -84,5 +110,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
             }
         }
     }
+
+
 
 }

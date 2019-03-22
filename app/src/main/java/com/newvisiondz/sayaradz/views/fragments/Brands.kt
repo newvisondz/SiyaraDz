@@ -76,6 +76,11 @@ class Brands : Fragment() {
         getContent()
     }
 
+    override fun onPause() {
+        super.onPause()
+        pageNumber=1
+    }
+
     override fun onResume() {
         super.onResume()
         this.brands_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -138,7 +143,7 @@ class Brands : Fragment() {
     }
 
     private fun performPagination() {
-        //  prgsBar.visibility = View.VISIBLE
+       // progressBar.visibility = View.VISIBLE
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
@@ -156,6 +161,7 @@ class Brands : Fragment() {
                        brands.addAll(tmp)
                        adapter!!.addBrand(tmp)
                    }
+                   // progressBar.visibility=View.GONE
                 }
             }
 
@@ -163,6 +169,7 @@ class Brands : Fragment() {
                 t.printStackTrace()
             }
         })
+       // progressBar.visibility=View.GONE
     }
 
 
