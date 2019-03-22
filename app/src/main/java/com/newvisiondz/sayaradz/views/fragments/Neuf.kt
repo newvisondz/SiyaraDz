@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Utils.JSONFormatter
+import com.newvisiondz.sayaradz.Utils.JsonFormatter
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.adapters.BrandsAdapter
 import com.newvisiondz.sayaradz.model.Brand
@@ -28,7 +28,7 @@ class Neuf : Fragment() {
     private lateinit var brands: MutableList<Brand>
     private var adapter: BrandsAdapter? = null
     private val layoutManger = LinearLayoutManager(context)
-    private val jsonFormatter = JSONFormatter()
+    private val jsonFormatter = JsonFormatter()
     private var pageNumber: Int = 1
 
 

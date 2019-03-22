@@ -1,17 +1,17 @@
 package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.support.design.card.MaterialCardView
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.util.LruCache
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.navigation.Navigation.findNavController
-import com.google.gson.JsonElement
-import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.services.RetrofitClient
@@ -25,7 +25,15 @@ import retrofit2.Response
 class BrandsAdapter(private var brands: MutableList<Brand>, private val context: Context) :
     RecyclerView.Adapter<BrandsAdapter.ViewHolder>(), Filterable {
 
+    private lateinit var imageCache: LruCache<String, Bitmap>
     private var marquesFull: MutableList<Brand> = brands.toMutableList()
+
+    init {
+        val maxMemory = (Runtime.getRuntime().maxMemory() / 1024).toInt()
+        val cacheSize = maxMemory / 8
+        imageCache = LruCache(cacheSize)
+
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view = LayoutInflater.from(this.context).inflate(R.layout.brand_marks_items, viewGroup, false)
@@ -35,7 +43,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
             val action = TabsDirections.actionTabsToModels()
             action.setBrandId(brandId)
             findNavController(view).navigate(action)
-            Log.i("Navigating","Tabs (Brands) to Models. BrandId: $brandId")
+            Log.i("Navigating", "Tabs (Brands) to Models. BrandId: $brandId")
         }
         return viewHolder
     }
@@ -43,24 +51,13 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val marque = this.brands[i]
         viewHolder.brandName.text = marque.name
+        var bitmap = imageCache.get(marque.id)
 
-        val call = RetrofitClient()
-            .serverDataApi
-            .getBrandImage(marque.logo)
-
-        call.enqueue(object : retrofit2.Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    val bitmap = BitmapFactory.decodeStream(response.body()!!.byteStream())
-                    marque.image=bitmap
-                    viewHolder.brandImage.setImageBitmap(marque.image)
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })
+        if (bitmap != null) {
+            viewHolder.brandImage.setImageBitmap(marque.image)
+        } else {
+            getImage(marque, viewHolder)
+        }
 
     }
 
@@ -73,7 +70,6 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         val card = itemView.brand_card!!
         val brandImage = itemView.brand_image!!
 //        val brandManufacturer = itemView.brand_manufacturer
-
     }
 
     fun addBrand(brands: List<Brand>) {
@@ -111,6 +107,26 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         }
     }
 
+    private fun getImage(marque: Brand, viewHolder: ViewHolder) {
+        val call = RetrofitClient()
+            .serverDataApi
+            .getBrandImage(marque.logo)
+
+        call.enqueue(object : retrofit2.Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    val bitmap = BitmapFactory.decodeStream(response.body()!!.byteStream())
+                    marque.image = bitmap
+                    imageCache.put(marque.id, bitmap)
+                    viewHolder.brandImage.setImageBitmap(marque.image)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
+    }
 
 
 }

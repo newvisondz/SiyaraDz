@@ -7,20 +7,18 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Utils.JSONFormatter
+import com.newvisiondz.sayaradz.Utils.JsonFormatter
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.adapters.BrandsAdapter
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import kotlinx.android.synthetic.main.fragment_brands.*
-import kotlinx.android.synthetic.main.fragment_neuf.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -43,7 +41,7 @@ class Brands : Fragment() {
     private lateinit var brands: MutableList<Brand>
     private var adapter: BrandsAdapter? = null
     // private val layoutManger = LinearLayoutManager(context)
-    private val jsonFormatter = JSONFormatter()
+    private val jsonFormatter = JsonFormatter()
     private var pageNumber: Int = 1
 
 
@@ -78,7 +76,7 @@ class Brands : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        pageNumber=1
+        pageNumber = 1
     }
 
     override fun onResume() {
@@ -143,7 +141,7 @@ class Brands : Fragment() {
     }
 
     private fun performPagination() {
-       // progressBar.visibility = View.VISIBLE
+        // progressBar.visibility = View.VISIBLE
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
@@ -157,11 +155,11 @@ class Brands : Fragment() {
                     val listType = object : TypeToken<List<Brand>>() {}.type
                     lateinit var tmp: MutableList<Brand>
                     tmp = jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants")
-                   if (tmp.size != 0) {
-                       brands.addAll(tmp)
-                       adapter!!.addBrand(tmp)
-                   }
-                   // progressBar.visibility=View.GONE
+                    if (tmp.size != 0) {
+                        brands.addAll(tmp)
+                        adapter!!.addBrand(tmp)
+                    }
+                    // progressBar.visibility=View.GONE
                 }
             }
 
@@ -169,7 +167,7 @@ class Brands : Fragment() {
                 t.printStackTrace()
             }
         })
-       // progressBar.visibility=View.GONE
+        // progressBar.visibility=View.GONE
     }
 
 
