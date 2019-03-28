@@ -51,13 +51,14 @@ class Tabs : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val adapter = TabPagerAdapter(childFragmentManager,tab_layout.tabCount)
+        val adapter = TabPagerAdapter(childFragmentManager, tab_layout.tabCount)
 
         pager.adapter = adapter
         //tab_layout.setupWithViewPager(pager)
-        pager.offscreenPageLimit =2
+        pager.offscreenPageLimit = 2
         pager.addOnPageChangeListener(
-            TabLayout.TabLayoutOnPageChangeListener(tab_layout))
+            TabLayout.TabLayoutOnPageChangeListener(tab_layout)
+        )
         tab_layout.addOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {

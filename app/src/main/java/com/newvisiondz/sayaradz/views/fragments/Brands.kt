@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -106,13 +107,22 @@ class Brands : Fragment() {
 
             }
         })
+
+        swipeRefresh.setOnRefreshListener {
+            pageNumber=1
+            adapter!!.clearBrands()
+            brands.clear()
+            getContent()
+            adapter!!.addBrands(brands)
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun getContent() {
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1Mjk5ODk4OSwiZXhwIjoxNTUzNjAzNzg5fQ.TgbhPdVzftgqVejbftalfAoivFF59bmKTirogRFE4vE"
+                "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTM3MGQzYjdmOWQ5MDAxNzIzNDlkOCIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTUzNzY2MTIyLCJleHAiOjE1NTQzNzA5MjJ9.W5YxRr0O7p6IGkGSlF_UKyGhUG6YCkvvpVKYefdNcdo"
                 , (pageNumber).toString(), (viewThreshold).toString()
             )
 
@@ -137,6 +147,7 @@ class Brands : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = BrandsAdapter(brands, this.context as Context)
         }
+        adapter =BrandsAdapter(brands, this.context as Context)
 
     }
 
@@ -145,7 +156,7 @@ class Brands : Fragment() {
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1Mjk5ODk4OSwiZXhwIjoxNTUzNjAzNzg5fQ.TgbhPdVzftgqVejbftalfAoivFF59bmKTirogRFE4vE"
+                "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTM3MGQzYjdmOWQ5MDAxNzIzNDlkOCIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTUzNzY2MTIyLCJleHAiOjE1NTQzNzA5MjJ9.W5YxRr0O7p6IGkGSlF_UKyGhUG6YCkvvpVKYefdNcdo"
                 , (pageNumber).toString(), (viewThreshold).toString()
             )
 
@@ -157,7 +168,7 @@ class Brands : Fragment() {
                     tmp = jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants")
                     if (tmp.size != 0) {
                         brands.addAll(tmp)
-                        adapter!!.addBrand(tmp)
+                        adapter!!.addBrands(tmp)
                     }
                     // progressBar.visibility=View.GONE
                 }

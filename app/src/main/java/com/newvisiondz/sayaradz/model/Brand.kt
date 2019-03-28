@@ -29,7 +29,7 @@ class Brand() {
         fun filterByName(vararg names: String): BrandSet {
             output = output.filter { brand ->
                 names.any { name ->
-                    brand.name!!.toLowerCase().contains(name.toLowerCase())
+                    brand.name.toLowerCase().contains(name.toLowerCase())
                 }
             }.toMutableList()
             return this

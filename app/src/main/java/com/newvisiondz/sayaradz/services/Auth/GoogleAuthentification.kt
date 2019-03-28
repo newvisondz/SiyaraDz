@@ -16,7 +16,6 @@ import com.newvisiondz.sayaradz.Tokens.GoogleToken
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import com.newvisiondz.sayaradz.views.MainActivity
-import com.newvisiondz.sayaradz.views.NavigationActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -83,7 +82,7 @@ class GoogleAuthentification {
                     }
                 })
             } else {
-                val intent = Intent(context, NavigationActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java)
                 context.startActivity(intent)
             }
         }

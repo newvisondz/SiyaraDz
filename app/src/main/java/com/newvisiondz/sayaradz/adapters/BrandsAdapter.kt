@@ -25,7 +25,7 @@ import retrofit2.Response
 class BrandsAdapter(private var brands: MutableList<Brand>, private val context: Context) :
     RecyclerView.Adapter<BrandsAdapter.ViewHolder>(), Filterable {
 
-    private lateinit var imageCache: LruCache<String, Bitmap>
+    private var imageCache: LruCache<String, Bitmap>
     private var marquesFull: MutableList<Brand> = brands.toMutableList()
 
     init {
@@ -72,11 +72,16 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
 //        val brandManufacturer = itemView.brand_manufacturer
     }
 
-    fun addBrand(brands: List<Brand>) {
+    fun addBrands(brands: List<Brand>) {
         for (marque in brands) {
             this.brands.add(marque)
             this.marquesFull.add(marque)
         }
+        notifyDataSetChanged()
+    }
+
+    fun clearBrands() {
+        brands.clear()
         notifyDataSetChanged()
     }
 
@@ -89,7 +94,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
                 } else {
                     val filteredList = ArrayList<Brand>()
                     for (row in marquesFull) {
-                        if (row.name!!.toLowerCase().contains(charString.toLowerCase())) {
+                        if (row.name.toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row)
                         }
                     }
