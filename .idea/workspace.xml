@@ -24,17 +24,13 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/PrefrencesHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/PrefrencesHandler.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BrandsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BrandsAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/User.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/RetrofitClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/RetrofitClient.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/ProfileForm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/ProfileForm.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile_form.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile_form.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -95,7 +91,7 @@
           <entry key="dummy" value="3" />
           <entry key="gradle" value="77" />
           <entry key="java" value="140" />
-          <entry key="kt" value="12437" />
+          <entry key="kt" value="12542" />
           <entry key="properties" value="3" />
           <entry key="txt" value="373" />
           <entry key="xml" value="2229" />
@@ -105,7 +101,7 @@
         <counts>
           <entry key="Groovy" value="77" />
           <entry key="JAVA" value="140" />
-          <entry key="Kotlin" value="12437" />
+          <entry key="Kotlin" value="12542" />
           <entry key="PLAIN_TEXT" value="376" />
           <entry key="Properties" value="3" />
           <entry key="XML" value="2229" />
@@ -151,7 +147,7 @@
           <entry key="java" value="16" />
           <entry key="jpg" value="1" />
           <entry key="json" value="2" />
-          <entry key="kt" value="312" />
+          <entry key="kt" value="313" />
           <entry key="png" value="3" />
           <entry key="properties" value="8" />
           <entry key="svg" value="4" />
@@ -165,7 +161,7 @@
           <entry key="Image" value="4" />
           <entry key="JAVA" value="16" />
           <entry key="JSON" value="2" />
-          <entry key="Kotlin" value="312" />
+          <entry key="Kotlin" value="313" />
           <entry key="Properties" value="8" />
           <entry key="SVG" value="4" />
           <entry key="XML" value="261" />
@@ -214,8 +210,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/ProfileForm.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="89" column="69" selection-start-line="89" selection-start-column="69" selection-end-line="89" selection-end-column="69" />
+            <state relative-caret-position="253">
+              <caret line="96" column="95" selection-start-line="96" selection-start-column="95" selection-end-line="96" selection-end-column="95" />
+              <folding>
+                <element signature="e#50#673#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -223,8 +222,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/User.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+            <state relative-caret-position="322">
+              <caret line="14" column="18" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -232,8 +231,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="20" column="58" selection-start-line="20" selection-start-column="58" selection-end-line="20" selection-end-column="58" />
+            <state relative-caret-position="355">
+              <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
               <folding>
                 <element signature="e#43#237#0" expanded="true" />
               </folding>
@@ -2684,7 +2683,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Tabs.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Models.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/ModelView.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/DataSheetView.kt" />
@@ -2733,6 +2731,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile_form.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/User.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/PrefrencesHandler.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/RetrofitClient.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/ProfileForm.kt" />
       </list>
@@ -3247,7 +3246,7 @@
       <window_info id="Designer" order="6" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Version Control" order="0" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="1" sideWeight="0.62632376" visible="true" weight="1.0" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="1" sideWeight="0.62632376" visible="true" weight="0.4616695" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49924356" weight="0.32885906" />
       <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49924356" weight="0.5922819" />
       <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.37367624" side_tool="true" weight="0.7734242" />
@@ -3591,13 +3590,6 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/RetrofitClient.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
@@ -3651,13 +3643,6 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/User.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/PrefrencesHandler.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
@@ -3665,10 +3650,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/RetrofitClient.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="34" column="56" selection-start-line="34" selection-start-column="56" selection-end-line="34" selection-end-column="56" />
+          <folding>
+            <element signature="e#43#355#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/User.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="18" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="20" column="58" selection-start-line="20" selection-start-column="58" selection-end-line="20" selection-end-column="58" />
+        <state relative-caret-position="355">
+          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
           <folding>
             <element signature="e#43#237#0" expanded="true" />
           </folding>
@@ -3677,8 +3679,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/ProfileForm.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="89" column="69" selection-start-line="89" selection-start-column="69" selection-end-line="89" selection-end-column="69" />
+        <state relative-caret-position="253">
+          <caret line="96" column="95" selection-start-line="96" selection-start-column="95" selection-end-line="96" selection-end-column="95" />
+          <folding>
+            <element signature="e#50#673#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

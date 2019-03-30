@@ -15,6 +15,7 @@ import com.newvisiondz.sayaradz.model.User
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import kotlinx.android.synthetic.main.fragment_profile_form.*
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
@@ -85,9 +86,15 @@ class ProfileForm : Fragment() {
                 user_adr.text.toString(),
                 user_tel.text.toString()
             )
+            val paramObject = JSONObject()
+            paramObject.put("firstName", user_first_name.text.toString())
+            paramObject.put("lastName", user_last_name.text.toString())
+            paramObject.put("address", user_adr.text.toString())
+            paramObject.put("phone", user_tel.text.toString())
+
             val call = RetrofitClient()
                 .serverDataApi
-                .updateUser(prefrencesHandler.getUserToken(userInfo!!)!!,user)
+                .updateUser(prefrencesHandler.getUserToken(userInfo!!)!!, paramObject.toString())
 
             call.enqueue(object : retrofit2.Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
