@@ -10,9 +10,11 @@ class PrefrencesHandler {
     }
 
     fun getUserInfo(userInfo: SharedPreferences): Array<String> {
-        val userTmp = arrayOf("","")
-        userTmp[0] = userInfo.getString("username", "Not Found")!!
+        val userTmp = arrayOf("", "", "","")
+        userTmp[0] = userInfo.getString("userlastname", "Not Found")!!
         userTmp[1] = userInfo.getString("userimg", "Not Found")!!
+        userTmp[2] = userInfo.getString("useremail", "Not Found")!!
+        userTmp[3] = userInfo.getString("userfirstname", "Not Found")!!
         return userTmp
     }
 
@@ -20,7 +22,8 @@ class PrefrencesHandler {
         val editor = userInfo.edit()
         editor.putString("useremail", account.email)
         editor.putString("userimg", acc.photoUrl.toString())
-        editor.putString("username", acc.displayName)
+        editor.putString("userlastname", acc.familyName)
+        editor.putString("userfirstname", acc.givenName)
         editor.putString("token", account.token)
         editor.apply()
     }

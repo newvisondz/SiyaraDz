@@ -1,24 +1,12 @@
 package com.newvisiondz.sayaradz.services
 
 import com.google.gson.JsonElement
+import com.newvisiondz.sayaradz.model.User
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ServerDataApi {
-
-    @GET("manufacturers/")
-    fun getAllBrands(
-        @Header("Authorization") token: String,
-        @Query("sort") sort: String,
-        @Query("select") select: String,
-        @Query("page") page: String,
-        @Query("perpage") perPage: String
-    ): Call<JsonElement>
-
     @GET("manufacturers/")
     fun getAllBrands(
         @Header("Authorization") token: String,
@@ -27,5 +15,8 @@ interface ServerDataApi {
     ): Call<JsonElement>
 
     @GET("{imgId}")
-    fun getBrandImage(@Path("imgId",encoded=true) imgName: String): Call<ResponseBody>
+    fun getBrandImage(@Path("imgId", encoded = true) imgName: String): Call<ResponseBody>
+
+    @PUT("autom/me")
+    fun updateUser(@Header("Authorization") token: String,@Body firstName: User): Call<ResponseBody>
 }

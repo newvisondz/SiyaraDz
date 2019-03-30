@@ -51,7 +51,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val marque = this.brands[i]
         viewHolder.brandName.text = marque.name
-        var bitmap = imageCache.get(marque.id)
+        val bitmap = imageCache.get(marque.id)
 
         if (bitmap != null) {
             viewHolder.brandImage.setImageBitmap(marque.image)
