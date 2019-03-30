@@ -1,13 +1,20 @@
 package com.newvisiondz.sayaradz.views.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.fragment.NavHostFragment
+import com.bumptech.glide.Glide
 import com.newvisiondz.sayaradz.R
+import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,10 +32,11 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class Profile : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    private var userInfo: SharedPreferences? = null
+    private var prefrencesHandler = PrefrencesHandler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,14 +44,57 @@ class Profile : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        view.findViewById<Button>(R.id.button_profile).setOnClickListener {
+            val action = TabsDirections.actionTabsToProfileForm()
+            //action.setBidId(bidId)
+            NavHostFragment.findNavController(this).navigate(action)
+            Log.i("Navigating", "Tabs to Profile Form,")
+        }
+
+        view.findViewById<Button>(R.id.button_mybids).setOnClickListener {
+            val action = TabsDirections.actionTabsToMyBids()
+            //action.setBidId(bidId)
+            NavHostFragment.findNavController(this).navigate(action)
+            Log.i("Navigating", "Tabs to My Bids,")
+        }
+
+        view.findViewById<Button>(R.id.button_mymodels).setOnClickListener {
+            val action = TabsDirections.actionTabsToMyModels()
+            //action.setBidId(bidId)
+            NavHostFragment.findNavController(this).navigate(action)
+            Log.i("Navigating", "Tabs to My Models,")
+        }
+
+        view.findViewById<Button>(R.id.button_myversions).setOnClickListener {
+            val action = TabsDirections.actionTabsToMyVersions()
+            //action.setBidId(bidId)
+            NavHostFragment.findNavController(this).navigate(action)
+            Log.i("Navigating", "Tabs to My Versions,")
+        }
+
+        view.findViewById<Button>(R.id.button_myoffers).setOnClickListener {
+            val action = TabsDirections.actionTabsToMyOffers()
+            //action.setBidId(bidId)
+            NavHostFragment.findNavController(this).navigate(action)
+            Log.i("Navigating", "Tabs to My Offers,")
+        }
+        return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val userInfoTmp = prefrencesHandler.getUserInfo(userInfo!!)
+        user_dis_name.text = userInfoTmp[0]
+        Glide.with(view!!).load(userInfoTmp[1]).into(user_image)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -56,9 +107,6 @@ class Profile : Fragment() {
         if (context is OnFragmentInteractionListener) {
             listener = context
         }
-//        else {
-//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-//        }
     }
 
     override fun onDetach() {

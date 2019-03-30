@@ -1,5 +1,6 @@
 package com.newvisiondz.sayaradz.views.fragments
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.newvisiondz.sayaradz.R
+import kotlinx.android.synthetic.main.fragment_profile_form.*
+import java.util.*
+import javax.xml.datatype.DatatypeConstants.MONTHS
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,7 +46,6 @@ class ProfileForm : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile_form, container, false)
     }
 
@@ -55,8 +58,13 @@ class ProfileForm : Fragment() {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        user_date.setOnClickListener{
+            datePicker()
         }
     }
 
@@ -99,5 +107,18 @@ class ProfileForm : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    private fun datePicker() {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+
+        val dpd = DatePickerDialog(activity as Context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            this.user_date.text = "$year-$monthOfYear-$dayOfMonth"
+        }, year, month, day)
+
+        dpd.show()
     }
 }

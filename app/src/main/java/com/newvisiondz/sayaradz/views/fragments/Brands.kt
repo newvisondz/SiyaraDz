@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +30,6 @@ private const val ARG_PARAM2 = "param2"
 
 
 class Brands : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
@@ -72,6 +70,7 @@ class Brands : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        userInfo = context!!.getSharedPreferences("userinfo",Context.MODE_PRIVATE)
         getContent()
     }
 
@@ -109,7 +108,7 @@ class Brands : Fragment() {
         })
 
         swipeRefresh.setOnRefreshListener {
-            pageNumber=1
+            pageNumber = 1
             adapter!!.clearBrands()
             brands.clear()
             getContent()
@@ -122,7 +121,7 @@ class Brands : Fragment() {
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
-                "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTM3MGQzYjdmOWQ5MDAxNzIzNDlkOCIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTUzNzY2MTIyLCJleHAiOjE1NTQzNzA5MjJ9.W5YxRr0O7p6IGkGSlF_UKyGhUG6YCkvvpVKYefdNcdo"
+                prefs.getUserToken(userInfo!!)!!
                 , (pageNumber).toString(), (viewThreshold).toString()
             )
 
@@ -147,7 +146,7 @@ class Brands : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = BrandsAdapter(brands, this.context as Context)
         }
-        adapter =BrandsAdapter(brands, this.context as Context)
+        adapter = BrandsAdapter(brands, this.context as Context)
 
     }
 
@@ -156,7 +155,7 @@ class Brands : Fragment() {
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
-                "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTM3MGQzYjdmOWQ5MDAxNzIzNDlkOCIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTUzNzY2MTIyLCJleHAiOjE1NTQzNzA5MjJ9.W5YxRr0O7p6IGkGSlF_UKyGhUG6YCkvvpVKYefdNcdo"
+                  prefs.getUserToken(userInfo!!)!!
                 , (pageNumber).toString(), (viewThreshold).toString()
             )
 

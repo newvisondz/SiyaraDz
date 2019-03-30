@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v4.app.FragmentActivity
-import android.util.Log
 import android.widget.Button
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -62,8 +61,7 @@ class GoogleAuthentification {
     public fun handleResult(result: GoogleSignInResult) {
         if (result.isSuccess) {
             val account = result.signInAccount
-            Log.i("sendreq","Google")
-            if (prefrencesHandler.getUserToken(userInfo).equals("Not Found")) {
+            if (prefrencesHandler.getUserToken(userInfo).equals("Not Found") || account!!.isExpired) {
                 val call = RetrofitClient()
                     .authentificationApi
                     .sendKeysGoogle(account!!.serverAuthCode!!, account.requestedScopes.toString())
@@ -75,7 +73,7 @@ class GoogleAuthentification {
 
                     override fun onResponse(call: Call<GoogleToken>?, response: Response<GoogleToken>?) {
                         if (response!!.isSuccessful) {
-                            prefrencesHandler.setUserPrefrences(userInfo, response.body()!!)
+                            prefrencesHandler.setUserPrefrences(userInfo, response.body()!!, account)
                             val intent = Intent(context, MainActivity::class.java)
                             context.startActivity(intent)
                         }

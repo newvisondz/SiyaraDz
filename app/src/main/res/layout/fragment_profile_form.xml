@@ -36,7 +36,7 @@
                     app:srcCompat="@drawable/ic_user" />
 
                 <EditText
-                    android:id="@+id/editText0"
+                    android:id="@+id/user_name"
                     style="@style/EditText"
                     android:hint="Nom Complet"
                     android:inputType="textPersonName"
@@ -55,11 +55,10 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_calendar" />
 
-                <EditText
-                    android:id="@+id/editText1"
+                <TextView
+                    android:id="@+id/user_date"
                     style="@style/EditText"
                     android:hint="Date de Naissance"
-                    android:inputType="date"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView1"
@@ -76,7 +75,7 @@
                     app:srcCompat="@drawable/ic_home" />
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/user_adr"
                     style="@style/EditText"
                     android:hint="Adresse"
                     android:inputType="textPersonName"
@@ -133,7 +132,7 @@
                     app:srcCompat="@drawable/ic_phone" />
 
                 <EditText
-                    android:id="@+id/editText4"
+                    android:id="@+id/user_tel"
                     style="@style/EditText"
                     android:hint="Num. Tél."
                     android:inputType="textPersonName"
@@ -153,7 +152,7 @@
                     app:srcCompat="@drawable/ic_envelope" />
 
                 <EditText
-                    android:id="@+id/editText5"
+                    android:id="@+id/user_mail"
                     style="@style/EditText"
                     android:hint="E-mail"
                     android:inputType="textPersonName"
