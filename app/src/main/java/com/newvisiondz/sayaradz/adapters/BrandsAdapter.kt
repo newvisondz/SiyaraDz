@@ -12,6 +12,10 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.navigation.Navigation.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.services.RetrofitClient
@@ -53,11 +57,19 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         viewHolder.brandName.text = marque.name
         val bitmap = imageCache.get(marque.id)
 
-        if (bitmap != null) {
-            viewHolder.brandImage.setImageBitmap(marque.image)
-        } else {
-            getImage(marque, viewHolder)
-        }
+        Glide.with(context)
+            .asBitmap()
+            .load("https://sayara-dz.herokuapp.com${marque.logo}")
+            .transition(withCrossFade(DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()))
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(viewHolder.brandImage)
+
+//        if (bitmap != null) {
+//            viewHolder.brandImage.setImageBitmap(marque.image)
+//        } else {
+//            getImage(marque, viewHolder)
+//
+//        }
 
     }
 

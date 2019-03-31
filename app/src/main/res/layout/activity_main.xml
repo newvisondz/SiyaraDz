@@ -30,6 +30,8 @@
 
             <SearchView
                 android:id="@+id/action_search"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:icon="@android:drawable/ic_menu_search"
@@ -40,9 +42,7 @@
                 app:actionViewClass="android.support.v7.widget.SearchView"
                 app:layout_constraintEnd_toStartOf="@+id/filter"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </SearchView>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.Toolbar>
