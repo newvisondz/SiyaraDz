@@ -76,6 +76,7 @@ class GoogleAuthentification {
                             prefrencesHandler.setUserPrefrences(userInfo, response.body()!!, account)
                             val intent = Intent(context, MainActivity::class.java)
                             context.startActivity(intent)
+                            (context as Activity).finish()
                         }
                     }
                 })

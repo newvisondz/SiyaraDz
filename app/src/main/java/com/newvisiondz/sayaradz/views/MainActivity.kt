@@ -18,8 +18,4 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         findViewById<Toolbar>(R.id.toolbar).setupWithNavController(navController, appBarConfiguration)
     }
-
-    override fun onPause() {
-        super.onPause()
-    }
 }

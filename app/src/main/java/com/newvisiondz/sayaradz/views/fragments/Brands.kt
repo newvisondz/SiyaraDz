@@ -70,7 +70,7 @@ class Brands : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        userInfo = context!!.getSharedPreferences("userinfo",Context.MODE_PRIVATE)
+        userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         getContent()
     }
 
@@ -115,6 +115,22 @@ class Brands : Fragment() {
             adapter!!.addBrands(brands)
             swipeRefresh.isRefreshing = false
         }
+        activity!!.findViewById<android.widget.SearchView>(R.id.action_search)
+            .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    adapter!!.filter.filter(query)
+                    return true
+                }
+
+                override fun onQueryTextChange(query: String): Boolean {
+                    return false
+                }
+            })
+        activity!!.findViewById<android.widget.SearchView>(R.id.action_search)
+            .setOnCloseListener {
+                adapter!!.filter.filter("")
+                false
+            }
     }
 
     private fun getContent() {
@@ -144,10 +160,9 @@ class Brands : Fragment() {
         brands_list.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = BrandsAdapter(brands, this.context as Context)
         }
         adapter = BrandsAdapter(brands, this.context as Context)
-
+        brands_list.adapter = adapter
     }
 
     private fun performPagination() {
@@ -155,7 +170,7 @@ class Brands : Fragment() {
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
-                  prefs.getUserToken(userInfo!!)!!
+                prefs.getUserToken(userInfo!!)!!
                 , (pageNumber).toString(), (viewThreshold).toString()
             )
 
@@ -197,9 +212,7 @@ class Brands : Fragment() {
         listener = null
     }
 
-
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 

@@ -93,7 +93,9 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
     }
 
     fun clearBrands() {
-        brands.clear()
+        if  (brands.size !=null) {
+            brands.clear()
+        }
         notifyDataSetChanged()
     }
 
@@ -101,6 +103,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
                 val charString = charSequence.toString()
+                Log.i("Cool",charString)
                 if (charString.isEmpty()) {
                     brands = marquesFull
                 } else {
