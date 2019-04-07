@@ -22,6 +22,5 @@ interface ServerDataApi {
 
     @PUT("autom/me")
     fun updateUser(@Header("Authorization") token: String,
-                   @Body body: String):
-            Call<ResponseBody>
+                   @Body body: String):Call<ResponseBody>
 }

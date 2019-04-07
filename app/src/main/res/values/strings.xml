@@ -20,4 +20,8 @@
     <string name="font_bold">sans-serif-medium</string>
     <string name="font_light">sans-serif</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <!--URLS -->
+    <string name="googleAuth">auth/google/callback</string>
+    <string name="facebookAuth">auth/facebook/callback</string>
+    <string name="manufacturers">manufacturers/</string>
 </resources>
