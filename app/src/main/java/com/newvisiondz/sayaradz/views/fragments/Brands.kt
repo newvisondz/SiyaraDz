@@ -145,7 +145,7 @@ class Brands : Fragment() {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Brand>>() {}.type
-                    brands = jsonFormatter.brandsFormatter(response.body()!!, listType, "manufacturers")
+                    brands = jsonFormatter.listFormatter(response.body()!!, listType, "manufacturers")
                     initRecycerView()
                 }
             }
@@ -179,7 +179,7 @@ class Brands : Fragment() {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<List<Brand>>() {}.type
                     lateinit var tmp: MutableList<Brand>
-                    tmp = jsonFormatter.brandsFormatter(response.body()!!, listType, "fabricants")
+                    tmp = jsonFormatter.listFormatter(response.body()!!, listType, "fabricants")
                     if (tmp.size != 0) {
                         brands.addAll(tmp)
                         adapter!!.addBrands(tmp)
