@@ -44,8 +44,8 @@ class DataSheetView : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_data_sheet_view, container, false)
-        val modelId = DataSheetViewArgs.fromBundle(arguments).modelId
-        Log.i("Navigation Success","From DataSheetView, ModelId: $modelId")
+//        val modelId = DataSheetViewArgs.fromBundle(arguments).modelId
+//        Log.i("Navigation Success","From DataSheetView, ModelId: $modelId")
         return view
     }
 
@@ -58,8 +58,6 @@ class DataSheetView : Fragment() {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
     }
 

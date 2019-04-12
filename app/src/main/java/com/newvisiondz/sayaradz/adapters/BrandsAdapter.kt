@@ -68,7 +68,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         viewHolder.card.setOnClickListener {
             val args = Bundle()
             args.putString("brandName", marque.id)
-            it.findNavController().navigate(com.newvisiondz.sayaradz.R.id.action_tabs_to_models, args)
+            it.findNavController().navigate(R.id.action_tabs_to_models, args)
         }
     }
 
@@ -98,7 +98,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
 
     override fun getFilter(): Filter {
         return object : Filter() {
-            override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
                 val charString = charSequence.toString()
                 if (charString.isEmpty()) {
                     brands = marquesFull
@@ -111,38 +111,15 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
                     }
                     brands = filteredList
                 }
-                val filterResults = Filter.FilterResults()
+                val filterResults = FilterResults()
                 filterResults.values = brands
                 return filterResults
             }
 
-            override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 brands = filterResults.values as ArrayList<Brand>
                 notifyDataSetChanged()
             }
         }
     }
-
-    private fun getImage(marque: Brand, viewHolder: ViewHolder) {
-        val call = RetrofitClient()
-            .serverDataApi
-            .getBrandImage(marque.logo)
-
-        call.enqueue(object : retrofit2.Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    val bitmap = BitmapFactory.decodeStream(response.body()!!.byteStream())
-                    marque.image = bitmap
-                    imageCache.put(marque.id, bitmap)
-                    viewHolder.brandImage.setImageBitmap(marque.image)
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })
-    }
-
-
 }

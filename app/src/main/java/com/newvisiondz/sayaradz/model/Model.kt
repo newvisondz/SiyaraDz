@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 class Model() {
     @SerializedName("id")
-    var id = ""
+    var id:String = ""
     @SerializedName("name")
     var name = ""
     @SerializedName("colors")

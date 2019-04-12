@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.R
@@ -82,7 +83,6 @@ class Brands : Fragment() {
     override fun onResume() {
         super.onResume()
         this.brands_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 this@Brands.visibleItemsCount = brands_list.layoutManager!!.childCount
@@ -100,20 +100,24 @@ class Brands : Fragment() {
                     if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
                         pageNumber++
                         performPagination()
+                        Toast.makeText(context,"working",Toast.LENGTH_LONG).show()
                         isloading = true
                     }
                 }
-
             }
         })
 
         swipeRefresh.setOnRefreshListener {
-            pageNumber = 1
-            adapter!!.clearBrands()
-            brands.clear()
-            getContent()
-            adapter!!.addBrands(brands)
-            swipeRefresh.isRefreshing = false
+            if (adapter != null) {
+                progressBar.visibility = View.VISIBLE
+                pageNumber = 1
+                adapter!!.clearBrands()
+                brands.clear()
+                getContent()
+                adapter!!.addBrands(brands)
+                swipeRefresh.isRefreshing = false
+            }
+
         }
         activity!!.findViewById<android.widget.SearchView>(R.id.action_search)
             .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
@@ -134,6 +138,7 @@ class Brands : Fragment() {
     }
 
     private fun getContent() {
+
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
@@ -146,6 +151,7 @@ class Brands : Fragment() {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Brand>>() {}.type
                     brands = jsonFormatter.listFormatter(response.body()!!, listType, "manufacturers")
+                    progressBar.visibility = View.GONE
                     initRecycerView()
                 }
             }
@@ -166,7 +172,7 @@ class Brands : Fragment() {
     }
 
     private fun performPagination() {
-        // progressBar.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
@@ -184,7 +190,7 @@ class Brands : Fragment() {
                         brands.addAll(tmp)
                         adapter!!.addBrands(tmp)
                     }
-                    // progressBar.visibility=View.GONE
+                    progressBar.visibility = View.GONE
                 }
             }
 
@@ -192,9 +198,8 @@ class Brands : Fragment() {
                 t.printStackTrace()
             }
         })
-        // progressBar.visibility=View.GONE
+        progressBar.visibility = View.GONE
     }
-
 
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)

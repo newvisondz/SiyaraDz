@@ -4,10 +4,14 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.newvisiondz.sayaradz.R
+import kotlinx.android.synthetic.main.fragment_model_view.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,11 +46,9 @@ class ModelView : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_model_view, container, false)
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
     }
@@ -56,9 +58,23 @@ class ModelView : Fragment() {
         if (context is OnFragmentInteractionListener) {
             listener = context
         }
-//        else {
-//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-//        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.datasheet_button.setOnClickListener {
+            var modelId=arguments!!.getString("modelId")
+            val args=Bundle()
+            args.putString("modelId",modelId)
+            it.findNavController().navigate(R.id.action_modelView_to_dataSheetView,args)
+        }
+
+        view.order_button.setOnClickListener {
+            val action = ModelViewDirections.actionModelViewToOrderForm()
+            //action.setModelId(modelId)
+            NavHostFragment.findNavController(this).navigate(action)
+        }
     }
 
     override fun onDetach() {

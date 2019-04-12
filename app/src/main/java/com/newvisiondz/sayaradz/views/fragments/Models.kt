@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.R
+import com.newvisiondz.sayaradz.Utils.ContentProvider
 import com.newvisiondz.sayaradz.Utils.JsonFormatter
 import com.newvisiondz.sayaradz.adapters.ModelsAdapter
 import com.newvisiondz.sayaradz.model.Model
@@ -34,6 +35,7 @@ class Models : Fragment() {
     private lateinit var models: MutableList<Model>
     private lateinit var modelsAdapter: ModelsAdapter
     var jsonFormatter = JsonFormatter()
+    var contentProvider = ContentProvider()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,13 +49,6 @@ class Models : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//                 models = mutableListOf(
-//            Model("2", "Mercedes-AMG GT", Color("3", "red", "weq"), "7.500.000,00", R.drawable.mercedes),
-//            Model("2", "Volkswagen Golf", Color("3", "yellow", "weq"), "5.000.000,00", R.drawable.volkswagen),
-//            Model("2", "Škoda Octavia", Color("3", "green", "weq"), "4.500.000,00", R.drawable.mercedes),
-//            Model("2", "Škoda Octavia", Color("3", "blue", "weq"), "4.700.000,00", R.drawable.volkswagen)
-//        )
-
         return inflater.inflate(R.layout.fragment_models, container, false)
     }
 
@@ -91,11 +86,7 @@ class Models : Fragment() {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Model>>() {}.type
-                    try {
-                        models = jsonFormatter.listFormatter(response.body()!!, listType, "models")
-                    } catch (e: Exception) {
-                        Log.i("json", e.message)
-                    }
+                    models = jsonFormatter.listFormatter(response.body()!!, listType, "models")
                     initRecyclerView()
                 }
             }
@@ -115,32 +106,11 @@ class Models : Fragment() {
         models_list.adapter = modelsAdapter
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Models.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             Models().apply {

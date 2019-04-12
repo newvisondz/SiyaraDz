@@ -53,14 +53,7 @@
             app:destination="@id/modelView"
             app:enterAnim="@anim/slide_up"
             app:exitAnim="@anim/fade_out">
-            <argument
-                android:name="modelId"
-                android:defaultValue="0" />
         </action>
-        <argument
-            android:name="brandId"
-            app:argType="integer"
-            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/modelView"
@@ -76,23 +69,14 @@
                 android:name="modelId"
                 android:defaultValue="0" />
         </action>
-        <argument
-            android:name="modelId"
-            android:defaultValue="0"
-            app:argType="integer" />
-        <action
+	    <action
             android:id="@+id/action_modelView_to_orderForm"
             app:destination="@id/orderForm" />
     </fragment>
     <fragment
         android:id="@+id/dataSheetView"
         android:name="com.newvisiondz.sayaradz.views.fragments.DataSheetView"
-        android:label="fragment_data_sheet_view">
-        <argument
-            android:name="modelId"
-            android:defaultValue="0"
-            app:argType="integer" />
-    </fragment>
+        android:label="fragment_data_sheet_view"/>
     <fragment
         android:id="@+id/bidView"
         android:name="com.newvisiondz.sayaradz.views.fragments.BidView"
