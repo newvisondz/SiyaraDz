@@ -17,7 +17,6 @@ class SplashActivity : AppCompatActivity() {
     private var userInfo: SharedPreferences? = null
     private var prefsHandler = PrefrencesHandler()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -42,7 +41,7 @@ class SplashActivity : AppCompatActivity() {
             override fun onAnimationStart(animation: Animation?) {
             }
         })
-        splashImg.startAnimation(anim)
+        splashText.startAnimation(anim)
     }
 
 }

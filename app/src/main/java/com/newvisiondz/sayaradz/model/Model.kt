@@ -1,16 +1,27 @@
 package com.newvisiondz.sayaradz.model
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 class Model() {
-    var id = 0
+    @SerializedName("id")
+    var id = ""
+    @SerializedName("name")
     var name = ""
-    var attribute = ""
-    var price = ""
-    var imageId = 0
-    constructor(id:Int,name:String,attribute:String,price:String,imageId:Int):this(){
+    @SerializedName("colors")
+    var colors= mutableListOf<Color>()
+    @SerializedName("options")
+    var options = mutableListOf<Option>()
+
+    constructor(
+        id: String,
+        name: String,
+        color: MutableList<Color>,
+        options: MutableList<Option>
+    ) : this() {
         this.id = id
         this.name = name
-        this.attribute = attribute
-        this.price = price
-        this.imageId = imageId
+        this.colors = color
+        this.options = options
     }
 }

@@ -11,13 +11,10 @@
         android:label="fragment_tabs"
         tools:layout="@layout/fragment_tabs">
         <action
-            android:id="@+id/action_tabs_to_models"
-            app:destination="@id/models"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out" >
-            <argument
-                android:name="brandId"
-                android:defaultValue="0" />
+                android:id="@+id/action_tabs_to_models"
+                app:destination="@+id/models"
+                app:enterAnim="@anim/fade_in"
+                app:exitAnim="@anim/fade_out">
         </action>
         <action
             android:id="@+id/action_tabs_to_bidView"

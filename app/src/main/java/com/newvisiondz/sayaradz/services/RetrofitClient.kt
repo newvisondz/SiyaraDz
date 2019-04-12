@@ -7,11 +7,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.lang.reflect.Modifier
 
 
 class RetrofitClient {
     private val retrofit: Retrofit
-    private val BASE_URL = "https://sayara-dz.herokuapp.com/"
+    private val BASE_URL = "http://sayaradz-sayaradz.7e14.starter-us-west-2.openshiftapps.com/"
 
     val authentificationApi: AuthentificationApi
         get() = retrofit.create(AuthentificationApi::class.java)
@@ -23,11 +24,15 @@ class RetrofitClient {
     init {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
-        val gson = GsonBuilder().setLenient().create()
+        val gson =
+            GsonBuilder()
+                .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
+                .serializeNulls()
+                .setLenient()
+                .create()
 
         val client = OkHttpClient.Builder()
             .addInterceptor(interceptor)
-
             .build()
 
         retrofit = Retrofit.Builder()

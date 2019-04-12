@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v4.app.FragmentActivity
+import android.util.Log
 import android.widget.Button
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -49,6 +50,7 @@ class GoogleAuthentification {
         var intent: Intent = Auth.GoogleSignInApi.getSignInIntent(googleClient)
         context as Activity
         context.startActivityForResult(intent, REQ_CODE)
+        Log.i("send ","dnoe")
     }
 
     public fun signOut() {
@@ -59,6 +61,7 @@ class GoogleAuthentification {
     }
 
     public fun handleResult(result: GoogleSignInResult) {
+        Log.i("send","handling res")
         if (result.isSuccess) {
             val account = result.signInAccount
             if (prefrencesHandler.getUserToken(userInfo).equals("Not Found") || account!!.isExpired) {
@@ -84,6 +87,9 @@ class GoogleAuthentification {
                 val intent = Intent(context, MainActivity::class.java)
                 context.startActivity(intent)
             }
+        }else {
+            Log.i("send ","res problem")
         }
+
     }
 }

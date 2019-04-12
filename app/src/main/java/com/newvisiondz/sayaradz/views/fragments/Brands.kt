@@ -137,7 +137,7 @@ class Brands : Fragment() {
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
-                prefs.getUserToken(userInfo!!)!!
+                "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1NDkzMDc2NCwiZXhwIjoxNTU1NTM1NTY0fQ.Dvx4ZZt2RC-WZQy_ayZ5CmQ4UvCsEOIzefiuuUdB3w0"
                 , (pageNumber).toString(), (viewThreshold).toString()
             )
 
@@ -145,7 +145,7 @@ class Brands : Fragment() {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Brand>>() {}.type
-                    brands = jsonFormatter.jsonFormatter(response.body()!!, listType, "manufacturers")
+                    brands = jsonFormatter.brandsFormatter(response.body()!!, listType, "manufacturers")
                     initRecycerView()
                 }
             }
@@ -170,7 +170,7 @@ class Brands : Fragment() {
         val call = RetrofitClient()
             .serverDataApi
             .getAllBrands(
-                prefs.getUserToken(userInfo!!)!!
+                "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1NDkzMDc2NCwiZXhwIjoxNTU1NTM1NTY0fQ.Dvx4ZZt2RC-WZQy_ayZ5CmQ4UvCsEOIzefiuuUdB3w0"
                 , (pageNumber).toString(), (viewThreshold).toString()
             )
 
@@ -179,7 +179,7 @@ class Brands : Fragment() {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<List<Brand>>() {}.type
                     lateinit var tmp: MutableList<Brand>
-                    tmp = jsonFormatter.jsonFormatter(response.body()!!, listType, "fabricants")
+                    tmp = jsonFormatter.brandsFormatter(response.body()!!, listType, "fabricants")
                     if (tmp.size != 0) {
                         brands.addAll(tmp)
                         adapter!!.addBrands(tmp)

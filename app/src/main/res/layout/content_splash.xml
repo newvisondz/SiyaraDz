@@ -21,19 +21,19 @@
         app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="191dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginEnd="176dp"
-        android:fontFamily="@font/aladin"
-        android:text="Created By\n NewVision"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/splashImg"
-        app:layout_constraintVertical_bias="0.733" />
+            android:id="@+id/splashText"
+            android:layout_width="191dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="177dp"
+            android:layout_marginEnd="176dp"
+            android:fontFamily="@font/aladin"
+            android:text="Created By\n NewVision"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="48sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/splashImg"
+            app:layout_constraintVertical_bias="0.733"/>
 </android.support.constraint.ConstraintLayout>
