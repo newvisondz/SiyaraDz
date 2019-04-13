@@ -78,7 +78,7 @@ class ProfileForm : Fragment() {
             paramObject.put("address", user_adr.text.toString())
             paramObject.put("phone", user_tel.text.toString())
 
-            val call = RetrofitClient()
+            val call = RetrofitClient(context!!)
                 .serverDataApi
                 .updateUser(prefrencesHandler.getUserToken(userInfo!!)!!, paramObject.toString())
 

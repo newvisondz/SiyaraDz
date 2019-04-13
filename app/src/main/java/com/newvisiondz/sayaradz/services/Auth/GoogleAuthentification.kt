@@ -65,7 +65,7 @@ class GoogleAuthentification {
         if (result.isSuccess) {
             val account = result.signInAccount
             if (prefrencesHandler.getUserToken(userInfo).equals("Not Found") || account!!.isExpired) {
-                val call = RetrofitClient()
+                val call = RetrofitClient(context)
                     .authentificationApi
                     .sendKeysGoogle(account!!.serverAuthCode!!, account.requestedScopes.toString())
 

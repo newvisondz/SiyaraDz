@@ -100,7 +100,6 @@ class Brands : Fragment() {
                     if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
                         pageNumber++
                         performPagination()
-                        Toast.makeText(context,"working",Toast.LENGTH_LONG).show()
                         isloading = true
                     }
                 }
@@ -116,8 +115,9 @@ class Brands : Fragment() {
                 getContent()
                 adapter!!.addBrands(brands)
                 swipeRefresh.isRefreshing = false
+            }else {
+                swipeRefresh.isRefreshing =false
             }
-
         }
         activity!!.findViewById<android.widget.SearchView>(R.id.action_search)
             .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
@@ -138,8 +138,7 @@ class Brands : Fragment() {
     }
 
     private fun getContent() {
-
-        val call = RetrofitClient()
+        val call = RetrofitClient(context!!)
             .serverDataApi
             .getAllBrands(
                 "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1NDkzMDc2NCwiZXhwIjoxNTU1NTM1NTY0fQ.Dvx4ZZt2RC-WZQy_ayZ5CmQ4UvCsEOIzefiuuUdB3w0"
@@ -173,7 +172,7 @@ class Brands : Fragment() {
 
     private fun performPagination() {
         progressBar.visibility = View.VISIBLE
-        val call = RetrofitClient()
+        val call = RetrofitClient(context!!)
             .serverDataApi
             .getAllBrands(
                 "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1NDkzMDc2NCwiZXhwIjoxNTU1NTM1NTY0fQ.Dvx4ZZt2RC-WZQy_ayZ5CmQ4UvCsEOIzefiuuUdB3w0"

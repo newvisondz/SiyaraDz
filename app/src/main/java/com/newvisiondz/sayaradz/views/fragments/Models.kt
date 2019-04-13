@@ -6,14 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Utils.ContentProvider
 import com.newvisiondz.sayaradz.Utils.JsonFormatter
 import com.newvisiondz.sayaradz.adapters.ModelsAdapter
 import com.newvisiondz.sayaradz.model.Model
@@ -35,7 +33,7 @@ class Models : Fragment() {
     private lateinit var models: MutableList<Model>
     private lateinit var modelsAdapter: ModelsAdapter
     var jsonFormatter = JsonFormatter()
-    var contentProvider = ContentProvider()
+//    var contentProvider = ContentProvider()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,7 +73,7 @@ class Models : Fragment() {
     }
 
     private fun getContent() {
-        val call = RetrofitClient()
+        val call = RetrofitClient(context!!)
             .serverDataApi
             .getAllModels(
                 "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWU2ZjEzZmQ1ZTZlMDAxODVkODY2YiIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTU0OTM1NTczLCJleHAiOjE1NTU1NDAzNzN9.p0WrgJDm4TafU5qZ6ddow9zwcDUQSSxodM-iUiUc4zA"

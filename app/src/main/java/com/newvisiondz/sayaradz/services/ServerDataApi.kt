@@ -33,9 +33,25 @@ interface ServerDataApi {
         @Query("perpage") perPage: String
     ): Call<JsonElement>
 
-    @GET("manufacturers/{manufacturerName}/models/")
+    @GET("manufacturers/{manufacturerId}/models/")
     fun getAllModels(
         @Header("Authorization") token: String,
-        @Path("manufacturerName") manufacturerName:String
+        @Path("manufacturerId") manufacturerName:String
     ): Call<JsonElement>
+
+    @GET("manufacturers/{manufacturerId}/models/{modelId}/versions")
+    fun getAllVersion(
+        @Header("Authorization") token: String,
+        @Path("manufacturerId") manufacturerName:String,
+        @Path("modelId") modelId:String,
+        @Query("page") page: String,
+        @Query("perpage") perPage: String
+    ):Call<JsonElement>
+
+    @GET("manufacturers/{manufacturerId}/models/{modelId}/versions")
+    fun getAllVersion(
+        @Header("Authorization") token: String,
+        @Path("manufacturerId") manufacturerName:String,
+        @Path("modelId") modelId:String
+    ):Call<JsonElement>
 }

@@ -39,8 +39,8 @@ class ModelsAdapter(private val models: MutableList<Model>, private val context:
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val card = view.model_card
-        val modelName = view.model_name
+        val card = view.model_card!!
+        val modelName = view.model_name!!
         val modelImage = view.model_image
         val modelPrice = view.model_price
         val modelAttribute = view.model_attribute

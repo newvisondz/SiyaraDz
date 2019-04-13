@@ -62,10 +62,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             override fun onSuccess(loginResult: LoginResult) {
                 setResult(RESULT_OK)
                 val accessToken = loginResult.accessToken.token
-                Log.i("accessToken", accessToken)
-                val client = RetrofitClient().authentificationApi.sendKeysFacebook(accessToken)
-
-                Log.i("Request", client.request().toString())
+                val client = RetrofitClient(this@LoginActivity).authentificationApi.sendKeysFacebook(accessToken)
                 client.enqueue(object : Callback<String> {
                     override fun onFailure(call: Call<String>?, t: Throwable?) {
                         Log.i("Error", t!!.message)
