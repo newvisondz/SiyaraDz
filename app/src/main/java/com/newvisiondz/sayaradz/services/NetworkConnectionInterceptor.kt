@@ -8,9 +8,7 @@ import com.newvisiondz.sayaradz.Utils.NetworkUtils
 
 
 class NetworkConnectionInterceptor(var context: Context): Interceptor {
-
     var networkUtils = NetworkUtils()
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val builder = chain.request().newBuilder()
         if (!networkUtils.isOnline(context)) {

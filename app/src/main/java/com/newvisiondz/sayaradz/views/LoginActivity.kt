@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.widget.Toast
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -17,17 +16,18 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.Scope
-import com.newvisiondz.sayaradz.R
+import com.newvisiondz.sayaradz.services.Auth.FacebookAuthentification
 import com.newvisiondz.sayaradz.services.Auth.GoogleAuthentification
-import com.newvisiondz.sayaradz.services.RetrofitClient
 import kotlinx.android.synthetic.main.content_login.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.facebook.GraphRequest
+import android.util.Log
+import com.newvisiondz.sayaradz.R
+
 
 class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private var callbackManager = CallbackManager.Factory.create()!!
-    private var authentification: GoogleAuthentification? = null
+    private var authGoogle: GoogleAuthentification? = null
+    private var authFacebook: FacebookAuthentification? = null
     private var userInfo: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,42 +40,31 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             .requestServerAuthCode(getString(R.string.server_client_id))
             .requestEmail()
             .build()
-
-        authentification = GoogleAuthentification(this, signInOptions)
-        authentification!!.signInButton.setOnClickListener {
-            Log.i("sendreq", "buttonreq")
-            authentification!!.signIn(this)
+        authFacebook = FacebookAuthentification(this)
+        authGoogle = GoogleAuthentification(this, signInOptions)
+        authGoogle!!.signInButton.setOnClickListener {
+            authGoogle!!.signIn(this)
         }
-//        authentification!!.signOutButton.setOnClickListener {
-//            authentification!!.signOut()
-//        }
         loginFb.setReadPermissions("email")
         loginFb.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onCancel() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onError(error: FacebookException?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onSuccess(loginResult: LoginResult) {
-                setResult(RESULT_OK)
-                val accessToken = loginResult.accessToken.token
-                val client = RetrofitClient(this@LoginActivity).authentificationApi.sendKeysFacebook(accessToken)
-                client.enqueue(object : Callback<String> {
-                    override fun onFailure(call: Call<String>?, t: Throwable?) {
-                        Log.i("Error", t!!.message)
-                    }
-
-                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
-                        Log.i("Response header", response!!.headers().toString())
-                        Log.i("Response body", response.body())
-                        if (response.isSuccessful) {
-
-                        }
-                    }
-                })
+//                authFacebook!!.signIn(loginResult, coordinator)
+                Log.i("Main","doing")
+                val request = GraphRequest.newMeRequest(
+                    loginResult.accessToken
+                ) { `object`, response ->
+                    Log.v("Main", response.toString())
+                }
+                val parameters = Bundle()
+                parameters.putString("fields", "id,name,email,gender, birthday")
+                request.parameters = parameters
+                request.executeAsync()
             }
         })
     }
@@ -84,14 +73,13 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         Toast.makeText(this, "Une faible connection internet ", Toast.LENGTH_SHORT).show()
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == authentification!!.REQ_CODE) {
+        if (requestCode == authGoogle!!.REQ_CODE) {
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
-            this.authentification!!.handleResult(result)
+            this.authGoogle!!.handleResult(result)
         }
     }
 }

@@ -2,7 +2,7 @@ package com.newvisiondz.sayaradz.Utils
 
 import android.content.SharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.newvisiondz.sayaradz.Tokens.GoogleToken
+import com.newvisiondz.sayaradz.Tokens.Token
 
 class PrefrencesHandler {
     fun getUserToken(userInfo: SharedPreferences): String? {
@@ -18,12 +18,21 @@ class PrefrencesHandler {
         return userTmp
     }
 
-    fun setUserPrefrences(userInfo: SharedPreferences, account: GoogleToken, acc: GoogleSignInAccount) {
+    fun setUserPrefrences(userInfo: SharedPreferences, account: Token, acc: GoogleSignInAccount) {
         val editor = userInfo.edit()
         editor.putString("useremail", account.email)
         editor.putString("userimg", acc.photoUrl.toString())
         editor.putString("userlastname", acc.familyName)
-        editor.putString("userfirstname", acc.givenName)
+        editor.putString("userfirstname", acc.displayName)
+        editor.putString("token", account.token)
+        editor.apply()
+    }
+    fun setUserPrefrences(userInfo: SharedPreferences, account: Token) {
+        val editor = userInfo.edit()
+        editor.putString("useremail", account.email)
+//        editor.putString("userimg", acc.photoUrl.toString())
+//        editor.putString("userlastname", acc.familyName)
+//        editor.putString("userfirstname", acc.givenName)
         editor.putString("token", account.token)
         editor.apply()
     }

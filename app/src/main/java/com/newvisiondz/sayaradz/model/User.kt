@@ -15,5 +15,5 @@ class User() {
         this.phone=_telNum
     }
 
-//TODO ajouter la date
+//TODO ajouter la date cote back--end
 }

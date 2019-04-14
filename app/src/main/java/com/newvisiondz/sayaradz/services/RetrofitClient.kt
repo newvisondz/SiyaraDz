@@ -18,7 +18,6 @@ import java.io.File
 
 class RetrofitClient (var context:Context){
     private val retrofit: Retrofit
-    val DISK_CACHE_SIZE = 10 * 1024 * 1024
     private val BASE_URL = "http://sayaradz-sayaradz.7e14.starter-us-west-2.openshiftapps.com/"
 
     val authentificationApi: AuthentificationApi
@@ -32,8 +31,6 @@ class RetrofitClient (var context:Context){
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val gson =
             GsonBuilder()
-                .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
-                .serializeNulls()
                 .setLenient()
                 .create()
 

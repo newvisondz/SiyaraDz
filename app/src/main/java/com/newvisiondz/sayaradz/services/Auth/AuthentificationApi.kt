@@ -1,6 +1,6 @@
 package com.newvisiondz.sayaradz.services.Auth
 
-import com.newvisiondz.sayaradz.Tokens.GoogleToken
+import com.newvisiondz.sayaradz.Tokens.Token
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -9,11 +9,11 @@ interface AuthentificationApi {
     fun sendKeysGoogle(
         @Query("code") token: String,
         @Query("scope") scope: String
-    ): Call<GoogleToken>
+    ): Call<Token>
 
-    @GET("auth/facebook/callback")
+    @GET("auth/facebook/")
     fun sendKeysFacebook(
-        @Query("accessToken") token: String
-    ): Call<String>
+        @Query("access_token") token: String
+    ): Call<Token>
 }
 

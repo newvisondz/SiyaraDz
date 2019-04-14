@@ -6,7 +6,6 @@
     tools:ignore="HardcodedText"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/revolve"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".views.LoginActivity"
     tools:layout_editor_absoluteY="56dp"
@@ -53,8 +52,5 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
-
-
+        app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>
