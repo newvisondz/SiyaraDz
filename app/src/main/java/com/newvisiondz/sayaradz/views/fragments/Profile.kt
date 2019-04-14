@@ -94,7 +94,11 @@ class Profile : Fragment() {
         super.onResume()
         val userInfoTmp = prefrencesHandler.getUserInfo(userInfo!!)
         user_dis_name.text = userInfoTmp[0]
-        Glide.with(view!!).load(userInfoTmp[1]).into(user_image)
+        if (userInfoTmp[4] == "goole") {
+            Glide.with(view!!).load(userInfoTmp[1]).into(user_image)
+        }else {
+            Glide.with(view!!).load("https://graph.facebook.com/${userInfoTmp[1]}/picture?type=large" ).into(user_image)
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -22,9 +22,17 @@ import kotlinx.android.synthetic.main.content_login.*
 import com.facebook.GraphRequest
 import android.util.Log
 import com.newvisiondz.sayaradz.R
+import org.json.JSONException
+import com.facebook.login.widget.ProfilePictureView
+import kotlinx.android.synthetic.main.activity_login.*
+import org.json.JSONObject
 
 
-class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
+
+
+class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedListener {
+
+
     private var callbackManager = CallbackManager.Factory.create()!!
     private var authGoogle: GoogleAuthentification? = null
     private var authFacebook: FacebookAuthentification? = null
@@ -51,26 +59,13 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             }
 
             override fun onError(error: FacebookException?) {
+                Toast.makeText(this@LoginActivity, "error to Login Facebook", Toast.LENGTH_SHORT).show()
             }
 
             override fun onSuccess(loginResult: LoginResult) {
-//                authFacebook!!.signIn(loginResult, coordinator)
-                Log.i("Main","doing")
-                val request = GraphRequest.newMeRequest(
-                    loginResult.accessToken
-                ) { `object`, response ->
-                    Log.v("Main", response.toString())
-                }
-                val parameters = Bundle()
-                parameters.putString("fields", "id,name,email,gender, birthday")
-                request.parameters = parameters
-                request.executeAsync()
+                authFacebook!!.signIn(loginResult, coordinator)
             }
         })
-    }
-
-    override fun onConnectionFailed(p0: ConnectionResult) {
-        Toast.makeText(this, "Une faible connection internet ", Toast.LENGTH_SHORT).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -81,5 +76,23 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             this.authGoogle!!.handleResult(result)
         }
+    }
+    override fun onConnectionFailed(p0: ConnectionResult) {
+    }
+
+    private fun setProfileToView(jsonObject: JSONObject) {
+        try {
+//            email.setText(jsonObject.getString("email"))
+//            gender.setText(jsonObject.getString("gender"))
+//            facebookName.setText(jsonObject.getString("name"))
+//
+//            profilePictureView.setPresetSize(ProfilePictureView.NORMAL)
+//            profilePictureView.setProfileId(jsonObject.getString("id"))
+//            infoLayout.setVisibility(View.VISIBLE)
+            Log.i("Main",jsonObject.getString("name"))
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
     }
 }
