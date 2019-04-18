@@ -66,12 +66,6 @@ class ProfileForm : Fragment() {
         user_mail.setText(userInfoTmp[2])
 
         button_confirm.setOnClickListener {
-            val user = User(
-                user_last_name.text.toString(),
-                user_first_name.text.toString(),
-                user_adr.text.toString(),
-                user_tel.text.toString()
-            )
             val paramObject = JSONObject()
             paramObject.put("firstName", user_first_name.text.toString())
             paramObject.put("lastName", user_last_name.text.toString())
@@ -85,6 +79,7 @@ class ProfileForm : Fragment() {
             call.enqueue(object : retrofit2.Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
+
                     }
                 }
 
@@ -100,32 +95,11 @@ class ProfileForm : Fragment() {
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileForm.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ProfileForm().apply {
@@ -145,7 +119,7 @@ class ProfileForm : Fragment() {
 
         val dpd = DatePickerDialog(
             activity as Context,
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 this.user_date.text = "$year-$monthOfYear-$dayOfMonth"
             },
             year,

@@ -15,11 +15,11 @@ class Brand() {
 
   //  var manufacturer = ""
 
-    constructor(id: String, name: String, imageId: String):this(){
+    constructor(id: String, name: String, logo: String):this(){
         this.id = id
         this.name = name
         //this.manufacturer = manufacturer
-        this.logo = imageId
+        this.logo = logo
     }
 
     class BrandSet(list: MutableList<Brand>) {

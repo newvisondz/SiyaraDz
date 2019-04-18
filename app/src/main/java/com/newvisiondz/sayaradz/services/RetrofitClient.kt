@@ -1,24 +1,19 @@
 package com.newvisiondz.sayaradz.services
 
-import android.app.Application
 import android.content.Context
-import com.newvisiondz.sayaradz.services.Auth.AuthentificationApi
 import com.google.gson.GsonBuilder
-import com.newvisiondz.sayaradz.views.MainActivity
+import com.newvisiondz.sayaradz.services.Auth.AuthentificationApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.lang.reflect.Modifier
 import java.util.concurrent.TimeUnit
-import okhttp3.Cache
-import java.io.File
 
 
 class RetrofitClient (var context:Context){
     private val retrofit: Retrofit
-    private val BASE_URL = "http://sayaradz-sayaradz.7e14.starter-us-west-2.openshiftapps.com/"
+    private val BASE_URL = "http://sayaradz-sayaradz-2.7e14.starter-us-west-2.openshiftapps.com/"
 
     val authentificationApi: AuthentificationApi
         get() = retrofit.create(AuthentificationApi::class.java)

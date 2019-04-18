@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -115,8 +116,8 @@ class Brands : Fragment() {
                 getContent()
                 adapter!!.addBrands(brands)
                 swipeRefresh.isRefreshing = false
-            }else {
-                swipeRefresh.isRefreshing =false
+            } else {
+                swipeRefresh.isRefreshing = false
             }
         }
         activity!!.findViewById<android.widget.SearchView>(R.id.action_search)
@@ -140,16 +141,14 @@ class Brands : Fragment() {
     private fun getContent() {
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .getAllBrands(
-                "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1NDkzMDc2NCwiZXhwIjoxNTU1NTM1NTY0fQ.Dvx4ZZt2RC-WZQy_ayZ5CmQ4UvCsEOIzefiuuUdB3w0"
-                , (pageNumber).toString(), (viewThreshold).toString()
-            )
+            .getAllBrands(prefs.getUserToken(userInfo!!)!!,(pageNumber).toString(), (viewThreshold).toString())
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Brand>>() {}.type
                     brands = jsonFormatter.listFormatter(response.body()!!, listType, "manufacturers")
+                    Log.i("brands",brands[0].logo)
                     progressBar.visibility = View.GONE
                     initRecycerView()
                 }
@@ -174,10 +173,7 @@ class Brands : Fragment() {
         progressBar.visibility = View.VISIBLE
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .getAllBrands(
-                "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1NDkzMDc2NCwiZXhwIjoxNTU1NTM1NTY0fQ.Dvx4ZZt2RC-WZQy_ayZ5CmQ4UvCsEOIzefiuuUdB3w0"
-                , (pageNumber).toString(), (viewThreshold).toString()
-            )
+            .getAllBrands(prefs.getUserToken(userInfo!!)!!, (pageNumber).toString(), (viewThreshold).toString())
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {

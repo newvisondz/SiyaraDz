@@ -49,19 +49,9 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val marque = this.brands[i]
         viewHolder.brandName.text = marque.name
-
-//        val url = GlideUrl(
-//            "http://sayaradz-sayaradz.7e14.starter-us-west-2.openshiftapps.com${marque.logo}", LazyHeaders.Builder()
-//                .addHeader(
-//                    "Authorization",
-//                    "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOTBkZGFkOWZjYTkxMjY3ZTc0NDY4NyIsInR5cGUiOiJBRE1JTiIsImlhdCI6MTU1NDkzMDc2NCwiZXhwIjoxNTU1NTM1NTY0fQ.Dvx4ZZt2RC-WZQy_ayZ5CmQ4UvCsEOIzefiuuUdB3w0"
-//                )
-//                .build()
-//        )
-
         Glide.with(context)
             .asBitmap()
-            .load("https://sayara-dz.herokuapp.com${marque.logo}")
+            .load("http://sayaradz-sayaradz-2.7e14.starter-us-west-2.openshiftapps.com/${marque.logo}")
             .transition(withCrossFade(DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()))
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(viewHolder.brandImage)

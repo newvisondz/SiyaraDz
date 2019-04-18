@@ -2,6 +2,7 @@ package com.newvisiondz.sayaradz.views.fragments
 
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,6 +14,7 @@ import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.Utils.JsonFormatter
+import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.adapters.ModelsAdapter
 import com.newvisiondz.sayaradz.model.Model
 import com.newvisiondz.sayaradz.services.RetrofitClient
@@ -22,31 +24,20 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class Models : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var models: MutableList<Model>
     private lateinit var modelsAdapter: ModelsAdapter
     var jsonFormatter = JsonFormatter()
-//    var contentProvider = ContentProvider()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var userInfo: SharedPreferences? = null
+    private var prefsHandler = PrefrencesHandler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         return inflater.inflate(R.layout.fragment_models, container, false)
     }
 
@@ -75,10 +66,7 @@ class Models : Fragment() {
     private fun getContent() {
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .getAllModels(
-                "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWU2ZjEzZmQ1ZTZlMDAxODVkODY2YiIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTU0OTM1NTczLCJleHAiOjE1NTU1NDAzNzN9.p0WrgJDm4TafU5qZ6ddow9zwcDUQSSxodM-iUiUc4zA"
-                , arguments!!.getString("brandName")!!
-            )
+            .getAllModels(prefsHandler.getUserToken(userInfo!!)!!, arguments!!.getString("brandName")!!)
 
         call.enqueue(object : Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
@@ -108,14 +96,4 @@ class Models : Fragment() {
         fun onFragmentInteraction(uri: Uri)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Models().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

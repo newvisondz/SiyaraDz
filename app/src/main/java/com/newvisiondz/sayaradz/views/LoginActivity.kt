@@ -32,7 +32,6 @@ import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedListener {
 
-
     private var callbackManager = CallbackManager.Factory.create()!!
     private var authGoogle: GoogleAuthentification? = null
     private var authFacebook: FacebookAuthentification? = null
@@ -78,21 +77,7 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
         }
     }
     override fun onConnectionFailed(p0: ConnectionResult) {
-    }
-
-    private fun setProfileToView(jsonObject: JSONObject) {
-        try {
-//            email.setText(jsonObject.getString("email"))
-//            gender.setText(jsonObject.getString("gender"))
-//            facebookName.setText(jsonObject.getString("name"))
-//
-//            profilePictureView.setPresetSize(ProfilePictureView.NORMAL)
-//            profilePictureView.setProfileId(jsonObject.getString("id"))
-//            infoLayout.setVisibility(View.VISIBLE)
-            Log.i("Main",jsonObject.getString("name"))
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
 
     }
+
 }

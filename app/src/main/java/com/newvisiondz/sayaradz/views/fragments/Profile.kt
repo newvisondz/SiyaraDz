@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,15 +23,6 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [Profile.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [Profile.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class Profile : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
@@ -53,35 +45,35 @@ class Profile : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        view.findViewById<Button>(R.id.button_profile).setOnClickListener {
+        view.button_profile.setOnClickListener {
             val action = TabsDirections.actionTabsToProfileForm()
             //action.setBidId(bidId)
             NavHostFragment.findNavController(this).navigate(action)
             Log.i("Navigating", "Tabs to Profile Form,")
         }
 
-        view.findViewById<Button>(R.id.button_mybids).setOnClickListener {
+        view.button_mybids.setOnClickListener {
             val action = TabsDirections.actionTabsToMyBids()
             //action.setBidId(bidId)
             NavHostFragment.findNavController(this).navigate(action)
             Log.i("Navigating", "Tabs to My Bids,")
         }
 
-        view.findViewById<Button>(R.id.button_mymodels).setOnClickListener {
+        view.button_mymodels.setOnClickListener {
             val action = TabsDirections.actionTabsToMyModels()
             //action.setBidId(bidId)
             NavHostFragment.findNavController(this).navigate(action)
             Log.i("Navigating", "Tabs to My Models,")
         }
 
-        view.findViewById<Button>(R.id.button_myversions).setOnClickListener {
+        view.button_myversions.setOnClickListener {
             val action = TabsDirections.actionTabsToMyVersions()
             //action.setBidId(bidId)
             NavHostFragment.findNavController(this).navigate(action)
             Log.i("Navigating", "Tabs to My Versions,")
         }
 
-        view.findViewById<Button>(R.id.button_myoffers).setOnClickListener {
+        view.button_myoffers.setOnClickListener {
             val action = TabsDirections.actionTabsToMyOffers()
             //action.setBidId(bidId)
             NavHostFragment.findNavController(this).navigate(action)
@@ -94,14 +86,13 @@ class Profile : Fragment() {
         super.onResume()
         val userInfoTmp = prefrencesHandler.getUserInfo(userInfo!!)
         user_dis_name.text = userInfoTmp[0]
-        if (userInfoTmp[4] == "goole") {
+        if (userInfoTmp[4] == "google") {
             Glide.with(view!!).load(userInfoTmp[1]).into(user_image)
-        }else {
-            Glide.with(view!!).load("https://graph.facebook.com/${userInfoTmp[1]}/picture?type=large" ).into(user_image)
+        } else {
+            Glide.with(view!!).load("https://graph.facebook.com/${userInfoTmp[1]}/picture?type=large").into(user_image)
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
     }
@@ -118,32 +109,12 @@ class Profile : Fragment() {
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Profile.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             Profile().apply {
