@@ -1,5 +1,6 @@
 package com.newvisiondz.sayaradz.services.Auth
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -19,15 +20,15 @@ import retrofit2.Response
 
 class FacebookAuthentification(var context: Context) {
 
-    private var messages =MessagesUtils()
+    private var messages = MessagesUtils()
     private var userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-    private var prefrencesHandler= PrefrencesHandler()
+    private var prefrencesHandler = PrefrencesHandler()
 
     fun signIn(loginResult: LoginResult, view: View) {
         val accessToken = loginResult.accessToken.token
-        lateinit var jsonResponseObject:JSONObject
+        lateinit var jsonResponseObject: JSONObject
         val request = GraphRequest.newMeRequest(loginResult.accessToken) { objet, _ ->
-            jsonResponseObject=objet
+            jsonResponseObject = objet
         }
         val parameters = Bundle()
         parameters.putString("fields", "id,name")
@@ -39,12 +40,12 @@ class FacebookAuthentification(var context: Context) {
             override fun onFailure(call: Call<Token>?, t: Throwable?) {
                 messages.displaySnackBar(view, "Error try agin later")
             }
-
             override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
                 if (response!!.isSuccessful) {
-                    prefrencesHandler.setUserPrefrences(userInfo,response.body()!!, jsonResponseObject)
+                    prefrencesHandler.setUserPrefrences(userInfo, response.body()!!, jsonResponseObject)
                     val intent = Intent(context, MainActivity::class.java)
                     context.startActivity(intent)
+                    (context as Activity).finish()
                 }
             }
         })

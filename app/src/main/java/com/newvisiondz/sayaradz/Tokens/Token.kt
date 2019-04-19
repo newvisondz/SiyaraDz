@@ -1,6 +1,6 @@
 package com.newvisiondz.sayaradz.Tokens
 
-class Token(private var _email: String, private var _id: String, private var _token: String) {
+class Token(_email: String, _id: String, _token: String) {
     var email: String = _email
     var id: String = _id
     var token: String = _token

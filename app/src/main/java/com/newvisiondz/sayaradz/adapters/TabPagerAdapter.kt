@@ -12,11 +12,11 @@ class TabPagerAdapter(fm: FragmentManager, private var tabCount: Int) :
 
     override fun getItem(position: Int): Fragment? {
 
-        when (position) {
-            0 -> return NewCars()
-            1 -> return OldCars()
-            2 -> return Profile()
-            else -> return null
+        return when (position) {
+            0 -> NewCars()
+            1 -> OldCars()
+            2 -> Profile()
+            else -> null
         }
     }
 

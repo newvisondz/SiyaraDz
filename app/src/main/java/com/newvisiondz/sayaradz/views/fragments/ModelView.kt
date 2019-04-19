@@ -64,7 +64,7 @@ class ModelView : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.datasheet_button.setOnClickListener {
-            var modelId=arguments!!.getString("modelId")
+            val modelId=arguments!!.getString("modelId")
             val args=Bundle()
             args.putString("modelId",modelId)
             it.findNavController().navigate(R.id.action_modelView_to_dataSheetView,args)

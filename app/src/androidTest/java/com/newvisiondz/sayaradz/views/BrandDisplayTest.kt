@@ -18,7 +18,7 @@ class BrandDisplayTest {
     @get:Rule
     public val activityRule = ActivityTestRule(LoginActivity::class.java)
     private var mActivity: LoginActivity? = null
-    var monitor: Instrumentation.ActivityMonitor =
+    private var monitor: Instrumentation.ActivityMonitor =
         getInstrumentation().addMonitor(BrandDisplay::class.java.name, null, false)
 
 

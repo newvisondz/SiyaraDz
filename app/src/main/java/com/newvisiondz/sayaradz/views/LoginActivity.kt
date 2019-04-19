@@ -21,6 +21,7 @@ import com.newvisiondz.sayaradz.services.Auth.GoogleAuthentification
 import kotlinx.android.synthetic.main.content_login.*
 import com.facebook.GraphRequest
 import android.util.Log
+import android.view.View
 import com.newvisiondz.sayaradz.R
 import org.json.JSONException
 import com.facebook.login.widget.ProfilePictureView
@@ -28,9 +29,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
 
 
-
-
-class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedListener {
+class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
 
     private var callbackManager = CallbackManager.Factory.create()!!
     private var authGoogle: GoogleAuthentification? = null
@@ -40,6 +39,7 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        progressLogin.visibility = View.GONE
         userInfo = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
 
         val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
         authFacebook = FacebookAuthentification(this)
         authGoogle = GoogleAuthentification(this, signInOptions)
         authGoogle!!.signInButton.setOnClickListener {
+            progressLogin.visibility = View.VISIBLE
             authGoogle!!.signIn(this)
         }
         loginFb.setReadPermissions("email")
@@ -62,6 +63,7 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
             }
 
             override fun onSuccess(loginResult: LoginResult) {
+                progressLogin.visibility = View.VISIBLE
                 authFacebook!!.signIn(loginResult, coordinator)
             }
         })
@@ -76,6 +78,7 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
             this.authGoogle!!.handleResult(result)
         }
     }
+
     override fun onConnectionFailed(p0: ConnectionResult) {
 
     }

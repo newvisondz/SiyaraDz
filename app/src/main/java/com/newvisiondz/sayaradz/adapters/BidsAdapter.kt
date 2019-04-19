@@ -45,12 +45,12 @@ class BidsAdapter(private val bids: MutableList<Bid>, private val context: Conte
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val card = view.findViewById<MaterialCardView>(R.id.bid_card)
-        val bidTitle = view.findViewById<TextView>(R.id.bid_title)
-        val bidImage = view.findViewById<ImageView>(R.id.bid_image)
-        val bidOwner = view.findViewById<TextView>(R.id.bid_owner)
-        val bidCity = view.findViewById<TextView>(R.id.bid_city)
-        val bidPrice = view.findViewById<TextView>(R.id.bid_price)
+        val card = view.findViewById<MaterialCardView>(R.id.bid_card)!!
+        val bidTitle = view.findViewById<TextView>(R.id.bid_title)!!
+        val bidImage = view.findViewById<ImageView>(R.id.bid_image)!!
+        val bidOwner = view.findViewById<TextView>(R.id.bid_owner)!!
+        val bidCity = view.findViewById<TextView>(R.id.bid_city)!!
+        val bidPrice = view.findViewById<TextView>(R.id.bid_price)!!
     }
 
     public fun addBid(bids:List<Bid>) {
