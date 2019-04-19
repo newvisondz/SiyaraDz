@@ -57,29 +57,24 @@ class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.goo
     fun handleResult(result: GoogleSignInResult) {
         if (result.isSuccess) {
             val account = result.signInAccount
-            if (prefrencesHandler.getUserToken(userInfo).equals("Not Found") || account!!.isExpired) {
-                val call = RetrofitClient(context)
-                    .authentificationApi
-                    .sendKeysGoogle(account!!.serverAuthCode!!, account.requestedScopes.toString())
+            val call = RetrofitClient(context)
+                .authentificationApi
+                .sendKeysGoogle(account!!.serverAuthCode!!, account.requestedScopes.toString())
+            call.enqueue(object : Callback<Token> {
+                override fun onFailure(call: Call<Token>?, t: Throwable?) {
+                    t!!.printStackTrace()
+                }
 
-                call.enqueue(object : Callback<Token> {
-                    override fun onFailure(call: Call<Token>?, t: Throwable?) {
-                        t!!.printStackTrace()
+                override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
+                    if (response!!.isSuccessful) {
+                        prefrencesHandler.setUserPrefrences(userInfo, response.body()!!, account)
+                        val intent = Intent(context, MainActivity::class.java)
+                        context.startActivity(intent)
+                        (context as Activity).finish()
                     }
+                }
+            })
 
-                    override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
-                        if (response!!.isSuccessful) {
-                            prefrencesHandler.setUserPrefrences(userInfo, response.body()!!, account)
-                            val intent = Intent(context, MainActivity::class.java)
-                            context.startActivity(intent)
-                            (context as Activity).finish()
-                        }
-                    }
-                })
-            } else {
-                val intent = Intent(context, MainActivity::class.java)
-                context.startActivity(intent)
-            }
         }
 
     }

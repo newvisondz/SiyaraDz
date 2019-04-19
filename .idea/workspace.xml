@@ -22,8 +22,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93da5678-d260-4430-bae4-6016e5d72042" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/SplashActivity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
@@ -34,31 +32,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/newvisiondz/sayaradz/views/BrandDisplayTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/newvisiondz/sayaradz/views/BrandDisplayTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Tokens/Token.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Tokens/Token.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BidsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BidsAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/ModelsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/ModelsAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/TabPagerAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/TabPagerAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/FacebookAuthentification.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/FacebookAuthentification.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/SplashActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/MessagesUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/MessagesUtils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/GoogleAuthentification.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/GoogleAuthentification.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/NetworkConnectionInterceptor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/NetworkConnectionInterceptor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/LoginActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/BidForm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/BidForm.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/BrandCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/BrandCard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/ModelCard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/ModelCard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/ModelView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/ModelView.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/MyBids.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/MyBids.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/MyModels.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/MyModels.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/MyOffers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/MyOffers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/MyVersions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/MyVersions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/OrderForm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/OrderForm.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/revolve.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/revolve.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/newvisiondz/sayaradz/UnitTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/newvisiondz/sayaradz/UnitTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -208,9 +187,9 @@
           <entry key="iml" value="1" />
           <entry key="java" value="5" />
           <entry key="json" value="2" />
-          <entry key="kt" value="151" />
+          <entry key="kt" value="154" />
           <entry key="png" value="3" />
-          <entry key="xml" value="58" />
+          <entry key="xml" value="60" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -220,9 +199,9 @@
           <entry key="Image" value="3" />
           <entry key="JAVA" value="5" />
           <entry key="JSON" value="2" />
-          <entry key="Kotlin" value="151" />
+          <entry key="Kotlin" value="154" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="XML" value="58" />
+          <entry key="XML" value="60" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -250,18 +229,18 @@
         <counts>
           <entry key="gradle" value="1" />
           <entry key="json" value="1" />
-          <entry key="kt" value="6248" />
-          <entry key="txt" value="48" />
-          <entry key="xml" value="425" />
+          <entry key="kt" value="6636" />
+          <entry key="txt" value="70" />
+          <entry key="xml" value="460" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="1" />
           <entry key="JSON" value="1" />
-          <entry key="Kotlin" value="6248" />
-          <entry key="PLAIN_TEXT" value="48" />
-          <entry key="XML" value="425" />
+          <entry key="Kotlin" value="6636" />
+          <entry key="PLAIN_TEXT" value="70" />
+          <entry key="XML" value="460" />
         </counts>
       </usages-collector>
     </session>
@@ -271,11 +250,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BrandsAdapter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
+            <state relative-caret-position="834">
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
             </state>
           </provider>
         </entry>
@@ -284,7 +263,41 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/NetworkUtils.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="378">
-              <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+              <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/SplashActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="588">
+              <caret line="32" column="36" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
+              <folding>
+                <element signature="e#1454#1473#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/MessagesUtils.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="82">
+              <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="30" selection-end-column="20" />
+              <folding>
+                <element signature="e#40#202#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2730,7 +2743,6 @@
         <option value="$PROJECT_DIR$/.idea/misc.xml" />
         <option value="$PROJECT_DIR$/.idea/gradle.xml" />
         <option value="$PROJECT_DIR$/SiyaraDz.iml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/SplashActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/Color.kt" />
         <option value="$PROJECT_DIR$/app/src/test/java/com/newvisiondz/sayaradz/ExampleUnitTest.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_model_card.xml" />
@@ -2749,7 +2761,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/NetworkUtils.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_splash.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/MessagesUtils.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Tokens/Token.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/model/User.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/fragments/Models.kt" />
@@ -2771,12 +2782,14 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/NetworkConnectionInterceptor.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/TabPagerAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/GoogleAuthentification.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/FacebookAuthentification.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/SplashActivity.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/GoogleAuthentification.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/MessagesUtils.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/SplashActivity.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" />
       </list>
     </option>
   </component>
@@ -2868,6 +2881,21 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="sayaradz" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SiyaraDz" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="sayaradz" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="Auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SiyaraDz" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="sayaradz" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="Utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SiyaraDz" type="1abcf292:AndroidViewProjectNode" />
@@ -3165,7 +3193,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.5090361" side_tool="true" weight="0.18689321" />
-      <window_info active="true" content_ui="combo" x="535" y="148" width="296" height="431" id="Project" order="1" sideWeight="0.48875" visible="true" weight="0.19190283" />
+      <window_info content_ui="combo" x="535" y="148" width="296" height="431" id="Project" order="1" sideWeight="0.48875" visible="true" weight="0.19190283" />
       <window_info id="Structure" order="2" sideWeight="0.5090361" side_tool="true" weight="0.18689321" />
       <window_info id="Favorites" order="3" sideWeight="0.5090361" side_tool="true" weight="0.18689321" />
       <window_info id="Build Variants" order="4" sideWeight="0.51125" side_tool="true" weight="0.29530746" />
@@ -3173,7 +3201,7 @@
       <window_info id="Designer" order="6" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Version Control" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.5736842" visible="true" weight="0.26558006" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="1" sideWeight="0.5736842" visible="true" weight="0.22818792" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49848714" weight="0.20134228" />
       <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49848714" weight="0.17353787" />
       <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.42631578" side_tool="true" weight="0.39980826" />
@@ -3395,16 +3423,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/logo.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/MessagesUtils.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
-          <folding>
-            <element signature="e#40#202#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/ServerDataApi.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1176">
@@ -3536,13 +3554,6 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/GoogleAuthentification.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="74" column="58" selection-start-line="74" selection-start-column="58" selection-end-line="74" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/FacebookAuthentification.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
@@ -3575,24 +3586,6 @@
       </provider>
       <provider editor-type-id="android-manifest" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/SplashActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
-          <folding>
-            <element signature="e#34#423#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/LoginActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -3606,16 +3599,51 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/NetworkUtils.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
-          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/adapters/BrandsAdapter.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
+        <state relative-caret-position="834">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/services/Auth/GoogleAuthentification.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-170">
+          <caret line="61" column="95" selection-start-line="61" selection-start-column="95" selection-end-line="61" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/Utils/MessagesUtils.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="30" selection-end-column="20" />
+          <folding>
+            <element signature="e#40#202#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/newvisiondz/sayaradz/views/SplashActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="32" column="36" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
+          <folding>
+            <element signature="e#1454#1473#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
   </component>
   <component name="masterDetails">
