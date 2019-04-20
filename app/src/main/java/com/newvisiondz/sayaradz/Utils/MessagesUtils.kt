@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.support.design.widget.Snackbar
 import android.view.View
+import android.widget.Toast
 
 
 class MessagesUtils {
@@ -16,9 +17,14 @@ class MessagesUtils {
         snackbarView.setBackgroundColor(Color.LTGRAY)
     }
 
-    fun dispalyDialogBox(context: Context) {
+    fun displayToast(context: Context, message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun dispalyDialogBox(context: Context, titel: String, message: String) {
         val dialogBuilder = AlertDialog.Builder(context)
-            .setMessage("Do you want to close this application ?")
+            .setMessage(message)
+            .setTitle(titel)
             .setCancelable(false)
             .setPositiveButton("Proceed") { dialog, id ->
                 dialog.dismiss()
@@ -27,7 +33,6 @@ class MessagesUtils {
                 dialog.cancel()
             }
         val alert = dialogBuilder.create()
-        alert.setTitle("AlertDialogExample")
         alert.show()
     }
 

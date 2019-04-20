@@ -148,7 +148,6 @@ class Brands : Fragment() {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Brand>>() {}.type
                     brands = jsonFormatter.listFormatter(response.body()!!, listType, "manufacturers")
-                    Log.i("brands",brands[0].logo)
                     progressBar.visibility = View.GONE
                     initRecycerView()
                 }

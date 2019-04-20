@@ -24,7 +24,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         userInfo = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
 
-
         if (!netUilts.isOnline(this)) {
             val dialogBuilder = AlertDialog.Builder(this@SplashActivity)
                 .setMessage("You'll need internet connection in order to use this app")
