@@ -1,5 +1,6 @@
 package com.newvisiondz.sayaradz.views.fragments
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -7,53 +8,44 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.adapters.BidsAdapter
-import com.newvisiondz.sayaradz.adapters.BrandsAdapter
 import com.newvisiondz.sayaradz.model.Bid
-import com.newvisiondz.sayaradz.model.Brand
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_bids.*
+import kotlinx.android.synthetic.main.fragment_bids.view.*
 
 
 class Bids : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    private var tmpUris = mutableListOf<Uri>()
+    private lateinit var bidsList: MutableList<Bid>
+    private var bidsAdapter: BidsAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_bids, container, false)
-
-        val viewManager = LinearLayoutManager(this.context)
-        val list = mutableListOf(
-            Bid(0, "Mercedes Classe C 220 AMG Line 2015", "ZED AUTO", "Dar Beida", "5.500.000,00", R.drawable.mercedes),
-            Bid(1, "Volkswagen Golf 6 Match 2 2013 ", "ZED AUTO", "Dar Beida", "2.500.000,00", R.drawable.volkswagen),
-            Bid(2, "Mercedes Classe C 220 AMG Line 2015", "ZED AUTO", "Dar Beida", "5.500.000,00", R.drawable.mercedes),
-            Bid(3, "Volkswagen Golf 6 Match 2 2013 ", "ZED AUTO", "Dar Beida", "2.500.000,00", R.drawable.volkswagen)
+        bidsList = mutableListOf(
+            Bid(0, "Mercedes Classe C 220 AMG Line 2015", "ZED AUTO", "Dar Beida", 12.9, 12200.0),
+            Bid(1, "Volkswagen Golf 6 Match 2 2013 ", "ZED AUTO", "Dar Beida", 12.9, 12200.0),
+            Bid(2, "Mercedes Classe C 220 AMG Line 2015", "ZED AUTO", "Dar Beida", 12.9, 12200.0),
+            Bid(3, "Volkswagen Golf 6 Match 2 2013 ", "ZED AUTO", "Dar Beida", 14.9, 1233.0)
         )
-        val bidsAdapter = BidsAdapter(list, this.context as Context)
-
-        view.findViewById<RecyclerView>(R.id.bids_list).apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = bidsAdapter
-        }
-
-
+        Log.i("bids", "done creting dummy objects")
+        initRecyclerView(view)
+        Log.i("bids", "success initializing recycler view")
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        add_bid.setOnClickListener {
+        add_new_bid.setOnClickListener {
             val mBuilder = AlertDialog.Builder(context!!)
             val mView = layoutInflater.inflate(R.layout.data_entry_dialog, null)
             mBuilder.setView(mView)
@@ -67,8 +59,11 @@ class Bids : Fragment() {
                 startActivityForResult(Intent.createChooser(intent, "Select a file"), 301)
             }
             mView.btnOk.setOnClickListener {
-                //                addItem(mView)
+                addItem(mView)
                 dialog.dismiss()
+            }
+            mView.btnCancel.setOnClickListener {
+                dialog.cancel()
             }
         }
     }
@@ -92,6 +87,43 @@ class Bids : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
+    }
+
+    private fun addItem(mView: View) {
+        var newBid = Bid(
+            0,
+            mView.Model.text.toString(),
+            mView.Owner.text.toString(),
+            mView.adress.text.toString(),
+            mView.price.text.toString().toDouble(),
+            mView.current_miles.text.toString().toDouble()
+        )
+        newBid.uris = tmpUris
+        bidsList.add(newBid)
+        bids_list.adapter!!.notifyDataSetChanged()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if ((requestCode == 301) && (resultCode == Activity.RESULT_OK)) {
+            if (data!!.data != null) {
+                tmpUris.add(data.data!!)
+            } else if (data.clipData != null) {
+                var clipArray = data.clipData
+                for (i in 0 until clipArray!!.itemCount) {
+                    tmpUris.add(clipArray.getItemAt(i).uri)
+                }
+            }
+        }
+    }
+
+    private fun initRecyclerView(view: View) {
+        view.bids_list.apply {
+            setHasFixedSize(true)
+            LinearLayoutManager(context)
+        }
+        bidsAdapter = BidsAdapter(bidsList, context!!)
+        view.bids_list.adapter = bidsAdapter
     }
 
 }

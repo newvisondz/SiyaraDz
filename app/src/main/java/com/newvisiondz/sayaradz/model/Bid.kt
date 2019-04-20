@@ -4,20 +4,21 @@ import android.net.Uri
 
 class Bid() {
     var id = 0
-    var title = ""
     var owner = ""
-    var city = ""
-    var price = ""
+    var model = ""
+    var adresse = ""
+    var price = 0.0
+    var currrentMiles =0.0
     var options = listOf<String>()
-    var imageId = 0
     var uris = mutableListOf<Uri>()
-    constructor(id:Int,title:String,owner:String,city:String,price:String,imageId:Int):this(){
+
+    constructor(id:Int,model:String,owner:String,adresse:String,price:Double,currentMiles:Double):this(){
         this.id = id
-        this.title = title
         this.owner = owner
-        this.city = city
+        this.model = model
+        this.adresse = adresse
         this.price = price
-        this.imageId = imageId
+        this.currrentMiles=currentMiles
     }
 
 }
