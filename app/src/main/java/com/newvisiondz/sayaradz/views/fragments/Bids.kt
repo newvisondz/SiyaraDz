@@ -30,21 +30,25 @@ class Bids : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_bids, container, false)
+        return inflater.inflate(R.layout.fragment_bids, container, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         bidsList = mutableListOf(
             Bid(0, "Mercedes Classe C 220 AMG Line 2015", "ZED AUTO", "Dar Beida", 12.9, 12200.0),
             Bid(1, "Volkswagen Golf 6 Match 2 2013 ", "ZED AUTO", "Dar Beida", 12.9, 12200.0),
             Bid(2, "Mercedes Classe C 220 AMG Line 2015", "ZED AUTO", "Dar Beida", 12.9, 12200.0),
             Bid(3, "Volkswagen Golf 6 Match 2 2013 ", "ZED AUTO", "Dar Beida", 14.9, 1233.0)
         )
-        Log.i("bids", "done creting dummy objects")
-        initRecyclerView(view)
-        Log.i("bids", "success initializing recycler view")
-        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i("bids", "done creting dummy objects")
+        initRecyclerView(view)
+        Log.i("bids", "success initializing recycler view")
+
         add_new_bid.setOnClickListener {
             val mBuilder = AlertDialog.Builder(context!!)
             val mView = layoutInflater.inflate(R.layout.data_entry_dialog, null)
@@ -118,11 +122,9 @@ class Bids : Fragment() {
     }
 
     private fun initRecyclerView(view: View) {
-        view.bids_list.apply {
-            setHasFixedSize(true)
-            LinearLayoutManager(context)
-        }
-        bidsAdapter = BidsAdapter(bidsList, context!!)
+        view.bids_list.setHasFixedSize(true)
+        view.bids_list.layoutManager = LinearLayoutManager(context)
+        bidsAdapter = BidsAdapter(bidsList, context as Context)
         view.bids_list.adapter = bidsAdapter
     }
 
