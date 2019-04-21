@@ -31,12 +31,13 @@ class BidsAdapter(private val bids: MutableList<Bid>, private val context: Conte
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val bid = this.bids[i]
-        Log.i("bids", "infalting view")
         viewHolder.bidModel.text = bid.model
         viewHolder.bidOwner.text = bid.owner
         viewHolder.bidPrice.text = bid.price.toString()
         viewHolder.bidAdress.text = bid.adresse
-//        viewHolder.bidImage.setImageResource(bid.imageId)
+        if (bid.uris.size !=0) {
+            viewHolder.bidImage.setImageURI(bid.uris[0])
+        }
     }
 
     override fun getItemCount(): Int {
