@@ -7,11 +7,9 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.R
@@ -20,10 +18,11 @@ import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.adapters.BrandsAdapter
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.services.RetrofitClient
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_brands.*
+import kotlinx.android.synthetic.main.fragment_brands.view.*
 import retrofit2.Call
 import retrofit2.Response
-
 
 
 class Brands : Fragment() {
@@ -61,6 +60,23 @@ class Brands : Fragment() {
         getContent()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.swipeRefresh.setOnRefreshListener {
+            if (adapter != null) {
+                progressBar.visibility = View.VISIBLE
+                pageNumber = 1
+                adapter!!.clearBrands()
+                brands.clear()
+                getContent()
+                adapter!!.addBrands(brands)
+                swipeRefresh.isRefreshing = false
+            } else {
+                swipeRefresh.isRefreshing = false
+            }
+        }
+    }
+
     override fun onPause() {
         super.onPause()
         pageNumber = 1
@@ -92,20 +108,8 @@ class Brands : Fragment() {
             }
         })
 
-        swipeRefresh.setOnRefreshListener {
-            if (adapter != null) {
-                progressBar.visibility = View.VISIBLE
-                pageNumber = 1
-                adapter!!.clearBrands()
-                brands.clear()
-                getContent()
-                adapter!!.addBrands(brands)
-                swipeRefresh.isRefreshing = false
-            } else {
-                swipeRefresh.isRefreshing = false
-            }
-        }
-        activity!!.findViewById<android.widget.SearchView>(R.id.action_search)
+
+        activity!!.action_search
             .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     adapter!!.filter.filter(query)
@@ -116,7 +120,7 @@ class Brands : Fragment() {
                     return false
                 }
             })
-        activity!!.findViewById<android.widget.SearchView>(R.id.action_search)
+        activity!!.action_search
             .setOnCloseListener {
                 adapter!!.filter.filter("")
                 false
@@ -126,7 +130,7 @@ class Brands : Fragment() {
     private fun getContent() {
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .getAllBrands(prefs.getUserToken(userInfo!!)!!,(pageNumber).toString(), (viewThreshold).toString())
+            .getAllBrands(prefs.getUserToken(userInfo!!)!!, (pageNumber).toString(), (viewThreshold).toString())
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {

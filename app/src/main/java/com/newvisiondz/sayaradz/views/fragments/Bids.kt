@@ -8,16 +8,17 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.newvisiondz.sayaradz.R
+import com.newvisiondz.sayaradz.Utils.MessagesUtils
 import com.newvisiondz.sayaradz.adapters.BidsAdapter
 import com.newvisiondz.sayaradz.model.Bid
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_bids.*
 import kotlinx.android.synthetic.main.fragment_bids.view.*
+import java.util.*
 
 
 class Bids : Fragment() {
@@ -45,10 +46,7 @@ class Bids : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("bids", "done creting dummy objects")
         initRecyclerView(view)
-        Log.i("bids", "success initializing recycler view")
-
         add_new_bid.setOnClickListener {
             val mBuilder = AlertDialog.Builder(context!!)
             val mView = layoutInflater.inflate(R.layout.data_entry_dialog, null)
@@ -64,11 +62,17 @@ class Bids : Fragment() {
             }
             mView.btnOk.setOnClickListener {
                 addItem(mView)
+                //TODO post request here
                 dialog.dismiss()
             }
             mView.btnCancel.setOnClickListener {
                 dialog.cancel()
             }
+        }
+        view.swipeRefreshBids.setOnRefreshListener {
+            val message = MessagesUtils()
+            message.displaySnackBar(view, "Nice ")
+            swipeRefreshBids.isRefreshing = false
         }
     }
 
@@ -95,7 +99,7 @@ class Bids : Fragment() {
 
     private fun addItem(mView: View) {
         var newBid = Bid(
-            0,
+            Random().nextInt(),
             mView.Model.text.toString(),
             mView.Owner.text.toString(),
             mView.adress.text.toString(),
