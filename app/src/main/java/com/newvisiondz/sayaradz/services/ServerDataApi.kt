@@ -1,6 +1,7 @@
 package com.newvisiondz.sayaradz.services
 
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.newvisiondz.sayaradz.model.User
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -22,7 +23,7 @@ interface ServerDataApi {
     fun updateUser(
         @Header("Authorization") token: String,
         @Body body: String
-    ): Call<ResponseBody>
+    ): Call<JsonObject>
 
 
     @GET("manufacturers/{manufacturerName}/models/")

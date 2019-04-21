@@ -6,9 +6,14 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.model.User
@@ -46,6 +51,7 @@ class ProfileForm : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_profile_form, container, false)
     }
+
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
     }
@@ -63,9 +69,10 @@ class ProfileForm : Fragment() {
         user_date.setOnClickListener { datePicker() }
         user_last_name.setText(userInfoTmp[0])
         user_first_name.setText(userInfoTmp[3])
-        user_mail.setText(userInfoTmp[2])
+        user_mail.text = userInfoTmp[2]
 
         button_confirm.setOnClickListener {
+            progressForm.visibility = View.VISIBLE
             val paramObject = JSONObject()
             paramObject.put("firstName", user_first_name.text.toString())
             paramObject.put("lastName", user_last_name.text.toString())
@@ -76,14 +83,16 @@ class ProfileForm : Fragment() {
                 .serverDataApi
                 .updateUser(prefrencesHandler.getUserToken(userInfo!!)!!, paramObject.toString())
 
-            call.enqueue(object : retrofit2.Callback<ResponseBody> {
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            call.enqueue(object : retrofit2.Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
-
+                        progressForm.visibility = View.GONE
+                        val res: String = response.body()!!.get("ok").asString
+                        if (res == "1") it.findNavController().navigate(R.id.action_profileForm_to_tabs)
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     t.printStackTrace()
                 }
             })

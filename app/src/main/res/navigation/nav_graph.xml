@@ -104,7 +104,9 @@
         android:id="@+id/profileForm"
         android:name="com.newvisiondz.sayaradz.views.fragments.ProfileForm"
         android:label="fragment_profile_form"
-        tools:layout="@layout/fragment_profile_form" />
+        tools:layout="@layout/fragment_profile_form" >
+        <action android:id="@+id/action_profileForm_to_tabs" app:destination="@id/tabs" app:enterAnim="@anim/fade_out"/>
+    </fragment>
     <fragment
         android:id="@+id/myBids"
         android:name="com.newvisiondz.sayaradz.views.fragments.MyBids"
