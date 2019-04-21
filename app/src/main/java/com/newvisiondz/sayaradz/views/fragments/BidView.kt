@@ -70,9 +70,6 @@ class BidView : Fragment() {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
-        } else {
-            // TODO:
-            //throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
     }
 

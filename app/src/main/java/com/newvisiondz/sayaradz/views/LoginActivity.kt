@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.Toast
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -16,17 +17,11 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.Scope
+import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.services.Auth.FacebookAuthentification
 import com.newvisiondz.sayaradz.services.Auth.GoogleAuthentification
-import kotlinx.android.synthetic.main.content_login.*
-import com.facebook.GraphRequest
-import android.util.Log
-import android.view.View
-import com.newvisiondz.sayaradz.R
-import org.json.JSONException
-import com.facebook.login.widget.ProfilePictureView
 import kotlinx.android.synthetic.main.activity_login.*
-import org.json.JSONObject
+import kotlinx.android.synthetic.main.content_login.*
 
 
 class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
@@ -42,13 +37,13 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         progressLogin.visibility = View.GONE
         userInfo = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
 
-        val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestScopes(Scope(Scopes.APP_STATE))
-            .requestServerAuthCode(getString(R.string.server_client_id))
-            .requestEmail()
-            .build()
+//        val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestScopes(Scope(Scopes.APP_STATE))
+//            .requestServerAuthCode(getString(R.string.server_client_id))
+//            .requestEmail()
+//            .build()
         authFacebook = FacebookAuthentification(this)
-        authGoogle = GoogleAuthentification(this, signInOptions)
+        authGoogle = GoogleAuthentification(this)
         authGoogle!!.signInButton.setOnClickListener {
             progressLogin.visibility = View.VISIBLE
             authGoogle!!.signIn(this)

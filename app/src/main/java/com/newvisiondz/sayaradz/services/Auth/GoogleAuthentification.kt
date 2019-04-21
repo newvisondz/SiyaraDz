@@ -9,7 +9,10 @@ import android.widget.Button
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
+import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.Scope
+import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.Tokens.Token
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.services.RetrofitClient
@@ -21,7 +24,7 @@ import retrofit2.Response
 
 
 class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.googleSignOut)
-    (private var context: Context, signInOptions: GoogleSignInOptions) {
+    (private var context: Context) {
     private var googleClient: GoogleApiClient? = null
     val REQ_CODE: Int = 9001
     internal var signInButton: Button
@@ -31,6 +34,11 @@ class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.goo
 
 
     init {
+        val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestScopes(Scope(Scopes.APP_STATE))
+            .requestServerAuthCode(context.getString(R.string.server_client_id))
+            .requestEmail()
+            .build()
         context as Activity
         this.googleClient = GoogleApiClient.Builder(context)
             .enableAutoManage(context as FragmentActivity, context as GoogleApiClient.OnConnectionFailedListener)
@@ -50,7 +58,7 @@ class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.goo
 
     fun signOut() {
         Auth.GoogleSignInApi.signOut(googleClient).setResultCallback {
-            prefrencesHandler.removeUserToken(userInfo)
+            prefrencesHandler.clearUserInfo(userInfo)
         }
     }
 

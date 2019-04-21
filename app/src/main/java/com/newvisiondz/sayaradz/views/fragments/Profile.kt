@@ -9,34 +9,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
+import com.facebook.login.LoginManager
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class Profile : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
     private var userInfo: SharedPreferences? = null
     private var prefrencesHandler = PrefrencesHandler()
+    private var userInfoTmp = arrayOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
         userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
+        userInfoTmp = prefrencesHandler.getUserInfo(userInfo!!)
     }
 
     override fun onCreateView(
@@ -49,7 +40,7 @@ class Profile : Fragment() {
             val action = TabsDirections.actionTabsToProfileForm()
             //action.setBidId(bidId)
             NavHostFragment.findNavController(this).navigate(action)
-            Log.i("Navigating", "Tabs to Profile Form,")
+            Log.i("Navigating", "abs to Profile Form,")
         }
 
         view.button_mybids.setOnClickListener {
@@ -79,12 +70,20 @@ class Profile : Fragment() {
             NavHostFragment.findNavController(this).navigate(action)
             Log.i("Navigating", "Tabs to My Offers,")
         }
+        view.button_logout.setOnClickListener {
+            if (userInfoTmp[4] == "facebook") {
+                LoginManager.getInstance().logOut()
+                prefrencesHandler.clearUserInfo(userInfo!!)
+            } else {
+                prefrencesHandler.clearUserInfo(userInfo!!)
+            }//todo make googleSignOout work nicely
+        }
         return view
     }
 
     override fun onResume() {
         super.onResume()
-        val userInfoTmp = prefrencesHandler.getUserInfo(userInfo!!)
+
         user_dis_name.text = userInfoTmp[0]
         if (userInfoTmp[4] == "google") {
             Glide.with(view!!).load(userInfoTmp[1]).into(user_image)
@@ -110,18 +109,7 @@ class Profile : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Profile().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
