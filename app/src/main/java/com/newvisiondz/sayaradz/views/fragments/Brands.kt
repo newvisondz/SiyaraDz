@@ -33,7 +33,7 @@ class Brands : Fragment() {
 
     private lateinit var brands: MutableList<Brand>
     private var adapter: BrandsAdapter? = null
-    private var filterString:String?=null
+    private var filterString = ""
     private val jsonFormatter = JsonFormatter()
     private var pageNumber: Int = 1
 
@@ -112,7 +112,9 @@ class Brands : Fragment() {
         activity!!.action_search
             .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    adapter!!.filter.filter(query)
+//                    adapter!!.filter.filter(query)
+                    filterString = query
+                    getContent(query)
                     return true
                 }
 
@@ -122,22 +124,28 @@ class Brands : Fragment() {
             })
         activity!!.action_search
             .setOnCloseListener {
-                adapter!!.filter.filter("")
+                //                adapter!!.filter.filter("")
+                getContent("")
                 false
             }
     }
 
-    private fun getContent(filterString:String) {
+    private fun getContent(filterString: String) {
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .getAllBrands( prefs.getUserToken(userInfo!!)!!, (pageNumber).toString(), (viewThreshold).toString(),filterString)
+            .getAllBrands(
+                prefs.getUserToken(userInfo!!)!!,
+                (pageNumber).toString(),
+                (viewThreshold).toString(),
+                filterString
+            )
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Brand>>() {}.type
                     brands = jsonFormatter.listFormatter(response.body()!!, listType, "manufacturers")
-                    progressBar.visibility = View.GONE
+                    view!!.progressBar.visibility = View.GONE
                     initRecycerView()
                 }
             }
@@ -157,11 +165,16 @@ class Brands : Fragment() {
         brands_list.adapter = adapter
     }
 
-    private fun performPagination(filterString:String) {
+    private fun performPagination(filterString: String) {
         progressBar.visibility = View.VISIBLE
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .getAllBrands(prefs.getUserToken(userInfo!!)!!, (pageNumber).toString(), (viewThreshold).toString(),filterString)
+            .getAllBrands(
+                prefs.getUserToken(userInfo!!)!!,
+                (pageNumber).toString(),
+                (viewThreshold).toString(),
+                filterString
+            )
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
