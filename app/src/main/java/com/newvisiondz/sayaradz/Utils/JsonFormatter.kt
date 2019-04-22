@@ -1,9 +1,7 @@
 package com.newvisiondz.sayaradz.Utils
 
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonElement
-import com.newvisiondz.sayaradz.model.Model
 import java.lang.reflect.Type
 
 class JsonFormatter {

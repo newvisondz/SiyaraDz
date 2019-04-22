@@ -20,7 +20,6 @@ import com.google.android.gms.common.api.Scope
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.views.LoginActivity
-import com.newvisiondz.sayaradz.views.MainActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
@@ -87,11 +86,10 @@ class Profile : Fragment() {
                     .requestServerAuthCode(getString(R.string.server_client_id))
                     .requestEmail()
                     .build()
-                prefrencesHandler.clearUserInfo(userInfo!!)
-                var account = GoogleSignIn.getClient(context!!, signInOptions)
-                account.signOut()
-                Log.i("bids", "success")
-
+                val account = GoogleSignIn.getClient(context!!, signInOptions)
+                if (account.signOut().isComplete) {
+                    prefrencesHandler.clearUserInfo(userInfo!!)
+                }
             }
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)

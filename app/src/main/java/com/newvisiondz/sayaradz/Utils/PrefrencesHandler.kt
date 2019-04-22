@@ -1,7 +1,6 @@
 package com.newvisiondz.sayaradz.Utils
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.newvisiondz.sayaradz.Tokens.Token
 import org.json.JSONObject
@@ -39,12 +38,6 @@ class PrefrencesHandler {
         editor.putString("userlastname", jsonObject.getString("name"))
         editor.putString("token", account.token)
         editor.putString("type", "facebook")
-        editor.apply()
-    }
-
-    fun removeUserToken(userInfo: SharedPreferences) {
-        val editor = userInfo.edit()
-        editor.remove("token")
         editor.apply()
     }
 

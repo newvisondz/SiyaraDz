@@ -55,7 +55,7 @@
                         android:layout_height="20dp"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
-                        android:background="@drawable/circle_orange"></View>
+                        android:background="@drawable/circle_orange"/>
 
                 <View
                         android:id="@+id/view5"
@@ -63,7 +63,7 @@
                         android:layout_height="20dp"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
-                        android:background="@drawable/circle_gray"></View>
+                        android:background="@drawable/circle_gray"/>
 
                 <View
                         android:id="@+id/view4"
@@ -71,7 +71,7 @@
                         android:layout_height="20dp"
                         android:layout_margin="3dp"
                         android:layout_weight="1"
-                        android:background="@drawable/circle_white"></View>
+                        android:background="@drawable/circle_white"/>
 
             </TableRow>
 

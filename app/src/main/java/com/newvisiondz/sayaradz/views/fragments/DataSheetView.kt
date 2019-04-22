@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,10 +42,9 @@ class DataSheetView : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_data_sheet_view, container, false)
-//        val modelId = DataSheetViewArgs.fromBundle(arguments).modelId
+        //        val modelId = DataSheetViewArgs.fromBundle(arguments).modelId
 //        Log.i("Navigation Success","From DataSheetView, ModelId: $modelId")
-        return view
+        return inflater.inflate(R.layout.fragment_data_sheet_view, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event

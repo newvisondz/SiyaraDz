@@ -2,10 +2,8 @@ package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.util.LruCache
 import android.view.LayoutInflater
 import android.view.View
@@ -17,15 +15,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
-import com.newvisiondz.sayaradz.model.Brand
-import com.newvisiondz.sayaradz.services.RetrofitClient
-import kotlinx.android.synthetic.main.brand_marks_items.view.*
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Response
-import com.bumptech.glide.load.model.LazyHeaders
-import com.bumptech.glide.load.model.GlideUrl
 import com.newvisiondz.sayaradz.R
+import com.newvisiondz.sayaradz.model.Brand
+import kotlinx.android.synthetic.main.brand_marks_items.view.*
 
 
 class BrandsAdapter(private var brands: MutableList<Brand>, private val context: Context) :

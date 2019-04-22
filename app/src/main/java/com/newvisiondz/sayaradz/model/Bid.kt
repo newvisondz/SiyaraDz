@@ -8,7 +8,7 @@ class Bid() {
     var model = ""
     var adresse = ""
     var price = 0.0
-    var currrentMiles =0.0
+    private var currrentMiles =0.0
     var options = listOf<String>()
     var uris = mutableListOf<Uri>()
 

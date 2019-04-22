@@ -51,7 +51,7 @@ class Tabs : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val adapter = TabPagerAdapter(childFragmentManager, tab_layout.tabCount)
+        val adapter = TabPagerAdapter(childFragmentManager)
 
         pager.adapter = adapter
         //tab_layout.setupWithViewPager(pager)

@@ -1,5 +1,3 @@
 package com.newvisiondz.sayaradz.model
 
-class DataSheet {
-
-}
+class DataSheet

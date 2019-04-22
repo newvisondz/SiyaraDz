@@ -16,7 +16,7 @@ import org.junit.Test
 class BrandDisplayTest {
 
     @get:Rule
-    public val activityRule = ActivityTestRule(LoginActivity::class.java)
+    val activityRule = ActivityTestRule(LoginActivity::class.java)
     private var mActivity: LoginActivity? = null
     private var monitor: Instrumentation.ActivityMonitor =
         getInstrumentation().addMonitor(BrandDisplay::class.java.name, null, false)
@@ -28,7 +28,7 @@ class BrandDisplayTest {
     }
 
     @Test
-    public fun testLunch() {
+    fun testLunch() {
         assertNotNull(mActivity!!.findViewById(R.id.googleSignIn))
 
         onView(withId(R.id.googleSignIn)).perform(click())

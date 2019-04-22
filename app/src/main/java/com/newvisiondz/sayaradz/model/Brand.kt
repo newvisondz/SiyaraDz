@@ -1,7 +1,6 @@
 package com.newvisiondz.sayaradz.model
 
 import android.graphics.Bitmap
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class Brand() {

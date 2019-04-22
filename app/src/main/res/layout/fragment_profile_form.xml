@@ -177,7 +177,6 @@
 						android:id="@+id/user_mail"
 						android:hint="E-mail"
 						style="@style/EditText"
-						android:inputType="textPersonName"
 						app:layout_constraintBottom_toBottomOf="@+id/imageView5"
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintStart_toEndOf="@+id/imageView5"

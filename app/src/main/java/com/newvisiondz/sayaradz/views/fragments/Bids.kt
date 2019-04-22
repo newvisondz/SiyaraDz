@@ -98,7 +98,7 @@ class Bids : Fragment() {
     }
 
     private fun addItem(mView: View) {
-        var newBid = Bid(
+        val newBid = Bid(
             Random().nextInt(),
             mView.Model.text.toString(),
             mView.Owner.text.toString(),
@@ -117,7 +117,7 @@ class Bids : Fragment() {
             if (data!!.data != null) {
                 tmpUris.add(data.data!!)
             } else if (data.clipData != null) {
-                var clipArray = data.clipData
+                val clipArray = data.clipData
                 for (i in 0 until clipArray!!.itemCount) {
                     tmpUris.add(clipArray.getItemAt(i).uri)
                 }

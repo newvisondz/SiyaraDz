@@ -2,11 +2,10 @@ package com.newvisiondz.sayaradz.views
 
 import android.app.AlertDialog
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Network
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.Utils.NetworkUtils
@@ -16,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
     private var prefrencesHandler = PrefrencesHandler()
-    lateinit var userInfo: SharedPreferences
+    private lateinit var userInfo: SharedPreferences
     private var netUilts = NetworkUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {

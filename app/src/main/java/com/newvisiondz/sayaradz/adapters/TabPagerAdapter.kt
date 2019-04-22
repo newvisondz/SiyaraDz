@@ -7,7 +7,7 @@ import com.newvisiondz.sayaradz.views.fragments.NewCars
 import com.newvisiondz.sayaradz.views.fragments.OldCars
 import com.newvisiondz.sayaradz.views.fragments.Profile
 
-class TabPagerAdapter(fm: FragmentManager, private var tabCount: Int) :
+class TabPagerAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {

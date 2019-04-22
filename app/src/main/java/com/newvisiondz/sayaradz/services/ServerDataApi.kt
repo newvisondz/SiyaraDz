@@ -2,8 +2,6 @@ package com.newvisiondz.sayaradz.services
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.newvisiondz.sayaradz.model.User
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 

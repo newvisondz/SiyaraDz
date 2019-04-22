@@ -3,15 +3,12 @@ package com.newvisiondz.sayaradz.adapters
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Model
-import com.newvisiondz.sayaradz.views.fragments.ModelsDirections
 import kotlinx.android.synthetic.main.fragment_model_card.view.*
 
 class ModelsAdapter(private val models: MutableList<Model>, private val context: Context) :
