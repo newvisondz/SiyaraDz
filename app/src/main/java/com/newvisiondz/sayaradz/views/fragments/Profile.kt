@@ -1,6 +1,7 @@
 package com.newvisiondz.sayaradz.views.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
@@ -14,6 +15,8 @@ import com.bumptech.glide.Glide
 import com.facebook.login.LoginManager
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
+import com.newvisiondz.sayaradz.services.Auth.GoogleAuthentification
+import com.newvisiondz.sayaradz.views.MainActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
@@ -23,7 +26,6 @@ class Profile : Fragment() {
     private var userInfo: SharedPreferences? = null
     private var prefrencesHandler = PrefrencesHandler()
     private var userInfoTmp = arrayOf<String>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
@@ -77,6 +79,8 @@ class Profile : Fragment() {
             } else {
                 prefrencesHandler.clearUserInfo(userInfo!!)
             }//todo make googleSignOout work nicely
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
         }
         return view
     }

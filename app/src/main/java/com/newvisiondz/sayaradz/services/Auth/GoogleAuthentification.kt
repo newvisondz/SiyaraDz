@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v4.app.FragmentActivity
+import android.util.Log
 import android.widget.Button
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -60,6 +61,7 @@ class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.goo
         Auth.GoogleSignInApi.signOut(googleClient).setResultCallback {
             prefrencesHandler.clearUserInfo(userInfo)
         }
+        googleClient!!.maybeSignOut()
     }
 
     fun handleResult(result: GoogleSignInResult) {
@@ -76,6 +78,7 @@ class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.goo
                 override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
                     if (response!!.isSuccessful) {
                         prefrencesHandler.setUserPrefrences(userInfo, response.body()!!, account)
+                        Log.i("bids", response.body()!!.token)
                         val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
                         (context as Activity).finish()

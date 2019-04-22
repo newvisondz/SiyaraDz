@@ -33,7 +33,7 @@ class Brands : Fragment() {
 
     private lateinit var brands: MutableList<Brand>
     private var adapter: BrandsAdapter? = null
-    // private val layoutManger = LinearLayoutManager(context)
+    private var filterString:String?=null
     private val jsonFormatter = JsonFormatter()
     private var pageNumber: Int = 1
 
@@ -57,7 +57,7 @@ class Brands : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-        getContent()
+        getContent("")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,7 +68,7 @@ class Brands : Fragment() {
                 pageNumber = 1
                 adapter!!.clearBrands()
                 brands.clear()
-                getContent()
+                getContent("")
                 adapter!!.addBrands(brands)
                 swipeRefresh.isRefreshing = false
             } else {
@@ -101,7 +101,7 @@ class Brands : Fragment() {
                     }
                     if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
                         pageNumber++
-                        performPagination()
+                        performPagination("")
                         isloading = true
                     }
                 }
@@ -127,10 +127,10 @@ class Brands : Fragment() {
             }
     }
 
-    private fun getContent() {
+    private fun getContent(filterString:String) {
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .getAllBrands(prefs.getUserToken(userInfo!!)!!, (pageNumber).toString(), (viewThreshold).toString())
+            .getAllBrands( prefs.getUserToken(userInfo!!)!!, (pageNumber).toString(), (viewThreshold).toString(),filterString)
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
@@ -157,11 +157,11 @@ class Brands : Fragment() {
         brands_list.adapter = adapter
     }
 
-    private fun performPagination() {
+    private fun performPagination(filterString:String) {
         progressBar.visibility = View.VISIBLE
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .getAllBrands(prefs.getUserToken(userInfo!!)!!, (pageNumber).toString(), (viewThreshold).toString())
+            .getAllBrands(prefs.getUserToken(userInfo!!)!!, (pageNumber).toString(), (viewThreshold).toString(),filterString)
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {

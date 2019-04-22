@@ -12,11 +12,15 @@ interface ServerDataApi {
     fun getAllBrands(
         @Header("Authorization") token: String,
         @Query("page") page: String,
-        @Query("perpage") perPage: String
+        @Query("perpage") perPage: String,
+        @Query("q") partilStrnig:String
     ): Call<JsonElement>
 
-    @GET("{imgId}")
-    fun getBrandImage(@Path("imgId", encoded = true) imgName: String): Call<ResponseBody>
+    @GET("manufacturers/")
+    fun filterBrands(
+        @Header("Authorization") token: String,
+        @Query("q") partilStrnig:String
+    ): Call<JsonElement>
 
 
     @PUT("autom/me")
