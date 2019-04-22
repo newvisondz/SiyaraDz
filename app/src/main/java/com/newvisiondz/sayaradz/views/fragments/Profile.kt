@@ -13,9 +13,13 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.facebook.login.LoginManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.Scopes
+import com.google.android.gms.common.api.Scope
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
-import com.newvisiondz.sayaradz.services.Auth.GoogleAuthentification
+import com.newvisiondz.sayaradz.views.LoginActivity
 import com.newvisiondz.sayaradz.views.MainActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
@@ -26,6 +30,7 @@ class Profile : Fragment() {
     private var userInfo: SharedPreferences? = null
     private var prefrencesHandler = PrefrencesHandler()
     private var userInfoTmp = arrayOf<String>()
+    //    private var googleAUth=
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
@@ -77,9 +82,18 @@ class Profile : Fragment() {
                 LoginManager.getInstance().logOut()
                 prefrencesHandler.clearUserInfo(userInfo!!)
             } else {
+                val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestScopes(Scope(Scopes.APP_STATE))
+                    .requestServerAuthCode(getString(R.string.server_client_id))
+                    .requestEmail()
+                    .build()
                 prefrencesHandler.clearUserInfo(userInfo!!)
-            }//todo make googleSignOout work nicely
-            val intent = Intent(context, MainActivity::class.java)
+                var account = GoogleSignIn.getClient(context!!, signInOptions)
+                account.signOut()
+                Log.i("bids", "success")
+
+            }
+            val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
         }
         return view

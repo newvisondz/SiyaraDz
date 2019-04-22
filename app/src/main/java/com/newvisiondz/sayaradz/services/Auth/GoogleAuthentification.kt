@@ -61,6 +61,7 @@ class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.goo
         Auth.GoogleSignInApi.signOut(googleClient).setResultCallback {
             prefrencesHandler.clearUserInfo(userInfo)
         }
+        Log.i("bids","workds as charm")
         googleClient!!.maybeSignOut()
     }
 

@@ -2,7 +2,6 @@ package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +24,6 @@ class BidsAdapter(private val bids: MutableList<Bid>, private val context: Conte
             action.setBidId(bidId)
             findNavController(view).navigate(action)
         }
-        Log.i("bids", bids.size.toString())
         return viewHolder
     }
 
