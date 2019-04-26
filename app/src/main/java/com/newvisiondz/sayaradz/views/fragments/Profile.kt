@@ -1,5 +1,6 @@
 package com.newvisiondz.sayaradz.views.fragments
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -29,7 +30,6 @@ class Profile : Fragment() {
     private var userInfo: SharedPreferences? = null
     private var prefrencesHandler = PrefrencesHandler()
     private var userInfoTmp = arrayOf<String>()
-    //    private var googleAUth=
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
@@ -77,22 +77,30 @@ class Profile : Fragment() {
             Log.i("Navigating", "Tabs to My Offers,")
         }
         view.button_logout.setOnClickListener {
+            Log.i("prefs", userInfoTmp[0] + "type is " + userInfoTmp[4])
+            val intent = Intent(context, LoginActivity::class.java)
             if (userInfoTmp[4] == "facebook") {
                 LoginManager.getInstance().logOut()
                 prefrencesHandler.clearUserInfo(userInfo!!)
-            } else {
+                Log.i("prefs", "done")
+                startActivity(intent)
+                (context as Activity).finish()
+            } else if (userInfoTmp[4] == "google") {
                 val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestScopes(Scope(Scopes.APP_STATE))
                     .requestServerAuthCode(getString(R.string.server_client_id))
                     .requestEmail()
                     .build()
                 val account = GoogleSignIn.getClient(context!!, signInOptions)
-                if (account.signOut().isComplete) {
+
+                Log.i("prefs", "signing out")
+                account.signOut().addOnSuccessListener {
                     prefrencesHandler.clearUserInfo(userInfo!!)
+                    Log.i("prefs", "done")
+                    startActivity(intent)
+                    (context as Activity).finish()
                 }
             }
-            val intent = Intent(context, LoginActivity::class.java)
-            startActivity(intent)
         }
         return view
     }

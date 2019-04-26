@@ -1,22 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools"
-              android:paddingEnd="8dp"
-              android:paddingStart="8dp"
-              tools:ignore="HardcodedText"
-              android:paddingTop="8dp"
-              android:paddingBottom="8dp"
-              android:orientation="vertical">
-
-	<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Enter your car details"
-			android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
-
-	<ScrollView
+<ScrollView
+		xmlns:tools="http://schemas.android.com/tools"
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent" android:layout_height="wrap_content">
+	<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:paddingEnd="8dp"
+			android:paddingStart="8dp"
+			tools:ignore="HardcodedText"
+			android:paddingTop="8dp"
+			android:paddingBottom="8dp"
+			android:orientation="vertical">
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Enter your car details"
+				android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+
+
 		<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
 		              android:orientation="vertical">
 			<EditText
@@ -53,37 +55,38 @@
 					android:hint="the price of your car"
 					android:inputType="numberDecimal" style="@style/Base.Widget.MaterialComponents.TextInputEditText"/>
 		</LinearLayout>
-	</ScrollView>
 
-	<LinearLayout
-        android:id="@+id/button_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:gravity="end">
 
-        <Button
-                android:id="@+id/btnCancel"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancel"/>
+		<LinearLayout
+				android:id="@+id/button_container"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:orientation="horizontal"
+				android:gravity="end">
 
-        <Button
-                android:id="@+id/btnImg"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enter Image"/>
+			<Button
+					android:id="@+id/btnCancel"
+					style="?android:attr/borderlessButtonStyle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Cancel"/>
 
-        <Button
-                android:id="@+id/btnOk"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"/>
+			<Button
+					android:id="@+id/btnImg"
+					style="?android:attr/borderlessButtonStyle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Enter Image"/>
+
+			<Button
+					android:id="@+id/btnOk"
+					style="?android:attr/borderlessButtonStyle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Save"/>
+
+		</LinearLayout>
 
 	</LinearLayout>
-
-</LinearLayout>
+</ScrollView>

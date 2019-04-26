@@ -33,16 +33,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         setContentView(R.layout.activity_login)
         progressLogin.visibility = View.GONE
         userInfo = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-
-//        val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestScopes(Scope(Scopes.APP_STATE))
-//            .requestServerAuthCode(getString(R.string.server_client_id))
-//            .requestEmail()
-//            .build()
         authFacebook = FacebookAuthentification(this)
         authGoogle = GoogleAuthentification(this)
         authGoogle!!.signInButton.setOnClickListener {
-            progressLogin.visibility = View.VISIBLE
             authGoogle!!.signIn(this)
         }
         loginFb.setReadPermissions("email")

@@ -5,11 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.facebook.GraphRequest
 import com.facebook.login.LoginResult
 import com.newvisiondz.sayaradz.Tokens.Token
-import com.newvisiondz.sayaradz.Utils.MessagesUtils
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import com.newvisiondz.sayaradz.views.MainActivity
@@ -20,7 +20,6 @@ import retrofit2.Response
 
 class FacebookAuthentification(var context: Context) {
 
-    private var messages = MessagesUtils()
     private var userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     private var prefrencesHandler = PrefrencesHandler()
 
@@ -33,16 +32,16 @@ class FacebookAuthentification(var context: Context) {
         val parameters = Bundle()
         parameters.putString("fields", "id,name")
         request.parameters = parameters
-        request.executeAsync()
-        Thread.sleep(5000)//sometimes one async task is faster than the other thus, we'll have to wait
+        request.executeAndWait()
+       // Thread.sleep(3000)//sometimes one async task is faster than the other thus, we'll have to wait
         val client = RetrofitClient(context).authentificationApi.sendKeysFacebook(accessToken)
         client.enqueue(object : Callback<Token> {
             override fun onFailure(call: Call<Token>?, t: Throwable?) {
-                messages.displaySnackBar(view, "Error try agin later")
             }
             override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
                 if (response!!.isSuccessful) {
                     prefrencesHandler.setUserPrefrences(userInfo, response.body()!!, jsonResponseObject)
+                    Log.i("prefs","userprefs well set")
                     val intent = Intent(context, MainActivity::class.java)
                     context.startActivity(intent)
                     (context as Activity).finish()
@@ -51,7 +50,4 @@ class FacebookAuthentification(var context: Context) {
         })
     }
 
-    fun signOut() {
-
-    }
 }

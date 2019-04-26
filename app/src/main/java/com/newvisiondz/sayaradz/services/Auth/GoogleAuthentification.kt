@@ -57,14 +57,6 @@ class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.goo
         context.startActivityForResult(intent, REQ_CODE)
     }
 
-    fun signOut() {
-        Auth.GoogleSignInApi.signOut(googleClient).setResultCallback {
-            prefrencesHandler.clearUserInfo(userInfo)
-        }
-        Log.i("bids","workds as charm")
-        googleClient!!.maybeSignOut()
-    }
-
     fun handleResult(result: GoogleSignInResult) {
         if (result.isSuccess) {
             val account = result.signInAccount
@@ -79,7 +71,8 @@ class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.goo
                 override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
                     if (response!!.isSuccessful) {
                         prefrencesHandler.setUserPrefrences(userInfo, response.body()!!, account)
-                        Log.i("bids", response.body()!!.token)
+                        Log.i("prefs", response.body()!!.token)
+                        Log.i("prefs","userprefs well set")
                         val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
                         (context as Activity).finish()

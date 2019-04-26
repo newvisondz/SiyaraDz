@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
             val dialogBuilder = AlertDialog.Builder(this@SplashActivity)
                 .setMessage("You'll need internet connection in order to use this app")
                 .setTitle("No internet connection")
-                .setNeutralButton("Try again!") { dialog, id ->
+                .setNeutralButton("Try again!") { dialog, _ ->
                     checkNet.visibility = View.VISIBLE
                     dialog.dismiss()
                 }

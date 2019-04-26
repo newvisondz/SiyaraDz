@@ -83,7 +83,9 @@ class ProfileForm : Fragment() {
                     if (response.isSuccessful) {
                         progressForm.visibility = View.GONE
                         val res: String = response.body()!!.get("ok").asString
-                        if (res == "1") it.findNavController().navigate(R.id.action_profileForm_to_tabs)
+                        if (res == "1") {
+                            it.findNavController().navigate(R.id.action_profileForm_to_tabs)
+                        }
                     }
                 }
 
