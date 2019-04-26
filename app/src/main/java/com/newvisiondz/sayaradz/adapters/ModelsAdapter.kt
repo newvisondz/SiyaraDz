@@ -7,6 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Model
 import kotlinx.android.synthetic.main.fragment_model_card.view.*
@@ -16,6 +20,18 @@ class ModelsAdapter(private val models: MutableList<Model>, private val context:
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val model= this.models[i]
         viewHolder.modelName.text = model.name
+        Glide.with(context)
+            .asBitmap()
+            .load("http://sayaradz-sayaradz-2.7e14.starter-us-west-2.openshiftapps.com${model.images[0]}")
+            .transition(
+                BitmapTransitionOptions.withCrossFade(
+                    DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(
+                        true
+                    ).build()
+                )
+            )
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(viewHolder.modelImage)
 //        viewHolder.modelAttribute.text = model.colors.name
 //        viewHolder.modelPrice.text = model.price
 //        viewHolder.modelImage.setImageResource(model.imageId)
