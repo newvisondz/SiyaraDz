@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.R
@@ -49,6 +50,9 @@ class Models : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         getContent()
+        swipeRefreshModels.setOnRefreshListener {
+            Toast.makeText(context, "Nice", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onAttach(context: Context) {
