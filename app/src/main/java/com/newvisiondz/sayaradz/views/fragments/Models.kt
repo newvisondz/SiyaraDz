@@ -33,6 +33,7 @@ class Models : Fragment() {
     var jsonFormatter = JsonFormatter()
     private var userInfo: SharedPreferences? = null
     private var prefsHandler = PrefrencesHandler()
+    private var brandName = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,9 +69,11 @@ class Models : Fragment() {
     }
 
     private fun getContent() {
+        brandName = arguments!!.getString("brandName")!!
+        progressModel.visibility = View.VISIBLE
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .getAllModels(prefsHandler.getUserToken(userInfo!!)!!, arguments!!.getString("brandName")!!)
+            .getAllModels(prefsHandler.getUserToken(userInfo!!)!!, brandName)
 
         call.enqueue(object : Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
@@ -78,6 +81,7 @@ class Models : Fragment() {
                     val listType = object : TypeToken<MutableList<Model>>() {}.type
                     models = jsonFormatter.listFormatter(response.body()!!, listType, "models")
                     initRecyclerView()
+                    progressModel.visibility = View.GONE
                 }
             }
 
@@ -88,7 +92,7 @@ class Models : Fragment() {
     }
 
     fun initRecyclerView() {
-        modelsAdapter = ModelsAdapter(this.models, this.context as Context)
+        modelsAdapter = ModelsAdapter(this.models, this.context as Context,brandName)
         models_list.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)

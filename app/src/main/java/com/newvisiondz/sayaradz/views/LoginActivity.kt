@@ -15,8 +15,8 @@ import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.services.Auth.FacebookAuthentification
-import com.newvisiondz.sayaradz.services.Auth.GoogleAuthentification
+import com.newvisiondz.sayaradz.services.auth.FacebookAuthentification
+import com.newvisiondz.sayaradz.services.auth.GoogleAuthentification
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_login.*
 

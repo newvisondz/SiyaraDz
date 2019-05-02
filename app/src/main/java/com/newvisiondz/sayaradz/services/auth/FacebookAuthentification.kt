@@ -1,4 +1,4 @@
-package com.newvisiondz.sayaradz.services.Auth
+package com.newvisiondz.sayaradz.services.auth
 
 import android.app.Activity
 import android.content.Context

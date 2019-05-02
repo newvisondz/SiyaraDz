@@ -2,7 +2,7 @@ package com.newvisiondz.sayaradz.services
 
 import android.content.Context
 import com.google.gson.GsonBuilder
-import com.newvisiondz.sayaradz.services.Auth.AuthentificationApi
+import com.newvisiondz.sayaradz.services.auth.AuthentificationApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
