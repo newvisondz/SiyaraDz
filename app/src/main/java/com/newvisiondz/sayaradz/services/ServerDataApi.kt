@@ -16,6 +16,11 @@ interface ServerDataApi {
     ): Call<JsonElement>
 
     @GET("manufacturers/")
+    fun getAllBrands(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
+    @GET("manufacturers/")
     fun filterBrands(
         @Header("Authorization") token: String,
         @Query("q") partilStrnig:String

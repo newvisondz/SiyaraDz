@@ -1,353 +1,350 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".views.fragments.ModelView">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:orientation="vertical"
+                                             tools:ignore="HardcodedText"
+                                             tools:context=".views.fragments.ModelView">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/total"
-        app:layout_constraintTop_toTopOf="parent">
+	<ScrollView
+			android:id="@+id/scrollView2"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			app:layout_constraintBottom_toTopOf="@+id/total"
+			app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/user_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/mercedes" />
+			<ImageView
+					android:id="@+id/user_image"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:adjustViewBounds="true"
+					android:scaleType="fitCenter"
+					android:src="@drawable/mercedes"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="vertical">
 
-                <android.support.constraint.ConstraintLayout
-                    style="@style/SectionStyle">
+				<android.support.constraint.ConstraintLayout
+						style="@style/SectionStyle">
+					<TextView
+							android:id="@+id/user_dis_name"
+							style="@style/MediumDarkBold"
+							android:text="Version"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent"/>
 
-                    <TextView
-                        android:id="@+id/user_dis_name"
-                        style="@style/MediumDarkBold"
-                        android:text="Version"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+					<Spinner
+							android:id="@+id/version"
+							android:layout_width="match_parent"
+							android:layout_height="50dp"
+							android:layout_marginStart="15dp"
+							android:layout_marginTop="10dp"
+							android:layout_marginEnd="15dp"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/user_dis_name"/>
+				</android.support.constraint.ConstraintLayout>
 
-                    <Spinner
-                        android:id="@+id/version"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/user_dis_name" />
-                </android.support.constraint.ConstraintLayout>
+				<android.support.constraint.ConstraintLayout
+						style="@style/SectionStyle">
 
-                <android.support.constraint.ConstraintLayout
-                    style="@style/SectionStyle">
+					<TextView
+							android:id="@+id/textView1"
+							android:text="Options"
+							style="@style/MediumDarkBold"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent"/>
 
-                    <TextView
-                        android:id="@+id/textView1"
-                        android:text="Options"
-                        style="@style/MediumDarkBold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+					<ListView
+							android:id="@+id/options"
+							android:layout_width="match_parent"
+							android:layout_height="191dp"
+							android:layout_marginStart="15dp"
+							android:layout_marginTop="10dp"
+							android:layout_marginEnd="15dp"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/textView1"/>
 
-                    <ListView
-                        android:id="@+id/options"
-                        android:layout_width="match_parent"
-                        android:layout_height="191dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView1" />
+					<Button
+							android:id="@+id/datasheet_button"
+							style="@style/TextButtonAccent"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/options"/>
 
-                    <Button
-                        android:id="@+id/datasheet_button"
-                        style="@style/TextButtonAccent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/options" />
+				</android.support.constraint.ConstraintLayout>
 
-                </android.support.constraint.ConstraintLayout>
+				<android.support.constraint.ConstraintLayout
+						style="@style/SectionStyle">
 
-                <android.support.constraint.ConstraintLayout
-                    style="@style/SectionStyle">
+					<TextView
+							android:id="@+id/textView11"
+							android:text="Couleur"
+							style="@style/MediumDarkBold"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent"/>
 
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:text="Couleur"
-                        style="@style/MediumDarkBold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <RadioGroup
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView11">
-
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Noir" />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Rouge" />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Bleu" />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Gris" />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Blanc" />
-
-                    </RadioGroup>
+					<LinearLayout
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="8dp"
+							android:layout_marginTop="10dp"
+							android:layout_marginEnd="15dp"
+							android:orientation="horizontal"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/textView11">
 
 
-                </android.support.constraint.ConstraintLayout>
+						<CheckBox
+								android:checked="false"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Noir" android:id="@+id/blackBox"/>
 
-                <android.support.constraint.ConstraintLayout
-                    style="@style/SectionStyle">
+						<CheckBox
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Rouge" android:id="@+id/redBox"/>
 
-                    <TextView
-                        android:id="@+id/textView12"
-                        style="@style/MediumDarkBold"
-                        android:text="Type du Carburant"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+						<CheckBox
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Bleu" android:id="@+id/blueBox"/>
 
-                    <RadioGroup
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView12">
+						<CheckBox
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Gris" android:id="@+id/grayBox"/>
 
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="DIESEL" />
+						<CheckBox
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="Blanc" android:id="@+id/whiteBox"/>
 
-                        <RadioButton
-                            android:layout_weight="1"
-                            android:text="ESSENCE"
-                            style="@style/RadioButton"/>
-
-                        <RadioButton
-                            android:layout_weight="1"
-                            android:text="ESSENCE GPL"
-                            style="@style/RadioButton"/>
-                    </RadioGroup>
-                </android.support.constraint.ConstraintLayout>
-
-                <android.support.constraint.ConstraintLayout
-                    style="@style/SectionStyle">
-
-                    <TextView
-                        android:id="@+id/textView13"
-                        style="@style/MediumDarkBold"
-                        android:text="Moteur"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <RadioGroup
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView13">
+					</LinearLayout>
 
 
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="1.4" />
+				</android.support.constraint.ConstraintLayout>
 
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="1.6" />
+				<android.support.constraint.ConstraintLayout
+						style="@style/SectionStyle">
 
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="2.0" />
+					<TextView
+							android:id="@+id/textView12"
+							style="@style/MediumDarkBold"
+							android:text="Type du Carburant"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent"/>
 
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="2.5" />
+					<RadioGroup
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="15dp"
+							android:layout_marginTop="10dp"
+							android:layout_marginEnd="15dp"
+							android:orientation="horizontal"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/textView12">
 
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="3.0" />
+						<CheckBox
+								android:layout_weight="1"
+								android:text="DIESEL" android:id="@+id/diesel"/>
 
-                    </RadioGroup>
-                </android.support.constraint.ConstraintLayout>
+						<CheckBox
+								android:layout_weight="1"
+								android:text="ESSENCE"
+								android:id="@+id/essence"/>
 
-                <android.support.constraint.ConstraintLayout
-                    style="@style/SectionStyle">
+						<CheckBox
+								android:layout_weight="1"
+								android:text="ESSENCE GPL"
+								android:id="@+id/gpl"/>
+					</RadioGroup>
+				</android.support.constraint.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/textView14"
-                        style="@style/MediumDarkBold"
-                        android:text="Boite"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+				<android.support.constraint.ConstraintLayout
+						style="@style/SectionStyle">
 
-                    <RadioGroup
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView14">
+					<TextView
+							android:id="@+id/textView13"
+							style="@style/MediumDarkBold"
+							android:text="Moteur"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent"/>
 
-
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="Automatique" />
-
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="Manuelle" />
-
-                    </RadioGroup>
-                </android.support.constraint.ConstraintLayout>
-
-                <android.support.constraint.ConstraintLayout
-                    style="@style/SectionStyle">
-
-                    <TextView
-                        android:id="@+id/textView15"
-                        style="@style/MediumDarkBold"
-                        android:text="Places"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <RadioGroup
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView15">
+					<RadioGroup
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="15dp"
+							android:layout_marginTop="10dp"
+							android:layout_marginEnd="15dp"
+							android:orientation="horizontal"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/textView13">
 
 
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="2" />
+						<RadioButton
+								style="@style/RadioButton"
+								android:layout_weight="1"
+								android:text="1.4"/>
 
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="5" />
+						<RadioButton
+								style="@style/RadioButton"
+								android:layout_weight="1"
+								android:text="1.6"/>
 
-                        <RadioButton
-                            style="@style/RadioButton"
-                            android:layout_weight="1"
-                            android:text="7" />
+						<RadioButton
+								style="@style/RadioButton"
+								android:layout_weight="1"
+								android:text="2.0"/>
 
-                    </RadioGroup>
-                </android.support.constraint.ConstraintLayout>
-            </LinearLayout>
+						<RadioButton
+								style="@style/RadioButton"
+								android:layout_weight="1"
+								android:text="2.5"/>
 
-        </LinearLayout>
-    </ScrollView>
+						<RadioButton
+								style="@style/RadioButton"
+								android:layout_weight="1"
+								android:text="3.0"/>
+
+					</RadioGroup>
+				</android.support.constraint.ConstraintLayout>
+
+				<android.support.constraint.ConstraintLayout
+						style="@style/SectionStyle">
+
+					<TextView
+							android:id="@+id/textView14"
+							style="@style/MediumDarkBold"
+							android:text="Boite"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent"/>
+
+					<RadioGroup
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="15dp"
+							android:layout_marginTop="10dp"
+							android:layout_marginEnd="15dp"
+							android:orientation="horizontal"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/textView14">
 
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/total"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/order_button"
-        app:layout_constraintStart_toStartOf="parent">
+						<RadioButton
+								style="@style/RadioButton"
+								android:layout_weight="1"
+								android:text="Automatique"/>
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Total HT"
-            style="@style/MediumDark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+						<RadioButton
+								style="@style/RadioButton"
+								android:layout_weight="1"
+								android:text="Manuelle"/>
 
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
-            android:text="7.899.990,00 DA"
-            style="@style/MediumDarkBold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+					</RadioGroup>
+				</android.support.constraint.ConstraintLayout>
 
-    <Button
-        android:id="@+id/order_button"
-        android:text="COMMANDER"
-        style="@style/ActionButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+				<android.support.constraint.ConstraintLayout
+						style="@style/SectionStyle">
+
+					<TextView
+							android:id="@+id/textView15"
+							style="@style/MediumDarkBold"
+							android:text="Places"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent"/>
+
+					<RadioGroup
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="15dp"
+							android:layout_marginTop="10dp"
+							android:layout_marginEnd="15dp"
+							android:layout_marginBottom="10dp"
+							android:orientation="horizontal"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+
+						<CheckBox
+								android:layout_weight="1"
+								android:text="4" android:id="@+id/place4"/>
+
+						<CheckBox
+								android:layout_weight="1"
+								android:text="6" android:id="@+id/place6"/>
+
+						<CheckBox
+								android:layout_weight="1"
+								android:text="8" android:id="@+id/place8"/>
+
+					</RadioGroup>
+				</android.support.constraint.ConstraintLayout>
+			</LinearLayout>
+
+		</LinearLayout>
+	</ScrollView>
+
+
+	<android.support.constraint.ConstraintLayout
+			android:id="@+id/total"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/colorPrimaryDark"
+			app:layout_constraintBottom_toTopOf="@+id/order_button"
+			app:layout_constraintStart_toStartOf="parent">
+
+		<TextView
+				android:id="@+id/textView16"
+				android:layout_marginStart="15dp"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="10dp"
+				android:text="Total HT"
+				style="@style/MediumDark"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+		<TextView
+				android:id="@+id/textView17"
+				android:layout_marginTop="10dp"
+				android:layout_marginEnd="15dp"
+				android:layout_marginBottom="10dp"
+				android:text="7.899.990,00 DA"
+				style="@style/MediumDarkBold"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+	</android.support.constraint.ConstraintLayout>
+
+	<Button
+			android:id="@+id/order_button"
+			android:text="COMMANDER"
+			style="@style/ActionButton"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"/>
 
 
 </android.support.constraint.ConstraintLayout>

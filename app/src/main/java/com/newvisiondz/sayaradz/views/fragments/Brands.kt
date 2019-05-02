@@ -1,12 +1,14 @@
 package com.newvisiondz.sayaradz.views.fragments
 
+import android.app.Application
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,8 @@ import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.adapters.BrandsAdapter
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.services.RetrofitClient
+import com.newvisiondz.sayaradz.views.viewModel.BrandsViewModel
+import com.newvisiondz.sayaradz.views.viewModel.BrandsViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_brands.*
 import kotlinx.android.synthetic.main.fragment_brands.view.*
@@ -26,12 +30,11 @@ import retrofit2.Response
 
 
 class Brands : Fragment() {
-    private var listener: OnFragmentInteractionListener? = null
 
     private var prefs = PrefrencesHandler()
     private var userInfo: SharedPreferences? = null
-
-    private lateinit var brands: MutableList<Brand>
+    private var mViewModel: BrandsViewModel? = null
+    private  var brands= mutableListOf<Brand>()
     private var adapter: BrandsAdapter? = null
     private var filterString = ""
     private val jsonFormatter = JsonFormatter()
@@ -57,7 +60,9 @@ class Brands : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-        getContent("")
+//        getContent("")
+        initViewModel()
+        initRecycerView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,29 +89,30 @@ class Brands : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        this.brands_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                this@Brands.visibleItemsCount = brands_list.layoutManager!!.childCount
-                this@Brands.totalItemsCount = brands_list.layoutManager!!.itemCount
-                this@Brands.pastVisibleItems =
-                    (brands_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-
-                if (dy > 0) {
-                    if (isloading) {
-                        if (totalItemsCount > previousTotal) {
-                            isloading = false
-                            previousTotal = totalItemsCount
-                        }
-                    }
-                    if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
-                        pageNumber++
-                        performPagination("")
-                        isloading = true
-                    }
-                }
-            }
-        })
+//        this.brands_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                this@Brands.visibleItemsCount = brands_list.layoutManager!!.childCount
+//                this@Brands.totalItemsCount = brands_list.layoutManager!!.itemCount
+//                this@Brands.pastVisibleItems =
+//                    (brands_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+//
+//                if (dy > 0) {
+//                    if (isloading) {
+//                        if (totalItemsCount > previousTotal) {
+//                            isloading = false
+//                            previousTotal = totalItemsCount
+//                        }
+//                    }
+//                    if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
+//                        pageNumber++
+//                        performPagination("")
+//                        isloading = true
+//                    }
+//                }
+//            }
+//        }
+//        )
 
 
         activity!!.action_search
@@ -165,6 +171,30 @@ class Brands : Fragment() {
         brands_list.adapter = adapter
     }
 
+    private fun initViewModel() {
+        val brandsObserver =
+            Observer<MutableList<Brand>> { weatherEntities ->
+                brands.addAll(weatherEntities!!)
+                brands.clear()
+                brands.addAll(weatherEntities)
+
+                if (adapter == null) {
+                    adapter = BrandsAdapter(
+                        brands,
+                        context!!
+                    )
+                    brands_list.adapter = adapter
+                } else {
+                    adapter!!.notifyDataSetChanged()
+                }
+            }
+
+        mViewModel = ViewModelProviders.of(this, BrandsViewModelFactory(context!!.applicationContext as Application))
+            .get(BrandsViewModel::class.java)
+        mViewModel!!.brandsList.observe(this, brandsObserver)
+        Log.i("Nice","Called ViewModel")
+    }
+
     private fun performPagination(filterString: String) {
         progressBar.visibility = View.VISIBLE
         val call = RetrofitClient(context!!)
@@ -195,26 +225,6 @@ class Brands : Fragment() {
             }
         })
         progressBar.visibility = View.GONE
-    }
-
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
     }
 
 }
