@@ -8,7 +8,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,30 +89,31 @@ class Brands : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        this.brands_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                this@Brands.visibleItemsCount = brands_list.layoutManager!!.childCount
-//                this@Brands.totalItemsCount = brands_list.layoutManager!!.itemCount
-//                this@Brands.pastVisibleItems =
-//                    (brands_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-//
-//                if (dy > 0) {
-//                    if (isloading) {
-//                        if (totalItemsCount > previousTotal) {
-//                            isloading = false
-//                            previousTotal = totalItemsCount
-//                        }
-//                    }
-//                    if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
-//                        pageNumber++
+        this.brands_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                this@Brands.visibleItemsCount = brands_list.layoutManager!!.childCount
+                this@Brands.totalItemsCount = brands_list.layoutManager!!.itemCount
+                this@Brands.pastVisibleItems =
+                    (brands_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+
+                if (dy > 0) {
+                    if (isloading) {
+                        if (totalItemsCount > previousTotal) {
+                            isloading = false
+                            previousTotal = totalItemsCount
+                        }
+                    }
+                    if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
+                        pageNumber++
+
 //                        performPagination("")
-//                        isloading = true
-//                    }
-//                }
-//            }
-//        }
-//        )
+                        isloading = true
+                    }
+                }
+            }
+        }
+        )
 
 
         activity!!.action_search
@@ -177,7 +178,6 @@ class Brands : Fragment() {
                 brands.addAll(weatherEntities!!)
                 brands.clear()
                 brands.addAll(weatherEntities)
-
                 if (adapter == null) {
                     adapter = BrandsAdapter(
                         brands,
@@ -189,20 +189,20 @@ class Brands : Fragment() {
                 }
             }
 
+
         mViewModel = ViewModelProviders.of(this, BrandsViewModelFactory(context!!.applicationContext as Application))
             .get(BrandsViewModel::class.java)
         mViewModel!!.brandsList.observe(this, brandsObserver)
-        Log.i("Nice","Called ViewModel")
     }
 
-    private fun performPagination(filterString: String) {
-        progressBar.visibility = View.VISIBLE
+    private fun performPagination(filterString: String,pageNumber:String,viewThreshold:String) {
+//        progressBar.visibility = View.VISIBLE
         val call = RetrofitClient(context!!)
             .serverDataApi
             .getAllBrands(
                 prefs.getUserToken(userInfo!!)!!,
-                (pageNumber).toString(),
-                (viewThreshold).toString(),
+                (pageNumber),
+                (viewThreshold),
                 filterString
             )
 
@@ -216,7 +216,7 @@ class Brands : Fragment() {
                         brands.addAll(tmp)
                         adapter!!.addBrands(tmp)
                     }
-                    progressBar.visibility = View.GONE
+//                    progressBar.visibility = View.GONE
                 }
             }
 

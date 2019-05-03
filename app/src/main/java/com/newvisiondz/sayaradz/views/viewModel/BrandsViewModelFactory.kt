@@ -28,4 +28,6 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application )
         Log.i("Nice","done getting data")
         brandsList = appRepository!!.list
     }
+
+
 }
