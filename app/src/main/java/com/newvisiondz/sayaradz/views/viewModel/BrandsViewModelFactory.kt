@@ -8,16 +8,16 @@ import android.arch.lifecycle.ViewModelProvider
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.services.AppRepository
 
-class BrandsViewModelFactory(private var app: Application, var pageNumber: Int, var viewThreshold: Int) :
+class BrandsViewModelFactory(private var app: Application) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
-        return BrandsViewModel(app, pageNumber, viewThreshold) as T
+        return BrandsViewModel(app) as T
     }
 }
 
-class BrandsViewModel(application: Application, var pageNumber: Int, var viewThreshold: Int) :
+class BrandsViewModel(application: Application) :
     AndroidViewModel(application) {
     var brandsList: LiveData<MutableList<Brand>>
     private var appRepository: AppRepository? = null
@@ -31,4 +31,11 @@ class BrandsViewModel(application: Application, var pageNumber: Int, var viewThr
         appRepository!!.performPagination(pageNumber, viewThreshold)
     }
 
+    fun getBrandsData() {
+        appRepository!!.getBrandsData()
+    }
+
+    fun filterBrands(filter: String) {
+        appRepository!!.filterBrands(filter)
+    }
 }

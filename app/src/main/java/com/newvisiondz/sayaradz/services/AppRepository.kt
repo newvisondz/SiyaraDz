@@ -17,20 +17,12 @@ class AppRepository private constructor(var context: Context) {
     private val formatter = JsonFormatter()
     private val prefrencesHandler = PrefrencesHandler()
     private val userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-
+    val listType = object : TypeToken<MutableList<Brand>>() {}.type!!
     var list: MutableLiveData<MutableList<Brand>> = MutableLiveData()
 
     init {
         list = getBrandsData()
     }
-//
-//    private object Holder {
-//        val INSTANCE = AppRepository()
-//    }
-//
-//    companion object {
-//        val instance: AppRepository by lazy { Holder.INSTANCE }
-//    }
 
     companion object {
         @Volatile
@@ -47,7 +39,7 @@ class AppRepository private constructor(var context: Context) {
     }
 
 
-    private fun getBrandsData(): MutableLiveData<MutableList<Brand>> {
+    fun getBrandsData(): MutableLiveData<MutableList<Brand>> {
         val call = RetrofitClient(context)
             .serverDataApi
             .getAllBrands(prefrencesHandler.getUserToken(userInfo)!!, 1, 6, "")
@@ -59,14 +51,12 @@ class AppRepository private constructor(var context: Context) {
 
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    Log.i("Nice", "Response with success")
-                    val listType = object : TypeToken<MutableList<Brand>>() {}.type
                     try {
-
-//                        (context.applicationContext as Activity).progressBar.visibility = View.GONE
+//                        if (list.value!!.size > 0 ){list.value!!.clear()}
+                        list.value?.clear()
                         list.value = formatter.listFormatter(response.body()!!, listType, "manufacturers")
                     } catch (e: Exception) {
-                        Log.i("Nice", e.localizedMessage)
+                        Log.i("Nice", e.message)
                     }
                 }
             }
@@ -75,7 +65,6 @@ class AppRepository private constructor(var context: Context) {
     }
 
     fun performPagination(pageNumber: Int, viewThreshold: Int) {
-//        (context as Activity).progressBar.visibility = View.VISIBLE
         val call = RetrofitClient(context)
             .serverDataApi
             .getAllBrands(
@@ -87,18 +76,34 @@ class AppRepository private constructor(var context: Context) {
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    val listType = object : TypeToken<List<Brand>>() {}.type
-                    lateinit var tmp: MutableList<Brand>
-                    tmp = formatter.listFormatter(response.body()!!, listType, "fabricants")
+                    val tmp: MutableList<Brand> = formatter.listFormatter(response.body()!!, listType, "manufacturers")
                     if (tmp.size != 0) {
                         list.value!!.addAll(tmp)
                     }
-//                    (context as Activity).progressBar.visibility = View.GONE
                 }
             }
 
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 t.printStackTrace()
+            }
+        })
+    }
+
+    fun filterBrands(q: String) {
+        val call = RetrofitClient(context)
+            .serverDataApi
+            .filterBrands(prefrencesHandler.getUserToken(userInfo)!!, q)
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                Log.i("Exception", "may be server erroe ${t.localizedMessage}")
+            }
+
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                if (response.isSuccessful) {
+                    list.value!!.clear()
+                    val tmp: MutableList<Brand> = formatter.listFormatter(response.body()!!, listType, "manufacturers")
+                    list.value!!.addAll(tmp)
+                }
             }
         })
     }
