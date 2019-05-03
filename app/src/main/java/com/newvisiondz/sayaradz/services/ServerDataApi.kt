@@ -10,8 +10,8 @@ interface ServerDataApi {
     @GET("manufacturers/")
     fun getAllBrands(
         @Header("Authorization") token: String,
-        @Query("page") page: String,
-        @Query("perpage") perPage: String,
+        @Query("page") page: Int,
+        @Query("perpage") perPage: Int,
         @Query("q") partilStrnig:String
     ): Call<JsonElement>
 

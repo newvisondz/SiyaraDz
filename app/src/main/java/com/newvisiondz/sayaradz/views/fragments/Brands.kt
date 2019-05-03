@@ -34,7 +34,7 @@ class Brands : Fragment() {
     private var prefs = PrefrencesHandler()
     private var userInfo: SharedPreferences? = null
     private var mViewModel: BrandsViewModel? = null
-    private  var brands= mutableListOf<Brand>()
+    private var brands = mutableListOf<Brand>()
     private var adapter: BrandsAdapter? = null
     private var filterString = ""
     private val jsonFormatter = JsonFormatter()
@@ -106,8 +106,7 @@ class Brands : Fragment() {
                     }
                     if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
                         pageNumber++
-
-//                        performPagination("")
+                        mViewModel!!.performPagination(pageNumber, viewThreshold)
                         isloading = true
                     }
                 }
@@ -142,8 +141,8 @@ class Brands : Fragment() {
             .serverDataApi
             .getAllBrands(
                 prefs.getUserToken(userInfo!!)!!,
-                (pageNumber).toString(),
-                (viewThreshold).toString(),
+                (pageNumber),
+                (viewThreshold),
                 filterString
             )
 
@@ -190,41 +189,17 @@ class Brands : Fragment() {
             }
 
 
-        mViewModel = ViewModelProviders.of(this, BrandsViewModelFactory(context!!.applicationContext as Application))
+        mViewModel = ViewModelProviders.of(
+            this,
+            BrandsViewModelFactory(
+                context!!.applicationContext as Application,
+                pageNumber,
+                viewThreshold
+            )
+        )
             .get(BrandsViewModel::class.java)
         mViewModel!!.brandsList.observe(this, brandsObserver)
     }
 
-    private fun performPagination(filterString: String,pageNumber:String,viewThreshold:String) {
-//        progressBar.visibility = View.VISIBLE
-        val call = RetrofitClient(context!!)
-            .serverDataApi
-            .getAllBrands(
-                prefs.getUserToken(userInfo!!)!!,
-                (pageNumber),
-                (viewThreshold),
-                filterString
-            )
-
-        call.enqueue(object : retrofit2.Callback<JsonElement> {
-            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
-                if (response.isSuccessful) {
-                    val listType = object : TypeToken<List<Brand>>() {}.type
-                    lateinit var tmp: MutableList<Brand>
-                    tmp = jsonFormatter.listFormatter(response.body()!!, listType, "fabricants")
-                    if (tmp.size != 0) {
-                        brands.addAll(tmp)
-                        adapter!!.addBrands(tmp)
-                    }
-//                    progressBar.visibility = View.GONE
-                }
-            }
-
-            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })
-        progressBar.visibility = View.GONE
-    }
 
 }
