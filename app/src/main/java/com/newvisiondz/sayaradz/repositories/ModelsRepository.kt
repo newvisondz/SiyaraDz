@@ -95,7 +95,7 @@ class ModelsRepository(private var context: Context, var brandName: String) {
     fun filterBrands(q: String) {
         val call = RetrofitClient(context)
             .serverDataApi
-            .filterBrands(prefrencesHandler.getUserToken(userInfo)!!, q)
+            .getAllModels(prefrencesHandler.getUserToken(userInfo)!!,brandName, q)
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 Log.i("Exception", "may be server error ${t.localizedMessage}")
@@ -104,7 +104,7 @@ class ModelsRepository(private var context: Context, var brandName: String) {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     list.value!!.clear()
-                    list.value = (formatter.listFormatter(response.body()!!, listType, "manufacturers"))
+                    list.value = (formatter.listFormatter(response.body()!!, listType, "models"))
                 }
             }
         })

@@ -5,7 +5,6 @@ import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -18,18 +17,16 @@ import com.newvisiondz.sayaradz.adapters.ModelsAdapter
 import com.newvisiondz.sayaradz.model.Model
 import com.newvisiondz.sayaradz.views.viewModel.ModelsViewModel
 import com.newvisiondz.sayaradz.views.viewModel.ModelsViewModelsFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_models.*
 
 
 class Models : Fragment() {
-    private var listener: OnFragmentInteractionListener? = null
-
     private var models = mutableListOf<Model>()
     private lateinit var modelsAdapter: ModelsAdapter
     private var brandName = ""
 
     private var pageNumber: Int = 1
-
 
     private var isloading: Boolean = true
     private var pastVisibleItems: Int = 0
@@ -47,9 +44,6 @@ class Models : Fragment() {
         return inflater.inflate(R.layout.fragment_models, container, false)
     }
 
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,23 +71,30 @@ class Models : Fragment() {
                     }
                 }
             }
+        })
+        swipeRefreshModels.setOnRefreshListener {
+            models.clear()
+            mViewModel!!.getModelData()
+            models_list.adapter!!.notifyDataSetChanged()
+            pageNumber = 1
+            isloading = false
+            swipeRefreshModels.isRefreshing = false
         }
-        )
+        activity!!.action_search
+            .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    mViewModel!!.filterModelsData(query)
+                    return true
+                }
+
+                override fun onQueryTextChange(query: String): Boolean {
+                    return false
+                }
+            })
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        }
-    }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    fun initRecyclerView() {
+    private fun initRecyclerView() {
         modelsAdapter = ModelsAdapter(this.models, this.context as Context, brandName)
         models_list.apply {
             setHasFixedSize(true)
@@ -102,9 +103,6 @@ class Models : Fragment() {
         models_list.adapter = modelsAdapter
     }
 
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
-    }
 
     private fun initViewModel() {
         val brandsObserver =

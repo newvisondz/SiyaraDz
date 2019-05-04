@@ -17,7 +17,7 @@ class ModelsViewModelsFactory(private var app: Application, var brandName: Strin
 
 }
 
-class ModelsViewModel(app: Application, var brandName: String) : AndroidViewModel(app) {
+class ModelsViewModel(app: Application, brandName: String) : AndroidViewModel(app) {
     private var modelsRepository: ModelsRepository? = null
     var modelsList: MutableLiveData<MutableList<Model>>
 
@@ -28,5 +28,13 @@ class ModelsViewModel(app: Application, var brandName: String) : AndroidViewMode
 
     fun performPagination(pageNumber: Int, viewThreshold: Int) {
         modelsRepository!!.performPagination(pageNumber, viewThreshold)
+    }
+
+    fun getModelData() {
+        modelsRepository!!.getModelData()
+    }
+
+    fun filterModelsData(filterString: String) {
+        modelsRepository!!.filterBrands(filterString)
     }
 }
