@@ -38,11 +38,11 @@ interface ServerDataApi {
     fun getAllModels(
         @Header("Authorization") token: String,
         @Path("manufacturerName") manufacturerName:String,
-        @Query("page") page: String,
-        @Query("perpage") perPage: String
+        @Query("page") page: Int,
+        @Query("perpage") perPage: Int
     ): Call<JsonElement>
 
-    @GET("manufacturers/{manufacturerId}/models/")
+    @GET("manufacturers/{manufacturerId}/models")
     fun getAllModels(
         @Header("Authorization") token: String,
         @Path("manufacturerId") manufacturerName:String

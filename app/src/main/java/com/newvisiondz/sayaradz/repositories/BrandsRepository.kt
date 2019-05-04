@@ -1,4 +1,4 @@
-package com.newvisiondz.sayaradz.services
+package com.newvisiondz.sayaradz.repositories
 
 
 import android.arch.lifecycle.MutableLiveData
@@ -10,10 +10,11 @@ import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.Utils.JsonFormatter
 import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.model.Brand
+import com.newvisiondz.sayaradz.services.RetrofitClient
 import retrofit2.Call
 import retrofit2.Response
 
-class AppRepository private constructor(var context: Context) {
+class BrandsRepository private constructor(var context: Context) {
     private val formatter = JsonFormatter()
     private val prefrencesHandler = PrefrencesHandler()
     private val userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
@@ -26,12 +27,13 @@ class AppRepository private constructor(var context: Context) {
 
     companion object {
         @Volatile
-        private var INSTANCE: AppRepository? = null
+        private var INSTANCE: BrandsRepository? = null
 
-        fun getInstance(context: Context): AppRepository {
+        fun getInstance(context: Context): BrandsRepository {
             if (INSTANCE == null) {
                 synchronized(this) {
-                    INSTANCE = AppRepository(context)
+                    INSTANCE =
+                        BrandsRepository(context)
                 }
             }
             return INSTANCE!!

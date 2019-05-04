@@ -6,7 +6,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.newvisiondz.sayaradz.model.Brand
-import com.newvisiondz.sayaradz.services.AppRepository
+import com.newvisiondz.sayaradz.repositories.BrandsRepository
 
 class BrandsViewModelFactory(private var app: Application) :
     ViewModelProvider.Factory {
@@ -20,10 +20,10 @@ class BrandsViewModelFactory(private var app: Application) :
 class BrandsViewModel(application: Application) :
     AndroidViewModel(application) {
     var brandsList: LiveData<MutableList<Brand>>
-    private var appRepository: AppRepository? = null
+    private var appRepository: BrandsRepository? = null
 
     init {
-        appRepository = AppRepository.getInstance(getApplication())
+        appRepository = BrandsRepository.getInstance(getApplication())
         brandsList = appRepository!!.list
     }
 

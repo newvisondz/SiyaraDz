@@ -98,7 +98,6 @@ class Brands : Fragment() {
             .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     mViewModel!!.filterBrands(query)
-                    brands_list.adapter!!.notifyDataSetChanged()
                     return true
                 }
 
