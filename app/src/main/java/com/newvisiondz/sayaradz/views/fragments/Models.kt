@@ -5,28 +5,20 @@ import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.gson.JsonElement
-import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Utils.JsonFormatter
-import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.adapters.ModelsAdapter
 import com.newvisiondz.sayaradz.model.Model
-import com.newvisiondz.sayaradz.services.RetrofitClient
 import com.newvisiondz.sayaradz.views.viewModel.ModelsViewModel
 import com.newvisiondz.sayaradz.views.viewModel.ModelsViewModelsFactory
 import kotlinx.android.synthetic.main.fragment_models.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class Models : Fragment() {
@@ -34,16 +26,24 @@ class Models : Fragment() {
 
     private var models = mutableListOf<Model>()
     private lateinit var modelsAdapter: ModelsAdapter
-    var jsonFormatter = JsonFormatter()
-    private var userInfo: SharedPreferences? = null
-    private var prefsHandler = PrefrencesHandler()
     private var brandName = ""
+
+    private var pageNumber: Int = 1
+
+
+    private var isloading: Boolean = true
+    private var pastVisibleItems: Int = 0
+    private var visibleItemsCount: Int = 0
+    private var totalItemsCount: Int = 0
+    private var previousTotal: Int = 0
+
+    private var viewThreshold = 6
+
     var mViewModel: ModelsViewModel? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         return inflater.inflate(R.layout.fragment_models, container, false)
     }
 
@@ -56,6 +56,29 @@ class Models : Fragment() {
         brandName = arguments!!.getString("brandName")!!
         initViewModel()
         initRecyclerView()
+        this.models_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                this@Models.visibleItemsCount = models_list.layoutManager!!.childCount
+                this@Models.totalItemsCount = models_list.layoutManager!!.itemCount
+                this@Models.pastVisibleItems =
+                    (models_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                if (dy > 0) {
+                    if (isloading) {
+                        if (totalItemsCount > previousTotal) {
+                            isloading = false
+                            previousTotal = totalItemsCount
+                        }
+                    }
+                    if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
+                        pageNumber++
+                        mViewModel!!.performPagination(pageNumber, viewThreshold)
+                        isloading = true
+                    }
+                }
+            }
+        }
+        )
     }
 
     override fun onAttach(context: Context) {
@@ -68,29 +91,6 @@ class Models : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
-    }
-
-    private fun getContent() {
-
-        progressModel.visibility = View.VISIBLE
-        val call = RetrofitClient(context!!)
-            .serverDataApi
-            .getAllModels(prefsHandler.getUserToken(userInfo!!)!!, brandName)
-
-        call.enqueue(object : Callback<JsonElement> {
-            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
-                if (response.isSuccessful) {
-                    val listType = object : TypeToken<MutableList<Model>>() {}.type
-                    models = jsonFormatter.listFormatter(response.body()!!, listType, "models")
-                    initRecyclerView()
-                    progressModel.visibility = View.GONE
-                }
-            }
-
-            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })
     }
 
     fun initRecyclerView() {

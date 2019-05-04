@@ -67,16 +67,16 @@ class ModelsRepository(private var context: Context, var brandName: String) {
     fun performPagination(pageNumber: Int, viewThreshold: Int) {
         val call = RetrofitClient(context)
             .serverDataApi
-            .getAllBrands(
+            .getAllModels(
                 prefrencesHandler.getUserToken(userInfo)!!,
-                (pageNumber),
-                (viewThreshold),
-                ""
+                brandName,
+                pageNumber,
+                viewThreshold
             )
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    val tmp: MutableList<Model> = formatter.listFormatter(response.body()!!, listType, "manufacturers")
+                    val tmp: MutableList<Model> = formatter.listFormatter(response.body()!!, listType, "models")
                     if (tmp.size != 0) {
                         list.value!!.addAll(tmp)
                     }
@@ -89,6 +89,7 @@ class ModelsRepository(private var context: Context, var brandName: String) {
                 t.printStackTrace()
             }
         })
+
     }
 
     fun filterBrands(q: String) {

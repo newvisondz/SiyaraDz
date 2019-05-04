@@ -8,21 +8,25 @@ import android.arch.lifecycle.ViewModelProvider
 import com.newvisiondz.sayaradz.model.Model
 import com.newvisiondz.sayaradz.repositories.ModelsRepository
 
-class ModelsViewModelsFactory(private var app: Application,var brandName :String) :
+class ModelsViewModelsFactory(private var app: Application, var brandName: String) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
-        return ModelsViewModel(app,brandName) as T
+        return ModelsViewModel(app, brandName) as T
     }
 
 }
 
-class ModelsViewModel(app: Application,var brandName:String) : AndroidViewModel(app) {
+class ModelsViewModel(app: Application, var brandName: String) : AndroidViewModel(app) {
     private var modelsRepository: ModelsRepository? = null
     var modelsList: MutableLiveData<MutableList<Model>>
 
     init {
-        modelsRepository = ModelsRepository.getInstance(getApplication(),brandName)
+        modelsRepository = ModelsRepository.getInstance(getApplication(), brandName)
         modelsList = modelsRepository!!.list
+    }
+
+    fun performPagination(pageNumber: Int, viewThreshold: Int) {
+        modelsRepository!!.performPagination(pageNumber, viewThreshold)
     }
 }

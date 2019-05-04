@@ -16,11 +16,6 @@ interface ServerDataApi {
     ): Call<JsonElement>
 
     @GET("manufacturers/")
-    fun getAllBrands(
-        @Header("Authorization") token: String
-    ): Call<JsonElement>
-
-    @GET("manufacturers/")
     fun filterBrands(
         @Header("Authorization") token: String,
         @Query("q") partilStrnig:String
@@ -45,7 +40,8 @@ interface ServerDataApi {
     @GET("manufacturers/{manufacturerId}/models")
     fun getAllModels(
         @Header("Authorization") token: String,
-        @Path("manufacturerId") manufacturerName:String
+        @Path("manufacturerId") manufacturerName:String,
+        @Query("q")q:String
     ): Call<JsonElement>
 
     @GET("manufacturers/{manufacturerId}/models/{modelId}")
