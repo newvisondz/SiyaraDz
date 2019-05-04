@@ -94,12 +94,11 @@ class Brands : Fragment() {
             }
         }
         )
-
-
         activity!!.action_search
             .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     mViewModel!!.filterBrands(query)
+                    brands_list.adapter!!.notifyDataSetChanged()
                     return true
                 }
 
@@ -124,9 +123,9 @@ class Brands : Fragment() {
 
     private fun initViewModel() {
         val brandsObserver =
-            Observer<MutableList<Brand>> { weatherEntities ->
+            Observer<MutableList<Brand>> { newBrands ->
                 brands.clear()
-                brands.addAll(weatherEntities!!)
+                brands.addAll(newBrands!!)
                 if (adapter == null) {
                     adapter = BrandsAdapter(
                         brands,
@@ -134,7 +133,7 @@ class Brands : Fragment() {
                     )
                     brands_list.adapter = adapter
                 } else {
-                    adapter!!.notifyDataSetChanged()
+                    brands_list.adapter!!.notifyDataSetChanged()
                 }
             }
 
@@ -147,6 +146,5 @@ class Brands : Fragment() {
             .get(BrandsViewModel::class.java)
         mViewModel!!.brandsList.observe(this, brandsObserver)
     }
-
 
 }

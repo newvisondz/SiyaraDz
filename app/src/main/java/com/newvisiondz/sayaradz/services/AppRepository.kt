@@ -52,7 +52,6 @@ class AppRepository private constructor(var context: Context) {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     try {
-//                        if (list.value!!.size > 0 ){list.value!!.clear()}
                         list.value?.clear()
                         list.value = formatter.listFormatter(response.body()!!, listType, "manufacturers")
                     } catch (e: Exception) {
@@ -95,14 +94,14 @@ class AppRepository private constructor(var context: Context) {
             .filterBrands(prefrencesHandler.getUserToken(userInfo)!!, q)
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
-                Log.i("Exception", "may be server erroe ${t.localizedMessage}")
+                Log.i("Exception", "may be server error ${t.localizedMessage}")
             }
 
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     list.value!!.clear()
-                    val tmp: MutableList<Brand> = formatter.listFormatter(response.body()!!, listType, "manufacturers")
-                    list.value!!.addAll(tmp)
+//                    val tmp: MutableList<Brand> =
+                    list.value=(formatter.listFormatter(response.body()!!, listType, "manufacturers"))
                 }
             }
         })
