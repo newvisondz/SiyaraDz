@@ -5,14 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Utils.MessagesUtils
+import com.newvisiondz.sayaradz.utils.MessagesUtils
 import com.newvisiondz.sayaradz.adapters.BidsAdapter
 import com.newvisiondz.sayaradz.model.Bid
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_bids.view.*
 import java.util.*
 
 
-class Bids : Fragment() {
+class Bids : androidx.fragment.app.Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     private var tmpUris = mutableListOf<Uri>()
     private lateinit var bidsList: MutableList<Bid>
@@ -127,7 +125,7 @@ class Bids : Fragment() {
 
     private fun initRecyclerView(view: View) {
         view.bids_list.setHasFixedSize(true)
-        view.bids_list.layoutManager = LinearLayoutManager(context)
+        view.bids_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         bidsAdapter = BidsAdapter(bidsList, context as Context)
         view.bids_list.adapter = bidsAdapter
     }

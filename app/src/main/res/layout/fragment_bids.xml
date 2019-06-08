@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:id="@+id/bids_layout"
-                                             tools:context=".views.fragments.Bids">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:id="@+id/bids_layout"
+                                                   tools:context=".views.fragments.Bids">
 
-	<android.support.v4.widget.SwipeRefreshLayout
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:id="@+id/swipeRefreshBids"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior"
 			app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintEnd_toEndOf="parent">
-		<android.support.v7.widget.RecyclerView
+		<androidx.recyclerview.widget.RecyclerView
 				android:id="@+id/bids_list"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"/>
-	</android.support.v4.widget.SwipeRefreshLayout>
-	<android.support.design.widget.FloatingActionButton
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
 			android:src="@drawable/ic_add_circle"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -29,4 +29,4 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			android:layout_marginEnd="32dp" android:layout_marginBottom="80dp"
 			app:layout_constraintBottom_toBottomOf="parent"/>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

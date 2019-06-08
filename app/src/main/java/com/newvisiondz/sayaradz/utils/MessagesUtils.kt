@@ -1,9 +1,9 @@
-package com.newvisiondz.sayaradz.Utils
+package com.newvisiondz.sayaradz.utils
 
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 import android.view.View
 import android.widget.Toast
 

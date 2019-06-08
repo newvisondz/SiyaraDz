@@ -3,8 +3,8 @@ package com.newvisiondz.sayaradz.views.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.card.MaterialCardView
-import android.support.v4.app.Fragment
+import com.google.android.material.card.MaterialCardView
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class BrandCard : Fragment() {
+class BrandCard : androidx.fragment.app.Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null

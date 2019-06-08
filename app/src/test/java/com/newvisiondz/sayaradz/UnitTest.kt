@@ -2,7 +2,7 @@ package com.newvisiondz.sayaradz
 
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
-import com.newvisiondz.sayaradz.Utils.JsonFormatter
+import com.newvisiondz.sayaradz.utils.JsonFormatter
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.model.Model
 import org.junit.Assert.assertEquals
@@ -33,19 +33,5 @@ class UnitTest {
         println(brands[0].logo)
         assertEquals("public/31af40e4-541b-42e6-8f86-b870bc99bd6f.jpg", brands[0].logo)
     }
-
-//    @Test
-//    fun filterBrands() {
-//        val call = RetrofitClient(context)
-//            .serverDataApi
-//            .filterBrands(
-//                "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYjNjNzhmYjc5NTM5MDAxOWY4ZDIzYSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTU1OTMyODYwLCJleHAiOjE1NjQ0ODY0NjB9.7RTlNp79COL70yd5VPJO3KTSvTngOX94Y-rrZe4EZWQ",
-//                "merc"
-//            )
-////        call.execute()
-//        assertNotNull(call.execute().body())
-//
-//    }
-
 
 }

@@ -14,16 +14,16 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/progressModel"/>
-	<android.support.v4.widget.SwipeRefreshLayout
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:id="@+id/swipeRefreshModels"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior">
-		<android.support.v7.widget.RecyclerView
+		<androidx.recyclerview.widget.RecyclerView
 				android:id="@+id/models_list"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="5dp"
 				android:layout_marginEnd="5dp"/>
-	</android.support.v4.widget.SwipeRefreshLayout>
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

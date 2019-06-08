@@ -2,13 +2,13 @@ package com.newvisiondz.sayaradz.views.fragments
 
 
 import android.app.Application
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_models.*
 
 
-class Models : Fragment() {
+class Models : androidx.fragment.app.Fragment() {
     private var models = mutableListOf<Model>()
     private lateinit var modelsAdapter: ModelsAdapter
     private var brandName = ""
@@ -50,13 +50,13 @@ class Models : Fragment() {
         brandName = arguments!!.getString("brandName")!!
         initViewModel()
         initRecyclerView()
-        this.models_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        this.models_list.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 this@Models.visibleItemsCount = models_list.layoutManager!!.childCount
                 this@Models.totalItemsCount = models_list.layoutManager!!.itemCount
                 this@Models.pastVisibleItems =
-                    (models_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                    (models_list.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
                 if (dy > 0) {
                     if (isloading) {
                         if (totalItemsCount > previousTotal) {
@@ -98,7 +98,7 @@ class Models : Fragment() {
         modelsAdapter = ModelsAdapter(this.models, this.context as Context, brandName)
         models_list.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         }
         models_list.adapter = modelsAdapter
     }

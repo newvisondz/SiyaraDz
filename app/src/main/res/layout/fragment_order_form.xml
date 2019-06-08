@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -27,7 +27,7 @@
                 android:padding="20dp"
                 android:text="Informations Personnelles" />
 
-            <android.support.constraint.ConstraintLayout style="@style/FieldStyle">
+            <androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
 
                 <ImageView
                     android:id="@+id/imageView0"
@@ -45,9 +45,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView0"
                     app:layout_constraintTop_toTopOf="@+id/imageView0" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout style="@style/FieldStyle">
+            <androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
 
                 <ImageView
                     android:id="@+id/imageView1"
@@ -65,9 +65,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView1"
                     app:layout_constraintTop_toTopOf="@+id/imageView1" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout style="@style/FieldStyle">
+            <androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -85,9 +85,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
                     app:layout_constraintTop_toTopOf="@+id/imageView2" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 style="@style/FieldStyle"
                 android:padding="0dp">
 
@@ -122,9 +122,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/view6"
                     app:layout_constraintTop_toTopOf="@+id/editText3" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout style="@style/FieldStyle">
+            <androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -142,9 +142,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="@+id/imageView4" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout style="@style/FieldStyle">
+            <androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -162,7 +162,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView5"
                     app:layout_constraintTop_toTopOf="@+id/imageView5" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textView2"
@@ -172,7 +172,7 @@
                 android:padding="20dp"
                 android:text="Méthode de Paiement" />
 
-            <android.support.constraint.ConstraintLayout style="@style/FieldStyle">
+            <androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
 
                 <ImageView
                     android:id="@+id/imageView6"
@@ -190,9 +190,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView6"
                     app:layout_constraintTop_toTopOf="@+id/imageView6" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout style="@style/FieldStyle">
+            <androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
 
                 <EditText
                     android:id="@+id/editText7"
@@ -204,9 +204,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout style="@style/FieldStyle">
+            <androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
 
                 <EditText
                     android:id="@+id/editText8"
@@ -218,9 +218,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout style="@style/FieldStyle">
+            <androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
 
                 <EditText
                     android:id="@+id/editText9"
@@ -232,9 +232,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout style="@style/FieldStyle">
+            <androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
 
                 <EditText
                     android:id="@+id/editText10"
@@ -246,9 +246,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="50dp"
@@ -274,11 +274,11 @@
                     android:textAllCaps="false"
                     app:layout_constraintStart_toStartOf="@+id/checkBox"
                     app:layout_constraintTop_toBottomOf="@+id/checkBox" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -307,7 +307,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/button_mymodels"
@@ -317,4 +317,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

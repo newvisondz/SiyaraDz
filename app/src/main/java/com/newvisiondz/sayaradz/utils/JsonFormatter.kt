@@ -1,4 +1,4 @@
-package com.newvisiondz.sayaradz.Utils
+package com.newvisiondz.sayaradz.utils
 
 import com.google.gson.Gson
 import com.google.gson.JsonElement

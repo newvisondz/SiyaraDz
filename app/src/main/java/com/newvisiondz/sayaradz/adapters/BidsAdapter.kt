@@ -1,7 +1,6 @@
 package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import com.newvisiondz.sayaradz.views.fragments.TabsDirections
 import kotlinx.android.synthetic.main.fragment_bid_card.view.*
 
 class BidsAdapter(private val bids: MutableList<Bid>, private val context: Context) :
-    RecyclerView.Adapter<BidsAdapter.ViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<BidsAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
@@ -42,7 +41,7 @@ class BidsAdapter(private val bids: MutableList<Bid>, private val context: Conte
         return bids.size
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         val card = view.bid_card!!
         val bidModel = view.bid_model!!
         val bidImage = view.bid_image!!

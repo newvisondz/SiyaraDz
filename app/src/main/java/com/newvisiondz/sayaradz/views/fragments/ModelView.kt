@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,19 +13,18 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.model.Model
 import com.newvisiondz.sayaradz.services.RetrofitClient
+import com.newvisiondz.sayaradz.utils.getUserToken
 import kotlinx.android.synthetic.main.fragment_model_view.*
 import kotlinx.android.synthetic.main.fragment_model_view.view.*
 import retrofit2.Call
 import retrofit2.Response
 
 
-class ModelView : Fragment() {
+class ModelView : androidx.fragment.app.Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     private var userInfo: SharedPreferences? = null
-    private var prefsHandler = PrefrencesHandler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +36,7 @@ class ModelView : Fragment() {
         val modelId = arguments!!.getString("modelId")
         val manufacturer = arguments!!.getString("manufacturerId")
         val call = RetrofitClient(context!!).serverDataApi.getModelDetails(
-            prefsHandler.getUserToken(userInfo!!)!!, manufacturer!!, modelId!!
+            getUserToken(userInfo!!)!!, manufacturer!!, modelId!!
         )
         call.enqueue(object : retrofit2.Callback<Model> {
             override fun onFailure(call: Call<Model>, t: Throwable) {

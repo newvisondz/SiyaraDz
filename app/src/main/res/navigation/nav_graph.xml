@@ -54,6 +54,7 @@
             app:enterAnim="@anim/slide_up"
             app:exitAnim="@anim/fade_out">
         </action>
+        <argument android:name="brandName" app:argType="string"/>
     </fragment>
     <fragment
         android:id="@+id/modelView"
@@ -76,6 +77,7 @@
     <fragment
         android:id="@+id/dataSheetView"
         android:name="com.newvisiondz.sayaradz.views.fragments.DataSheetView"
+        tools:layout="@layout/fragment_data_sheet_view"
         android:label="fragment_data_sheet_view"/>
     <fragment
         android:id="@+id/bidView"

@@ -1,63 +1,83 @@
 package com.newvisiondz.sayaradz.views
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.view.View
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Utils.NetworkUtils
-import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
-import kotlinx.android.synthetic.main.activity_splash.*
+import com.newvisiondz.sayaradz.databinding.ActivitySplashBinding
+import com.newvisiondz.sayaradz.views.viewModel.SplashViewModel
+import com.newvisiondz.sayaradz.views.viewModel.SplashViewModelFactory
 
 
 class SplashActivity : AppCompatActivity() {
-    private var prefrencesHandler = PrefrencesHandler()
-    private lateinit var userInfo: SharedPreferences
-    private var netUilts = NetworkUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-        userInfo = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
+        val binding = DataBindingUtil.setContentView<ActivitySplashBinding>(this, R.layout.activity_splash)
+        val viewModelFactory = SplashViewModelFactory(application)
+        val splashViewModel = ViewModelProviders.of(this, viewModelFactory).get(SplashViewModel::class.java)
+        splashViewModel.checkInternet()
+        binding.viewModel = splashViewModel
+        binding.lifecycleOwner = this
 
-        if (!netUilts.isOnline(this)) {
-            val dialogBuilder = AlertDialog.Builder(this@SplashActivity)
-                .setMessage("You'll need internet connection in order to use this app")
-                .setTitle("No internet connection")
-                .setNeutralButton("Try again!") { dialog, _ ->
-                    checkNet.visibility = View.VISIBLE
-                    dialog.dismiss()
-                }
-            val alert = dialogBuilder.create()
-            alert.show()
-            getStarted.visibility = View.GONE
-        }
-        checkNet.setOnClickListener {
-            if (netUilts.isOnline(this)) {
-                checkNet.visibility = View.GONE
-                getStarted.visibility = View.VISIBLE
+        splashViewModel.online.observe(this, Observer { online ->
+            if (online) {
+                val dialogBuilder = AlertDialog.Builder(this@SplashActivity)
+                    .setMessage("You'll need internet connection in order to use this app")
+                    .setTitle("No internet connection")
+                    .setNeutralButton("Try again!") { dialog, _ ->
+//                        checkNet.visibility = View.VISIBLE
+                        dialog.dismiss()
+                    }
+                val alert = dialogBuilder.create()
+                alert.show()
+//                getStarted.visibility = View.GONE
             }
+        })
+        binding.getStarted.setOnClickListener {
+            splashViewModel.navigateToMainActivity()
+            Log.i("Splash","Button is clicked")
         }
-
-        getStarted.setOnClickListener {
-            if (prefrencesHandler.getUserToken(userInfo).equals("Not Found")) {
-                val intent = Intent(
-                    applicationContext,
-                    LoginActivity::class.java
-                )
+        splashViewModel.userConnected.observe(this, Observer { connected ->
+            Log.i("Splash","Observing with $connected")
+            if (!connected) {
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             } else {
-                val intent = Intent(
-                    applicationContext,
-                    MainActivity::class.java
-                )
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
             finish()
-        }
+        })
+//
+//        binding.checkNet.setOnClickListener {
+//            if (isOnline(this)) {
+//                checkNet.visibility = View.GONE
+//                getStarted.visibility = View.VISIBLE
+//            }
+//        }
+
+//        binding.getStarted.setOnClickListener {
+//            if (prefrencesHandler.getUserToken(userInfo).equals("Not Found")) {
+//                val intent = Intent(
+//                    applicationContext,
+//                    LoginActivity::class.java
+//                )
+//                startActivity(intent)
+//            } else {
+//                val intent = Intent(
+//                    applicationContext,
+//                    MainActivity::class.java
+//                )
+//                startActivity(intent)
+//            }
+//            finish()
+//        }
         //TODO splash activity needs a better design
     }
 }

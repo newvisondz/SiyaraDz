@@ -1,15 +1,15 @@
 package com.newvisiondz.sayaradz.repositories
 
-import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
-import com.newvisiondz.sayaradz.Utils.JsonFormatter
-import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.model.Model
 import com.newvisiondz.sayaradz.services.RetrofitClient
+import com.newvisiondz.sayaradz.utils.JsonFormatter
+import com.newvisiondz.sayaradz.utils.getUserToken
 import retrofit2.Call
 import retrofit2.Response
 
@@ -17,7 +17,6 @@ class ModelsRepository(private var context: Context, var brandName: String) {
 
     var list: MutableLiveData<MutableList<Model>> = MutableLiveData()
     private val formatter = JsonFormatter()
-    private val prefrencesHandler = PrefrencesHandler()
     private val userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     val listType = object : TypeToken<MutableList<Model>>() {}.type!!
 
@@ -43,7 +42,7 @@ class ModelsRepository(private var context: Context, var brandName: String) {
     fun getModelData(): MutableLiveData<MutableList<Model>> {
         val call = RetrofitClient(context)
             .serverDataApi
-            .getAllModels(prefrencesHandler.getUserToken(userInfo)!!, brandName, 1, 2)
+            .getAllModels(getUserToken(userInfo)!!, brandName, 1, 2)
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
@@ -67,8 +66,7 @@ class ModelsRepository(private var context: Context, var brandName: String) {
     fun performPagination(pageNumber: Int, viewThreshold: Int) {
         val call = RetrofitClient(context)
             .serverDataApi
-            .getAllModels(
-                prefrencesHandler.getUserToken(userInfo)!!,
+            .getAllModels(getUserToken(userInfo)!!,
                 brandName,
                 pageNumber,
                 viewThreshold
@@ -95,7 +93,7 @@ class ModelsRepository(private var context: Context, var brandName: String) {
     fun filterBrands(q: String) {
         val call = RetrofitClient(context)
             .serverDataApi
-            .getAllModels(prefrencesHandler.getUserToken(userInfo)!!,brandName, q)
+            .getAllModels(getUserToken(userInfo)!!,brandName, q)
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 Log.i("Exception", "may be server error ${t.localizedMessage}")

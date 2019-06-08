@@ -1,22 +1,21 @@
 package com.newvisiondz.sayaradz.repositories
 
 
-import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
-import com.newvisiondz.sayaradz.Utils.JsonFormatter
-import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.services.RetrofitClient
+import com.newvisiondz.sayaradz.utils.JsonFormatter
+import com.newvisiondz.sayaradz.utils.getUserToken
 import retrofit2.Call
 import retrofit2.Response
 
 class BrandsRepository private constructor(var context: Context) {
     private val formatter = JsonFormatter()
-    private val prefrencesHandler = PrefrencesHandler()
     private val userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     val listType = object : TypeToken<MutableList<Brand>>() {}.type!!
     var list: MutableLiveData<MutableList<Brand>> = MutableLiveData()
@@ -44,7 +43,7 @@ class BrandsRepository private constructor(var context: Context) {
     fun getBrandsData(): MutableLiveData<MutableList<Brand>> {
         val call = RetrofitClient(context)
             .serverDataApi
-            .getAllBrands(prefrencesHandler.getUserToken(userInfo)!!, 1, 6, "")
+            .getAllBrands(getUserToken(userInfo)!!, 1, 6, "")
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
@@ -69,7 +68,7 @@ class BrandsRepository private constructor(var context: Context) {
         val call = RetrofitClient(context)
             .serverDataApi
             .getAllBrands(
-                prefrencesHandler.getUserToken(userInfo)!!,
+                getUserToken(userInfo)!!,
                 (pageNumber),
                 (viewThreshold),
                 ""
@@ -93,7 +92,7 @@ class BrandsRepository private constructor(var context: Context) {
     fun filterBrands(q: String) {
         val call = RetrofitClient(context)
             .serverDataApi
-            .filterBrands(prefrencesHandler.getUserToken(userInfo)!!, q)
+            .filterBrands(getUserToken(userInfo)!!, q)
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 Log.i("Exception", "may be server error ${t.localizedMessage}")
@@ -102,7 +101,6 @@ class BrandsRepository private constructor(var context: Context) {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     list.value!!.clear()
-//                    val tmp: MutableList<Brand> =
                     list.value=(formatter.listFormatter(response.body()!!, listType, "manufacturers"))
                 }
             }

@@ -1,10 +1,10 @@
 package com.newvisiondz.sayaradz.views.viewModel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.newvisiondz.sayaradz.model.Model
 import com.newvisiondz.sayaradz.repositories.ModelsRepository
 

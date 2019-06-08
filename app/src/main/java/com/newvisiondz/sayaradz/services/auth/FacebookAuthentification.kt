@@ -10,8 +10,8 @@ import android.view.View
 import com.facebook.GraphRequest
 import com.facebook.login.LoginResult
 import com.newvisiondz.sayaradz.Tokens.Token
-import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.services.RetrofitClient
+import com.newvisiondz.sayaradz.utils.setUserPrefrences
 import com.newvisiondz.sayaradz.views.MainActivity
 import org.json.JSONObject
 import retrofit2.Call
@@ -21,7 +21,6 @@ import retrofit2.Response
 class FacebookAuthentification(var context: Context) {
 
     private var userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-    private var prefrencesHandler = PrefrencesHandler()
 
     fun signIn(loginResult: LoginResult, view: View) {
         val accessToken = loginResult.accessToken.token
@@ -41,8 +40,7 @@ class FacebookAuthentification(var context: Context) {
                 }
 
                 override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
-                    if (response!!.isSuccessful) {
-                        prefrencesHandler.setUserPrefrences(userInfo, response.body()!!, jsonResponseObject)
+                    if (response!!.isSuccessful) {setUserPrefrences(userInfo, response.body()!!, jsonResponseObject)
                         val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
                         (context as Activity).finish()

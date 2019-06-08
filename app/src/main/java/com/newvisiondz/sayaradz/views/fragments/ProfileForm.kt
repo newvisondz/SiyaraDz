@@ -5,15 +5,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.google.gson.JsonObject
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
 import com.newvisiondz.sayaradz.services.RetrofitClient
+import com.newvisiondz.sayaradz.utils.getUserInfo
+import com.newvisiondz.sayaradz.utils.getUserToken
 import kotlinx.android.synthetic.main.fragment_profile_form.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -24,11 +24,10 @@ import java.util.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class ProfileForm : Fragment() {
+class ProfileForm : androidx.fragment.app.Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
-    private var prefrencesHandler = PrefrencesHandler()
     private var userInfo: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +59,7 @@ class ProfileForm : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val userInfoTmp = prefrencesHandler.getUserInfo(userInfo!!)
+        val userInfoTmp = getUserInfo(userInfo!!)
         user_date.setOnClickListener { datePicker() }
         user_last_name.setText(userInfoTmp[0])
         user_first_name.setText(userInfoTmp[3])
@@ -76,7 +75,7 @@ class ProfileForm : Fragment() {
 
             val call = RetrofitClient(context!!)
                 .serverDataApi
-                .updateUser(prefrencesHandler.getUserToken(userInfo!!)!!, paramObject.toString())
+                .updateUser(getUserToken(userInfo!!)!!, paramObject.toString())
 
             call.enqueue(object : retrofit2.Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

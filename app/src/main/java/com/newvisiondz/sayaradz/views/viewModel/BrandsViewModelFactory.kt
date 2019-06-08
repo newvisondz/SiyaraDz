@@ -1,10 +1,10 @@
 package com.newvisiondz.sayaradz.views.viewModel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.repositories.BrandsRepository
 
@@ -17,8 +17,7 @@ class BrandsViewModelFactory(private var app: Application) :
     }
 }
 
-class BrandsViewModel(application: Application) :
-    AndroidViewModel(application) {
+class BrandsViewModel(application: Application) :AndroidViewModel(application) {
     var brandsList: LiveData<MutableList<Brand>>
     private var appRepository: BrandsRepository? = null
 

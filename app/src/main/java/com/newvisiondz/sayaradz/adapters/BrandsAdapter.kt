@@ -2,8 +2,6 @@ package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.util.LruCache
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +15,12 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCross
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Brand
+import com.newvisiondz.sayaradz.views.fragments.TabsDirections
 import kotlinx.android.synthetic.main.brand_marks_items.view.*
 
 
 class BrandsAdapter(private var brands: MutableList<Brand>, private val context: Context) :
-    RecyclerView.Adapter<BrandsAdapter.ViewHolder>(), Filterable {
+    androidx.recyclerview.widget.RecyclerView.Adapter<BrandsAdapter.ViewHolder>(), Filterable {
 
     private var imageCache: LruCache<String, Bitmap>
     private var marquesFull: MutableList<Brand> = brands.toMutableList()
@@ -48,9 +47,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(viewHolder.brandImage)
         viewHolder.card.setOnClickListener {
-            val args = Bundle()
-            args.putString("brandName", marque.id)
-            it.findNavController().navigate(R.id.action_tabs_to_models, args)
+            it.findNavController().navigate(TabsDirections.actionTabsToModels(marque.id))
         }
     }
 
@@ -58,7 +55,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         return brands.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val brandName = itemView.brand_name!!
         val card = itemView.brand_card!!
         val brandImage = itemView.brand_image!!

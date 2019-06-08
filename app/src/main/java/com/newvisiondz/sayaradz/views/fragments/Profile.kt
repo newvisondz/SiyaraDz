@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,21 +18,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.Scope
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Utils.PrefrencesHandler
+import com.newvisiondz.sayaradz.utils.clearUserInfo
+import com.newvisiondz.sayaradz.utils.getUserInfo
 import com.newvisiondz.sayaradz.views.LoginActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 
-class Profile : Fragment() {
+class Profile : androidx.fragment.app.Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     private var userInfo: SharedPreferences? = null
-    private var prefrencesHandler = PrefrencesHandler()
     private var userInfoTmp = arrayOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-        userInfoTmp = prefrencesHandler.getUserInfo(userInfo!!)
+        userInfoTmp = getUserInfo(userInfo!!)
     }
 
     override fun onCreateView(
@@ -81,7 +80,7 @@ class Profile : Fragment() {
             val intent = Intent(context, LoginActivity::class.java)
             if (userInfoTmp[4] == "facebook") {
                 LoginManager.getInstance().logOut()
-                prefrencesHandler.clearUserInfo(userInfo!!)
+                clearUserInfo(userInfo!!)
                 Log.i("prefs", "done")
                 startActivity(intent)
                 (context as Activity).finish()
@@ -95,7 +94,7 @@ class Profile : Fragment() {
 
                 Log.i("prefs", "signing out")
                 account.signOut().addOnSuccessListener {
-                    prefrencesHandler.clearUserInfo(userInfo!!)
+                    clearUserInfo(userInfo!!)
                     Log.i("prefs", "done")
                     startActivity(intent)
                     (context as Activity).finish()

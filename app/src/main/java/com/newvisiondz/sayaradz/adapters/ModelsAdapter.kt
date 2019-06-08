@@ -2,7 +2,7 @@ package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ import com.newvisiondz.sayaradz.model.Model
 import kotlinx.android.synthetic.main.fragment_model_card.view.*
 
 class ModelsAdapter(private val models: MutableList<Model>, private val context: Context,private val manufacturerId:String) :
-    RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val model = this.models[i]
         viewHolder.modelName.text = model.name
@@ -50,7 +50,7 @@ class ModelsAdapter(private val models: MutableList<Model>, private val context:
         return ViewHolder(view)
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         val card = view.model_card!!
         val modelName = view.model_name!!
         val modelImage = view.model_image!!

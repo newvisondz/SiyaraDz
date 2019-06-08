@@ -1,0 +1,14 @@
+package com.newvisiondz.sayaradz.utils
+
+import android.content.Context
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
+
+
+fun isOnline(context: Context): Boolean {
+    val cm = context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager?
+    val nt = cm!!.activeNetworkInfo
+    val isConnected: Boolean = nt?.isConnectedOrConnecting == true
+
+    return nt != null && nt.isConnected
+}

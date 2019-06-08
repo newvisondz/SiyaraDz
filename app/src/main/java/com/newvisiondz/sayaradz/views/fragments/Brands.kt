@@ -1,16 +1,14 @@
 package com.newvisiondz.sayaradz.views.fragments
 
 import android.app.Application
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.adapters.BrandsAdapter
 import com.newvisiondz.sayaradz.model.Brand
@@ -71,13 +69,13 @@ class Brands : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        this.brands_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        this.brands_list.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 this@Brands.visibleItemsCount = brands_list.layoutManager!!.childCount
                 this@Brands.totalItemsCount = brands_list.layoutManager!!.itemCount
                 this@Brands.pastVisibleItems =
-                    (brands_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                    (brands_list.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
                 if (dy > 0) {
                     if (isloading) {
                         if (totalItemsCount > previousTotal) {
@@ -114,7 +112,7 @@ class Brands : Fragment() {
     private fun initRecycerView() {
         brands_list.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         }
         adapter = BrandsAdapter(brands, this.context as Context)
         brands_list.adapter = adapter
