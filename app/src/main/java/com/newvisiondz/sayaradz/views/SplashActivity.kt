@@ -19,19 +19,18 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivitySplashBinding>(this, R.layout.activity_splash)
-        val viewModelFactory = SplashViewModelFactory(application)
+        val viewModelFactory = SplashViewModelFactory(application,lifecycle)
         val splashViewModel = ViewModelProviders.of(this, viewModelFactory).get(SplashViewModel::class.java)
-        splashViewModel.checkInternet()
         binding.viewModel = splashViewModel
         binding.lifecycleOwner = this
 
         splashViewModel.online.observe(this, Observer { online ->
-            if (online) {
+            if (!online) {
                 val dialogBuilder = AlertDialog.Builder(this@SplashActivity)
                     .setMessage("You'll need internet connection in order to use this app")
                     .setTitle("No internet connection")
                     .setNeutralButton("Try again!") { dialog, _ ->
-//                        checkNet.visibility = View.VISIBLE
+                        //                        checkNet.visibility = View.VISIBLE
                         dialog.dismiss()
                     }
                 val alert = dialogBuilder.create()
@@ -41,10 +40,10 @@ class SplashActivity : AppCompatActivity() {
         })
         binding.getStarted.setOnClickListener {
             splashViewModel.navigateToMainActivity()
-            Log.i("Splash","Button is clicked")
+            Log.i("Splash", "Button is clicked")
         }
         splashViewModel.userConnected.observe(this, Observer { connected ->
-            Log.i("Splash","Observing with $connected")
+            Log.i("Splash", "Observing with $connected")
             if (!connected) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -80,4 +79,5 @@ class SplashActivity : AppCompatActivity() {
 //        }
         //TODO splash activity needs a better design
     }
+
 }
