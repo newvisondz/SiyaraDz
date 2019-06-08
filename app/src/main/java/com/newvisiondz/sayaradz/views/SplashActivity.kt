@@ -1,9 +1,9 @@
 package com.newvisiondz.sayaradz.views
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -19,31 +19,20 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivitySplashBinding>(this, R.layout.activity_splash)
-        val viewModelFactory = SplashViewModelFactory(application,lifecycle)
+        val viewModelFactory = SplashViewModelFactory(application, lifecycle)
         val splashViewModel = ViewModelProviders.of(this, viewModelFactory).get(SplashViewModel::class.java)
         binding.viewModel = splashViewModel
         binding.lifecycleOwner = this
 
         splashViewModel.online.observe(this, Observer { online ->
+            val alertDialog = showDialog(this@SplashActivity)
             if (!online) {
-                val dialogBuilder = AlertDialog.Builder(this@SplashActivity)
-                    .setMessage("You'll need internet connection in order to use this app")
-                    .setTitle("No internet connection")
-                    .setNeutralButton("Try again!") { dialog, _ ->
-                        //                        checkNet.visibility = View.VISIBLE
-                        dialog.dismiss()
-                    }
-                val alert = dialogBuilder.create()
-                alert.show()
-//                getStarted.visibility = View.GONE
-            }
+                alertDialog.show()
+            } else
+                alertDialog.dismiss()
         })
-        binding.getStarted.setOnClickListener {
-            splashViewModel.navigateToMainActivity()
-            Log.i("Splash", "Button is clicked")
-        }
+
         splashViewModel.userConnected.observe(this, Observer { connected ->
-            Log.i("Splash", "Observing with $connected")
             if (!connected) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -53,31 +42,16 @@ class SplashActivity : AppCompatActivity() {
             }
             finish()
         })
-//
-//        binding.checkNet.setOnClickListener {
-//            if (isOnline(this)) {
-//                checkNet.visibility = View.GONE
-//                getStarted.visibility = View.VISIBLE
-//            }
-//        }
+    }
 
-//        binding.getStarted.setOnClickListener {
-//            if (prefrencesHandler.getUserToken(userInfo).equals("Not Found")) {
-//                val intent = Intent(
-//                    applicationContext,
-//                    LoginActivity::class.java
-//                )
-//                startActivity(intent)
-//            } else {
-//                val intent = Intent(
-//                    applicationContext,
-//                    MainActivity::class.java
-//                )
-//                startActivity(intent)
-//            }
-//            finish()
-//        }
-        //TODO splash activity needs a better design
+    private fun showDialog(context: Context): AlertDialog {
+        val dialogBuilder = AlertDialog.Builder(context)
+            .setMessage("You'll need internet connection in order to use this app")
+            .setTitle("No internet connection")
+            .setNeutralButton("Try again!") { dialog, _ ->
+                dialog.dismiss()
+            }
+        return dialogBuilder.create()
     }
 
 }

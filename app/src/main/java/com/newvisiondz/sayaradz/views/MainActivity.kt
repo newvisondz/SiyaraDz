@@ -2,29 +2,21 @@ package com.newvisiondz.sayaradz.views
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.api.GoogleApiClient
 import com.newvisiondz.sayaradz.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.newvisiondz.sayaradz.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
-
-
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding=DataBindingUtil.setContentView<ActivityMainBinding>(this,R.layout.activity_main)
         val navController = findNavController(R.id.navigation_host)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
     }
-
-    override fun onConnectionFailed(p0: ConnectionResult) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
 
 }

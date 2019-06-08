@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import com.facebook.GraphRequest
 import com.facebook.login.LoginResult
 import com.newvisiondz.sayaradz.Tokens.Token
@@ -22,7 +21,7 @@ class FacebookAuthentification(var context: Context) {
 
     private var userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
 
-    fun signIn(loginResult: LoginResult, view: View) {
+    fun signIn(loginResult: LoginResult) {
         val accessToken = loginResult.accessToken.token
         val client = RetrofitClient(context).authentificationApi.sendKeysFacebook(accessToken)
         lateinit var jsonResponseObject: JSONObject

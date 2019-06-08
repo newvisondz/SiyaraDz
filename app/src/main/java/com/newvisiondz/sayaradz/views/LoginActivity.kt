@@ -17,7 +17,6 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.services.auth.FacebookAuthentification
 import com.newvisiondz.sayaradz.services.auth.GoogleAuthentification
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.content_login.*
 
 
@@ -49,7 +48,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
             override fun onSuccess(loginResult: LoginResult) {
                 progressLogin.visibility = View.VISIBLE
-                authFacebook!!.signIn(loginResult, coordinator)
+                authFacebook!!.signIn(loginResult)
             }
         })
     }
