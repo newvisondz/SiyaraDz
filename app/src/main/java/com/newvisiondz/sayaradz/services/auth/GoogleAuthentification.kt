@@ -4,8 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log
-import android.widget.Button
+import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
@@ -13,22 +12,23 @@ import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.Scope
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.Tokens.Token
+import com.newvisiondz.sayaradz.tokens.Token
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import com.newvisiondz.sayaradz.utils.setUserPrefrences
 import com.newvisiondz.sayaradz.views.MainActivity
-import kotlinx.android.synthetic.main.content_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+//this.signOutButton = context.findViewById(R.id.googleSignOut)
 
-class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.googleSignOut)
-    (private var context: Context) {
+class GoogleAuthentification (private var context: Context) {
+
+    companion object {
+        const val REQ_CODE: Int = 9001
+    }
     private var googleClient: GoogleApiClient? = null
-    val REQ_CODE: Int = 9001
-    internal var signInButton: Button
-    // internal var signOutButton: Button
+//    internal var signInButton: Button
     private var userInfo: SharedPreferences
 
 
@@ -38,12 +38,15 @@ class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.goo
             .requestServerAuthCode(context.getString(R.string.server_client_id))
             .requestEmail()
             .build()
-        context as Activity
+//        context as Activity
         this.googleClient = GoogleApiClient.Builder(context)
-            .enableAutoManage(context as androidx.fragment.app.FragmentActivity, context as GoogleApiClient.OnConnectionFailedListener)
+            .enableAutoManage(
+                context as FragmentActivity,
+                context as GoogleApiClient.OnConnectionFailedListener
+            )
             .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions)
             .build()
-        this.signInButton = (context as Activity).loging
+//        this.signInButton = (context as Activity).loging
         userInfo = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     }
 
@@ -66,9 +69,8 @@ class GoogleAuthentification//this.signOutButton = context.findViewById(R.id.goo
                 }
 
                 override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
-                    if (response!!.isSuccessful) {setUserPrefrences(userInfo, response.body()!!, account)
-                        Log.i("prefs", response.body()!!.token)
-                        Log.i("prefs","userprefs well set")
+                    if (response!!.isSuccessful) {
+                        setUserPrefrences(userInfo, response.body()!!, account)
                         val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
                         (context as Activity).finish()

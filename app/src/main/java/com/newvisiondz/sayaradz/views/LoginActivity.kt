@@ -5,19 +5,19 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.view.View
-import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
+import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.newvisiondz.sayaradz.R
+import com.newvisiondz.sayaradz.databinding.ActivityLoginBinding
 import com.newvisiondz.sayaradz.services.auth.FacebookAuthentification
 import com.newvisiondz.sayaradz.services.auth.GoogleAuthentification
-import kotlinx.android.synthetic.main.content_login.*
 
 
 class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
@@ -29,35 +29,35 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        progressLogin.visibility = View.GONE
+        val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         userInfo = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         authFacebook = FacebookAuthentification(this)
         authGoogle = GoogleAuthentification(this)
-        authGoogle!!.signInButton.setOnClickListener {
+//        val viewModelFactory = LoginViewModelFactory(application)
+//        val loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
+//        binding.viewModel = loginViewModel
+//        binding.lifecycleOwner = this
+        binding.loging.setOnClickListener {
             authGoogle!!.signIn(this)
         }
-        loginFb.setReadPermissions("email")
-        loginFb.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-            override fun onCancel() {
-            }
 
-            override fun onError(error: FacebookException?) {
-                Toast.makeText(this@LoginActivity, "error to Login Facebook", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onSuccess(loginResult: LoginResult) {
-                progressLogin.visibility = View.VISIBLE
-                authFacebook!!.signIn(loginResult)
-            }
-        })
+        binding.loginFb.setOnClickListener {
+            LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+                override fun onSuccess(result: LoginResult?) {
+                    authFacebook!!.signIn(result!!)
+                }
+                override fun onCancel() {
+                }
+                override fun onError(error: FacebookException?) {
+                }
+            })
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == authGoogle!!.REQ_CODE) {
+        if (requestCode == GoogleAuthentification.REQ_CODE) {
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             this.authGoogle!!.handleResult(result)
         }

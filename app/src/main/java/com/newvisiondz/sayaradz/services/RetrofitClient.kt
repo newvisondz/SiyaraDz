@@ -11,9 +11,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-class RetrofitClient (var context:Context){
+class RetrofitClient(var context: Context) {
     private val retrofit: Retrofit
-    private val BASE_URL = "http://sayaradz-sayaradz-2.7e14.starter-us-west-2.openshiftapps.com/"
+    companion object {
+        private const val BASE_URL = "http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com/"
+    }
 
     val authentificationApi: AuthentificationApi
         get() = retrofit.create(AuthentificationApi::class.java)

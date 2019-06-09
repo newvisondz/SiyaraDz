@@ -1,16 +1,16 @@
 package com.newvisiondz.sayaradz.views.fragments
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.NavHostFragment
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -18,121 +18,76 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.Scope
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.utils.clearUserInfo
-import com.newvisiondz.sayaradz.utils.getUserInfo
+import com.newvisiondz.sayaradz.databinding.FragmentProfileBinding
 import com.newvisiondz.sayaradz.views.LoginActivity
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.view.*
+import com.newvisiondz.sayaradz.views.viewModel.ProfileViewModel
+import com.newvisiondz.sayaradz.views.viewModel.ProfileViewModelFactory
 
 
-class Profile : androidx.fragment.app.Fragment() {
-    private var listener: OnFragmentInteractionListener? = null
-    private var userInfo: SharedPreferences? = null
-    private var userInfoTmp = arrayOf<String>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-        userInfoTmp = getUserInfo(userInfo!!)
-    }
+class Profile : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        val application = requireNotNull(this.activity).application
 
-        view.button_profile.setOnClickListener {
-            val action = TabsDirections.actionTabsToProfileForm()
-            //action.setBidId(bidId)
-            NavHostFragment.findNavController(this).navigate(action)
-            Log.i("Navigating", "abs to Profile Form,")
+        val binding: FragmentProfileBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+        val viewModelFactory = ProfileViewModelFactory(application)
+        val profileViewModel = ViewModelProviders.of(this, viewModelFactory).get(ProfileViewModel::class.java)
+        binding.viewModel = profileViewModel
+        binding.lifecycleOwner = this
+
+        binding.buttonProfile.setOnClickListener {
+            it.findNavController().navigate(TabsDirections.actionTabsToProfileForm())
         }
 
-        view.button_mybids.setOnClickListener {
-            val action = TabsDirections.actionTabsToMyBids()
-            //action.setBidId(bidId)
-            NavHostFragment.findNavController(this).navigate(action)
-            Log.i("Navigating", "Tabs to My Bids,")
+        binding.buttonMybids.setOnClickListener {
+            it.findNavController().navigate(TabsDirections.actionTabsToMyBids())
         }
 
-        view.button_mymodels.setOnClickListener {
-            val action = TabsDirections.actionTabsToMyModels()
-            //action.setBidId(bidId)
-            NavHostFragment.findNavController(this).navigate(action)
-            Log.i("Navigating", "Tabs to My Models,")
+        binding.buttonMymodels.setOnClickListener {
+            it.findNavController().navigate(TabsDirections.actionTabsToMyModels())
         }
 
-        view.button_myversions.setOnClickListener {
-            val action = TabsDirections.actionTabsToMyVersions()
-            //action.setBidId(bidId)
-            NavHostFragment.findNavController(this).navigate(action)
-            Log.i("Navigating", "Tabs to My Versions,")
+        binding.buttonMyversions.setOnClickListener {
+            it.findNavController().navigate(TabsDirections.actionTabsToMyVersions())
         }
-
-        view.button_myoffers.setOnClickListener {
-            val action = TabsDirections.actionTabsToMyOffers()
-            //action.setBidId(bidId)
-            NavHostFragment.findNavController(this).navigate(action)
-            Log.i("Navigating", "Tabs to My Offers,")
+        binding.buttonMyoffers.setOnClickListener {
+            it.findNavController().navigate(TabsDirections.actionTabsToMyOffers())
         }
-        view.button_logout.setOnClickListener {
-            Log.i("prefs", userInfoTmp[0] + "type is " + userInfoTmp[4])
+        binding.viewModel!!.logInType.observe(this, Observer {
             val intent = Intent(context, LoginActivity::class.java)
-            if (userInfoTmp[4] == "facebook") {
-                LoginManager.getInstance().logOut()
-                clearUserInfo(userInfo!!)
-                Log.i("prefs", "done")
-                startActivity(intent)
-                (context as Activity).finish()
-            } else if (userInfoTmp[4] == "google") {
-                val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestScopes(Scope(Scopes.APP_STATE))
-                    .requestServerAuthCode(getString(R.string.server_client_id))
-                    .requestEmail()
-                    .build()
-                val account = GoogleSignIn.getClient(context!!, signInOptions)
-
-                Log.i("prefs", "signing out")
-                account.signOut().addOnSuccessListener {
-                    clearUserInfo(userInfo!!)
-                    Log.i("prefs", "done")
-                    startActivity(intent)
-                    (context as Activity).finish()
-                }
+            if (it == "facebook") {
+                logOutFacebook(intent)
+            } else if (it == "google") {
+                logOutGoogle(intent)
             }
-        }
-        return view
+        })
+        binding.viewModel!!.imgUrl.observe(this, Observer { url ->
+            Glide.with(view!!).load(url).into(binding.userImage)
+        })
+        return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun logOutGoogle(intent: Intent) {
+        val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestScopes(Scope(Scopes.APP_STATE))
+            .requestServerAuthCode(getString(R.string.server_client_id))
+            .requestEmail()
+            .build()
+        val account = GoogleSignIn.getClient(context!!, signInOptions)
 
-        user_dis_name.text = userInfoTmp[0]
-        if (userInfoTmp[4] == "google") {
-            Glide.with(view!!).load(userInfoTmp[1]).into(user_image)
-        } else {
-            Glide.with(view!!).load("https://graph.facebook.com/${userInfoTmp[1]}/picture?type=large").into(user_image)
-        }
-    }
-
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
+        account.signOut().addOnSuccessListener {
+            startActivity(intent)
+            (context as Activity).finish()
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
+    private fun logOutFacebook(intent: Intent) {
+        LoginManager.getInstance().logOut()
+        startActivity(intent)
+        (context as Activity).finish()
     }
-
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
-    }
-
 }

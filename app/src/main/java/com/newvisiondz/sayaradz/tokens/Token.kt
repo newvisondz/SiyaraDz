@@ -1,4 +1,4 @@
-package com.newvisiondz.sayaradz.Tokens
+package com.newvisiondz.sayaradz.tokens
 
 class Token(_email: String, _id: String, _token: String) {
     var email: String = _email

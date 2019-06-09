@@ -2,11 +2,11 @@ package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
@@ -15,8 +15,12 @@ import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Model
 import kotlinx.android.synthetic.main.fragment_model_card.view.*
 
-class ModelsAdapter(private val models: MutableList<Model>, private val context: Context,private val manufacturerId:String) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
+class ModelsAdapter(
+    private val models: MutableList<Model>,
+    private val context: Context,
+    private val manufacturerId: String
+) :
+    RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val model = this.models[i]
         viewHolder.modelName.text = model.name
@@ -50,7 +54,7 @@ class ModelsAdapter(private val models: MutableList<Model>, private val context:
         return ViewHolder(view)
     }
 
-    inner class ViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val card = view.model_card!!
         val modelName = view.model_name!!
         val modelImage = view.model_image!!
