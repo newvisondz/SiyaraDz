@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.newvisiondz.sayaradz"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         vectorDrawables.useSupportLibrary = true
         versionCode 1
