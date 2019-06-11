@@ -21,6 +21,7 @@ class ModelsAdapter(
     private val manufacturerId: String
 ) :
     RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
+
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val model = this.models[i]
         viewHolder.modelName.text = model.name

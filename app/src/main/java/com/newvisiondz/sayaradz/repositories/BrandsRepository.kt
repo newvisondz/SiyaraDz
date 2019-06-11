@@ -81,7 +81,6 @@ class BrandsRepository private constructor(var context: Context) {
                     }
                 }
             }
-
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 t.printStackTrace()
             }

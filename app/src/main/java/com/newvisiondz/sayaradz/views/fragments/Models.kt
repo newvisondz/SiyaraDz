@@ -1,12 +1,11 @@
 package com.newvisiondz.sayaradz.views.fragments
 
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,16 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.adapters.ModelsAdapter
+import com.newvisiondz.sayaradz.databinding.FragmentModelsBinding
 import com.newvisiondz.sayaradz.model.Model
 import com.newvisiondz.sayaradz.views.viewModel.ModelsViewModel
 import com.newvisiondz.sayaradz.views.viewModel.ModelsViewModelsFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_models.*
-
 
 class Models : Fragment() {
     private var models = mutableListOf<Model>()
-    private lateinit var modelsAdapter: ModelsAdapter
+    private var modelsAdapter: ModelsAdapter? = null
     private var brandName = ""
 
     private var pageNumber: Int = 1
@@ -41,30 +39,24 @@ class Models : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_models, container, false)
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val binding: FragmentModelsBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_models, container, false)
         val application = requireNotNull(this.activity).application
         mViewModel = ViewModelProviders.of(
             this, ModelsViewModelsFactory(
                 application, this
             )
         ).get(ModelsViewModel::class.java)
-
         brandName = ModelsArgs.fromBundle(arguments).brandName
-
         mViewModel!!.getModelData(brandName)
 
-        this.models_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.modelsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                this@Models.visibleItemsCount = models_list.layoutManager!!.childCount
-                this@Models.totalItemsCount = models_list.layoutManager!!.itemCount
+                this@Models.visibleItemsCount = binding.modelsList.layoutManager!!.childCount
+                this@Models.totalItemsCount = binding.modelsList.layoutManager!!.itemCount
                 this@Models.pastVisibleItems =
-                    (models_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                    (binding.modelsList.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 if (dy > 0) {
                     if (isloading) {
                         if (totalItemsCount > previousTotal) {
@@ -80,13 +72,13 @@ class Models : Fragment() {
                 }
             }
         })
-        swipeRefreshModels.setOnRefreshListener {
+        binding.swipeRefreshModels.setOnRefreshListener {
             models.clear()
             mViewModel!!.getModelData(brandName)
-            models_list.adapter!!.notifyDataSetChanged()
+            binding.modelsList.adapter!!.notifyDataSetChanged()
             pageNumber = 1
             isloading = false
-            swipeRefreshModels.isRefreshing = false
+            binding.swipeRefreshModels.isRefreshing = false
         }
         activity!!.action_search
             .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
@@ -107,36 +99,11 @@ class Models : Fragment() {
                     models,
                     context!!, brandName
                 )
-                models_list.adapter = modelsAdapter
+                binding.modelsList.adapter = modelsAdapter
             } else {
-                models_list.adapter!!.notifyDataSetChanged()
+                binding.modelsList.adapter!!.notifyDataSetChanged()
             }
         })
-        initRecyclerView()
+        return binding.root
     }
-
-    private fun initRecyclerView() {
-        modelsAdapter = ModelsAdapter(this.models, this.context as Context, brandName)
-        Log.i("adapter", models.size.toString())
-        models_list.adapter = modelsAdapter
-    }
-
-
-    private fun initViewModel() {
-        val brandsObserver =
-            Observer<MutableList<Model>> { newBrands ->
-                models.clear()
-                models.addAll(newBrands!!)
-                if (modelsAdapter == null) {
-                    modelsAdapter = ModelsAdapter(
-                        models,
-                        context!!, arguments!!.getString("brandName")!!
-                    )
-                    models_list.adapter = modelsAdapter
-                } else {
-                    models_list.adapter!!.notifyDataSetChanged()
-                }
-            }
-    }
-
 }

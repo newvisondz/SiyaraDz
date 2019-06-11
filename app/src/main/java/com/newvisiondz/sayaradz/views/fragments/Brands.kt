@@ -1,22 +1,21 @@
 package com.newvisiondz.sayaradz.views.fragments
 
-import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.adapters.BrandsAdapter
+import com.newvisiondz.sayaradz.databinding.FragmentBrandsBinding
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.views.viewModel.BrandsViewModel
 import com.newvisiondz.sayaradz.views.viewModel.BrandsViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_brands.*
-import kotlinx.android.synthetic.main.fragment_brands.view.*
 
 
 class Brands : Fragment() {
@@ -40,42 +39,57 @@ class Brands : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_brands, container, false)
-    }
+        val binding: FragmentBrandsBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_brands, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initViewModel()
-        initRecycerView()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        view.swipeRefresh.setOnRefreshListener {
+        binding.brandsList.adapter = BrandsAdapter(brands, context!!)
+        val application = requireNotNull(this.activity).application
+        mViewModel = ViewModelProviders.of(
+            this,
+            BrandsViewModelFactory(
+                application
+            )
+        ).get(BrandsViewModel::class.java)
+        mViewModel!!.brandsList.observe(this, Observer { newBrands ->
+            brands.clear()
+            brands.addAll(newBrands!!)
+            if (adapter == null) {
+                adapter = BrandsAdapter(
+                    brands,
+                    context!!
+                )
+                binding.brandsList.adapter = adapter
+            } else {
+                binding.brandsList.adapter?.notifyDataSetChanged()
+            }
+        })
+        binding.swipeRefresh.setOnRefreshListener {
             brands.clear()
             adapter!!.clearBrands()
             mViewModel!!.getBrandsData()
-            brands_list.adapter!!.notifyDataSetChanged()
+            binding.brandsList.adapter!!.notifyDataSetChanged()
             pageNumber = 1
             isloading = false
-            swipeRefresh.isRefreshing = false
+            binding.swipeRefresh.isRefreshing = false
         }
-    }
+        activity!!.action_search
+            .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    mViewModel!!.filterBrands(query)
+                    return true
+                }
 
-    override fun onPause() {
-        super.onPause()
-        pageNumber = 1
-    }
-
-    override fun onResume() {
-        super.onResume()
-        this.brands_list.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+                override fun onQueryTextChange(query: String): Boolean {
+                    return false
+                }
+            })
+        binding.brandsList.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                this@Brands.visibleItemsCount = brands_list.layoutManager!!.childCount
-                this@Brands.totalItemsCount = brands_list.layoutManager!!.itemCount
+                this@Brands.visibleItemsCount = binding.brandsList.layoutManager!!.childCount
+                this@Brands.totalItemsCount = binding.brandsList.layoutManager!!.itemCount
                 this@Brands.pastVisibleItems =
-                    (brands_list.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
+                    (binding.brandsList.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 if (dy > 0) {
                     if (isloading) {
                         if (totalItemsCount > previousTotal) {
@@ -92,56 +106,40 @@ class Brands : Fragment() {
             }
         }
         )
-        activity!!.action_search
-            .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    mViewModel!!.filterBrands(query)
-                    return true
-                }
-
-                override fun onQueryTextChange(query: String): Boolean {
-                    return false
-                }
-            })
-        activity!!.action_search
-            .setOnCloseListener {
-                false
-            }
+        return binding.root
     }
 
-    private fun initRecycerView() {
-        brands_list.apply {
-            setHasFixedSize(true)
-            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
-        }
-        adapter = BrandsAdapter(brands, this.context as Context)
-        brands_list.adapter = adapter
+    override fun onPause() {
+        super.onPause()
+        pageNumber = 1
     }
 
-    private fun initViewModel() {
-        val brandsObserver =
-            Observer<MutableList<Brand>> { newBrands ->
-                brands.clear()
-                brands.addAll(newBrands!!)
-                if (adapter == null) {
-                    adapter = BrandsAdapter(
-                        brands,
-                        context!!
-                    )
-                    brands_list.adapter = adapter
-                } else {
-                    brands_list.adapter!!.notifyDataSetChanged()
-                }
-            }
-
-        mViewModel = ViewModelProviders.of(
-            this,
-            BrandsViewModelFactory(
-                context!!.applicationContext as Application
-            )
-        )
-            .get(BrandsViewModel::class.java)
-        mViewModel!!.brandsList.observe(this, brandsObserver)
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        this.brands_list.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                this@Brands.visibleItemsCount = brands_list.layoutManager!!.childCount
+//                this@Brands.totalItemsCount = brands_list.layoutManager!!.itemCount
+//                this@Brands.pastVisibleItems =
+//                    (brands_list.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
+//                if (dy > 0) {
+//                    if (isloading) {
+//                        if (totalItemsCount > previousTotal) {
+//                            isloading = false
+//                            previousTotal = totalItemsCount
+//                        }
+//                    }
+//                    if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
+//                        pageNumber++
+//                        mViewModel!!.performPagination(pageNumber, viewThreshold)
+//                        isloading = true
+//                    }
+//                }
+//            }
+//        }
+//        )
+//
+//    }
 
 }

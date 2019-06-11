@@ -1,39 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:id="@+id/brands_layout"
-                                             android:layout_width="match_parent"
-              android:orientation="vertical"
-                                             android:layout_height="match_parent"
-                                             tools:context=".views.fragments.Brands">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+	<data>
 
-	<ProgressBar
-			style="?android:attr/progressBarStyle"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/progressBar"
-			android:visibility="gone"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			android:layout_gravity="center_horizontal"/>
-	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-			android:id="@+id/swipeRefresh"
+	</data>
+	<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/brands_layout"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			app:layout_behavior="@string/appbar_scrolling_view_behavior"
-			app:layout_constraintTop_toBottomOf="@+id/progressBar" app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent">
+			android:orientation="vertical"
+			android:layout_height="match_parent"
+			tools:context=".views.fragments.Brands" app:layout_constraintStart_toStartOf="@+id/progressBar"
+			app:layout_constraintEnd_toStartOf="@+id/progressBar">
 
-		<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/brands_list"
+		<ProgressBar
+				style="?android:attr/progressBarStyle"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-		>
+				android:id="@+id/progressBar"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/swipeRefresh" app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="@+id/swipeRefresh"
+				android:layout_marginStart="8dp"/>
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+				android:id="@+id/swipeRefresh"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				app:layout_behavior="@string/appbar_scrolling_view_behavior"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toTopOf="@+id/progressBar"
+				app:layout_constraintVertical_chainStyle="packed" app:layout_constraintVertical_bias="0.0"
+				android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+				android:layout_marginTop="8dp">
 
-		</androidx.recyclerview.widget.RecyclerView>
+			<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/brands_list"
+					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+					tools:itemCount="2"
+					tools:listitem="@layout/brand_marks_items"
+					android:layout_width="wrap_content"
 
-	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+					android:layout_height="wrap_content">
 
-</LinearLayout>
+			</androidx.recyclerview.widget.RecyclerView>
+
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

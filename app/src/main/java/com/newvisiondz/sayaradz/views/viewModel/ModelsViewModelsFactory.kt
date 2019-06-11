@@ -25,7 +25,6 @@ class ModelsViewModel(app: Application, lifeCycleOwner: LifecycleOwner) : Androi
         modelsRepository!!.list.observe(lifeCycleOwner, Observer { newList ->
             _modelsList.value = newList
         })
-//        _modelsList =
     }
 
     fun performPagination(pageNumber: Int, viewThreshold: Int, brandName: String) {

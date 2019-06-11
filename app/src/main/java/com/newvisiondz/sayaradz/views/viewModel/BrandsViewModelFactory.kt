@@ -9,8 +9,7 @@ import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.repositories.BrandsRepository
 
 class BrandsViewModelFactory(private var app: Application) :
-    ViewModelProvider.NewInstanceFactory() {
-
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         return BrandsViewModel(app) as T

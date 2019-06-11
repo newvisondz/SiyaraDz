@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
-		tools:context=".views.fragments.Models"
-		android:orientation="vertical"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+	<data>
 
-	<ProgressBar
-			style="?android:attr/progressBarStyle"
-			android:visibility="gone"
+	</data>
+	<LinearLayout
+			tools:context=".views.fragments.Models"
+			android:orientation="vertical"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/progressModel"/>
-	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-			android:id="@+id/swipeRefreshModels"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			app:layout_behavior="@string/appbar_scrolling_view_behavior">
-		<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/models_list"
+			android:layout_height="wrap_content">
+
+		<ProgressBar
+				style="?android:attr/progressBarStyle"
+				android:visibility="gone"
 				android:layout_width="match_parent"
-				tools:listitem="@layout/fragment_model_card"
-				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="5dp"
-				android:layout_marginEnd="5dp"/>
-	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-</LinearLayout>
+				android:id="@+id/progressModel"/>
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+				android:id="@+id/swipeRefreshModels"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_behavior="@string/appbar_scrolling_view_behavior">
+			<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/models_list"
+					android:layout_width="match_parent"
+					tools:listitem="@layout/fragment_model_card"
+					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="5dp"
+					android:layout_marginEnd="5dp"/>
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+	</LinearLayout>
+</layout>

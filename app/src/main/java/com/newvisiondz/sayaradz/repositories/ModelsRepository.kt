@@ -23,12 +23,7 @@ class ModelsRepository(private var context: Context) {
     private val userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     val listType = object : TypeToken<MutableList<Model>>() {}.type!!
 
-//    init {
-//        list = getModelData()
-//    }
-
     companion object {
-
         @Volatile
         private var INSTANCE: ModelsRepository? = null
         fun getInstance(context: Context): ModelsRepository {
@@ -61,7 +56,6 @@ class ModelsRepository(private var context: Context) {
                 }
             }
         })
-//        return _list
     }
 
     fun performPagination(pageNumber: Int, viewThreshold: Int,brandName: String) {
@@ -79,7 +73,6 @@ class ModelsRepository(private var context: Context) {
                     if (tmp.size != 0) {
                         list.value!!.addAll(tmp)
                     }
-                    //TODO if that  doesn't work use second list
                     _list.value = list.value
                 }
             }
