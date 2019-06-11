@@ -1,17 +1,17 @@
 package com.newvisiondz.sayaradz.views.fragments
 
 
-import android.app.Application
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.adapters.ModelsAdapter
 import com.newvisiondz.sayaradz.model.Model
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_models.*
 
 
-class Models : androidx.fragment.app.Fragment() {
+class Models : Fragment() {
     private var models = mutableListOf<Model>()
     private lateinit var modelsAdapter: ModelsAdapter
     private var brandName = ""
@@ -33,8 +33,8 @@ class Models : androidx.fragment.app.Fragment() {
     private var visibleItemsCount: Int = 0
     private var totalItemsCount: Int = 0
     private var previousTotal: Int = 0
-
     private var viewThreshold = 6
+
 
     var mViewModel: ModelsViewModel? = null
     override fun onCreateView(
@@ -47,16 +47,24 @@ class Models : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        brandName = arguments!!.getString("brandName")!!
-        initViewModel()
-        initRecyclerView()
-        this.models_list.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+        val application = requireNotNull(this.activity).application
+        mViewModel = ViewModelProviders.of(
+            this, ModelsViewModelsFactory(
+                application, this
+            )
+        ).get(ModelsViewModel::class.java)
+
+        brandName = ModelsArgs.fromBundle(arguments).brandName
+
+        mViewModel!!.getModelData(brandName)
+
+        this.models_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 this@Models.visibleItemsCount = models_list.layoutManager!!.childCount
                 this@Models.totalItemsCount = models_list.layoutManager!!.itemCount
                 this@Models.pastVisibleItems =
-                    (models_list.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
+                    (models_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 if (dy > 0) {
                     if (isloading) {
                         if (totalItemsCount > previousTotal) {
@@ -66,7 +74,7 @@ class Models : androidx.fragment.app.Fragment() {
                     }
                     if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
                         pageNumber++
-                        mViewModel!!.performPagination(pageNumber, viewThreshold)
+                        mViewModel!!.performPagination(pageNumber, viewThreshold, brandName)
                         isloading = true
                     }
                 }
@@ -74,7 +82,7 @@ class Models : androidx.fragment.app.Fragment() {
         })
         swipeRefreshModels.setOnRefreshListener {
             models.clear()
-            mViewModel!!.getModelData()
+            mViewModel!!.getModelData(brandName)
             models_list.adapter!!.notifyDataSetChanged()
             pageNumber = 1
             isloading = false
@@ -83,7 +91,7 @@ class Models : androidx.fragment.app.Fragment() {
         activity!!.action_search
             .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    mViewModel!!.filterModelsData(query)
+                    mViewModel!!.filterModelsData(query, brandName)
                     return true
                 }
 
@@ -91,15 +99,25 @@ class Models : androidx.fragment.app.Fragment() {
                     return false
                 }
             })
+        mViewModel!!.modelsList.observe(this, Observer { newBrands ->
+            models.clear()
+            models.addAll(newBrands!!)
+            if (modelsAdapter == null) {
+                modelsAdapter = ModelsAdapter(
+                    models,
+                    context!!, brandName
+                )
+                models_list.adapter = modelsAdapter
+            } else {
+                models_list.adapter!!.notifyDataSetChanged()
+            }
+        })
+        initRecyclerView()
     }
-
 
     private fun initRecyclerView() {
         modelsAdapter = ModelsAdapter(this.models, this.context as Context, brandName)
-        models_list.apply {
-            setHasFixedSize(true)
-            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
-        }
+        Log.i("adapter", models.size.toString())
         models_list.adapter = modelsAdapter
     }
 
@@ -119,15 +137,6 @@ class Models : androidx.fragment.app.Fragment() {
                     models_list.adapter!!.notifyDataSetChanged()
                 }
             }
-
-        mViewModel = ViewModelProviders.of(
-            this,
-            ModelsViewModelsFactory(
-                context!!.applicationContext as Application, brandName
-            )
-        )
-            .get(ModelsViewModel::class.java)
-        mViewModel!!.modelsList.observe(this, brandsObserver)
     }
 
 }

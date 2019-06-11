@@ -2,6 +2,7 @@ package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Log
 import android.util.LruCache
 import android.view.LayoutInflater
 import android.view.View
@@ -29,9 +30,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         val maxMemory = (Runtime.getRuntime().maxMemory() / 1024).toInt()
         val cacheSize = maxMemory / 8
         imageCache = LruCache(cacheSize)
-
     }
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view = LayoutInflater.from(this.context).inflate(R.layout.brand_marks_items, viewGroup, false)
         return ViewHolder(view)
@@ -48,6 +47,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
             .into(viewHolder.brandImage)
         viewHolder.card.setOnClickListener {
             it.findNavController().navigate(TabsDirections.actionTabsToModels(marque.id))
+            Log.i("adapter",marque.id)
         }
     }
 

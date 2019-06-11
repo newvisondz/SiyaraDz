@@ -53,7 +53,6 @@ class BrandsRepository private constructor(var context: Context) {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     try {
-                        list.value?.clear()
                         list.value = formatter.listFormatter(response.body()!!, listType, "manufacturers")
                     } catch (e: Exception) {
                         Log.i("Nice", e.message)

@@ -3,6 +3,7 @@ package com.newvisiondz.sayaradz.repositories
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
@@ -13,33 +14,34 @@ import com.newvisiondz.sayaradz.utils.getUserToken
 import retrofit2.Call
 import retrofit2.Response
 
-class ModelsRepository(private var context: Context, var brandName: String) {
+class ModelsRepository(private var context: Context) {
 
-    var list: MutableLiveData<MutableList<Model>> = MutableLiveData()
+    private var _list: MutableLiveData<MutableList<Model>> = MutableLiveData()
+    val list: LiveData<MutableList<Model>>
+        get() = _list
     private val formatter = JsonFormatter()
     private val userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     val listType = object : TypeToken<MutableList<Model>>() {}.type!!
 
-    init {
-        list = getModelData()
-    }
+//    init {
+//        list = getModelData()
+//    }
 
     companion object {
 
         @Volatile
         private var INSTANCE: ModelsRepository? = null
-
-        fun getInstance(context: Context, brandName: String): ModelsRepository {
+        fun getInstance(context: Context): ModelsRepository {
             if (INSTANCE == null) {
                 synchronized(this) {
-                    INSTANCE = ModelsRepository(context, brandName)
+                    INSTANCE = ModelsRepository(context)
                 }
             }
             return INSTANCE!!
         }
     }
-
-    fun getModelData(): MutableLiveData<MutableList<Model>> {
+// : MutableLiveData<MutableList<Model>>  a return ?
+    fun getModelData(brandName:String) {
         val call = RetrofitClient(context)
             .serverDataApi
             .getAllModels(getUserToken(userInfo)!!, brandName, 1, 2)
@@ -52,18 +54,17 @@ class ModelsRepository(private var context: Context, var brandName: String) {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     try {
-                        list.value?.clear()
-                        list.value = formatter.listFormatter(response.body()!!, listType, "models")
+                        _list.value = formatter.listFormatter(response.body()!!, listType, "models")
                     } catch (e: Exception) {
                         Log.i("Nice", e.message)
                     }
                 }
             }
         })
-        return list
+//        return _list
     }
 
-    fun performPagination(pageNumber: Int, viewThreshold: Int) {
+    fun performPagination(pageNumber: Int, viewThreshold: Int,brandName: String) {
         val call = RetrofitClient(context)
             .serverDataApi
             .getAllModels(getUserToken(userInfo)!!,
@@ -79,7 +80,7 @@ class ModelsRepository(private var context: Context, var brandName: String) {
                         list.value!!.addAll(tmp)
                     }
                     //TODO if that  doesn't work use second list
-                    list.value = list.value
+                    _list.value = list.value
                 }
             }
 
@@ -90,7 +91,7 @@ class ModelsRepository(private var context: Context, var brandName: String) {
 
     }
 
-    fun filterBrands(q: String) {
+    fun filterBrands(q: String,brandName: String) {
         val call = RetrofitClient(context)
             .serverDataApi
             .getAllModels(getUserToken(userInfo)!!,brandName, q)
@@ -102,7 +103,7 @@ class ModelsRepository(private var context: Context, var brandName: String) {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     list.value!!.clear()
-                    list.value = (formatter.listFormatter(response.body()!!, listType, "models"))
+                    _list.value = (formatter.listFormatter(response.body()!!, listType, "models"))
                 }
             }
         })
