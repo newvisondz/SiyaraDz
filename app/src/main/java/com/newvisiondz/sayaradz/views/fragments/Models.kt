@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class Models : Fragment() {
     private var models = mutableListOf<Model>()
-    private var modelsAdapter: ModelsAdapter? = null
+    private var modelsAdapter: ModelsAdapter?=null
     private var brandName = ""
 
     private var pageNumber: Int = 1
@@ -42,13 +42,26 @@ class Models : Fragment() {
         val binding: FragmentModelsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_models, container, false)
         val application = requireNotNull(this.activity).application
+        brandName = ModelsArgs.fromBundle(arguments).brandName
         mViewModel = ViewModelProviders.of(
             this, ModelsViewModelsFactory(
-                application, this
-            )
-        ).get(ModelsViewModel::class.java)
-        brandName = ModelsArgs.fromBundle(arguments).brandName
+                application, this)).get(ModelsViewModel::class.java)
+        binding.modelsList.adapter=ModelsAdapter(models,context!!,brandName)
+
         mViewModel!!.getModelData(brandName)
+        mViewModel!!.modelsList.observe(this, Observer { newModels ->
+            models.clear()
+            models.addAll(newModels)
+            if (modelsAdapter == null) {
+                modelsAdapter = ModelsAdapter(
+                    models,
+                    context!!, brandName
+                )
+                binding.modelsList.adapter = modelsAdapter
+            } else {
+                binding.modelsList.adapter!!.notifyDataSetChanged()
+            }
+        })
 
         binding.modelsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -91,19 +104,7 @@ class Models : Fragment() {
                     return false
                 }
             })
-        mViewModel!!.modelsList.observe(this, Observer { newBrands ->
-            models.clear()
-            models.addAll(newBrands!!)
-            if (modelsAdapter == null) {
-                modelsAdapter = ModelsAdapter(
-                    models,
-                    context!!, brandName
-                )
-                binding.modelsList.adapter = modelsAdapter
-            } else {
-                binding.modelsList.adapter!!.notifyDataSetChanged()
-            }
-        })
+
         return binding.root
     }
 }

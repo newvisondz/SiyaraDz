@@ -6,7 +6,7 @@
                                                    android:layout_height="match_parent"
                                                    android:orientation="vertical"
                                                    tools:ignore="HardcodedText"
-                                                   tools:context=".views.fragments.ModelView">
+                                                   tools:context=".views.fragments.Versions">
 
 	<ScrollView
 			android:id="@+id/scrollView2"
@@ -64,13 +64,14 @@
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toTopOf="parent"/>
 
-					<ListView
+					<androidx.recyclerview.widget.RecyclerView
 							android:id="@+id/options"
 							android:layout_width="match_parent"
-							android:layout_height="191dp"
-							android:layout_marginStart="15dp"
-							android:layout_marginTop="10dp"
-							android:layout_marginEnd="15dp"
+							android:layout_height="wrap_content"
+							app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+							android:layout_marginStart="8dp"
+							android:layout_marginTop="8dp"
+							android:layout_marginEnd="8dp"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/textView1"/>
@@ -111,31 +112,31 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_weight="1"
-								android:text="Noir" android:id="@+id/blackBox"/>
+								android:buttonTint="#000" android:id="@+id/blackBox"/>
 
 						<CheckBox
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_weight="1"
-								android:text="Rouge" android:id="@+id/redBox"/>
+								android:buttonTint="@android:color/holo_red_light" android:id="@+id/redBox"/>
 
 						<CheckBox
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_weight="1"
-								android:text="Bleu" android:id="@+id/blueBox"/>
+								android:buttonTint="@android:color/holo_blue_light" android:id="@+id/blueBox"/>
 
 						<CheckBox
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_weight="1"
-								android:text="Gris" android:id="@+id/grayBox"/>
+								android:buttonTint="@android:color/holo_orange_light" android:id="@+id/grayBox"/>
 
 						<CheckBox
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_weight="1"
-								android:text="Blanc" android:id="@+id/whiteBox"/>
+								android:buttonTint="@android:color/darker_gray" android:id="@+id/whiteBox"/>
 
 					</LinearLayout>
 
@@ -164,15 +165,22 @@
 							app:layout_constraintTop_toBottomOf="@+id/textView12">
 
 						<CheckBox
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
 								android:layout_weight="1"
 								android:text="DIESEL" android:id="@+id/diesel"/>
 
 						<CheckBox
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
 								android:layout_weight="1"
 								android:text="ESSENCE"
-								android:id="@+id/essence"/>
+								android:id="@+id/essence"
+						/>
 
 						<CheckBox
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
 								android:layout_weight="1"
 								android:text="ESSENCE GPL"
 								android:id="@+id/gpl"/>
@@ -289,14 +297,21 @@
 
 
 						<CheckBox
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
 								android:layout_weight="1"
 								android:text="4" android:id="@+id/place4"/>
 
 						<CheckBox
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
 								android:layout_weight="1"
 								android:text="6" android:id="@+id/place6"/>
 
 						<CheckBox
+
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
 								android:layout_weight="1"
 								android:text="8" android:id="@+id/place8"/>
 

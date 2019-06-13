@@ -12,8 +12,7 @@ import android.widget.Filterable
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
-import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
+import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.views.fragments.TabsDirections
@@ -42,8 +41,12 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         Glide.with(context)
             .asBitmap()
             .load("http://sayaradz-sayaradz-2.7e14.starter-us-west-2.openshiftapps.com/${marque.logo}")
-            .transition(withCrossFade(DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()))
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image)
+            )
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(viewHolder.brandImage)
         viewHolder.card.setOnClickListener {
             it.findNavController().navigate(TabsDirections.actionTabsToModels(marque.id))

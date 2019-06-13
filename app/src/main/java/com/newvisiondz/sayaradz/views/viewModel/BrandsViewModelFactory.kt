@@ -1,28 +1,29 @@
 package com.newvisiondz.sayaradz.views.viewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.repositories.BrandsRepository
 
-class BrandsViewModelFactory(private var app: Application) :
+class BrandsViewModelFactory(private var app: Application, private var lifecycleOwner: LifecycleOwner) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
-        return BrandsViewModel(app) as T
+        return BrandsViewModel(app, lifecycleOwner) as T
     }
 }
 
-class BrandsViewModel(application: Application) :AndroidViewModel(application) {
-    var brandsList: LiveData<MutableList<Brand>>
+class BrandsViewModel(application: Application, lifecycleOwner: LifecycleOwner) : AndroidViewModel(application) {
+    private val _brandsList = MutableLiveData<MutableList<Brand>>()
+    val brandsList: LiveData<MutableList<Brand>>
+        get() = _brandsList
     private var appRepository: BrandsRepository? = null
 
     init {
         appRepository = BrandsRepository.getInstance(getApplication())
-        brandsList = appRepository!!.list
+        appRepository!!.list.observe(lifecycleOwner, Observer { list ->
+            _brandsList.value = list
+        })
     }
 
     fun performPagination(pageNumber: Int, viewThreshold: Int) {

@@ -58,9 +58,9 @@
     </fragment>
     <fragment
         android:id="@+id/modelView"
-        android:name="com.newvisiondz.sayaradz.views.fragments.ModelView"
+        android:name="com.newvisiondz.sayaradz.views.fragments.Versions"
         android:label="fragment_model_view"
-        tools:layout="@layout/fragment_model_view">
+        tools:layout="@layout/fragment_versions">
         <action
             android:id="@+id/action_modelView_to_dataSheetView"
             app:destination="@id/dataSheetView"
@@ -73,6 +73,8 @@
 	    <action
             android:id="@+id/action_modelView_to_orderForm"
             app:destination="@id/orderForm" />
+        <argument android:name="modelId" app:argType="string"/>
+        <argument android:name="manufacturerId" app:argType="string"/>
     </fragment>
     <fragment
         android:id="@+id/dataSheetView"

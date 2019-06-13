@@ -3,40 +3,40 @@ package com.newvisiondz.sayaradz.views.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Model
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import com.newvisiondz.sayaradz.utils.getUserToken
-import kotlinx.android.synthetic.main.fragment_model_view.*
-import kotlinx.android.synthetic.main.fragment_model_view.view.*
+import kotlinx.android.synthetic.main.fragment_versions.*
+import kotlinx.android.synthetic.main.fragment_versions.view.*
 import retrofit2.Call
 import retrofit2.Response
 
 
-class ModelView : androidx.fragment.app.Fragment() {
-    private var listener: OnFragmentInteractionListener? = null
+class Versions : Fragment() {
     private var userInfo: SharedPreferences? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_model_view, container, false)
+        val view = inflater.inflate(R.layout.fragment_versions, container, false)
         userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         var recievedModel: Model
-        val modelId = arguments!!.getString("modelId")
-        val manufacturer = arguments!!.getString("manufacturerId")
+        val modelId = VersionsArgs.fromBundle(arguments).modelId
+        val manufacturer = VersionsArgs.fromBundle(arguments).manufacturerId
         val call = RetrofitClient(context!!).serverDataApi.getModelDetails(
-            getUserToken(userInfo!!)!!, manufacturer!!, modelId!!
+            getUserToken(userInfo!!)!!, manufacturer, modelId
         )
         call.enqueue(object : retrofit2.Callback<Model> {
             override fun onFailure(call: Call<Model>, t: Throwable) {
@@ -47,8 +47,12 @@ class ModelView : androidx.fragment.app.Fragment() {
                 recievedModel = response.body()!!
                 Glide.with(context!!)
                     .load("http://sayaradz-sayaradz-2.7e14.starter-us-west-2.openshiftapps.com${recievedModel.images[0]}")
-                    .centerCrop()
-                    .placeholder(R.drawable.volkswagen)
+                    .fitCenter()
+                    .apply(
+                        RequestOptions()
+                            .placeholder(R.drawable.loading_animation)
+                            .error(R.drawable.ic_broken_image)
+                    )
                     .into(view.user_image)
                 for (color in recievedModel.colors) {
                     when (color.name) {
@@ -104,17 +108,6 @@ class ModelView : androidx.fragment.app.Fragment() {
     }
 
 
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -125,18 +118,9 @@ class ModelView : androidx.fragment.app.Fragment() {
         }
 
         view.order_button.setOnClickListener {
-            val action = ModelViewDirections.actionModelViewToOrderForm()
+            val action = VersionsDirections.actionModelViewToOrderForm()
             NavHostFragment.findNavController(this).navigate(R.id.action_modelView_to_orderForm)
         }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
     }
 
 }

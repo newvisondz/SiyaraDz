@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.databinding.FragmentProfileFormBinding
 import com.newvisiondz.sayaradz.views.viewModel.ProfileFormViewModel
@@ -38,10 +39,13 @@ class ProfileForm : Fragment() {
         binding.viewModel = profileFormViewModel
         profileFormViewModel.updateWithSuccess.observe(this, Observer {
             if (it == true) {
-                view?.findNavController()?.navigate(ProfileFormDirections.actionProfileFormToTabs())
+                Snackbar.make(binding.profileFormConstraint, "Try again..!!", Snackbar.LENGTH_LONG)
+                    .setAction(
+                        "Done"
+                    ) { view?.findNavController()?.navigate(ProfileFormDirections.actionProfileFormToTabs()) }.show()
+
             }
         })
-
         binding.userDate.setOnClickListener { datePicker() }
         return binding.root
     }

@@ -65,6 +65,12 @@ class ProfileFormViewModel(application: Application) : AndroidViewModel(applicat
                     }
                 }
             }
+//            .apply(
+//            RequestOptions()
+//            .placeholder(R.drawable.loading_animation)
+//            .error(R.drawable.ic_broken_image)
+//            )
+
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 t.printStackTrace()

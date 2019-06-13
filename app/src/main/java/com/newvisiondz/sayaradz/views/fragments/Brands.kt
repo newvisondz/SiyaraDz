@@ -47,10 +47,11 @@ class Brands : Fragment() {
         mViewModel = ViewModelProviders.of(
             this,
             BrandsViewModelFactory(
-                application
+                application,this
             )
         ).get(BrandsViewModel::class.java)
         mViewModel!!.brandsList.observe(this, Observer { newBrands ->
+            binding.progressBar.visibility=View.VISIBLE
             brands.clear()
             brands.addAll(newBrands!!)
             if (adapter == null) {
@@ -60,8 +61,9 @@ class Brands : Fragment() {
                 )
                 binding.brandsList.adapter = adapter
             } else {
-                binding.brandsList.adapter?.notifyDataSetChanged()
+                binding.brandsList.adapter!!.notifyDataSetChanged()
             }
+            binding.progressBar.visibility=View.GONE
         })
         binding.swipeRefresh.setOnRefreshListener {
             brands.clear()
@@ -104,8 +106,7 @@ class Brands : Fragment() {
                     }
                 }
             }
-        }
-        )
+        })
         return binding.root
     }
 
@@ -113,33 +114,4 @@ class Brands : Fragment() {
         super.onPause()
         pageNumber = 1
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        this.brands_list.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                this@Brands.visibleItemsCount = brands_list.layoutManager!!.childCount
-//                this@Brands.totalItemsCount = brands_list.layoutManager!!.itemCount
-//                this@Brands.pastVisibleItems =
-//                    (brands_list.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
-//                if (dy > 0) {
-//                    if (isloading) {
-//                        if (totalItemsCount > previousTotal) {
-//                            isloading = false
-//                            previousTotal = totalItemsCount
-//                        }
-//                    }
-//                    if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
-//                        pageNumber++
-//                        mViewModel!!.performPagination(pageNumber, viewThreshold)
-//                        isloading = true
-//                    }
-//                }
-//            }
-//        }
-//        )
-//
-//    }
-
 }

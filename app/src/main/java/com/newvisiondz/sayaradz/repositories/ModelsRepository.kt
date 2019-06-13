@@ -71,7 +71,7 @@ class ModelsRepository(private var context: Context) {
                 if (response.isSuccessful) {
                     val tmp: MutableList<Model> = formatter.listFormatter(response.body()!!, listType, "models")
                     if (tmp.size != 0) {
-                        list.value!!.addAll(tmp)
+                        _list.value!!.addAll(tmp)
                     }
                     _list.value = list.value
                 }
@@ -95,7 +95,7 @@ class ModelsRepository(private var context: Context) {
 
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    list.value!!.clear()
+                    _list.value!!.clear()
                     _list.value = (formatter.listFormatter(response.body()!!, listType, "models"))
                 }
             }

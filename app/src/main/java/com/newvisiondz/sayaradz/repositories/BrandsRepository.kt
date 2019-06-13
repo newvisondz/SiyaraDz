@@ -3,7 +3,7 @@ package com.newvisiondz.sayaradz.repositories
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
@@ -18,10 +18,12 @@ class BrandsRepository private constructor(var context: Context) {
     private val formatter = JsonFormatter()
     private val userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     val listType = object : TypeToken<MutableList<Brand>>() {}.type!!
-    var list: MutableLiveData<MutableList<Brand>> = MutableLiveData()
+    private val _list: MutableLiveData<MutableList<Brand>> = MutableLiveData()
+    val list: LiveData<MutableList<Brand>>
+        get() = _list
 
     init {
-        list = getBrandsData()
+        getBrandsData()
     }
 
     companion object {
@@ -40,27 +42,21 @@ class BrandsRepository private constructor(var context: Context) {
     }
 
 
-    fun getBrandsData(): MutableLiveData<MutableList<Brand>> {
+    fun getBrandsData() {
         val call = RetrofitClient(context)
             .serverDataApi
             .getAllBrands(getUserToken(userInfo)!!, 1, 6, "")
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
-                Log.i("Nice", t.localizedMessage)
             }
 
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    try {
-                        list.value = formatter.listFormatter(response.body()!!, listType, "manufacturers")
-                    } catch (e: Exception) {
-                        Log.i("Nice", e.message)
-                    }
+                    _list.value = formatter.listFormatter(response.body()!!, listType, "manufacturers")
                 }
             }
         })
-        return list
     }
 
     fun performPagination(pageNumber: Int, viewThreshold: Int) {
@@ -81,6 +77,7 @@ class BrandsRepository private constructor(var context: Context) {
                     }
                 }
             }
+
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -93,13 +90,13 @@ class BrandsRepository private constructor(var context: Context) {
             .filterBrands(getUserToken(userInfo)!!, q)
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
-                Log.i("Exception", "may be server error ${t.localizedMessage}")
+                t.printStackTrace()
             }
 
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    list.value!!.clear()
-                    list.value=(formatter.listFormatter(response.body()!!, listType, "manufacturers"))
+                    _list.value!!.clear()
+                    _list.value = (formatter.listFormatter(response.body()!!, listType, "manufacturers"))
                 }
             }
         })
