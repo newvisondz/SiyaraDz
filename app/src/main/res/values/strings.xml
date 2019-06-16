@@ -24,4 +24,6 @@
 	<string name="googleAuth">auth/google/callback</string>
 	<string name="facebookAuth">auth/facebook/callback</string>
 	<string name="manufacturers">manufacturers/</string>
+	<string name="model_price">From %s Dz</string>
+	<string name="brand_detail">By %1$s</string>
 </resources>

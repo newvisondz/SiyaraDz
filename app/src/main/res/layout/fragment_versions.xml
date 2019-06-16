@@ -1,365 +1,370 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:orientation="vertical"
-                                                   tools:ignore="HardcodedText"
-                                                   tools:context=".views.fragments.Versions">
-
-	<ScrollView
-			android:id="@+id/scrollView2"
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+	<data>
+		<variable name="viewModel" type="com.newvisiondz.sayaradz.views.viewModel.VersionsViewModel"/>
+	</data>
+	<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			app:layout_constraintBottom_toTopOf="@+id/total"
-			app:layout_constraintTop_toTopOf="parent">
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			tools:ignore="HardcodedText"
+			tools:context=".views.fragments.Versions">
 
-		<LinearLayout
+		<ScrollView
+				android:id="@+id/scrollView2"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical">
-
-			<ImageView
-					android:id="@+id/user_image"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:adjustViewBounds="true"
-					android:scaleType="fitCenter"
-					android:src="@drawable/mercedes"/>
+				android:layout_height="0dp"
+				app:layout_constraintBottom_toTopOf="@+id/total"
+				app:layout_constraintTop_toTopOf="parent">
 
 			<LinearLayout
 					android:layout_width="match_parent"
-					android:layout_height="match_parent"
+					android:layout_height="wrap_content"
 					android:orientation="vertical">
 
-				<androidx.constraintlayout.widget.ConstraintLayout
-						style="@style/SectionStyle">
-					<TextView
-							android:id="@+id/user_dis_name"
-							style="@style/MediumDarkBold"
-							android:text="Version"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"/>
+				<ImageView
+						android:id="@+id/user_image"
+						android:layout_width="match_parent"
+						android:layout_height="200dp"
+						android:scaleType="fitXY"
+						android:adjustViewBounds="true"
 
-					<Spinner
-							android:id="@+id/version"
-							android:layout_width="match_parent"
-							android:layout_height="50dp"
-							android:layout_marginStart="15dp"
-							android:layout_marginTop="10dp"
-							android:layout_marginEnd="15dp"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/user_dis_name"/>
-				</androidx.constraintlayout.widget.ConstraintLayout>
+						android:src="@drawable/mercedes"/>
 
-				<androidx.constraintlayout.widget.ConstraintLayout
-						style="@style/SectionStyle">
+				<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:orientation="vertical">
 
-					<TextView
-							android:id="@+id/textView1"
-							android:text="Options"
-							style="@style/MediumDarkBold"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"/>
+					<androidx.constraintlayout.widget.ConstraintLayout
+							style="@style/SectionStyle">
+						<TextView
+								android:id="@+id/user_dis_name"
+								style="@style/MediumDarkBold"
+								android:text="Version"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent"/>
 
-					<androidx.recyclerview.widget.RecyclerView
-							android:id="@+id/options"
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-							android:layout_marginStart="8dp"
-							android:layout_marginTop="8dp"
-							android:layout_marginEnd="8dp"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/textView1"/>
+						<Spinner
+								android:id="@+id/version"
+								android:layout_width="match_parent"
+								android:layout_height="50dp"
+								android:layout_marginStart="15dp"
+								android:layout_marginTop="10dp"
+								android:layout_marginEnd="15dp"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/user_dis_name"/>
+					</androidx.constraintlayout.widget.ConstraintLayout>
 
-					<Button
-							android:id="@+id/datasheet_button"
-							style="@style/TextButtonAccent"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/options"/>
+					<androidx.constraintlayout.widget.ConstraintLayout
+							style="@style/SectionStyle">
 
-				</androidx.constraintlayout.widget.ConstraintLayout>
+						<TextView
+								android:id="@+id/textView1"
+								android:text="Options"
+								style="@style/MediumDarkBold"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent"/>
 
-				<androidx.constraintlayout.widget.ConstraintLayout
-						style="@style/SectionStyle">
-
-					<TextView
-							android:id="@+id/textView11"
-							android:text="Couleur"
-							style="@style/MediumDarkBold"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"/>
-
-					<LinearLayout
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:layout_marginStart="8dp"
-							android:layout_marginTop="10dp"
-							android:layout_marginEnd="15dp"
-							android:orientation="horizontal"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/textView11">
-
-
-						<CheckBox
-								android:checked="false"
-								android:layout_width="wrap_content"
+						<androidx.recyclerview.widget.RecyclerView
+								android:id="@+id/options"
+								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:buttonTint="#000" android:id="@+id/blackBox"/>
+								app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+								android:layout_marginStart="8dp"
+								android:layout_marginTop="8dp"
+								android:layout_marginEnd="8dp"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/textView1"/>
 
-						<CheckBox
-								android:layout_width="wrap_content"
+						<Button
+								android:id="@+id/datasheet_button"
+								style="@style/TextButtonAccent"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/options"/>
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							style="@style/SectionStyle">
+
+						<TextView
+								android:id="@+id/textView11"
+								android:text="Couleur"
+								style="@style/MediumDarkBold"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent"/>
+
+						<LinearLayout
+								android:layout_width="0dp"
 								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:buttonTint="@android:color/holo_red_light" android:id="@+id/redBox"/>
+								android:layout_marginStart="8dp"
+								android:layout_marginTop="10dp"
+								android:layout_marginEnd="15dp"
+								android:orientation="horizontal"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/textView11">
 
-						<CheckBox
-								android:layout_width="wrap_content"
+
+							<CheckBox
+									android:checked="false"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:buttonTint="#000" android:id="@+id/blackBox"/>
+
+							<CheckBox
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:buttonTint="@android:color/holo_red_light" android:id="@+id/redBox"/>
+
+							<CheckBox
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:buttonTint="@android:color/holo_blue_light" android:id="@+id/blueBox"/>
+
+							<CheckBox
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:buttonTint="@android:color/holo_orange_light" android:id="@+id/grayBox"/>
+
+							<CheckBox
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:buttonTint="@android:color/darker_gray" android:id="@+id/whiteBox"/>
+
+						</LinearLayout>
+
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							style="@style/SectionStyle">
+
+						<TextView
+								android:id="@+id/textView12"
+								style="@style/MediumDarkBold"
+								android:text="Type du Carburant"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent"/>
+
+						<RadioGroup
+								android:layout_width="0dp"
 								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:buttonTint="@android:color/holo_blue_light" android:id="@+id/blueBox"/>
+								android:layout_marginStart="15dp"
+								android:layout_marginTop="10dp"
+								android:layout_marginEnd="15dp"
+								android:orientation="horizontal"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/textView12">
 
-						<CheckBox
-								android:layout_width="wrap_content"
+							<CheckBox
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:text="DIESEL" android:id="@+id/diesel"/>
+
+							<CheckBox
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:text="ESSENCE"
+									android:id="@+id/essence"
+							/>
+
+							<CheckBox
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:text="ESSENCE GPL"
+									android:id="@+id/gpl"/>
+						</RadioGroup>
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							style="@style/SectionStyle">
+
+						<TextView
+								android:id="@+id/textView13"
+								style="@style/MediumDarkBold"
+								android:text="Moteur"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent"/>
+
+						<RadioGroup
+								android:layout_width="0dp"
 								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:buttonTint="@android:color/holo_orange_light" android:id="@+id/grayBox"/>
+								android:layout_marginStart="15dp"
+								android:layout_marginTop="10dp"
+								android:layout_marginEnd="15dp"
+								android:orientation="horizontal"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/textView13">
 
-						<CheckBox
-								android:layout_width="wrap_content"
+
+							<RadioButton
+									style="@style/RadioButton"
+									android:layout_weight="1"
+									android:text="1.4"/>
+
+							<RadioButton
+									style="@style/RadioButton"
+									android:layout_weight="1"
+									android:text="1.6"/>
+
+							<RadioButton
+									style="@style/RadioButton"
+									android:layout_weight="1"
+									android:text="2.0"/>
+
+							<RadioButton
+									style="@style/RadioButton"
+									android:layout_weight="1"
+									android:text="2.5"/>
+
+							<RadioButton
+									style="@style/RadioButton"
+									android:layout_weight="1"
+									android:text="3.0"/>
+
+						</RadioGroup>
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							style="@style/SectionStyle">
+
+						<TextView
+								android:id="@+id/textView14"
+								style="@style/MediumDarkBold"
+								android:text="Boite"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent"/>
+
+						<RadioGroup
+								android:layout_width="0dp"
 								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:buttonTint="@android:color/darker_gray" android:id="@+id/whiteBox"/>
+								android:layout_marginStart="15dp"
+								android:layout_marginTop="10dp"
+								android:layout_marginEnd="15dp"
+								android:orientation="horizontal"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/textView14">
 
-					</LinearLayout>
 
+							<RadioButton
+									style="@style/RadioButton"
+									android:layout_weight="1"
+									android:text="Automatique"/>
 
-				</androidx.constraintlayout.widget.ConstraintLayout>
+							<RadioButton
+									style="@style/RadioButton"
+									android:layout_weight="1"
+									android:text="Manuelle"/>
 
-				<androidx.constraintlayout.widget.ConstraintLayout
-						style="@style/SectionStyle">
+						</RadioGroup>
+					</androidx.constraintlayout.widget.ConstraintLayout>
 
-					<TextView
-							android:id="@+id/textView12"
-							style="@style/MediumDarkBold"
-							android:text="Type du Carburant"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"/>
+					<androidx.constraintlayout.widget.ConstraintLayout
+							style="@style/SectionStyle">
 
-					<RadioGroup
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:layout_marginStart="15dp"
-							android:layout_marginTop="10dp"
-							android:layout_marginEnd="15dp"
-							android:orientation="horizontal"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/textView12">
+						<TextView
+								android:id="@+id/textView15"
+								style="@style/MediumDarkBold"
+								android:text="Places"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toTopOf="parent"/>
 
-						<CheckBox
-								android:layout_width="wrap_content"
+						<RadioGroup
+								android:layout_width="0dp"
 								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:text="DIESEL" android:id="@+id/diesel"/>
-
-						<CheckBox
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:text="ESSENCE"
-								android:id="@+id/essence"
-						/>
-
-						<CheckBox
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:text="ESSENCE GPL"
-								android:id="@+id/gpl"/>
-					</RadioGroup>
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
-				<androidx.constraintlayout.widget.ConstraintLayout
-						style="@style/SectionStyle">
-
-					<TextView
-							android:id="@+id/textView13"
-							style="@style/MediumDarkBold"
-							android:text="Moteur"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"/>
-
-					<RadioGroup
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:layout_marginStart="15dp"
-							android:layout_marginTop="10dp"
-							android:layout_marginEnd="15dp"
-							android:orientation="horizontal"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/textView13">
+								android:layout_marginStart="15dp"
+								android:layout_marginTop="10dp"
+								android:layout_marginEnd="15dp"
+								android:layout_marginBottom="10dp"
+								android:orientation="horizontal"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintEnd_toEndOf="parent"
+								app:layout_constraintStart_toStartOf="parent"
+								app:layout_constraintTop_toBottomOf="@+id/textView15">
 
 
-						<RadioButton
-								style="@style/RadioButton"
-								android:layout_weight="1"
-								android:text="1.4"/>
+							<CheckBox
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:text="4" android:id="@+id/place4"/>
 
-						<RadioButton
-								style="@style/RadioButton"
-								android:layout_weight="1"
-								android:text="1.6"/>
+							<CheckBox
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:text="6" android:id="@+id/place6"/>
 
-						<RadioButton
-								style="@style/RadioButton"
-								android:layout_weight="1"
-								android:text="2.0"/>
+							<CheckBox
 
-						<RadioButton
-								style="@style/RadioButton"
-								android:layout_weight="1"
-								android:text="2.5"/>
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:text="8" android:id="@+id/place8"/>
 
-						<RadioButton
-								style="@style/RadioButton"
-								android:layout_weight="1"
-								android:text="3.0"/>
+						</RadioGroup>
+					</androidx.constraintlayout.widget.ConstraintLayout>
+				</LinearLayout>
 
-					</RadioGroup>
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
-				<androidx.constraintlayout.widget.ConstraintLayout
-						style="@style/SectionStyle">
-
-					<TextView
-							android:id="@+id/textView14"
-							style="@style/MediumDarkBold"
-							android:text="Boite"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"/>
-
-					<RadioGroup
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:layout_marginStart="15dp"
-							android:layout_marginTop="10dp"
-							android:layout_marginEnd="15dp"
-							android:orientation="horizontal"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/textView14">
-
-
-						<RadioButton
-								style="@style/RadioButton"
-								android:layout_weight="1"
-								android:text="Automatique"/>
-
-						<RadioButton
-								style="@style/RadioButton"
-								android:layout_weight="1"
-								android:text="Manuelle"/>
-
-					</RadioGroup>
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
-				<androidx.constraintlayout.widget.ConstraintLayout
-						style="@style/SectionStyle">
-
-					<TextView
-							android:id="@+id/textView15"
-							style="@style/MediumDarkBold"
-							android:text="Places"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"/>
-
-					<RadioGroup
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:layout_marginStart="15dp"
-							android:layout_marginTop="10dp"
-							android:layout_marginEnd="15dp"
-							android:layout_marginBottom="10dp"
-							android:orientation="horizontal"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/textView15">
-
-
-						<CheckBox
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:text="4" android:id="@+id/place4"/>
-
-						<CheckBox
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:text="6" android:id="@+id/place6"/>
-
-						<CheckBox
-
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:layout_weight="1"
-								android:text="8" android:id="@+id/place8"/>
-
-					</RadioGroup>
-				</androidx.constraintlayout.widget.ConstraintLayout>
 			</LinearLayout>
-
-		</LinearLayout>
-	</ScrollView>
+		</ScrollView>
 
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-			android:id="@+id/total"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@color/colorPrimaryDark"
-			app:layout_constraintBottom_toTopOf="@+id/order_button"
-			app:layout_constraintStart_toStartOf="parent">
+		<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/total"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/colorPrimaryDark"
+				app:layout_constraintBottom_toTopOf="@+id/order_button"
+				app:layout_constraintStart_toStartOf="parent">
 
-		<TextView
-				android:id="@+id/textView16"
-				android:layout_marginStart="15dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp"
-				android:text="Total HT"
-				style="@style/MediumDark"
+			<TextView
+					android:id="@+id/textView16"
+					android:layout_marginStart="15dp"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="10dp"
+					android:text="Total HT"
+					style="@style/MediumDark"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
+
+			<TextView
+					android:id="@+id/textView17"
+					android:layout_marginTop="10dp"
+					android:layout_marginEnd="15dp"
+					android:layout_marginBottom="10dp"
+					android:text="7.899.990,00 DA"
+					style="@style/MediumDarkBold"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<Button
+				android:id="@+id/order_button"
+				android:text="COMMANDER"
+				style="@style/ActionButton"
 				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"/>
+				app:layout_constraintStart_toStartOf="parent"/>
 
-		<TextView
-				android:id="@+id/textView17"
-				android:layout_marginTop="10dp"
-				android:layout_marginEnd="15dp"
-				android:layout_marginBottom="10dp"
-				android:text="7.899.990,00 DA"
-				style="@style/MediumDarkBold"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintTop_toTopOf="parent"/>
+
 	</androidx.constraintlayout.widget.ConstraintLayout>
-
-	<Button
-			android:id="@+id/order_button"
-			android:text="COMMANDER"
-			style="@style/ActionButton"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent"/>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
