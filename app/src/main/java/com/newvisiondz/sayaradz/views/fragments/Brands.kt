@@ -67,9 +67,9 @@ class Brands : Fragment() {
         })
         binding.swipeRefresh.setOnRefreshListener {
             brands.clear()
-            adapter!!.clearBrands()
+            adapter?.clearBrands()
             mViewModel!!.getBrandsData()
-            binding.brandsList.adapter!!.notifyDataSetChanged()
+            binding.brandsList.adapter?.notifyDataSetChanged()
             pageNumber = 1
             isloading = false
             binding.swipeRefresh.isRefreshing = false

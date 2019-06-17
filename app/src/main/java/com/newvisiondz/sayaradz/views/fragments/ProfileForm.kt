@@ -37,13 +37,16 @@ class ProfileForm : Fragment() {
         val profileFormViewModel = ViewModelProviders.of(this, viewModelFactory).get(ProfileFormViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = profileFormViewModel
+
         profileFormViewModel.updateWithSuccess.observe(this, Observer {
             if (it == true) {
-                Snackbar.make(binding.profileFormConstraint, "Try again..!!", Snackbar.LENGTH_LONG)
+                Snackbar.make(binding.profileFormConstraint, "Update with success", Snackbar.LENGTH_SHORT)
                     .setAction(
                         "Done"
                     ) { view?.findNavController()?.navigate(ProfileFormDirections.actionProfileFormToTabs()) }.show()
 
+            }else {
+                Snackbar.make(binding.profileFormConstraint, "Try again..!!", Snackbar.LENGTH_LONG).show()
             }
         })
         binding.userDate.setOnClickListener { datePicker() }

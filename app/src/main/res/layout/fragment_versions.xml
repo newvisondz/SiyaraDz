@@ -26,8 +26,9 @@
 				<ImageView
 						android:id="@+id/user_image"
 						android:layout_width="match_parent"
-						android:layout_height="200dp"
-						android:scaleType="fitXY"
+						android:layout_height="wrap_content"
+						android:scaleType="fitCenter"
+						app:imageUrl="@{viewModel.model.images[0]}"
 						android:adjustViewBounds="true"
 
 						android:src="@drawable/mercedes"/>

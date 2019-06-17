@@ -33,10 +33,6 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         userInfo = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         authFacebook = FacebookAuthentification(this)
         authGoogle = GoogleAuthentification(this)
-//        val viewModelFactory = LoginViewModelFactory(application)
-//        val loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
-//        binding.viewModel = loginViewModel
-//        binding.lifecycleOwner = this
         binding.loging.setOnClickListener {
             authGoogle!!.signIn(this)
         }

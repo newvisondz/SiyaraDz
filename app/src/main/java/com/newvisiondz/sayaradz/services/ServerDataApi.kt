@@ -12,13 +12,13 @@ interface ServerDataApi {
         @Header("Authorization") token: String,
         @Query("page") page: Int,
         @Query("perpage") perPage: Int,
-        @Query("q") partilStrnig:String
+        @Query("q") partilStrnig: String
     ): Call<JsonElement>
 
     @GET("manufacturers/")
     fun filterBrands(
         @Header("Authorization") token: String,
-        @Query("q") partilStrnig:String
+        @Query("q") partilStrnig: String
     ): Call<JsonElement>
 
 
@@ -32,7 +32,7 @@ interface ServerDataApi {
     @GET("manufacturers/{manufacturerName}/models/")
     fun getAllModels(
         @Header("Authorization") token: String,
-        @Path("manufacturerName") manufacturerName:String,
+        @Path("manufacturerName") manufacturerName: String,
         @Query("page") page: Int,
         @Query("perpage") perPage: Int
     ): Call<JsonElement>
@@ -40,29 +40,37 @@ interface ServerDataApi {
     @GET("manufacturers/{manufacturerId}/models")
     fun getAllModels(
         @Header("Authorization") token: String,
-        @Path("manufacturerId") manufacturerName:String,
-        @Query("q")q:String
+        @Path("manufacturerId") manufacturerName: String,
+        @Query("q") q: String
     ): Call<JsonElement>
 
     @GET("manufacturers/{manufacturerId}/models/{modelId}")
     fun getModelDetails(
         @Header("Authorization") token: String,
-        @Path("manufacturerId") manufacturerName:String,
-        @Path("modelId") modelId:String
-    ):Call<Model>
+        @Path("manufacturerId") manufacturerName: String,
+        @Path("modelId") modelId: String
+    ): Call<Model>
 
     @GET("manufacturers/{manufacturerId}/models/{modelId}/versions")
     fun getAllVersion(
         @Header("Authorization") token: String,
-        @Path("manufacturerId") manufacturerName:String,
-        @Path("modelId") modelId:String
-    ):Call<JsonElement>
+        @Path("manufacturerId") manufacturerName: String,
+        @Path("modelId") modelId: String
+    ): Call<JsonElement>
+
+    @GET("manufacturers/{manufacturerId}/models/{modelId}/versions/{versionId}")
+    fun getVersionDetails(
+        @Header("Authorization") token: String,
+        @Path("manufacturerId") manufacturerName: String,
+        @Path("modelId") modelId: String,
+        @Path("versionId") versionId: String
+    ): Call<JsonElement>
 
     @GET("manufacturers/{manufacturer_id}/models/{model_id}/versions/{version_id}/vehicles/{vehicle_id}")
     fun getDataSheetCar(
         @Header("Authorization") token: String,
-        @Path("manufacturer_id") manufacturerName:String,
-        @Path("modelId") modelId:String,
-        @Path("version_id") version_id:String
-    ):Call<JsonElement>
+        @Path("manufacturer_id") manufacturerName: String,
+        @Path("modelId") modelId: String,
+        @Path("version_id") version_id: String
+    ): Call<JsonElement>
 }

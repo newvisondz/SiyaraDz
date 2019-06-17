@@ -50,14 +50,14 @@
         tools:layout="@layout/fragment_models">
         <action
             android:id="@+id/action_models_to_modelView"
-            app:destination="@id/modelView"
+            app:destination="@id/Versions"
             app:enterAnim="@anim/slide_up"
             app:exitAnim="@anim/fade_out">
         </action>
         <argument android:name="brandName" app:argType="string"/>
     </fragment>
     <fragment
-        android:id="@+id/modelView"
+        android:id="@+id/Versions"
         android:name="com.newvisiondz.sayaradz.views.fragments.Versions"
         android:label="fragment_model_view"
         tools:layout="@layout/fragment_versions">
@@ -127,7 +127,7 @@
         tools:layout="@layout/fragment_my_models" >
         <action
             android:id="@+id/action_myModels_to_modelView"
-            app:destination="@id/modelView" />
+            app:destination="@id/Versions" />
     </fragment>
     <fragment
         android:id="@+id/myVersions"
@@ -136,7 +136,7 @@
         tools:layout="@layout/fragment_my_versions" >
         <action
             android:id="@+id/action_myVersions_to_modelView"
-            app:destination="@id/modelView" />
+            app:destination="@id/Versions" />
     </fragment>
     <fragment
         android:id="@+id/myOffers"

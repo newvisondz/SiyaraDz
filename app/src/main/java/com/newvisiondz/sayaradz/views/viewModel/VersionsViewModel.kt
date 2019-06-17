@@ -23,7 +23,7 @@ class VersionsViewModelFactory(var application: Application) : ViewModelProvider
 
 class VersionsViewModel(application: Application) : AndroidViewModel(application) {
     private var userInfo: SharedPreferences? = null
-    val context: Context = application.applicationContext
+    private val context: Context = application.applicationContext
 
     private val _model = MutableLiveData<Model>()
     val model: LiveData<Model>

@@ -39,11 +39,11 @@ class ProfileFormViewModel(application: Application) : AndroidViewModel(applicat
     init {
         userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         val tmp = getUserInfo(userInfo!!)
-        firstName.value=tmp[3]
-        lastName.value=tmp[0]
-        email.value=tmp[2]
+        firstName.value = tmp[3]
+        lastName.value = tmp[0]
+        email.value = tmp[2]
 
-        _updateWithSuccess.value = false
+        _updateWithSuccess.value = null
     }
 
     fun updateUserInfo() {
@@ -62,15 +62,11 @@ class ProfileFormViewModel(application: Application) : AndroidViewModel(applicat
                     val res: String = response.body()!!.get("ok").asString
                     if (res == "1") {
                         _updateWithSuccess.value = true
+                    } else if (res == "0") {
+                        _updateWithSuccess.value = false
                     }
                 }
             }
-//            .apply(
-//            RequestOptions()
-//            .placeholder(R.drawable.loading_animation)
-//            .error(R.drawable.ic_broken_image)
-//            )
-
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 t.printStackTrace()
