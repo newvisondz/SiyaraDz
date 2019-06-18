@@ -10,9 +10,9 @@ import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Value
 import kotlinx.android.synthetic.main.radio_button_item_styled.view.*
 
+class EngineAdapter(private var options: MutableList<Value>, private var context: Context) :
+    RecyclerView.Adapter<EngineAdapter.ViewHolder>() {
 
-class PlacesAdapter(private var options: MutableList<Value>, private var context: Context) :
-    RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
 
     companion object {
         private var sClickListener: SingleClickListener? = null
@@ -27,22 +27,24 @@ class PlacesAdapter(private var options: MutableList<Value>, private var context
     override fun getItemCount(): Int = options.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val option=options[position]
-        holder.radio.text=option.value
+        val option = options[position]
+        holder.radio.text = option.value
         holder.radio.isChecked = (sSelected == position)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val radio: RadioButton = itemView.radio_styled
+
         init {
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(view: View?) {
             sSelected = adapterPosition
-            sClickListener?.onPlacesClickListener(adapterPosition, view!!)
+            sClickListener?.onEnginClickListner(adapterPosition, view!!)
         }
     }
+
 
     fun selectedItem() {
         notifyDataSetChanged()
@@ -53,6 +55,6 @@ class PlacesAdapter(private var options: MutableList<Value>, private var context
     }
 
     interface SingleClickListener {
-        fun onPlacesClickListener(position: Int, view: View)
+        fun onEnginClickListner(position: Int, view: View)
     }
 }

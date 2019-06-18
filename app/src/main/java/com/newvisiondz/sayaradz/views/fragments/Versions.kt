@@ -15,6 +15,9 @@ import androidx.navigation.findNavController
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.adapters.SliderAdapter
 import com.newvisiondz.sayaradz.adapters.SpinnerAdapter
+import com.newvisiondz.sayaradz.adapters.versionadapters.ColorsAdapter
+import com.newvisiondz.sayaradz.adapters.versionadapters.EngineAdapter
+import com.newvisiondz.sayaradz.adapters.versionadapters.FuelAdapter
 import com.newvisiondz.sayaradz.adapters.versionadapters.PlacesAdapter
 import com.newvisiondz.sayaradz.databinding.FragmentVersionsTestBinding
 import com.newvisiondz.sayaradz.model.Value
@@ -23,14 +26,29 @@ import com.newvisiondz.sayaradz.views.viewModel.VersionsViewModel
 import com.newvisiondz.sayaradz.views.viewModel.VersionsViewModelFactory
 
 
-class Versions : Fragment(), PlacesAdapter.SingleClickListener {
+class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.SingleClickListener,
+    FuelAdapter.SingleClickListener, ColorsAdapter.SingleClickListener {
+
+
     private var modelId = ""
     private var manufacturer = ""
     private var modelImages = mutableListOf<String>()
     private val versions = mutableListOf<Version>()
-    private var adapter: PlacesAdapter? = null
-    val tmpList = mutableListOf(
+    private var placesAdapter: PlacesAdapter? = null
+    private var engineAdapter: EngineAdapter? = null
+    private var fuelAdapter: FuelAdapter? = null
+    private var colorAdapter: ColorsAdapter? = null
+    val tmpPlaces = mutableListOf(
         Value("1", "nice"), Value("2", "bad"), Value("1", "cool")
+    )
+    val tmpEngine = mutableListOf(
+        Value("1", "toyota"), Value("2", "chev"), Value("1", "Nice")
+    )
+    val tmpFuel = mutableListOf(
+        Value("1", "Essence"), Value("2", "Diesel")
+    )
+    val tmpColor = mutableListOf(
+        Value("1", "red"), Value("2", "blue"), Value("2", "green")
     )
 
     override fun onCreateView(
@@ -50,9 +68,19 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener {
 
 
         binding.versionsSpinner.adapter = SpinnerAdapter(context!!, R.layout.spinner_element, versions)
-        adapter = PlacesAdapter(tmpList, context!!)
-        binding.placesList.adapter = adapter
-        adapter!!.setOnItemClickListener(this)
+        placesAdapter = PlacesAdapter(tmpPlaces, context!!)
+        engineAdapter = EngineAdapter(tmpEngine, context!!)
+        fuelAdapter = FuelAdapter(tmpFuel, context!!)
+        fuelAdapter = FuelAdapter(tmpFuel, context!!)
+        colorAdapter = ColorsAdapter(tmpColor, context!!)
+        binding.placesList.adapter = placesAdapter
+        binding.engineBoxList.adapter = engineAdapter
+        binding.engineTypeList.adapter = fuelAdapter
+        binding.carsColorsList.adapter = colorAdapter
+        placesAdapter!!.setOnItemClickListener(this)
+        engineAdapter!!.setOnItemClickListener(this)
+        fuelAdapter!!.setOnItemClickListener(this)
+        colorAdapter!!.setOnItemClickListener(this)
 
         binding.imageSlider.sliderAdapter = SliderAdapter(context!!, modelImages)
         versionViewModel.getAllVersions(manufacturer, modelId)
@@ -72,7 +100,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener {
 
         binding.orderButton.setOnClickListener {
             //TODO params
-            //todo format String in the adapter
+            //todo format String in the placesAdapter
             it.findNavController().navigate(VersionsDirections.actionModelViewToDataSheetView())
         }
 
@@ -86,8 +114,25 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener {
         return binding.root
     }
 
-    override fun onItemClickListener(position: Int, view: View) {
-        adapter!!.selectedItem()
-        Toast.makeText(context, tmpList[position].value, Toast.LENGTH_SHORT).show()
+    override fun onPlacesClickListener(position: Int, view: View) {
+        placesAdapter!!.selectedItem()
+        Toast.makeText(context, tmpPlaces[position].value, Toast.LENGTH_SHORT).show()
     }
+
+    override fun onEnginClickListner(position: Int, view: View) {
+        engineAdapter!!.selectedItem()
+        Toast.makeText(context, tmpEngine[position].value, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onFuelClickListner(position: Int, view: View) {
+        fuelAdapter!!.selectedItem()
+        Toast.makeText(context, tmpFuel[position].value, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onColorClickListner(position: Int, view: View) {
+        colorAdapter!!.selectedItem()
+        Toast.makeText(context, tmpColor[position].value, Toast.LENGTH_SHORT).show()
+    }
+
+
 }
