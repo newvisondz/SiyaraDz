@@ -23,15 +23,28 @@
 					android:layout_height="wrap_content"
 					android:orientation="vertical">
 
-				<ImageView
-						android:id="@+id/user_image"
+				<androidx.cardview.widget.CardView
+						app:cardCornerRadius="6dp"
+						android:layout_margin="16dp"
 						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:scaleType="fitCenter"
-						app:imageUrl="@{viewModel.model.images[0]}"
-						android:adjustViewBounds="true"
-
-						android:src="@drawable/mercedes"/>
+						android:layout_height="wrap_content">
+					<com.smarteist.autoimageslider.SliderView
+							android:id="@+id/imageSlider"
+							android:layout_width="match_parent"
+							android:layout_height="250dp"
+							app:sliderAutoCycleDirection="back_and_forth"
+							app:sliderAutoCycleEnabled="true"
+							app:sliderCircularHandlerEnabled="true"
+							app:sliderIndicatorGravity="center_horizontal|bottom"
+							app:sliderIndicatorMargin="15dp"
+							app:sliderIndicatorOrientation="horizontal"
+							app:sliderIndicatorPadding="3dp"
+							app:sliderScrollTimeInSec="5"
+							app:sliderIndicatorRadius="2dp"
+							app:sliderIndicatorSelectedColor="@color/colorAccent"
+							app:sliderIndicatorUnselectedColor="#FFF"
+							app:sliderStartAutoCycle="false"/>
+				</androidx.cardview.widget.CardView>
 
 				<LinearLayout
 						android:layout_width="match_parent"

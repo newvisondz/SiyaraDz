@@ -12,7 +12,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Model
-import com.newvisiondz.sayaradz.views.fragments.ModelsDirections
 import kotlinx.android.synthetic.main.fragment_model_card.view.*
 import java.util.*
 
@@ -28,7 +27,7 @@ class ModelsAdapter(
         viewHolder.modelName.text = model.name
         Glide.with(context)
             .asBitmap()
-            .load("http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com/${model.images[0]}")
+            .load("http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com${model.images[0]}")
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
@@ -40,9 +39,11 @@ class ModelsAdapter(
 //        viewHolder.modelPrice.text = model.price
 //        viewHolder.modelImage.setImageResource(model.imageId)
         viewHolder.card.setOnClickListener {
-            val args=Bundle()
+            val args = Bundle()
+            args.putString("manufacturerId", manufacturerId)
+            args.putString("modelId", model.id)
             args.putStringArrayList("modelImages", model.images as ArrayList<String>?)
-            it.findNavController().navigate(ModelsDirections.actionModelsToModelView(model.id,manufacturerId))
+            it.findNavController().navigate(R.id.action_models_to_modelView, args)
         }
     }
 

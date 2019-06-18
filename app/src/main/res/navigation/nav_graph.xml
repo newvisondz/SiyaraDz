@@ -73,8 +73,6 @@
 	    <action
             android:id="@+id/action_modelView_to_orderForm"
             app:destination="@id/orderForm" />
-        <argument android:name="modelId" app:argType="string"/>
-        <argument android:name="manufacturerId" app:argType="string"/>
     </fragment>
     <fragment
         android:id="@+id/dataSheetView"

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.newvisiondz.sayaradz.R
+import com.newvisiondz.sayaradz.adapters.SliderAdapter
 import com.newvisiondz.sayaradz.adapters.SpinnerAdapter
 import com.newvisiondz.sayaradz.databinding.FragmentVersionsBinding
 import com.newvisiondz.sayaradz.model.Version
@@ -34,10 +35,11 @@ class Versions : Fragment() {
         binding.viewModel = versionViewModel
         binding.versionsSpinner.adapter = SpinnerAdapter(context!!, R.layout.spinner_element, versions)
 
-        val modelId = VersionsArgs.fromBundle(arguments).modelId
-        val manufacturer = VersionsArgs.fromBundle(arguments).manufacturerId
-
-        versionViewModel.getAllVersions(manufacturer, modelId)
+        val modelId = arguments?.getString("modelId")
+        val manufacturer = arguments?.getString("manufacturerId")
+        val modelImages = arguments?.getStringArrayList("modelImages")
+        binding.imageSlider.sliderAdapter = SliderAdapter(context!!, modelImages!!)
+        versionViewModel.getAllVersions(manufacturer!!, modelId!!)
 
         versionViewModel.model.observe(this, Observer { newModel ->
 
