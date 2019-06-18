@@ -8,6 +8,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:orientation="vertical"
+
 			tools:ignore="HardcodedText"
 			tools:context=".views.fragments.Versions">
 
@@ -17,14 +18,12 @@
 				android:layout_height="0dp"
 				app:layout_constraintBottom_toTopOf="@+id/total"
 				app:layout_constraintTop_toTopOf="parent">
-
 			<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="vertical">
-
 				<androidx.cardview.widget.CardView
-						app:cardCornerRadius="6dp"
+						app:cardCornerRadius="10dp"
 						android:layout_margin="16dp"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content">
@@ -113,58 +112,20 @@
 								app:layout_constraintStart_toStartOf="parent"
 								app:layout_constraintTop_toTopOf="parent"/>
 
-						<RadioGroup
+						<androidx.recyclerview.widget.RecyclerView
+								android:id="@+id/cars_colors_list"
 								android:layout_width="0dp"
 								android:layout_height="wrap_content"
+								app:spanCount="3"
+								app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+								tools:listitem="@layout/radio_button_item_styled"
+								tools:itemCount="3"
 								android:layout_marginStart="8dp"
 								android:layout_marginTop="8dp"
 								android:layout_marginEnd="8dp"
-								android:orientation="horizontal"
 								app:layout_constraintEnd_toEndOf="parent"
 								app:layout_constraintStart_toStartOf="parent"
-								app:layout_constraintTop_toBottomOf="@+id/textView11">
-
-
-							<RadioButton
-									android:checked="false"
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:buttonTint="#e0e0e0" android:id="@+id/whiteBox"/>
-							<RadioButton
-									android:checked="false"
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:buttonTint="#000" android:id="@+id/blackBox"/>
-
-							<RadioButton
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:buttonTint="@android:color/holo_red_light" android:id="@+id/redBox"/>
-
-							<RadioButton
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:buttonTint="@android:color/holo_blue_light" android:id="@+id/blueBox"/>
-
-							<RadioButton
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:buttonTint="@android:color/holo_orange_light" android:id="@+id/yellowBox"/>
-
-							<RadioButton
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:buttonTint="@android:color/darker_gray" android:id="@+id/grayBox"/>
-
-						</RadioGroup>
-
-
+								app:layout_constraintTop_toBottomOf="@+id/textView11"/>
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
 					<androidx.constraintlayout.widget.ConstraintLayout
@@ -177,38 +138,20 @@
 								app:layout_constraintStart_toStartOf="parent"
 								app:layout_constraintTop_toTopOf="parent"/>
 
-						<RadioGroup
+						<androidx.recyclerview.widget.RecyclerView
+								android:id="@+id/engine_type_list"
 								android:layout_width="0dp"
 								android:layout_height="wrap_content"
 								android:layout_marginStart="8dp"
+								app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+								app:spanCount="3"
+								tools:listitem="@layout/radio_button_item_styled"
+								tools:itemCount="3"
 								android:layout_marginTop="8dp"
 								android:layout_marginEnd="8dp"
-								android:orientation="horizontal"
 								app:layout_constraintEnd_toEndOf="parent"
 								app:layout_constraintStart_toStartOf="parent"
-								app:layout_constraintTop_toBottomOf="@+id/textView12">
-
-							<RadioButton
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:text="DIESEL" android:id="@+id/diesel"/>
-
-							<RadioButton
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:text="ESSENCE"
-									android:id="@+id/essence"
-							/>
-
-							<RadioButton
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:text="ESSENCE GPL"
-									android:id="@+id/gpl"/>
-						</RadioGroup>
+								app:layout_constraintTop_toBottomOf="@+id/textView12"/>
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
 					<androidx.constraintlayout.widget.ConstraintLayout
@@ -221,44 +164,20 @@
 								app:layout_constraintStart_toStartOf="parent"
 								app:layout_constraintTop_toTopOf="parent"/>
 
-						<RadioGroup
+						<androidx.recyclerview.widget.RecyclerView
+								android:id="@+id/engine_power"
 								android:layout_width="0dp"
 								android:layout_height="wrap_content"
-								android:layout_marginStart="15dp"
-								android:layout_marginTop="10dp"
-								android:layout_marginEnd="15dp"
-								android:orientation="horizontal"
+								android:layout_marginStart="8dp"
+								app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+								app:spanCount="4"
+								tools:itemCount="3"
+								tools:listitem="@layout/radio_button_item_styled"
+								android:layout_marginTop="8dp"
+								android:layout_marginEnd="8dp"
 								app:layout_constraintEnd_toEndOf="parent"
 								app:layout_constraintStart_toStartOf="parent"
-								app:layout_constraintTop_toBottomOf="@+id/textView13">
-
-
-							<RadioButton
-									style="@style/RadioButton"
-									android:layout_weight="1"
-									android:text="1.4"/>
-
-							<RadioButton
-									style="@style/RadioButton"
-									android:layout_weight="1"
-									android:text="1.6"/>
-
-							<RadioButton
-									style="@style/RadioButton"
-									android:layout_weight="1"
-									android:text="2.0"/>
-
-							<RadioButton
-									style="@style/RadioButton"
-									android:layout_weight="1"
-									android:text="2.5"/>
-
-							<RadioButton
-									style="@style/RadioButton"
-									android:layout_weight="1"
-									android:text="3.0"/>
-
-						</RadioGroup>
+								app:layout_constraintTop_toBottomOf="@+id/textView13"/>
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
 					<androidx.constraintlayout.widget.ConstraintLayout
@@ -271,29 +190,20 @@
 								app:layout_constraintStart_toStartOf="parent"
 								app:layout_constraintTop_toTopOf="parent"/>
 
-						<RadioGroup
+						<androidx.recyclerview.widget.RecyclerView
 								android:layout_width="0dp"
+								android:id="@+id/engine_box_list"
 								android:layout_height="wrap_content"
 								android:layout_marginStart="15dp"
 								android:layout_marginTop="10dp"
 								android:layout_marginEnd="15dp"
-								android:orientation="horizontal"
+								app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+								tools:listitem="@layout/radio_button_item_styled"
+								app:spanCount="3"
+								tools:itemCount="3"
 								app:layout_constraintEnd_toEndOf="parent"
 								app:layout_constraintStart_toStartOf="parent"
-								app:layout_constraintTop_toBottomOf="@+id/textView14">
-
-
-							<RadioButton
-									style="@style/RadioButton"
-									android:layout_weight="1"
-									android:text="Automatique"/>
-
-							<RadioButton
-									style="@style/RadioButton"
-									android:layout_weight="1"
-									android:text="Manuelle"/>
-
-						</RadioGroup>
+								app:layout_constraintTop_toBottomOf="@+id/textView14"/>
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
 					<androidx.constraintlayout.widget.ConstraintLayout
@@ -306,40 +216,22 @@
 								app:layout_constraintStart_toStartOf="parent"
 								app:layout_constraintTop_toTopOf="parent"/>
 
-						<RadioGroup
+						<androidx.recyclerview.widget.RecyclerView
+								android:id="@+id/places_list"
 								android:layout_width="0dp"
 								android:layout_height="wrap_content"
 								android:layout_marginStart="16dp"
 								android:layout_marginTop="8dp"
 								android:layout_marginEnd="8dp"
+								app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+								tools:listitem="@layout/radio_button_item_styled"
+								tools:itemCount="4"
+								app:spanCount="4"
 								android:layout_marginBottom="8dp"
-								android:orientation="horizontal"
 								app:layout_constraintBottom_toBottomOf="parent"
 								app:layout_constraintEnd_toEndOf="parent"
 								app:layout_constraintStart_toStartOf="parent"
-								app:layout_constraintTop_toBottomOf="@+id/textView15">
-
-
-							<RadioButton
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:text="4" android:id="@+id/place4"/>
-
-							<RadioButton
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:text="6" android:id="@+id/place6"/>
-
-							<RadioButton
-
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:layout_weight="1"
-									android:text="8" android:id="@+id/place8"/>
-
-						</RadioGroup>
+								app:layout_constraintTop_toBottomOf="@+id/textView15"/>
 					</androidx.constraintlayout.widget.ConstraintLayout>
 				</LinearLayout>
 

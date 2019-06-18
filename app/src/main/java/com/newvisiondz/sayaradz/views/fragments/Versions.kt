@@ -1,7 +1,6 @@
 package com.newvisiondz.sayaradz.views.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,7 @@ import com.newvisiondz.sayaradz.adapters.versionadapters.ColorsAdapter
 import com.newvisiondz.sayaradz.adapters.versionadapters.EngineAdapter
 import com.newvisiondz.sayaradz.adapters.versionadapters.FuelAdapter
 import com.newvisiondz.sayaradz.adapters.versionadapters.PlacesAdapter
-import com.newvisiondz.sayaradz.databinding.FragmentVersionsTestBinding
+import com.newvisiondz.sayaradz.databinding.FragmentVersionsBinding
 import com.newvisiondz.sayaradz.model.Value
 import com.newvisiondz.sayaradz.model.Version
 import com.newvisiondz.sayaradz.views.viewModel.VersionsViewModel
@@ -55,8 +54,8 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentVersionsTestBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_versions_test, container, false)
+        val binding: FragmentVersionsBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_versions, container, false)
         val application = requireNotNull(activity).application
         val viewModelFactory = VersionsViewModelFactory(application)
         val versionViewModel = ViewModelProviders.of(this, viewModelFactory).get(VersionsViewModel::class.java)
@@ -68,25 +67,13 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
 
 
         binding.versionsSpinner.adapter = SpinnerAdapter(context!!, R.layout.spinner_element, versions)
-        placesAdapter = PlacesAdapter(tmpPlaces, context!!)
-        engineAdapter = EngineAdapter(tmpEngine, context!!)
-        fuelAdapter = FuelAdapter(tmpFuel, context!!)
-        fuelAdapter = FuelAdapter(tmpFuel, context!!)
-        colorAdapter = ColorsAdapter(tmpColor, context!!)
-        binding.placesList.adapter = placesAdapter
-        binding.engineBoxList.adapter = engineAdapter
-        binding.engineTypeList.adapter = fuelAdapter
-        binding.carsColorsList.adapter = colorAdapter
-        placesAdapter!!.setOnItemClickListener(this)
-        engineAdapter!!.setOnItemClickListener(this)
-        fuelAdapter!!.setOnItemClickListener(this)
-        colorAdapter!!.setOnItemClickListener(this)
+        initializeAdapters(binding)
 
         binding.imageSlider.sliderAdapter = SliderAdapter(context!!, modelImages)
         versionViewModel.getAllVersions(manufacturer, modelId)
 
         versionViewModel.version.observe(this, Observer { newVersion ->
-            Log.i("Nice shit", newVersion.options[0].name)
+//            Log.i("Nice shit", newVersion.options[0].name)
         })
         versionViewModel.versionList.observe(this, Observer { newVersions ->
             versions.clear()
@@ -112,6 +99,22 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         return binding.root
+    }
+
+    private fun initializeAdapters(binding: FragmentVersionsBinding) {
+        placesAdapter = PlacesAdapter(tmpPlaces, context!!)
+        engineAdapter = EngineAdapter(tmpEngine, context!!)
+        fuelAdapter = FuelAdapter(tmpFuel, context!!)
+        fuelAdapter = FuelAdapter(tmpFuel, context!!)
+        colorAdapter = ColorsAdapter(tmpColor, context!!)
+        binding.placesList.adapter = placesAdapter
+        binding.engineBoxList.adapter = engineAdapter
+        binding.engineTypeList.adapter = fuelAdapter
+        binding.carsColorsList.adapter = colorAdapter
+        placesAdapter!!.setOnItemClickListener(this)
+        engineAdapter!!.setOnItemClickListener(this)
+        fuelAdapter!!.setOnItemClickListener(this)
+        colorAdapter!!.setOnItemClickListener(this)
     }
 
     override fun onPlacesClickListener(position: Int, view: View) {
