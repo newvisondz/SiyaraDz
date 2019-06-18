@@ -35,9 +35,9 @@ class ModelsAdapter(
             )
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(viewHolder.modelImage)
-//        viewHolder.modelAttribute.text = model.colors.name
-//        viewHolder.modelPrice.text = model.price
-//        viewHolder.modelImage.setImageResource(model.imageId)
+//        viewHolder.modelAttribute.text = version.colors.name
+//        viewHolder.modelPrice.text = version.price
+//        viewHolder.modelImage.setImageResource(version.imageId)
         viewHolder.card.setOnClickListener {
             val args = Bundle()
             args.putString("manufacturerId", manufacturerId)

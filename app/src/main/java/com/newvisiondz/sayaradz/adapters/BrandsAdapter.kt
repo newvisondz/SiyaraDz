@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.brand_marks_items.view.*
 
 
 class BrandsAdapter(private var brands: MutableList<Brand>, private val context: Context) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<BrandsAdapter.ViewHolder>(), Filterable {
+    RecyclerView.Adapter<BrandsAdapter.ViewHolder>(), Filterable {
 
     private var imageCache: LruCache<String, Bitmap>
     private var marquesFull: MutableList<Brand> = brands.toMutableList()
@@ -57,7 +58,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         return brands.size
     }
 
-    inner class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val brandName = itemView.brand_name!!
         val card = itemView.brand_card!!
         val brandImage = itemView.brand_image!!

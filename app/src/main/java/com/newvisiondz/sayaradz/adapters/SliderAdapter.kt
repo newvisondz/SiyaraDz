@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayaradz.R
@@ -19,8 +18,6 @@ class SliderAdapter(private val context: Context, private var modelsImages: Muta
         val inflate = LayoutInflater.from(parent.context).inflate(R.layout.slider_item_models, null)
         return SliderAdapterVH(inflate)
     }
-
-
     override fun onBindViewHolder(viewHolder: SliderAdapterVH, position: Int) {
         Glide.with(context)
             .asBitmap()
@@ -36,6 +33,5 @@ class SliderAdapter(private val context: Context, private var modelsImages: Muta
 
     class SliderAdapterVH(itemView: View) : SliderViewAdapter.ViewHolder(itemView) {
         var imageViewBackground: ImageView = itemView.iv_auto_image_slider
-        var textViewBackground: TextView = itemView.tv_auto_image_slider
     }
 }
