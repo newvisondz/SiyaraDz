@@ -1,4 +1,4 @@
-package com.newvisiondz.sayaradz.tokens
+package com.newvisiondz.sayaradz.model
 
 class Token(_email: String, _id: String, _token: String) {
     var email: String = _email

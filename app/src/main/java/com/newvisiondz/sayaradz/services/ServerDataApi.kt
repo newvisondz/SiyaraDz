@@ -1,8 +1,10 @@
 package com.newvisiondz.sayaradz.services
 
+import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.newvisiondz.sayaradz.model.Model
+import com.newvisiondz.sayaradz.model.Version
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -56,7 +58,7 @@ interface ServerDataApi {
         @Header("Authorization") token: String,
         @Path("manufacturerId") manufacturerName: String,
         @Path("modelId") modelId: String
-    ): Call<JsonElement>
+    ): Call<JsonArray>
 
     @GET("manufacturers/{manufacturerId}/models/{modelId}/versions/{versionId}")
     fun getVersionDetails(
@@ -64,7 +66,7 @@ interface ServerDataApi {
         @Path("manufacturerId") manufacturerName: String,
         @Path("modelId") modelId: String,
         @Path("versionId") versionId: String
-    ): Call<JsonElement>
+    ): Call<Version>
 
     @GET("manufacturers/{manufacturer_id}/models/{model_id}/versions/{version_id}/vehicles/{vehicle_id}")
     fun getDataSheetCar(

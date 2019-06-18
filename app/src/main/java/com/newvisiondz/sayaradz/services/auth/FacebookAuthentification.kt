@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import com.facebook.GraphRequest
 import com.facebook.login.LoginResult
-import com.newvisiondz.sayaradz.tokens.Token
+import com.newvisiondz.sayaradz.model.Token
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import com.newvisiondz.sayaradz.utils.setUserPrefrences
 import com.newvisiondz.sayaradz.views.MainActivity

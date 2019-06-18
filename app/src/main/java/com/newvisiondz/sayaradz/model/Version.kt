@@ -2,11 +2,13 @@ package com.newvisiondz.sayaradz.model
 
 import com.google.gson.annotations.SerializedName
 
-class Color(
+data class Version(
     @SerializedName("id")
     var id: String,
     @SerializedName("name")
     var name: String,
-    @SerializedName("value")
-    var value: String
+    @SerializedName("colors")
+    var colors: MutableList<String>,
+    @SerializedName("options")
+    var options: MutableList<Option>
 )

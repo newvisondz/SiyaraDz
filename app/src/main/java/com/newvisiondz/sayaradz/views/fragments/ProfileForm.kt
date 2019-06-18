@@ -2,7 +2,6 @@ package com.newvisiondz.sayaradz.views.fragments
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,14 +21,10 @@ import java.util.*
 
 
 class ProfileForm : Fragment() {
-    private var userInfo: SharedPreferences? = null
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         val binding: FragmentProfileFormBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_profile_form, container, false)
         val application = requireNotNull(this.activity).application
@@ -45,7 +40,7 @@ class ProfileForm : Fragment() {
                         "Done"
                     ) { view?.findNavController()?.navigate(ProfileFormDirections.actionProfileFormToTabs()) }.show()
 
-            }else {
+            } else {
                 Snackbar.make(binding.profileFormConstraint, "Try again..!!", Snackbar.LENGTH_LONG).show()
             }
         })
@@ -55,15 +50,15 @@ class ProfileForm : Fragment() {
 
     private fun datePicker() {
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
+        val yearFromCal = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         val dpd = DatePickerDialog(
             activity as Context,
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                this.user_date.text = "$year-$monthOfYear-$dayOfMonth"
+                this.user_date.text = context?.getString(R.string.date_format, year, monthOfYear, dayOfMonth)
             },
-            year,
+            yearFromCal,
             month,
             day
         )

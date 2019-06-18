@@ -2,7 +2,7 @@ package com.newvisiondz.sayaradz.utils
 
 import android.content.SharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.newvisiondz.sayaradz.tokens.Token
+import com.newvisiondz.sayaradz.model.Token
 import org.json.JSONObject
 
 fun getUserToken(userInfo: SharedPreferences): String? {

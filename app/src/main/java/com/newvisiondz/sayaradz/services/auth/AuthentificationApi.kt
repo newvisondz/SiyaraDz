@@ -1,7 +1,7 @@
 package com.newvisiondz.sayaradz.services.auth
 
 
-import com.newvisiondz.sayaradz.tokens.Token
+import com.newvisiondz.sayaradz.model.Token
 import retrofit2.Call
 import retrofit2.http.*
 

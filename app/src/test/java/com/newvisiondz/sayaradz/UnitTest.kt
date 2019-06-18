@@ -2,9 +2,9 @@ package com.newvisiondz.sayaradz
 
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
-import com.newvisiondz.sayaradz.utils.JsonFormatter
 import com.newvisiondz.sayaradz.model.Brand
 import com.newvisiondz.sayaradz.model.Model
+import com.newvisiondz.sayaradz.utils.JsonFormatter
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

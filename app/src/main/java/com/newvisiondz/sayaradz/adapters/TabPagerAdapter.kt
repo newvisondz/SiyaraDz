@@ -2,18 +2,19 @@ package com.newvisiondz.sayaradz.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.newvisiondz.sayaradz.views.fragments.NewCars
-import com.newvisiondz.sayaradz.views.fragments.OldCars
+import androidx.fragment.app.FragmentPagerAdapter
+import com.newvisiondz.sayaradz.views.fragments.Bids
+import com.newvisiondz.sayaradz.views.fragments.Brands
 import com.newvisiondz.sayaradz.views.fragments.Profile
 
 class TabPagerAdapter(fm: FragmentManager) :
-    androidx.fragment.app.FragmentPagerAdapter(fm) {
+    FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
 
         return when (position) {
-            0 -> NewCars()
-            1 -> OldCars()
+            0 -> Brands()
+            1 -> Bids()
             2 -> Profile()
             else -> null
         }

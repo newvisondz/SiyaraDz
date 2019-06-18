@@ -12,7 +12,7 @@ import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.Scope
 import com.newvisiondz.sayaradz.R
-import com.newvisiondz.sayaradz.tokens.Token
+import com.newvisiondz.sayaradz.model.Token
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import com.newvisiondz.sayaradz.utils.setUserPrefrences
 import com.newvisiondz.sayaradz.views.MainActivity

@@ -10,12 +10,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.newvisiondz.sayaradz.R
+import com.newvisiondz.sayaradz.adapters.SpinnerAdapter
 import com.newvisiondz.sayaradz.databinding.FragmentVersionsBinding
+import com.newvisiondz.sayaradz.model.Version
 import com.newvisiondz.sayaradz.views.viewModel.VersionsViewModel
 import com.newvisiondz.sayaradz.views.viewModel.VersionsViewModelFactory
 
 
 class Versions : Fragment() {
+
+    private val versions = mutableListOf<Version>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +32,7 @@ class Versions : Fragment() {
         val versionViewModel = ViewModelProviders.of(this, viewModelFactory).get(VersionsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = versionViewModel
+        binding.versionsSpinner.adapter = SpinnerAdapter(context!!, R.layout.spinner_element, versions)
 
         val modelId = VersionsArgs.fromBundle(arguments).modelId
         val manufacturer = VersionsArgs.fromBundle(arguments).manufacturerId
@@ -35,6 +40,12 @@ class Versions : Fragment() {
         versionViewModel.getAllVersions(manufacturer, modelId)
 
         versionViewModel.model.observe(this, Observer { newModel ->
+
+        })
+        versionViewModel.versionList.observe(this, Observer { newVersions ->
+            versions.clear()
+            versions.addAll(newVersions)
+            (binding.versionsSpinner.adapter as SpinnerAdapter).notifyDataSetChanged()
         })
         binding.datasheetButton.setOnClickListener {
             //TODO params

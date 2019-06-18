@@ -1,8 +1,10 @@
 package com.newvisiondz.sayaradz.utils
 
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import java.lang.reflect.Type
+
 
 class JsonFormatter {
     fun <T> listFormatter(jsonString: JsonElement, type: Type, params: String): MutableList<T> {
@@ -13,5 +15,12 @@ class JsonFormatter {
             resultList = Gson().fromJson(elements, type)
         }
         return resultList
+    }
+
+    companion object {
+        @JvmStatic
+        fun <T> listFormatter(jsonString: JsonArray, type: Type): MutableList<T> {
+            return Gson().fromJson(jsonString, type)
+        }
     }
 }

@@ -13,7 +13,6 @@ import com.newvisiondz.sayaradz.adapters.TabPagerAdapter
 import com.newvisiondz.sayaradz.databinding.FragmentTabsBinding
 
 class Tabs : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

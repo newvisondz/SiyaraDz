@@ -1,6 +1,7 @@
 package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.model.Model
 import com.newvisiondz.sayaradz.views.fragments.ModelsDirections
 import kotlinx.android.synthetic.main.fragment_model_card.view.*
+import java.util.*
 
 class ModelsAdapter(
     private val models: MutableList<Model>,
@@ -26,7 +28,7 @@ class ModelsAdapter(
         viewHolder.modelName.text = model.name
         Glide.with(context)
             .asBitmap()
-            .load("http://sayaradz-sayaradz-2.7e14.starter-us-west-2.openshiftapps.com${model.images[0]}")
+            .load("http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com/${model.images[0]}")
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
@@ -38,6 +40,8 @@ class ModelsAdapter(
 //        viewHolder.modelPrice.text = model.price
 //        viewHolder.modelImage.setImageResource(model.imageId)
         viewHolder.card.setOnClickListener {
+            val args=Bundle()
+            args.putStringArrayList("modelImages", model.images as ArrayList<String>?)
             it.findNavController().navigate(ModelsDirections.actionModelsToModelView(model.id,manufacturerId))
         }
     }

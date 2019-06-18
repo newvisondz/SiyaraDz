@@ -2,7 +2,6 @@ package com.newvisiondz.sayaradz.adapters
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.util.Log
 import android.util.LruCache
 import android.view.LayoutInflater
 import android.view.View
@@ -38,9 +37,10 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val marque = this.brands[i]
         viewHolder.brandName.text = marque.name
+
         Glide.with(context)
             .asBitmap()
-            .load("http://sayaradz-sayaradz-2.7e14.starter-us-west-2.openshiftapps.com/${marque.logo}")
+            .load("http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com/${marque.logo}")
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
@@ -50,7 +50,6 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
             .into(viewHolder.brandImage)
         viewHolder.card.setOnClickListener {
             it.findNavController().navigate(TabsDirections.actionTabsToModels(marque.id))
-            Log.i("adapter",marque.id)
         }
     }
 

@@ -4,8 +4,12 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.*
+import com.google.gson.JsonArray
+import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.model.Model
+import com.newvisiondz.sayaradz.model.Version
 import com.newvisiondz.sayaradz.services.RetrofitClient
+import com.newvisiondz.sayaradz.utils.JsonFormatter
 import com.newvisiondz.sayaradz.utils.getUserToken
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,21 +33,27 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
     val model: LiveData<Model>
         get() = _model
 
+    private val _versionList = MutableLiveData<MutableList<Version>>()
+    val versionList: LiveData<MutableList<Version>>
+        get() = _versionList
+
     init {
         userInfo = application.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     }
 
     fun getAllVersions(manufacturer: String, modelId: String) {
-        val call = RetrofitClient(context).serverDataApi.getModelDetails(
+        val call = RetrofitClient(context).serverDataApi.getAllVersion(
             getUserToken(userInfo!!)!!, manufacturer, modelId
         )
-        call.enqueue(object : Callback<Model> {
-            override fun onFailure(call: Call<Model>, t: Throwable) {
+        call.enqueue(object : Callback<JsonArray> {
+            override fun onFailure(call: Call<JsonArray>, t: Throwable) {
                 t.printStackTrace()
             }
-            override fun onResponse(call: Call<Model>, response: Response<Model>) {
+
+            override fun onResponse(call: Call<JsonArray>, response: Response<JsonArray>) {
                 if (response.isSuccessful) {
-                    _model.value=response.body()!!
+                    val listType = object : TypeToken<MutableList<Version>>() {}.type
+                    _versionList.value =JsonFormatter.listFormatter( response.body()!!,listType)
                 }
             }
 
