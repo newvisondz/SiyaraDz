@@ -1,6 +1,7 @@
 package com.newvisiondz.sayaradz.views.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.newvisiondz.sayaradz.adapters.versionadapters.EngineAdapter
 import com.newvisiondz.sayaradz.adapters.versionadapters.FuelAdapter
 import com.newvisiondz.sayaradz.adapters.versionadapters.PlacesAdapter
 import com.newvisiondz.sayaradz.databinding.FragmentVersionsBinding
+import com.newvisiondz.sayaradz.model.Color
 import com.newvisiondz.sayaradz.model.Value
 import com.newvisiondz.sayaradz.model.Version
 import com.newvisiondz.sayaradz.views.viewModel.VersionsViewModel
@@ -47,7 +49,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         Value("1", "Essence"), Value("2", "Diesel")
     )
     val tmpColor = mutableListOf(
-        Value("1", "red"), Value("2", "blue"), Value("2", "green")
+        Color("1", "red", "#fc2333"), Color("2", "blue", "#f43111"), Color("2", "green", "#3da233")
     )
 
     override fun onCreateView(
@@ -73,7 +75,34 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         versionViewModel.getAllVersions(manufacturer, modelId)
 
         versionViewModel.version.observe(this, Observer { newVersion ->
-//            Log.i("Nice shit", newVersion.options[0].name)
+//            tmpColor.clear()
+//            tmpColor.addAll(newVersion.colors)
+//            binding.carsColorsList.adapter?.notifyDataSetChanged()
+            for (item in newVersion.options) {
+                when (item.name) {
+                    "places" -> {
+                        tmpPlaces.clear()
+                        tmpPlaces.addAll(item.values)
+                        binding.placesList.adapter?.notifyDataSetChanged()
+                    }
+                    "vitesse" -> {
+
+                    }
+                    "Type du carburant" -> {
+                        tmpFuel.clear()
+                        tmpFuel.addAll(item.values)
+                        binding.engineTypeList.adapter?.notifyDataSetChanged()
+                    }
+                    "Moteur" -> {
+
+                    }
+                    "Boite" -> {
+                        tmpEngine.clear()
+                        tmpEngine.addAll(item.values)
+                        binding.engineBoxList.adapter?.notifyDataSetChanged()
+                    }
+                }
+            }
         })
         versionViewModel.versionList.observe(this, Observer { newVersions ->
             versions.clear()
@@ -102,11 +131,10 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
     }
 
     private fun initializeAdapters(binding: FragmentVersionsBinding) {
-        placesAdapter = PlacesAdapter(tmpPlaces, context!!)
-        engineAdapter = EngineAdapter(tmpEngine, context!!)
-        fuelAdapter = FuelAdapter(tmpFuel, context!!)
-        fuelAdapter = FuelAdapter(tmpFuel, context!!)
-        colorAdapter = ColorsAdapter(tmpColor, context!!)
+        placesAdapter = PlacesAdapter(tmpPlaces)
+        engineAdapter = EngineAdapter(tmpEngine)
+        fuelAdapter = FuelAdapter(tmpFuel)
+        colorAdapter = ColorsAdapter(tmpColor)
         binding.placesList.adapter = placesAdapter
         binding.engineBoxList.adapter = engineAdapter
         binding.engineTypeList.adapter = fuelAdapter

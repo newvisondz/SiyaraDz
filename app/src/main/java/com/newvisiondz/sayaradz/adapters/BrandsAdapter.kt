@@ -22,14 +22,8 @@ import kotlinx.android.synthetic.main.brand_marks_items.view.*
 class BrandsAdapter(private var brands: MutableList<Brand>, private val context: Context) :
     RecyclerView.Adapter<BrandsAdapter.ViewHolder>(), Filterable {
 
-    private var imageCache: LruCache<String, Bitmap>
     private var marquesFull: MutableList<Brand> = brands.toMutableList()
 
-    init {
-        val maxMemory = (Runtime.getRuntime().maxMemory() / 1024).toInt()
-        val cacheSize = maxMemory / 8
-        imageCache = LruCache(cacheSize)
-    }
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view = LayoutInflater.from(this.context).inflate(R.layout.brand_marks_items, viewGroup, false)
         return ViewHolder(view)

@@ -17,14 +17,14 @@ class SpinnerAdapter(context: Context, resource: Int, var list: MutableList<Vers
         return list.size
     }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        return initView(position, convertView, parent)
+        return initView(position, parent)
     }
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-        return initView(position, convertView, parent)
+        return initView(position, parent)
     }
 
-    private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
+    private fun initView(position: Int, parent: ViewGroup): View {
         val customView = LayoutInflater.from(this.context).inflate(R.layout.spinner_element, parent, false)
         val versionName = customView.spinner_item
         versionName.text = list[position].name

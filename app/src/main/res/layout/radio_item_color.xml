@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.newvisiondz.sayaradz.adapters.versionadapters.ColorsAdapter"/>
+        <variable name="color" type="com.newvisiondz.sayaradz.model.Color"/>
+        <variable name="position" type="int"/>
+    </data>
+    <RadioButton
+            android:id="@+id/radio_styled"
+            style="@style/RadioButton"
+            android:layout_width="match_parent"
+            app:setRadioColorChecked="@{color}"
+            android:layout_height="wrap_content"
+            android:checked="@{ColorsAdapter.sSelected == position}"/>
+</layout>
