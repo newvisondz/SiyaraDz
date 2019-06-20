@@ -76,7 +76,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         versionViewModel.getAllVersions(manufacturer, modelId)
 
         versionViewModel.version.observe(this, Observer { newVersion ->
-            //            tmpColor.clear()
+//            tmpColor.clear()
 //            tmpColor.addAll(newVersion.colors)
 //            binding.carsColorsList.adapter?.notifyDataSetChanged()
             for (item in newVersion.options) {
@@ -85,9 +85,6 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
                         tmpPlaces.clear()
                         tmpPlaces.addAll(item.values)
                         binding.placesList.adapter?.notifyDataSetChanged()
-                    }
-                    "vitesse" -> {
-
                     }
                     "Type du carburant" -> {
                         tmpFuel.clear()
@@ -120,7 +117,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         binding.orderButton.setOnClickListener {
             //TODO params
             //todo format String in the placesAdapter
-            it.findNavController().navigate(VersionsDirections.actionModelViewToDataSheetView())
+            it.findNavController().navigate(VersionsDirections.actionModelViewToOrderForm())
         }
 
         binding.versionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -175,6 +172,4 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         enginePowerAdapter.selectedItem()
         Toast.makeText(context, tmpEnginePower[position].value, Toast.LENGTH_SHORT).show()
     }
-
-
 }
