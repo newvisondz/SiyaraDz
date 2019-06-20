@@ -30,6 +30,11 @@ interface ServerDataApi {
         @Body body: String
     ): Call<JsonObject>
 
+    @PUT("autom/me")
+    fun updateUser(
+        @Header("Authorization") token: String,
+        @Body body: JsonObject
+    ): Call<JsonObject>
 
     @GET("manufacturers/{manufacturerName}/models/")
     fun getAllModels(

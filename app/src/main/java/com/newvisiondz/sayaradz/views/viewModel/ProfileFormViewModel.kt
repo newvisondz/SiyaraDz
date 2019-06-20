@@ -53,6 +53,7 @@ class ProfileFormViewModel(application: Application) : AndroidViewModel(applicat
         paramObject.put("address", address.value)
         paramObject.put("phone", phone.value)
         paramObject.put("birthDate", birthDate.value)
+
         val call = RetrofitClient(context!!)
             .serverDataApi
             .updateUser(getUserToken(userInfo!!)!!, paramObject.toString())

@@ -15,10 +15,7 @@ import androidx.navigation.findNavController
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.adapters.SliderAdapter
 import com.newvisiondz.sayaradz.adapters.SpinnerAdapter
-import com.newvisiondz.sayaradz.adapters.versionadapters.ColorsAdapter
-import com.newvisiondz.sayaradz.adapters.versionadapters.EngineAdapter
-import com.newvisiondz.sayaradz.adapters.versionadapters.FuelAdapter
-import com.newvisiondz.sayaradz.adapters.versionadapters.PlacesAdapter
+import com.newvisiondz.sayaradz.adapters.versionadapters.*
 import com.newvisiondz.sayaradz.databinding.FragmentVersionsBinding
 import com.newvisiondz.sayaradz.model.Color
 import com.newvisiondz.sayaradz.model.Value
@@ -28,17 +25,18 @@ import com.newvisiondz.sayaradz.views.viewModel.VersionsViewModelFactory
 
 
 class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.SingleClickListener,
-    FuelAdapter.SingleClickListener, ColorsAdapter.SingleClickListener {
+    FuelAdapter.SingleClickListener, ColorsAdapter.SingleClickListener, EnginePowerAdapter.SingleClickListener {
 
 
     private var modelId = ""
     private var manufacturer = ""
     private var modelImages = mutableListOf<String>()
     private val versions = mutableListOf<Version>()
-    private var placesAdapter: PlacesAdapter? = null
-    private var engineAdapter: EngineAdapter? = null
-    private var fuelAdapter: FuelAdapter? = null
-    private var colorAdapter: ColorsAdapter? = null
+    private lateinit var placesAdapter: PlacesAdapter
+    private lateinit var engineAdapter: EngineAdapter
+    private lateinit var fuelAdapter: FuelAdapter
+    private lateinit var enginePowerAdapter: EnginePowerAdapter
+    private lateinit var colorAdapter: ColorsAdapter
     val tmpPlaces = mutableListOf(
         Value("1", "nice"), Value("2", "bad"), Value("1", "cool")
     )
@@ -47,6 +45,9 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
     )
     val tmpFuel = mutableListOf(
         Value("1", "Essence"), Value("2", "Diesel")
+    )
+    val tmpEnginePower = mutableListOf(
+        Value("1", "140"), Value("2", "160"), Value("2", "180")
     )
     val tmpColor = mutableListOf(
         Color("1", "red", "#fc2333"), Color("2", "blue", "#f43111"), Color("2", "green", "#3da233")
@@ -75,7 +76,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         versionViewModel.getAllVersions(manufacturer, modelId)
 
         versionViewModel.version.observe(this, Observer { newVersion ->
-//            tmpColor.clear()
+            //            tmpColor.clear()
 //            tmpColor.addAll(newVersion.colors)
 //            binding.carsColorsList.adapter?.notifyDataSetChanged()
             for (item in newVersion.options) {
@@ -94,7 +95,9 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
                         binding.engineTypeList.adapter?.notifyDataSetChanged()
                     }
                     "Moteur" -> {
-
+                        tmpEnginePower.clear()
+                        tmpEnginePower.addAll(item.values)
+                        binding.enginePower.adapter?.notifyDataSetChanged()
                     }
                     "Boite" -> {
                         tmpEngine.clear()
@@ -133,36 +136,44 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
     private fun initializeAdapters(binding: FragmentVersionsBinding) {
         placesAdapter = PlacesAdapter(tmpPlaces)
         engineAdapter = EngineAdapter(tmpEngine)
+        enginePowerAdapter = EnginePowerAdapter(tmpEnginePower)
         fuelAdapter = FuelAdapter(tmpFuel)
         colorAdapter = ColorsAdapter(tmpColor)
         binding.placesList.adapter = placesAdapter
         binding.engineBoxList.adapter = engineAdapter
         binding.engineTypeList.adapter = fuelAdapter
         binding.carsColorsList.adapter = colorAdapter
-        placesAdapter!!.setOnItemClickListener(this)
-        engineAdapter!!.setOnItemClickListener(this)
-        fuelAdapter!!.setOnItemClickListener(this)
-        colorAdapter!!.setOnItemClickListener(this)
+        binding.enginePower.adapter = enginePowerAdapter
+        placesAdapter.setOnItemClickListener(this)
+        engineAdapter.setOnItemClickListener(this)
+        fuelAdapter.setOnItemClickListener(this)
+        colorAdapter.setOnItemClickListener(this)
+        enginePowerAdapter.setOnItemClickListener(this)
     }
 
     override fun onPlacesClickListener(position: Int, view: View) {
-        placesAdapter!!.selectedItem()
+        placesAdapter.selectedItem()
         Toast.makeText(context, tmpPlaces[position].value, Toast.LENGTH_SHORT).show()
     }
 
     override fun onEnginClickListner(position: Int, view: View) {
-        engineAdapter!!.selectedItem()
+        engineAdapter.selectedItem()
         Toast.makeText(context, tmpEngine[position].value, Toast.LENGTH_SHORT).show()
     }
 
     override fun onFuelClickListner(position: Int, view: View) {
-        fuelAdapter!!.selectedItem()
+        fuelAdapter.selectedItem()
         Toast.makeText(context, tmpFuel[position].value, Toast.LENGTH_SHORT).show()
     }
 
     override fun onColorClickListner(position: Int, view: View) {
-        colorAdapter!!.selectedItem()
+        colorAdapter.selectedItem()
         Toast.makeText(context, tmpColor[position].value, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onEnginPowerClickListner(position: Int, view: View) {
+        enginePowerAdapter.selectedItem()
+        Toast.makeText(context, tmpEnginePower[position].value, Toast.LENGTH_SHORT).show()
     }
 
 
