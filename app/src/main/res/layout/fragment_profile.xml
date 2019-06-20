@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+	<data>
+		<variable name="viewModel" type="com.newvisiondz.sayaradz.views.viewModel.ProfileViewModel"/>
+	</data>
+	<ScrollView
+			android:layout_width="match_parent"
+			tools:ignore="HardcodedText"
+			android:layout_height="match_parent">
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/colorPrimaryDark"
+				android:orientation="vertical"
+				android:padding="20dp"
+				tools:context=".views.fragments.Profile">
+
+			<androidx.constraintlayout.widget.ConstraintLayout style="@style/IconButtonStyle">
+
+				<ImageView
+						android:id="@+id/user_image"
+						style="@style/IconStyle"
+						android:layout_marginStart="8dp"
+						android:layout_marginTop="10dp"
+						android:layout_marginBottom="20dp"
+						android:padding="0dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/profile_picture"/>
+
+				<TextView
+						android:id="@+id/user_dis_name"
+						style="@style/LargeDarkBold"
+
+						android:layout_width="wrap_content"
+						android:textSize="20sp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:text="@{viewModel.userName}"
+						app:layout_constraintBottom_toBottomOf="@+id/user_image"
+						app:layout_constraintStart_toEndOf="@+id/user_image"
+						app:layout_constraintTop_toTopOf="@+id/user_image"/>
+
+				<View
+						android:id="@+id/view"
+						android:layout_width="0dp"
+						android:layout_height="1dp"
+						android:layout_marginTop="10dp"
+						android:layout_marginEnd="20dp"
+						android:background="@color/colorPrimaryExtraDark"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="@+id/user_image"
+						app:layout_constraintTop_toBottomOf="@+id/user_image"/>
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<androidx.constraintlayout.widget.ConstraintLayout style="@style/IconButtonStyle">
+
+				<ImageView
+						android:id="@+id/imageView0"
+						style="@style/IconStyle"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/ic_user"/>
+
+				<Button
+						android:id="@+id/button_profile"
+						style="@style/TextButtonDark"
+						android:text="Profile"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView0"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="@+id/imageView0"
+						app:layout_constraintTop_toTopOf="@+id/imageView0"/>
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<androidx.constraintlayout.widget.ConstraintLayout style="@style/IconButtonStyle">
+
+				<ImageView
+						android:id="@+id/imageView1"
+						style="@style/IconStyle"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/ic_award"/>
+
+				<Button
+						android:id="@+id/button_mybids"
+						style="@style/TextButtonDark"
+						android:text="Annoces"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView1"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="@+id/imageView1"
+						app:layout_constraintTop_toTopOf="@+id/imageView1"/>
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<androidx.constraintlayout.widget.ConstraintLayout style="@style/IconButtonStyle">
+
+				<ImageView
+						android:id="@+id/imageView2"
+						style="@style/IconStyle"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/ic_star_solid"/>
+
+				<Button
+						android:id="@+id/button_mymodels"
+						style="@style/TextButtonDark"
+						android:text="Modèles"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="@+id/imageView2"
+						app:layout_constraintTop_toTopOf="@+id/imageView2"/>
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<androidx.constraintlayout.widget.ConstraintLayout style="@style/IconButtonStyle">
+
+				<ImageView
+						android:id="@+id/imageView3"
+						style="@style/IconStyle"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/ic_bookmark"/>
+
+				<Button
+						android:id="@+id/button_myversions"
+						style="@style/TextButtonDark"
+						android:text="Versions"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="@+id/imageView3"
+						app:layout_constraintTop_toTopOf="@+id/imageView3"/>
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<androidx.constraintlayout.widget.ConstraintLayout style="@style/IconButtonStyle">
+
+				<ImageView
+						android:id="@+id/imageView4"
+						style="@style/IconStyle"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/ic_donate"/>
+
+				<Button
+						android:id="@+id/button_myoffers"
+						style="@style/TextButtonDark"
+						android:text="Offres"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="@+id/imageView4"
+						app:layout_constraintTop_toTopOf="@+id/imageView4"/>
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<androidx.constraintlayout.widget.ConstraintLayout style="@style/IconButtonStyle">
+
+				<ImageView
+						android:id="@+id/imageView5"
+						style="@style/IconStyle"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/ic_sign_out"/>
+
+				<Button
+						android:id="@+id/button_logout"
+						style="@style/TextButtonDark"
+						android:text="Se déconnecter"
+						android:onClick="@{()->viewModel.getUserInfo()}"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="@+id/imageView5"
+						app:layout_constraintTop_toTopOf="@+id/imageView5"/>
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</LinearLayout>
+
+	</ScrollView>
+</layout>

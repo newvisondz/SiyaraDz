@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools">
+	<data>
+
+	</data>
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+			android:layout_width="match_parent"
+			android:id="@+id/coordinator"
+			tools:ignore="HardcodedText"
+			android:layout_height="match_parent"
+			tools:context=".views.LoginActivity">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/constraintLayout"
+				android:layout_width="match_parent"
+
+				android:layout_height="match_parent"
+				app:layout_behavior="@string/appbar_scrolling_view_behavior" android:background="@android:color/white">
+
+
+			<ImageView
+					android:layout_width="0dp"
+					android:layout_height="200dp" app:srcCompat="@drawable/logo"
+					android:id="@+id/imageView7"
+					app:layout_constraintEnd_toEndOf="parent"
+					android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+					android:layout_marginStart="8dp"
+					app:layout_constraintHorizontal_bias="0.0"
+					app:layout_constraintTop_toTopOf="parent"
+					android:layout_marginTop="8dp"/>
+
+			<Button
+					android:id="@+id/loging"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/common_google_signin_btn_text_light"
+					android:text="@string/connect_with_google"
+					android:textColor="@color/colorAccent"
+					android:layout_marginStart="8dp"
+					app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
+					app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.496"
+					android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/textView"/>
+
+			<com.facebook.login.widget.LoginButton
+					android:id="@+id/loginFb"
+					android:layout_width="0dp"
+					android:paddingTop="12dp"
+					android:paddingBottom="12dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="8dp"
+					app:layout_constraintStart_toStartOf="@+id/loging"
+					app:layout_constraintEnd_toEndOf="@+id/loging"
+					android:layout_marginTop="8dp"
+					app:layout_constraintTop_toBottomOf="@+id/loging" android:layout_marginBottom="131dp"
+					app:layout_constraintBottom_toTopOf="@+id/progressLogin"/>
+
+
+			<TextView
+					android:text="Veuillez vous connectez"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/textView"
+					android:fontFamily="@font/over_the_rainbow"
+					android:textSize="18sp"
+					android:textColor="@color/common_google_signin_btn_text_dark_focused"
+					android:textStyle="bold"
+					android:textAllCaps="false"
+					android:background="@android:color/transparent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
+					app:layout_constraintTop_toBottomOf="@+id/imageView7"/>
+
+
+			<ProgressBar
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/progressLogin"
+					android:indeterminateDrawable="@drawable/progress"
+					app:layout_constraintEnd_toEndOf="parent"
+					android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+					android:layout_marginStart="8dp"
+					android:layout_marginBottom="36dp" app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintHorizontal_bias="0.498" android:layout_marginTop="8dp"
+					app:layout_constraintTop_toBottomOf="@+id/loginFb"/>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

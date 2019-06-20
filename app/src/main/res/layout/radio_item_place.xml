@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.newvisiondz.sayaradz.adapters.versionadapters.PlacesAdapter"/>
+        <variable name="value" type="com.newvisiondz.sayaradz.model.Value"/>
+        <variable name="position" type="int"/>
+    </data>
+    <RadioButton
+            android:id="@+id/radio_styled"
+            style="@style/RadioButton"
+            app:setRadioPlaceChecked="@{value}"
+            android:layout_width="match_parent"
+            android:checked="@{PlacesAdapter.sSelected == position}"
+            android:layout_height="wrap_content" />
+</layout>
