@@ -1,7 +1,6 @@
 package com.newvisiondz.sayaradz.views.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,21 +36,14 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
     private lateinit var fuelAdapter: FuelAdapter
     private lateinit var enginePowerAdapter: EnginePowerAdapter
     private lateinit var colorAdapter: ColorsAdapter
-    val tmpPlaces = mutableListOf(
-        Value("1", "nice"), Value("2", "bad"), Value("1", "cool")
-    )
-    val tmpEngine = mutableListOf(
-        Value("1", "toyota"), Value("2", "chev"), Value("1", "Nice")
-    )
-    val tmpFuel = mutableListOf(
-        Value("1", "Essence"), Value("2", "Diesel")
-    )
-    val tmpEnginePower = mutableListOf(
-        Value("1", "140"), Value("2", "160"), Value("2", "180")
-    )
-    val tmpColor = mutableListOf(
+    private val tmpPlaces = mutableListOf<Value>()
+    private val tmpEngine = mutableListOf<Value>( )
+    private val tmpFuel = mutableListOf<Value>()
+    private val tmpEnginePower = mutableListOf<Value>( )
+    private val tmpColor = mutableListOf(
         Color("1", "red", "#fc2333"), Color("2", "blue", "#f43111"), Color("2", "green", "#3da233")
     )
+    private val userChoices= mutableMapOf<String,Value>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +59,6 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         modelId = arguments?.getString("modelId")!!
         manufacturer = arguments?.getString("manufacturerId")!!
         modelImages = arguments?.getStringArrayList("modelImages")!!
-
 
         binding.versionsSpinner.adapter = SpinnerAdapter(context!!, R.layout.spinner_element, versions)
         initializeAdapters(binding)
@@ -117,6 +108,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         binding.orderButton.setOnClickListener {
             //TODO params
             //todo format String in the placesAdapter
+
             it.findNavController().navigate(VersionsDirections.actionModelViewToOrderForm())
         }
 
@@ -150,26 +142,31 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
 
     override fun onPlacesClickListener(position: Int, view: View) {
         placesAdapter.selectedItem()
+        userChoices["place"] = tmpPlaces[position]
         Toast.makeText(context, tmpPlaces[position].value, Toast.LENGTH_SHORT).show()
     }
 
     override fun onEnginClickListner(position: Int, view: View) {
         engineAdapter.selectedItem()
+        userChoices["engine"] = tmpEngine[position]
         Toast.makeText(context, tmpEngine[position].value, Toast.LENGTH_SHORT).show()
     }
 
     override fun onFuelClickListner(position: Int, view: View) {
         fuelAdapter.selectedItem()
+        userChoices["fuel"] = tmpFuel[position]
         Toast.makeText(context, tmpFuel[position].value, Toast.LENGTH_SHORT).show()
     }
 
     override fun onColorClickListner(position: Int, view: View) {
         colorAdapter.selectedItem()
+//        userChoices["color"] = tmpColor[position]
         Toast.makeText(context, tmpColor[position].value, Toast.LENGTH_SHORT).show()
     }
 
     override fun onEnginPowerClickListner(position: Int, view: View) {
         enginePowerAdapter.selectedItem()
+        userChoices["enginePower"] = tmpEnginePower[position]
         Toast.makeText(context, tmpEnginePower[position].value, Toast.LENGTH_SHORT).show()
     }
 }
