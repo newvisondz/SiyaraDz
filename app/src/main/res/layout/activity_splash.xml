@@ -24,7 +24,7 @@
 				app:layout_constraintStart_toStartOf="@+id/imageView7"/>
 		<ImageView
 				android:layout_width="0dp"
-				android:layout_height="wrap_content" app:srcCompat="@drawable/newlogo"
+				android:layout_height="200dp" app:srcCompat="@drawable/logo"
 				android:id="@+id/imageView7"
 				app:layout_constraintEnd_toEndOf="parent"
 				android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
