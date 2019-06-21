@@ -17,6 +17,7 @@ class PlacesAdapter(private var options: MutableList<Value>) :
         var sSelected = -1
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -65,4 +66,5 @@ class PlacesAdapter(private var options: MutableList<Value>) :
     interface SingleClickListener {
         fun onPlacesClickListener(position: Int, view: View)
     }
+
 }

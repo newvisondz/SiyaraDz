@@ -11,5 +11,5 @@
             style="@style/RadioButton"
             app:setRadioEnginePowerChecked="@{value}"
             android:layout_height="wrap_content"
-            android:checked="@{EnginePowerAdapter.sSelected == position}"/>
+            android:checked="@{EnginePowerAdapter.sSelected == position ? true :false}"/>
 </layout>

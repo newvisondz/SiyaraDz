@@ -10,6 +10,6 @@
             style="@style/RadioButton"
             app:setRadioPlaceChecked="@{value}"
             android:layout_width="match_parent"
-            android:checked="@{PlacesAdapter.sSelected == position}"
-            android:layout_height="wrap_content" />
+            android:checked="@{PlacesAdapter.sSelected == position ? true :false}"
+            android:layout_height="wrap_content"/>
 </layout>

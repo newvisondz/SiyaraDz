@@ -37,13 +37,13 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
     private lateinit var enginePowerAdapter: EnginePowerAdapter
     private lateinit var colorAdapter: ColorsAdapter
     private val tmpPlaces = mutableListOf<Value>()
-    private val tmpEngine = mutableListOf<Value>( )
+    private val tmpEngine = mutableListOf<Value>()
     private val tmpFuel = mutableListOf<Value>()
-    private val tmpEnginePower = mutableListOf<Value>( )
+    private val tmpEnginePower = mutableListOf<Value>()
     private val tmpColor = mutableListOf(
         Color("1", "red", "#fc2333"), Color("2", "blue", "#f43111"), Color("2", "green", "#3da233")
     )
-    private val userChoices= mutableMapOf<String,Value>()
+    private val userChoices = mutableMapOf<String, Value>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,27 +69,32 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         versionViewModel.version.observe(this, Observer { newVersion ->
             tmpColor.clear()
             tmpColor.addAll(newVersion.colors)
+            ColorsAdapter.sSelected = -1
             binding.carsColorsList.adapter?.notifyDataSetChanged()
             for (item in newVersion.options) {
                 when (item.name) {
                     "places" -> {
                         tmpPlaces.clear()
+                        PlacesAdapter.sSelected = -1
                         tmpPlaces.addAll(item.values)
                         binding.placesList.adapter?.notifyDataSetChanged()
                     }
                     "Type du carburant" -> {
                         tmpFuel.clear()
                         tmpFuel.addAll(item.values)
+                        FuelAdapter.sSelected = -1
                         binding.engineTypeList.adapter?.notifyDataSetChanged()
                     }
                     "Moteur" -> {
                         tmpEnginePower.clear()
                         tmpEnginePower.addAll(item.values)
+                        EnginePowerAdapter.sSelected = -1
                         binding.enginePower.adapter?.notifyDataSetChanged()
                     }
                     "Boite" -> {
                         tmpEngine.clear()
                         tmpEngine.addAll(item.values)
+                        EngineAdapter.sSelected = -1
                         binding.engineBoxList.adapter?.notifyDataSetChanged()
                     }
                 }

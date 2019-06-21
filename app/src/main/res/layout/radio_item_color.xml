@@ -11,5 +11,5 @@
             android:layout_width="match_parent"
             app:setRadioColorChecked="@{color}"
             android:layout_height="wrap_content"
-            android:checked="@{ColorsAdapter.sSelected == position}"/>
+            android:checked="@{ColorsAdapter.sSelected == position ? true :false}"/>
 </layout>

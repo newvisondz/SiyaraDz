@@ -10,6 +10,6 @@
             style="@style/RadioButton"
             app:setRadioFuelChecked="@{value}"
             android:layout_width="match_parent"
-            android:checked="@{FuelAdapter.sSelected == position}"
+            android:checked="@{FuelAdapter.sSelected == position ? true :false}"
             android:layout_height="wrap_content" />
 </layout>
