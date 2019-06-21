@@ -35,13 +35,13 @@ class ProfileForm : Fragment() {
 
         profileFormViewModel.updateWithSuccess.observe(this, Observer {
             if (it == true) {
-                Snackbar.make(binding.profileFormConstraint, "Update with success", Snackbar.LENGTH_SHORT)
+                Snackbar.make(binding.profileFormConstraint, "Update with success", Snackbar.LENGTH_INDEFINITE)
                     .setAction(
                         "Done"
                     ) { view?.findNavController()?.navigate(ProfileFormDirections.actionProfileFormToTabs()) }.show()
 
-            } else {
-                Snackbar.make(binding.profileFormConstraint, "Try again..!!", Snackbar.LENGTH_LONG).show()
+            } else if (it == false)  {
+                Snackbar.make(binding.profileFormConstraint, "Try again..!!", Snackbar.LENGTH_INDEFINITE).show()
             }
         })
         binding.userDate.setOnClickListener { datePicker() }

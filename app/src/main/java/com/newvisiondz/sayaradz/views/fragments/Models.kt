@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class Models : Fragment() {
     private var models = mutableListOf<Model>()
-    private var modelsAdapter: ModelsAdapter?=null
+    private var modelsAdapter: ModelsAdapter? = null
     private var brandName = ""
 
     private var pageNumber: Int = 1
@@ -45,22 +45,17 @@ class Models : Fragment() {
         brandName = ModelsArgs.fromBundle(arguments).brandName
         mViewModel = ViewModelProviders.of(
             this, ModelsViewModelsFactory(
-                application, this)).get(ModelsViewModel::class.java)
-        binding.modelsList.adapter=ModelsAdapter(models,context!!,brandName)
+                application, this
+            )
+        ).get(ModelsViewModel::class.java)
+        binding.modelsList.adapter = ModelsAdapter(models, context!!, brandName)
 
         mViewModel!!.getModelData(brandName)
         mViewModel!!.modelsList.observe(this, Observer { newModels ->
             models.clear()
             models.addAll(newModels)
-            if (modelsAdapter == null) {
-                modelsAdapter = ModelsAdapter(
-                    models,
-                    context!!, brandName
-                )
-                binding.modelsList.adapter = modelsAdapter
-            } else {
-                binding.modelsList.adapter!!.notifyDataSetChanged()
-            }
+            binding.modelsList.adapter!!.notifyDataSetChanged()
+            binding.progressModels.visibility=View.GONE
         })
 
         binding.modelsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {

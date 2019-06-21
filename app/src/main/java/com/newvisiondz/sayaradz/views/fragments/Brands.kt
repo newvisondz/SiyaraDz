@@ -47,23 +47,15 @@ class Brands : Fragment() {
         mViewModel = ViewModelProviders.of(
             this,
             BrandsViewModelFactory(
-                application,this
+                application, this
             )
         ).get(BrandsViewModel::class.java)
         mViewModel!!.brandsList.observe(this, Observer { newBrands ->
-            binding.progressBar.visibility=View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
             brands.clear()
             brands.addAll(newBrands!!)
-            if (adapter == null) {
-                adapter = BrandsAdapter(
-                    brands,
-                    context!!
-                )
-                binding.brandsList.adapter = adapter
-            } else {
-                binding.brandsList.adapter!!.notifyDataSetChanged()
-            }
-            binding.progressBar.visibility=View.GONE
+            binding.brandsList.adapter!!.notifyDataSetChanged()
+            binding.progressBar.visibility = View.GONE
         })
         binding.swipeRefresh.setOnRefreshListener {
             brands.clear()

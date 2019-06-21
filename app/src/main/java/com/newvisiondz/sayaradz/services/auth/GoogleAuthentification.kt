@@ -28,7 +28,7 @@ class GoogleAuthentification (private var context: Context) {
         const val REQ_CODE: Int = 9001
     }
     private var googleClient: GoogleApiClient? = null
-//    internal var signInButton: Button
+
     private var userInfo: SharedPreferences
 
 
@@ -38,7 +38,7 @@ class GoogleAuthentification (private var context: Context) {
             .requestServerAuthCode(context.getString(R.string.server_client_id))
             .requestEmail()
             .build()
-//        context as Activity
+
         this.googleClient = GoogleApiClient.Builder(context)
             .enableAutoManage(
                 context as FragmentActivity,
@@ -46,7 +46,7 @@ class GoogleAuthentification (private var context: Context) {
             )
             .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions)
             .build()
-//        this.signInButton = (context as Activity).loging
+
         userInfo = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     }
 

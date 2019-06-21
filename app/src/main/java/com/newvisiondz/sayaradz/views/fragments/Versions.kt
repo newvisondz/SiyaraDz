@@ -67,9 +67,9 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         versionViewModel.getAllVersions(manufacturer, modelId)
 
         versionViewModel.version.observe(this, Observer { newVersion ->
-//            tmpColor.clear()
-//            tmpColor.addAll(newVersion.colors)
-//            binding.carsColorsList.adapter?.notifyDataSetChanged()
+            tmpColor.clear()
+            tmpColor.addAll(newVersion.colors)
+            binding.carsColorsList.adapter?.notifyDataSetChanged()
             for (item in newVersion.options) {
                 when (item.name) {
                     "places" -> {

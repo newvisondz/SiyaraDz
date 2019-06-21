@@ -18,11 +18,8 @@ import com.newvisiondz.sayaradz.databinding.ActivityLoginBinding
 import com.newvisiondz.sayaradz.services.auth.FacebookAuthentification
 import com.newvisiondz.sayaradz.services.auth.GoogleAuthentification
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import kotlinx.android.synthetic.main.activity_login.*
+import android.view.View
 
-import androidx.core.content.res.ResourcesCompat
 import com.newvisiondz.sayaradz.R
 
 
@@ -33,25 +30,24 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     private var authFacebook: FacebookAuthentification? = null
     private var userInfo: SharedPreferences? = null
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, com.newvisiondz.sayaradz.R.layout.activity_login)
+        val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         userInfo = getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         authFacebook = FacebookAuthentification(this)
         authGoogle = GoogleAuthentification(this)
         binding.loging.setOnClickListener {
+            binding.progressLogin.visibility= View.VISIBLE
             authGoogle!!.signIn(this)
+            binding.progressLogin.visibility= View.GONE
         }
 
-        /*
-        val typeface = ResourcesCompat.getFont(applicationContext, R.font.leaguespartan_bold)
-        textView18.setTypeface(typeface)
-*/
         binding.loginFb.setOnClickListener {
             LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult?) {
+                    binding.progressLogin.visibility= View.VISIBLE
                     authFacebook!!.signIn(result!!)
+                    binding.progressLogin.visibility= View.GONE
                 }
                 override fun onCancel() {
                 }
@@ -67,6 +63,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         if (requestCode == GoogleAuthentification.REQ_CODE) {
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             this.authGoogle!!.handleResult(result)
+
         }
     }
 

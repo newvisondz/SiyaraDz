@@ -47,16 +47,16 @@ class ProfileFormViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun updateUserInfo() {
-        val paramObject = JSONObject()
-        paramObject.put("firstName", firstName.value)
-        paramObject.put("lastName", lastName.value)
-        paramObject.put("address", address.value)
-        paramObject.put("phone", phone.value)
-        paramObject.put("birthDate", birthDate.value)
+        val jsonObject= JsonObject()
+        jsonObject.addProperty("firstName", firstName.value)
+        jsonObject.addProperty("lastName", lastName.value)
+        jsonObject.addProperty("address", address.value)
+        jsonObject.addProperty("phone", phone.value)
+        jsonObject.addProperty("birthDate", birthDate.value)
 
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .updateUser(getUserToken(userInfo!!)!!, paramObject.toString())
+            .updateUser(getUserToken(userInfo!!)!!,jsonObject)
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if (response.isSuccessful) {

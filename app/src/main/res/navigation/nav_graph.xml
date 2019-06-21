@@ -26,8 +26,9 @@
                 android:defaultValue="0" />
         </action>
         <action
-            android:id="@+id/action_tabs_to_profileForm"
-            app:destination="@id/profileForm" />
+                android:id="@+id/action_tabs_to_profileForm"
+                app:destination="@id/profileForm" app:enterAnim="@anim/fade_in" app:exitAnim="@anim/fade_out"
+                app:popExitAnim="@anim/fade_out"/>
         <action
             android:id="@+id/action_tabs_to_myBids"
             app:destination="@id/myBids" />

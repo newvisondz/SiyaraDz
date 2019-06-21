@@ -27,12 +27,6 @@ interface ServerDataApi {
     @PUT("autom/me")
     fun updateUser(
         @Header("Authorization") token: String,
-        @Body body: String
-    ): Call<JsonObject>
-
-    @PUT("autom/me")
-    fun updateUser(
-        @Header("Authorization") token: String,
         @Body body: JsonObject
     ): Call<JsonObject>
 

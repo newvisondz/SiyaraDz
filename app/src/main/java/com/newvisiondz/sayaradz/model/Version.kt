@@ -8,7 +8,7 @@ data class Version(
     @SerializedName("name")
     var name: String,
     @SerializedName("colors")
-    var colors: MutableList<String>,
+    var colors: MutableList<Color>,
     @SerializedName("options")
     var options: MutableList<Option>
 )
