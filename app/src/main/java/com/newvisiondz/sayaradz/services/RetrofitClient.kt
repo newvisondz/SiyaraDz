@@ -34,6 +34,7 @@ class RetrofitClient(var context: Context) {
             .addInterceptor(interceptor)
             .connectTimeout(30, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(NetworkConnectionInterceptor(this.context))
+
             .build()
 
         retrofit = Retrofit.Builder()

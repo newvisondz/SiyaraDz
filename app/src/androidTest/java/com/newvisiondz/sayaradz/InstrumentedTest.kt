@@ -2,12 +2,12 @@ package com.newvisiondz.sayaradz
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayaradz.model.Version
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import com.newvisiondz.sayaradz.utils.JsonFormatter
-import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -56,7 +56,7 @@ class InstrumentedTest {
 
     @Test
     fun updateUser() {
-        val jsonObject= JsonObject()
+        val jsonObject = JsonObject()
         jsonObject.addProperty("firstName", "yacine")
         jsonObject.addProperty("lastName", "bka")
         jsonObject.addProperty("address", "medea")
@@ -67,11 +67,35 @@ class InstrumentedTest {
             "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYjNjNzhmYjc5NTM5MDAxOWY4ZDIzYSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTYwODA0MjY3LCJleHAiOjE1NjkzNTc4Njd9.kAD2_-3xg7hS84BI3J9J0W8uHV2UgDLKtS1abaKSdWg",
             jsonObject
         )
-        val nice=call.execute().body()?.get("ok")?.asString
+        val nice = call.execute().body()?.get("ok")?.asString
         if (nice == "1") {
             assertTrue(true)
         } else if (nice == "0") {
             assertTrue(false)
         }
     }
+
+    @Test
+    fun sendCommand() {
+        val queries = mutableListOf("5d090633fce5dc0019de8786", "5d08145efce5dc0019de875b")
+        val call = RetrofitClient(appContext).serverDataApi.sendUserCommand(
+            "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYjNjNzhmYjc5NTM5MDAxOWY4ZDIzYSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTYwODA0MjY3LCJleHAiOjE1NjkzNTc4Njd9.kAD2_-3xg7hS84BI3J9J0W8uHV2UgDLKtS1abaKSdWg",
+            "Toyota",
+            "5d081201fce5dc0019de8748", "5d08145efce5dc0019de875b", queries
+        )
+        val version = call.execute().body()
+        assertEquals(version?.price, 11754)
+    }
+
+    @Test
+    fun confirmUserCommand() {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("vehicule", "5d0d088cbef59411e4db98fe")
+        val call = RetrofitClient(appContext).serverDataApi.confirmUserCommande(
+            "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYjNjNzhmYjc5NTM5MDAxOWY4ZDIzYSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTYwODA0MjY3LCJleHAiOjE1NjkzNTc4Njd9.kAD2_-3xg7hS84BI3J9J0W8uHV2UgDLKtS1abaKSdWg",
+            jsonObject
+        )
+        call.execute()
+    }
+
 }

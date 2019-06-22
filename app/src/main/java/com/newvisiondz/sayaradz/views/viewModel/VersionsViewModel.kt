@@ -4,8 +4,11 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.*
+import com.google.gson.Gson
 import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
+import com.newvisiondz.sayaradz.model.Command
 import com.newvisiondz.sayaradz.model.Version
 import com.newvisiondz.sayaradz.services.RetrofitClient
 import com.newvisiondz.sayaradz.utils.JsonFormatter
@@ -32,6 +35,10 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
     val version: LiveData<Version>
         get() = _version
 
+    private val _commandDetails = MutableLiveData<Command>()
+    val commandDetails: LiveData<Command>
+        get() = _commandDetails
+
     private val _versionList = MutableLiveData<MutableList<Version>>()
     val versionList: LiveData<MutableList<Version>>
         get() = _versionList
@@ -48,6 +55,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
             override fun onFailure(call: Call<JsonArray>, t: Throwable) {
                 t.printStackTrace()
             }
+
             override fun onResponse(call: Call<JsonArray>, response: Response<JsonArray>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Version>>() {}.type
@@ -72,6 +80,39 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
                 if (response.isSuccessful) {
                     _version.value = response.body()!!
                 }
+            }
+
+        })
+    }
+
+    fun sendCommand(manufacturer: String, modelId: String, versionId: String, queries: MutableList<String>) {
+        val call = RetrofitClient(context).serverDataApi.sendUserCommand(
+            getUserToken(userInfo!!)!!, manufacturer, modelId, versionId, queries
+        )
+        call.enqueue(object : Callback<Command> {
+            override fun onFailure(call: Call<Command>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<Command>, response: Response<Command>) {
+                _commandDetails.value = response.body()
+            }
+        })
+    }
+
+    fun confirmCommande(carId: String) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("vehicule", carId)
+        val call = RetrofitClient(context).serverDataApi.confirmUserCommande(
+            getUserToken(userInfo!!)!!, jsonObject
+        )
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                //TODO navigate to Tabs
             }
 
         })
