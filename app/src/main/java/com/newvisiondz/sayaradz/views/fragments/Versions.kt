@@ -12,13 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import com.google.gson.JsonObject
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog
 import com.newvisiondz.sayaradz.R
 import com.newvisiondz.sayaradz.adapters.SliderAdapter
 import com.newvisiondz.sayaradz.adapters.SpinnerAdapter
 import com.newvisiondz.sayaradz.adapters.versionadapters.*
 import com.newvisiondz.sayaradz.databinding.FragmentVersionsBinding
 import com.newvisiondz.sayaradz.model.Color
+import com.newvisiondz.sayaradz.model.Command
 import com.newvisiondz.sayaradz.model.Value
 import com.newvisiondz.sayaradz.model.Version
 import com.newvisiondz.sayaradz.views.viewModel.VersionsViewModel
@@ -43,9 +44,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
     private val tmpEngine = mutableListOf<Value>()
     private val tmpFuel = mutableListOf<Value>()
     private val tmpEnginePower = mutableListOf<Value>()
-    private val tmpColor = mutableListOf(
-        Color("1", "red", "#fc2333"), Color("2", "blue", "#f43111"), Color("2", "green", "#3da233")
-    )
+    private val tmpColor = mutableListOf<Color>()
     private val userChoices = mutableMapOf<String, String>()
 
     override fun onCreateView(
@@ -116,19 +115,17 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         })
         versionViewModel.commandDetails.observe(this, Observer { command ->
             if (command.cars.isNotEmpty()) {
-                val dialogBuilder = AlertDialog.Builder(context)
-                    .setMessage("le prix etait ${command.price}")
-                    .setTitle("Confirmation d'achat")
-                    .setCancelable(true)
-                    .setPositiveButton("Proceed") { dialog, id ->
-                        versionViewModel.confirmCommande(command.cars[0])
-                        //todo observe another variable when command is successfully saved to navigate to tabs
+//                displayDialog(command, versionViewModel)
+                MaterialStyledDialog.Builder(context)
+                    .setTitle("the price is ${command.price}!")
+                    .setDescription("do you want to proceed")
+                    .setHeaderDrawable(R.drawable.logo)
+                    .withDarkerOverlay(true)
+                    .withIconAnimation(true)
+                    .onPositive { dialog, which ->
+
                     }
-                    .setNegativeButton("Cancel") { dialog, id ->
-                        dialog.cancel()
-                    }
-                val alert = dialogBuilder.create()
-                alert.show()
+                    .show()
             } else {
                 Toast.makeText(context, "This car is no longer available", Toast.LENGTH_LONG).show()
             }
@@ -156,6 +153,25 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         return binding.root
     }
 
+    private fun displayDialog(
+        command: Command,
+        versionViewModel: VersionsViewModel
+    ) {
+        val dialogBuilder = AlertDialog.Builder(context)
+            .setMessage("le prix etait ${command.price}")
+            .setTitle("Confirmation d'achat")
+            .setCancelable(true)
+            .setPositiveButton("Proceed") { dialog, id ->
+                versionViewModel.confirmCommande(command.cars[0])
+                //todo observe another variable when command is successfully saved to navigate to tabs
+            }
+            .setNegativeButton("Cancel") { dialog, id ->
+                dialog.cancel()
+            }
+        val alert = dialogBuilder.create()
+        alert.show()
+    }
+
     private fun initializeAdapters(binding: FragmentVersionsBinding) {
         placesAdapter = PlacesAdapter(tmpPlaces)
         engineAdapter = EngineAdapter(tmpEngine)
@@ -176,31 +192,75 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
 
     override fun onPlacesClickListener(position: Int, view: View) {
         placesAdapter.selectedItem()
-        userChoices["place"] = tmpPlaces[position].id
-        Toast.makeText(context, tmpPlaces[position].value, Toast.LENGTH_SHORT).show()
+        if (userChoices["place"].isNullOrEmpty()) {
+            userChoices["place"] = tmpPlaces[position].id
+        } else {
+            if (userChoices["place"] == tmpPlaces[position].id) {
+                userChoices.remove("place")
+                PlacesAdapter.sSelected = -1
+            } else {
+                userChoices["place"] = tmpPlaces[position].id
+            }
+        }
     }
+
 
     override fun onEnginClickListner(position: Int, view: View) {
         engineAdapter.selectedItem()
-        userChoices["engine"] = tmpEngine[position].id
-        Toast.makeText(context, tmpEngine[position].value, Toast.LENGTH_SHORT).show()
+        if (userChoices["engine"].isNullOrEmpty()) {
+            userChoices["engine"] = tmpEngine[position].id
+        } else {
+            if (userChoices["engine"] == tmpEngine[position].id) {
+                userChoices.remove("engine")
+                EngineAdapter.sSelected = -1
+            } else {
+                userChoices["engine"] = tmpEngine[position].id
+            }
+        }
     }
 
     override fun onFuelClickListner(position: Int, view: View) {
         fuelAdapter.selectedItem()
-        userChoices["fuel"] = tmpFuel[position].id
-        Toast.makeText(context, tmpFuel[position].value, Toast.LENGTH_SHORT).show()
+        if (userChoices["fuel"] == null) {
+            userChoices["fuel"] = tmpFuel[position].id
+        } else {
+            if (userChoices["fuel"] == tmpFuel[position].id) {
+                userChoices.remove("fuel")
+                FuelAdapter.sSelected = -1
+            } else {
+                userChoices["fuel"] = tmpFuel[position].id
+            }
+        }
     }
 
     override fun onColorClickListner(position: Int, view: View) {
         colorAdapter.selectedItem()
-        userChoices["color"] = tmpColor[position].id
-        Toast.makeText(context, tmpColor[position].value, Toast.LENGTH_SHORT).show()
+        if (userChoices["color"] == null) {
+            userChoices["color"] = tmpColor[position].id
+            Toast.makeText(context, tmpColor[position].name, Toast.LENGTH_SHORT).show()
+
+        } else {
+            if (userChoices["color"] == tmpColor[position].id) {
+                userChoices.remove("color")
+                ColorsAdapter.sSelected = -1
+            } else {
+                Toast.makeText(context, tmpColor[position].name, Toast.LENGTH_SHORT).show()
+                userChoices["color"] = tmpColor[position].id
+            }
+        }
     }
 
     override fun onEnginPowerClickListner(position: Int, view: View) {
         enginePowerAdapter.selectedItem()
-        userChoices["enginePower"] = tmpEnginePower[position].id
-        Toast.makeText(context, tmpEnginePower[position].value, Toast.LENGTH_SHORT).show()
+        if (userChoices["enginePower"] == null) {
+            userChoices["enginePower"] = tmpEnginePower[position].id
+        } else {
+            if (userChoices["enginePower"] == tmpEnginePower[position].id) {
+                userChoices.remove("enginePower")
+                EnginePowerAdapter.sSelected = -1
+            } else {
+                userChoices["enginePower"] = tmpEnginePower[position].id
+            }
+        }
     }
 }

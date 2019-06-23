@@ -6,8 +6,8 @@
         <variable name="position" type="int"/>
     </data>
     <RadioButton
-            android:id="@+id/radio_styled"
             style="@style/RadioButton"
+            android:id="@+id/radio_styled"
             android:layout_width="match_parent"
             app:setRadioColorChecked="@{color}"
             android:layout_height="wrap_content"
