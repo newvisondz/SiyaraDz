@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/tabs"
-        android:name="com.newvisiondz.sayaradz.views.fragments.Tabs"
+        android:name="com.newvisiondz.sayara.views.fragments.Tabs"
         android:label="fragment_tabs"
         tools:layout="@layout/fragment_tabs">
         <action
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/models"
-        android:name="com.newvisiondz.sayaradz.views.fragments.Models"
+        android:name="com.newvisiondz.sayara.views.fragments.Models"
         android:label="fragment_models"
         tools:layout="@layout/fragment_models">
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/Versions"
-        android:name="com.newvisiondz.sayaradz.views.fragments.Versions"
+        android:name="com.newvisiondz.sayara.views.fragments.Versions"
         android:label="fragment_model_view"
         tools:layout="@layout/fragment_versions">
         <action
@@ -77,12 +77,12 @@
     </fragment>
     <fragment
         android:id="@+id/dataSheetView"
-        android:name="com.newvisiondz.sayaradz.views.fragments.DataSheetView"
+        android:name="com.newvisiondz.sayara.views.fragments.DataSheetView"
         tools:layout="@layout/fragment_data_sheet_view"
         android:label="fragment_data_sheet_view"/>
     <fragment
         android:id="@+id/bidView"
-        android:name="com.newvisiondz.sayaradz.views.fragments.BidView"
+        android:name="com.newvisiondz.sayara.views.fragments.BidView"
         android:label="fragment_bid_view"
         tools:layout="@layout/fragment_bid_view" >
         <argument
@@ -95,24 +95,24 @@
     </fragment>
     <fragment
         android:id="@+id/orderForm"
-        android:name="com.newvisiondz.sayaradz.views.fragments.OrderForm"
+        android:name="com.newvisiondz.sayara.views.fragments.OrderForm"
         android:label="OrderForm"
         tools:layout="@layout/fragment_order_form"/>
     <fragment
         android:id="@+id/bidForm"
-        android:name="com.newvisiondz.sayaradz.views.fragments.BidForm"
+        android:name="com.newvisiondz.sayara.views.fragments.BidForm"
         android:label="fragment_bid_form"
         tools:layout="@layout/fragment_bid_form" />
     <fragment
         android:id="@+id/profileForm"
-        android:name="com.newvisiondz.sayaradz.views.fragments.ProfileForm"
+        android:name="com.newvisiondz.sayara.views.fragments.ProfileForm"
         android:label="fragment_profile_form"
         tools:layout="@layout/fragment_profile_form" >
         <action android:id="@+id/action_profileForm_to_tabs" app:destination="@id/tabs" app:enterAnim="@anim/fade_out"/>
     </fragment>
     <fragment
         android:id="@+id/myBids"
-        android:name="com.newvisiondz.sayaradz.views.fragments.MyBids"
+        android:name="com.newvisiondz.sayara.views.fragments.MyBids"
         android:label="fragment_my_bids"
         tools:layout="@layout/fragment_my_bids" >
         <action
@@ -121,7 +121,7 @@
     </fragment>
     <fragment
         android:id="@+id/myModels"
-        android:name="com.newvisiondz.sayaradz.views.fragments.MyModels"
+        android:name="com.newvisiondz.sayara.views.fragments.MyModels"
         android:label="fragment_my_models"
         tools:layout="@layout/fragment_my_models" >
         <action
@@ -130,7 +130,7 @@
     </fragment>
     <fragment
         android:id="@+id/myVersions"
-        android:name="com.newvisiondz.sayaradz.views.fragments.MyVersions"
+        android:name="com.newvisiondz.sayara.views.fragments.MyVersions"
         android:label="fragment_my_versions"
         tools:layout="@layout/fragment_my_versions" >
         <action
@@ -139,7 +139,7 @@
     </fragment>
     <fragment
         android:id="@+id/myOffers"
-        android:name="com.newvisiondz.sayaradz.views.fragments.MyOffers"
+        android:name="com.newvisiondz.sayara.views.fragments.MyOffers"
         android:label="fragment_my_offers"
         tools:layout="@layout/fragment_my_offers" >
         <action

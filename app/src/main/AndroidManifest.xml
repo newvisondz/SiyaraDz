@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		  package="com.newvisiondz.sayaradz">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+          package="com.newvisiondz.sayara">
 
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -14,7 +14,7 @@
 			android:theme="@style/AppTheme">
 		<activity
 				android:theme="@style/Theme.AppCompat.NoActionBar"
-				android:name=".views.SplashActivity">
+				android:name="com.newvisiondz.sayara.views.SplashActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 
@@ -23,17 +23,18 @@
 		</activity>
 
 		<activity
-				android:name=".views.MainActivity"
+				android:name="com.newvisiondz.sayara.views.MainActivity"
 				android:theme="@style/AppTheme.NoActionBar"
 				android:windowSoftInputMode="adjustPan">
 		</activity>
 		<activity
-				android:name=".views.LoginActivity"
+				android:name="com.newvisiondz.sayara.views.LoginActivity"
 				android:label="@string/app_name"
 				android:theme="@style/Theme.AppCompat.NoActionBar">
 		</activity>
 
 		<meta-data
+                tools:replace="android:value"
 				android:name="com.facebook.sdk.ApplicationId"
 				android:value="@string/facebook_app_id"/>
 		<meta-data

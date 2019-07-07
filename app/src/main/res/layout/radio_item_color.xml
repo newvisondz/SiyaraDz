@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.newvisiondz.sayaradz.adapters.versionadapters.ColorsAdapter"/>
-        <variable name="color" type="com.newvisiondz.sayaradz.model.Color"/>
+        <import type="com.newvisiondz.sayara.adapters.versionadapters.ColorsAdapter"/>
+        <variable name="color" type="com.newvisiondz.sayara.model.Color"/>
         <variable name="position" type="int"/>
     </data>
     <RadioButton

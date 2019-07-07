@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.newvisiondz.sayaradz.adapters.versionadapters.PlacesAdapter"/>
-        <variable name="value" type="com.newvisiondz.sayaradz.model.Value"/>
+        <import type="com.newvisiondz.sayara.adapters.versionadapters.PlacesAdapter"/>
+        <variable name="value" type="com.newvisiondz.sayara.model.Value"/>
         <variable name="position" type="int"/>
     </data>
     <RadioButton

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1029394036505",
+    "firebase_url": "https://sayaradz-9d20c.firebaseio.com",
+    "project_id": "sayaradz-9d20c",
+    "storage_bucket": "sayaradz-9d20c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029394036505:android:ba621c2a1c2d05f0",
+        "android_client_info": {
+          "package_name": "com.newvisiondz.sayara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029394036505-iaefagmmjssgrdm70pqdl74gphk8un3t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.newvisiondz.sayara",
+            "certificate_hash": "cab72ffc52f05d4e089a8dd429551677e05c8198"
+          }
+        },
+        {
+          "client_id": "1029394036505-rgiv45dlpsqqn4jarh43iocvr6a3nepa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3g4oPd0CzzT2qulIUZN4WBJxZMT6WjeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029394036505-rgiv45dlpsqqn4jarh43iocvr6a3nepa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
