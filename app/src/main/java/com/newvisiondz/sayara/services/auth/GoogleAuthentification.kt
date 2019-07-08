@@ -41,7 +41,7 @@ class GoogleAuthentification(private var context: Context, private var auth: Fir
         val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestScopes(Scope(Scopes.APP_STATE))
 //            .requestServerAuthCode(context.getString(R.string.server_client_id))
-            .requestIdToken(context.getString(R.string.default_web_client_id))
+            .requestIdToken(context.getString(R.string.server_client_id))
             .requestEmail()
             .build()
 
@@ -86,13 +86,11 @@ class GoogleAuthentification(private var context: Context, private var auth: Fir
 
         auth.signInWithCredential(credential).addOnCompleteListener(context as Activity) { task ->
             if (task.isSuccessful) {
-                // Sign in success, update UI with the signed-in user's information
                 Log.d(TAG, "signInWithCredential:success")
                 val user: FirebaseUser? = auth.currentUser
                 handleResult(acct)
                 Log.d(TAG, "${user?.email}")
             } else {
-                // If sign in fails, display a message to the user.
                 Log.w(TAG, "signInWithCredential:failure", task.exception)
             }
         }

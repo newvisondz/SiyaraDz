@@ -11,11 +11,41 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
+import android.content.pm.PackageManager
+import com.google.android.gms.common.util.IOUtils.toByteArray
+import android.content.pm.PackageInfo
+import android.util.Base64
+import android.util.Log
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 @RunWith(AndroidJUnit4::class)
 class InstrumentedTest {
     private val appContext = InstrumentationRegistry.getTargetContext()
+
+    @Test
+    fun Get_hash_key() {
+        val info: PackageInfo
+        try {
+            info = appContext.packageManager.getPackageInfo(appContext.packageName, PackageManager.GET_SIGNATURES)
+            for (signature in info.signatures) {
+                val md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                val something = String(Base64.encode(md.digest(), 0))
+                //String something = new String(Base64.encodeBytes(md.digest()));
+                Log.e("hash key", something)
+            }
+        } catch (e1: PackageManager.NameNotFoundException) {
+            Log.e("name not found", e1.toString())
+        } catch (e: NoSuchAlgorithmException) {
+            Log.e("no such an algorithm", e.toString())
+        } catch (e: Exception) {
+            Log.e("exception", e.toString())
+        }
+
+    }
+
 
     @Test
     fun getModelDetail() {

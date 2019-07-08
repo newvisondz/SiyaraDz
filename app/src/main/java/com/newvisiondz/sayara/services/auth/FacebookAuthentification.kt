@@ -6,8 +6,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
+import android.widget.Toast
+import com.facebook.AccessToken
 import com.facebook.GraphRequest
 import com.facebook.login.LoginResult
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import com.newvisiondz.sayara.model.Token
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.setUserPrefrences
@@ -17,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FacebookAuthentification(var context: Context) {
+class FacebookAuthentification(var context: Context, val auth: FirebaseAuth) {
 
     private var userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
 
@@ -39,7 +44,8 @@ class FacebookAuthentification(var context: Context) {
                 }
 
                 override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
-                    if (response!!.isSuccessful) {setUserPrefrences(userInfo, response.body()!!, jsonResponseObject)
+                    if (response!!.isSuccessful) {
+                        setUserPrefrences(userInfo, response.body()!!, jsonResponseObject)
                         val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
                         (context as Activity).finish()
@@ -51,4 +57,23 @@ class FacebookAuthentification(var context: Context) {
         handler.postDelayed(runnable, 3000)
     }
 
+    fun handleFacebookAccessToken(token: AccessToken) {
+        Log.d("FacebookLog", "handleFacebookAccessToken:$token")
+
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        auth.signInWithCredential(credential).addOnCompleteListener(context as Activity) { task ->
+            if (task.isSuccessful) {
+                // Sign in success, update UI with the signed-in user's information
+                Log.d("FacebookLog", "signInWithCredential:success")
+                val user = auth.currentUser
+//                updateUI(user)
+            } else {
+                // If sign in fails, display a message to the user.
+                Log.w("FacebookLog", "signInWithCredential:failure", task.exception)
+                Toast.makeText(context, "Authentication failed.", Toast.LENGTH_SHORT).show()
+//                    updateUI(null)//
+            }
+        }
+
+    }
 }
