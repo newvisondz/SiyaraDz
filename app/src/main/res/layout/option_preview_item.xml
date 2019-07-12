@@ -8,25 +8,30 @@
 
     <TextView
             tools:text="Title"
-            android:layout_width="91dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:id="@+id/preview_key" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            style="@style/MediumDark" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintEnd_toStartOf="@+id/preview_value"
-            app:layout_constraintHorizontal_chainStyle="spread_inside" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:id="@+id/preview_key"
+            style="@style/MediumDark"
+            app:layout_constraintStart_toEndOf="@+id/preview_icon" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/preview_value" android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="5dp" app:layout_constraintBottom_toBottomOf="parent"/>
     <TextView
             tools:text="value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/preview_value"
+            style="@style/SmallLight"
+            app:layout_constraintStart_toEndOf="@+id/preview_key" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="14dp"
+            app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_option"
+            android:id="@+id/preview_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintEnd_toStartOf="@+id/preview_key"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintTop_toTopOf="@+id/preview_key"
-            app:layout_constraintBottom_toBottomOf="@+id/preview_key"
-            app:layout_constraintVertical_bias="1.0" style="@style/SmallLight"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toEndOf="@+id/preview_key"
-            app:layout_constraintHorizontal_bias="0.5" android:layout_marginStart="8dp"
-    />
+            app:layout_constraintBottom_toBottomOf="@+id/preview_key"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

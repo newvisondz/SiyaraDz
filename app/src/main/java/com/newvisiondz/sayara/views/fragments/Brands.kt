@@ -1,14 +1,19 @@
 package com.newvisiondz.sayara.views.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.adapters.BrandsAdapter
 import com.newvisiondz.sayara.databinding.FragmentBrandsBinding
@@ -20,6 +25,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class Brands : Fragment() {
 
+    companion object {
+        val TAG: String = "FireBaseNotif"
+    }
     private var mViewModel: BrandsViewModel? = null
     private var brands = mutableListOf<Brand>()
     private var adapter: BrandsAdapter? = null
@@ -39,6 +47,7 @@ class Brands : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val binding: FragmentBrandsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_brands, container, false)
 
@@ -99,6 +108,20 @@ class Brands : Fragment() {
                 }
             }
         })
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(TAG, "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+                // Get new Instance ID token
+                val token = task.result?.token
+                // Log and toast
+                val msg = getString(R.string.msg_token_fmt, token)
+                Log.d(TAG, msg)
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            })
+        //this can be accecced whenever i need auth
         return binding.root
     }
 

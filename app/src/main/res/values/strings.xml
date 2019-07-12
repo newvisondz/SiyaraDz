@@ -25,11 +25,11 @@
 
 	<!--URLS -->
 	<string name="baseUrl">https://sayaradz2.herokuapp.com</string>
-	<string name="googleAuth">auth/google/callback</string>
-	<string name="facebookAuth">auth/facebook/callback</string>
-	<string name="manufacturers">manufacturers/</string>
+	<string name="default_notification_channel_id">sayaraChannel</string>
+
 	<string name="model_price">From %s Dz</string>
 	<string name="brand_detail">By %1$s</string>
 	<string name="date_format">%1$d-%2$d-%3$d</string>
     <string name="car_final_price">le prix de votre automobile est %s Da</string>
+	<string name="msg_token_fmt">Msg Token is : %s</string>
 </resources>

@@ -129,10 +129,10 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
                 Toast.makeText(context, "This car is no longer available", Toast.LENGTH_LONG).show()
             }
         })
-        binding.datasheetButton.setOnClickListener {
-            //TODO params
-            it.findNavController().navigate(VersionsDirections.actionModelViewToDataSheetView())
-        }
+//        binding.datasheetButton.setOnClickListener {
+//            //TODO params
+//            it.findNavController().navigate(VersionsDirections.actionModelViewToDataSheetView())
+//        }
 
         binding.orderButton.setOnClickListener {
             //TODO do something about order Form

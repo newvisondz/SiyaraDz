@@ -82,6 +82,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
                 return filterResults
             }
 
+            @Suppress("UNCHECKED_CAST")
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 brands = filterResults.values as ArrayList<Brand>
                 notifyDataSetChanged()

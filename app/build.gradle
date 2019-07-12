@@ -62,5 +62,7 @@ dependencies {
 
 //Live data viewmodel jetpack
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+//notification
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
 
 }

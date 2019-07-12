@@ -55,7 +55,7 @@
 						<TextView
 								android:id="@+id/user_dis_name"
 								style="@style/MediumDarkBold"
-								android:text="Version"
+								android:text="Versions"
 								app:layout_constraintStart_toStartOf="parent"
 								app:layout_constraintTop_toTopOf="parent"/>
 
@@ -75,39 +75,8 @@
 							style="@style/SectionStyle">
 
 						<TextView
-								android:id="@+id/textView1"
-								android:text="Options"
-								style="@style/MediumDarkBold"
-								app:layout_constraintStart_toStartOf="parent"
-								app:layout_constraintTop_toTopOf="parent"/>
-
-						<androidx.recyclerview.widget.RecyclerView
-								android:id="@+id/options"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-								android:layout_marginStart="8dp"
-								android:layout_marginTop="8dp"
-								android:layout_marginEnd="8dp"
-								app:layout_constraintEnd_toEndOf="parent"
-								app:layout_constraintStart_toStartOf="parent"
-								app:layout_constraintTop_toBottomOf="@+id/textView1"/>
-
-						<Button
-								android:id="@+id/datasheet_button"
-								style="@style/TextButtonAccent"
-								app:layout_constraintEnd_toEndOf="parent"
-								app:layout_constraintStart_toStartOf="parent"
-								app:layout_constraintTop_toBottomOf="@+id/options"/>
-
-					</androidx.constraintlayout.widget.ConstraintLayout>
-
-					<androidx.constraintlayout.widget.ConstraintLayout
-							style="@style/SectionStyle">
-
-						<TextView
 								android:id="@+id/textView11"
-								android:text="Couleur"
+								android:text="Couleurs"
 								style="@style/MediumDarkBold"
 								app:layout_constraintStart_toStartOf="parent"
 								app:layout_constraintTop_toTopOf="parent"/>
@@ -116,10 +85,10 @@
 								android:id="@+id/cars_colors_list"
 								android:layout_width="0dp"
 								android:layout_height="wrap_content"
-								app:spanCount="3"
+								app:spanCount="2"
 								app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
 								tools:listitem="@layout/radio_item_engine"
-								tools:itemCount="3"
+								tools:itemCount="2"
 								android:layout_marginStart="8dp"
 								android:layout_marginTop="8dp"
 								android:layout_marginEnd="8dp"
@@ -134,7 +103,7 @@
 						<TextView
 								android:id="@+id/textView12"
 								style="@style/MediumDarkBold"
-								android:text="Type du Carburant"
+								android:text="Types du Carburant"
 								app:layout_constraintStart_toStartOf="parent"
 								app:layout_constraintTop_toTopOf="parent"/>
 
@@ -273,9 +242,15 @@
 		<Button
 				android:id="@+id/order_button"
 				android:text="COMMANDER"
-				style="@style/ActionButton"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:padding="15dp"
+				android:textColor="#FFF"
+				android:textSize="@dimen/font_medium"
+				style="@android:style/Widget.Button"
 				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintStart_toStartOf="parent"/>
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"/>
 
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
