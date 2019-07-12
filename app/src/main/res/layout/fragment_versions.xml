@@ -247,7 +247,7 @@
 				android:padding="15dp"
 				android:textColor="#FFF"
 				android:textSize="@dimen/font_medium"
-				style="@android:style/Widget.Button"
+				style="@style/btn_colors"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"/>

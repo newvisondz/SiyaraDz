@@ -47,13 +47,14 @@
                 app:layout_constraintBottom_toTopOf="@+id/price_display"/>
         <Button
                 android:text="Annuler"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/cancel_cmd"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.8" app:layout_constraintEnd_toStartOf="@+id/continue_cmd"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintBaseline_toBaselineOf="@+id/continue_cmd"
-                style="@android:style/Widget.Material.Light.Button.Borderless.Colored"/>
+                style="@style/btn_colors"/>
         <Button
                 android:text="Continue"
                 android:layout_width="wrap_content"
@@ -62,6 +63,6 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/price_display"
                 android:layout_marginTop="8dp" android:layout_marginStart="8dp"
-                style="@android:style/Widget.Material.Light.Button.Borderless.Colored"/>
+                style="@style/btn_colors"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

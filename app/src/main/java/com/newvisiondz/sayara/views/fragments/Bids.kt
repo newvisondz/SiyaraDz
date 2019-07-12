@@ -2,25 +2,37 @@ package com.newvisiondz.sayara.views.fragments
 
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.flask.colorpicker.ColorPickerView
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.adapters.BidsAdapter
 import com.newvisiondz.sayara.model.Bid
 import com.newvisiondz.sayara.utils.displaySnackBar
-import kotlinx.android.synthetic.main.data_entry_dialog.view.*
+import com.newvisiondz.sayara.utils.displayeColorPicker
+import kotlinx.android.synthetic.main.data_entry_constraint.view.*
 import kotlinx.android.synthetic.main.fragment_bids.*
 import kotlinx.android.synthetic.main.fragment_bids.view.*
 import java.util.*
 
 
 class Bids : androidx.fragment.app.Fragment() {
-    private var listener: OnFragmentInteractionListener? = null
+    companion object {
+        const val TAKE_PHOTO = 123
+        const val OPEN_GALLERY = 321
+    }
+
     private var tmpUris = mutableListOf<Uri>()
     private lateinit var bidsList: MutableList<Bid>
     private var bidsAdapter: BidsAdapter? = null
@@ -35,10 +47,10 @@ class Bids : androidx.fragment.app.Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bidsList = mutableListOf(
-            Bid(0, "Mercedes Classe C 220 AMG Line 2015", "ZED AUTO", "Dar Beida", 12.9, 12200.0),
-            Bid(1, "Volkswagen Golf 6 Match 2 2013 ", "ZED AUTO", "Dar Beida", 12.9, 12200.0),
-            Bid(2, "Mercedes Classe C 220 AMG Line 2015", "ZED AUTO", "Dar Beida", 12.9, 12200.0),
-            Bid(3, "Volkswagen Golf 6 Match 2 2013 ", "ZED AUTO", "Dar Beida", 14.9, 1233.0)
+            Bid(0, "Mercedes Classe C 220 AMG Line 2015", 1283, "Dar Beida", 12.9, 12200.0),
+            Bid(1, "Volkswagen Golf 6 Match 2 2013 ", 18233, "Dar Beida", 12.9, 12200.0),
+            Bid(2, "Mercedes Classe C 220 AMG Line 2015", 128312391, "Dar Beida", 12.9, 12200.0),
+            Bid(3, "Volkswagen Golf 6 Match 2 2013 ", 4217931, "Dar Beida", 14.9, 1233.0)
         )
     }
 
@@ -47,16 +59,13 @@ class Bids : androidx.fragment.app.Fragment() {
         initRecyclerView(view)
         add_new_bid.setOnClickListener {
             val mBuilder = AlertDialog.Builder(context!!)
-            val mView = layoutInflater.inflate(R.layout.data_entry_dialog, null)
+            val mView = layoutInflater.inflate(R.layout.data_entry_constraint, null)
             mBuilder.setView(mView)
             val dialog = mBuilder.create()
             dialog.setCanceledOnTouchOutside(true)
             dialog.show()
             mView.btnImg.setOnClickListener {
-                val intent = Intent()
-                    .setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                    .setAction(Intent.ACTION_GET_CONTENT)
-                startActivityForResult(Intent.createChooser(intent, "Select a file"), 301)
+                takePhoto()
             }
             mView.btnOk.setOnClickListener {
                 addItem(mView)
@@ -66,6 +75,21 @@ class Bids : androidx.fragment.app.Fragment() {
             mView.btnCancel.setOnClickListener {
                 dialog.cancel()
             }
+            mView.color.setOnClickListener {
+                ColorPickerDialogBuilder
+                    .with(context)
+                    .setTitle("Choose color")
+                    .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                    .density(12)
+                    .setOnColorSelectedListener { selectedColor: Int ->
+                        Toast.makeText(context, "onColorSelected: 0x ${Integer.toHexString(selectedColor)}", Toast.LENGTH_SHORT)
+                            .show()
+                        val res = Integer.toHexString(selectedColor)
+                        mView.color.setBackgroundColor(selectedColor)
+                    }
+                    .build()
+                    .show()
+            }
         }
         view.swipeRefreshBids.setOnRefreshListener {
             displaySnackBar(view, "Nice ")
@@ -73,33 +97,13 @@ class Bids : androidx.fragment.app.Fragment() {
         }
     }
 
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
-    }
 
     private fun addItem(mView: View) {
         val newBid = Bid(
             Random().nextInt(),
-            mView.Model.text.toString(),
-            mView.Owner.text.toString(),
-            mView.adress.text.toString(),
+            mView.model_spinner.selectedItem.toString(),
+            mView.chassis_number.text.toString().toInt(),
+            mView.color.text.toString(),
             mView.price.text.toString().toDouble(),
             mView.current_miles.text.toString().toDouble()
         )
@@ -108,9 +112,22 @@ class Bids : androidx.fragment.app.Fragment() {
         bids_list.adapter!!.notifyDataSetChanged()
     }
 
+    fun takePhoto() {
+        val imgIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(imgIntent, TAKE_PHOTO)
+    }
+
+    fun openGallery() {
+        val intent = Intent()
+            .setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            .setAction(Intent.ACTION_GET_CONTENT)
+        startActivityForResult(Intent.createChooser(intent, "Select a file"), OPEN_GALLERY)
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if ((requestCode == 301) && (resultCode == Activity.RESULT_OK)) {
+        if ((requestCode == OPEN_GALLERY) && (resultCode == Activity.RESULT_OK)) {
             if (data!!.data != null) {
                 tmpUris.add(data.data!!)
             } else if (data.clipData != null) {
@@ -119,6 +136,8 @@ class Bids : androidx.fragment.app.Fragment() {
                     tmpUris.add(clipArray.getItemAt(i).uri)
                 }
             }
+        } else if ((requestCode == TAKE_PHOTO) && (resultCode == Activity.RESULT_OK)) {
+            val bitmapRes = data?.extras?.get("data") as Bitmap
         }
     }
 

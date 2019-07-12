@@ -28,8 +28,8 @@ class BidsAdapter(private val bids: MutableList<Bid>, private val context: Conte
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val bid = this.bids[i]
-        viewHolder.bidModel.text = bid.model
-        viewHolder.bidOwner.text = bid.owner
+        viewHolder.bidModel.text = bid.price.toString()
+        viewHolder.bidOwner.text = bid.adresse
         viewHolder.bidPrice.text = bid.price.toString()
         viewHolder.bidAdress.text = bid.adresse
         if (bid.uris.size !=0) {

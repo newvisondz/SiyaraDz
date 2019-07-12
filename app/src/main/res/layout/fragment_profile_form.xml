@@ -162,7 +162,9 @@
 
 		<Button
 				android:id="@+id/button_confirm"
-				style="@style/ActionButton"
+				style="@style/btn_colors"
+				android:padding="8dp"
+				android:textSize="28sp"
 				android:layout_width="0dp"
 				android:onClick="@{()->viewModel.updateUserInfo()}"
 				android:layout_height="wrap_content"
