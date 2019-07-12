@@ -21,7 +21,7 @@ class SliderAdapter(private val context: Context, private var modelsImages: Muta
     override fun onBindViewHolder(viewHolder: SliderAdapterVH, position: Int) {
         Glide.with(context)
             .asBitmap()
-            .load("http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com${modelsImages[position]}")
+            .load("${context.getString(R.string.baseUrl)}/${modelsImages[position]}")
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)

@@ -2,6 +2,7 @@ package com.newvisiondz.sayara.services
 
 import android.content.Context
 import com.google.gson.GsonBuilder
+import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.services.auth.AuthentificationApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,9 +13,6 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitClient(var context: Context) {
     private val retrofit: Retrofit
-    companion object {
-        private const val BASE_URL = "http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com/"
-    }
 
     val authentificationApi: AuthentificationApi
         get() = retrofit.create(AuthentificationApi::class.java)
@@ -38,7 +36,7 @@ class RetrofitClient(var context: Context) {
             .build()
 
         retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl("${context.getString(R.string.baseUrl)}/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()

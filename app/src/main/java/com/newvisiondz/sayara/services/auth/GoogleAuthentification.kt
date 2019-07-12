@@ -29,8 +29,6 @@ class GoogleAuthentification(private var context: Context, private var auth: Fir
         private val TAG: String = "GOOGLE"
     }
 
-    private var googleClient: GoogleApiClient? = null
-
 
     var googleSignInClient: GoogleSignInClient
 
@@ -40,6 +38,7 @@ class GoogleAuthentification(private var context: Context, private var auth: Fir
     init {
         val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestScopes(Scope(Scopes.APP_STATE))
+//            .requestServerAuthCode(context.getString(R.string.server_client_id))
             .requestIdToken(context.getString(R.string.server_client_id))
             .requestEmail()
             .build()

@@ -27,7 +27,7 @@ class ModelsAdapter(
         viewHolder.modelName.text = model.name
         Glide.with(context)
             .asBitmap()
-            .load("http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com${model.images[0]}")
+            .load("${context.getString(R.string.baseUrl)}${model.images[0]}")
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)

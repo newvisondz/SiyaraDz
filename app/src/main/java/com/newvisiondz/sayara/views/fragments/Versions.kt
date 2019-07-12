@@ -90,7 +90,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
                         userChoices.remove("fuel")
                         binding.engineTypeList.adapter?.notifyDataSetChanged()
                     }
-                    "Moteur" -> {
+                    "moteur" -> {
                         tmpEnginePower.clear()
                         tmpEnginePower.addAll(item.values)
                         EnginePowerAdapter.sSelected = -1

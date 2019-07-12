@@ -33,7 +33,7 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
 
         Glide.with(context)
             .asBitmap()
-            .load("http://sayaradz3-sayaradz3.b9ad.pro-us-east-1.openshiftapps.com/${marque.logo}")
+            .load("${context.getString(R.string.baseUrl)}/${marque.logo}")
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
@@ -55,14 +55,6 @@ class BrandsAdapter(private var brands: MutableList<Brand>, private val context:
         val card = itemView.brand_card!!
         val brandImage = itemView.brand_image!!
 //        val brandManufacturer = itemView.brand_manufacturer
-    }
-
-    fun addBrands(brands: List<Brand>) {
-        for (marque in brands) {
-            this.brands.add(marque)
-            this.marquesFull.add(marque)
-        }
-        notifyDataSetChanged()
     }
 
     fun clearBrands() {

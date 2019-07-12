@@ -25,8 +25,8 @@ import com.newvisiondz.sayara.services.auth.GoogleAuthentification
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private var callbackManager = CallbackManager.Factory.create()!!
+
     private var authGoogle: GoogleAuthentification? = null
-    //                authGoogle?.handleResult(account)
     private var authFacebook: FacebookAuthentification? = null
     private var userInfo: SharedPreferences? = null
 
@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onError(error: FacebookException?) {
-                    Log.d("facebooklog", "facebook:onError", error)
+                    Log.d("facebooklog", "facebook:onError", error )
 
                 }
             })
@@ -74,18 +74,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callbackManager.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GoogleAuthentification.REQ_CODE) {
+        if (requestCode == GoogleAuthentification.REQ_CODE ) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
 
             try {
                 val account = task.getResult(ApiException::class.java)
                 authGoogle?.firebaseAuthWithGoogle(account!!, this)
+//                authGoogle?.handleResult(account)
             } catch (e: ApiException) {
                 Log.w("GOOGLE", "Google sign in failed", e)
             }
         }
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 
