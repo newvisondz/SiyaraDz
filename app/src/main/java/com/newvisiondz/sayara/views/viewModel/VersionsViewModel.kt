@@ -101,7 +101,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
 
     fun confirmCommande(carId: String) {
         val jsonObject = JsonObject()
-        jsonObject.addProperty("vehicule", carId)
+        jsonObject.addProperty("vehicle", carId)
         val call = RetrofitClient(context).serverDataApi.confirmUserCommande(
             getUserToken(userInfo!!)!!, jsonObject
         )

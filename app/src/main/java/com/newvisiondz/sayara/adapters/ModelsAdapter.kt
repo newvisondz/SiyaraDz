@@ -22,19 +22,26 @@ class ModelsAdapter(
 ) :
     RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
 
+    override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): ViewHolder {
+        val view = LayoutInflater.from(context).inflate(R.layout.fragment_model_card, viewGroup, false)
+        return ViewHolder(view)
+    }
+
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val model = this.models[i]
         viewHolder.modelName.text = model.name
-        Glide.with(context)
-            .asBitmap()
-            .load("${context.getString(R.string.baseUrl)}${model.images[0]}")
-            .apply(
-                RequestOptions()
-                    .placeholder(R.drawable.loading_animation)
-                    .error(R.drawable.ic_broken_image)
-            )
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(viewHolder.modelImage)
+        if (model.images.size > 0) {
+            Glide.with(context)
+                .asBitmap()
+                .load("${context.getString(R.string.baseUrl)}${model.images[0]}")
+                .apply(
+                    RequestOptions()
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.ic_broken_image)
+                )
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(viewHolder.modelImage)
+        }
 //        viewHolder.modelAttribute.text = version.colors.name
 //        viewHolder.modelPrice.text = version.price
 //        viewHolder.modelImage.setImageResource(version.imageId)
@@ -51,10 +58,6 @@ class ModelsAdapter(
         return models.size
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.fragment_model_card, viewGroup, false)
-        return ViewHolder(view)
-    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val card = view.model_card!!

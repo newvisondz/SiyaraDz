@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.adapters.SliderAdapter
 import com.newvisiondz.sayara.adapters.SpinnerAdapter
@@ -114,19 +113,9 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         })
         versionViewModel.commandDetails.observe(this, Observer { command ->
             if (command.cars.isNotEmpty()) {
-//                displayDialog(command, versionViewModel)
-//                MaterialStyledDialog.Builder(context)
-//                    .setTitle("the price is ${command.price}!")
-//                    .setDescription("do you want to proceed")
-//                    .setHeaderDrawable(R.drawable.logo)
-//                    .withDarkerOverlay(true)
-//                    .withIconAnimation(true)
-//                    .onPositive { dialog, which ->
-//
-//                    }
-//                    .show()
+                displayDialog(command, versionViewModel)
             } else {
-                Toast.makeText(context, "This car is no longer available", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Cette voiture n'est plus disponible", Toast.LENGTH_LONG).show()
             }
         })
 //        binding.datasheetButton.setOnClickListener {
@@ -157,9 +146,10 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         versionViewModel: VersionsViewModel
     ) {
         val dialogBuilder = AlertDialog.Builder(context)
-            .setMessage("le prix etait ${command.price}")
+            .setMessage("Le prix estime est ${command.price}")
             .setTitle("Confirmation d'achat")
             .setCancelable(true)
+            .setIcon(R.drawable.ic_money)
             .setPositiveButton("Proceed") { dialog, id ->
                 versionViewModel.confirmCommande(command.cars[0])
                 //todo observe another variable when command is successfully saved to navigate to tabs
@@ -168,6 +158,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
                 dialog.cancel()
             }
         val alert = dialogBuilder.create()
+        alert.window.attributes.windowAnimations = R.style.FadingDialogAnimation
         alert.show()
     }
 

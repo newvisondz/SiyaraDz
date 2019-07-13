@@ -216,4 +216,8 @@
         <item name="android:padding">16dp</item>
         <item name="android:layout_margin">8dp</item>
     </style>
+    <style name="FadingDialogAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 </resources>

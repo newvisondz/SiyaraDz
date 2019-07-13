@@ -14,9 +14,10 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/add_new_bid">
+            app:layout_constraintBottom_toTopOf="@+id/add_new_bid" android:layout_marginBottom="4dp">
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/bids_list"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="2"
                 tools:listitem="@layout/fragment_bid_card"
                 android:layout_width="match_parent"
@@ -27,10 +28,11 @@
             android:layout_width="wrap_content"
             android:backgroundTint="@color/colorAccent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:text="Poster Une Annonce"
             android:textColor="#fff"
             android:id="@+id/add_new_bid"
-            app:icon="@drawable/ic_add_circle" android:layout_marginBottom="8dp"
+            app:icon="@drawable/ic_add_circle"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"

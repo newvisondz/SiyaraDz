@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.newvisiondz.sayara.R
@@ -55,7 +56,8 @@ class Bids : androidx.fragment.app.Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView(view)
         add_new_bid.setOnClickListener {
-            val mBuilder = AlertDialog.Builder(context!!, android.R.style.Theme_Light_NoTitleBar_Fullscreen
+            val mBuilder = AlertDialog.Builder(
+                context!!, android.R.style.Theme_Light_NoTitleBar_Fullscreen
             )
             val mView = layoutInflater.inflate(R.layout.data_entry_dialog, null)
             mBuilder.setView(mView)
@@ -145,8 +147,6 @@ class Bids : androidx.fragment.app.Fragment() {
     }
 
     private fun initRecyclerView(view: View) {
-        view.bids_list.setHasFixedSize(true)
-        view.bids_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         bidsAdapter = BidsAdapter(bidsList, context as Context)
         view.bids_list.adapter = bidsAdapter
     }
