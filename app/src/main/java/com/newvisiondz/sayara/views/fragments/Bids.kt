@@ -2,10 +2,8 @@ package com.newvisiondz.sayara.views.fragments
 
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -20,8 +18,7 @@ import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.adapters.BidsAdapter
 import com.newvisiondz.sayara.model.Bid
 import com.newvisiondz.sayara.utils.displaySnackBar
-import com.newvisiondz.sayara.utils.displayeColorPicker
-import kotlinx.android.synthetic.main.data_entry_constraint.view.*
+import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_bids.*
 import kotlinx.android.synthetic.main.fragment_bids.view.*
 import java.util.*
@@ -58,11 +55,13 @@ class Bids : androidx.fragment.app.Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView(view)
         add_new_bid.setOnClickListener {
-            val mBuilder = AlertDialog.Builder(context!!)
-            val mView = layoutInflater.inflate(R.layout.data_entry_constraint, null)
+            val mBuilder = AlertDialog.Builder(context!!, android.R.style.Theme_Light_NoTitleBar_Fullscreen
+            )
+            val mView = layoutInflater.inflate(R.layout.data_entry_dialog, null)
             mBuilder.setView(mView)
             val dialog = mBuilder.create()
             dialog.setCanceledOnTouchOutside(true)
+            dialog.window.attributes.windowAnimations = R.style.PauseDialogAnimation
             dialog.show()
             mView.btnImg.setOnClickListener {
                 takePhoto()
@@ -82,7 +81,11 @@ class Bids : androidx.fragment.app.Fragment() {
                     .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                     .density(12)
                     .setOnColorSelectedListener { selectedColor: Int ->
-                        Toast.makeText(context, "onColorSelected: 0x ${Integer.toHexString(selectedColor)}", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            context,
+                            "onColorSelected: 0x ${Integer.toHexString(selectedColor)}",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                         val res = Integer.toHexString(selectedColor)
                         mView.color.setBackgroundColor(selectedColor)

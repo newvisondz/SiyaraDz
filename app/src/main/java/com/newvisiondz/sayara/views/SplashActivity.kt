@@ -37,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
 
         splashViewModel.userConnected.observe(this, Observer { connected ->
             if (!connected) {
-                val intent = Intent(    this, LoginActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             } else {
                 val intent = Intent(this, MainActivity::class.java)
@@ -49,7 +49,7 @@ class SplashActivity : AppCompatActivity() {
         val runnable = Runnable {
             splashViewModel.navigateToMainActivity()
         }
-         Handler().postDelayed(runnable, 3000)
+        Handler().postDelayed(runnable, 3000)
     }
 
     private fun showDialog(context: Context): AlertDialog {

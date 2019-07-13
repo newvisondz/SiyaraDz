@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cars_brands">
+        <item>Alfa RomeoAston Martin</item>
+        <item>Audi</item>
+        <item>Bentley</item>
+        <item>Benz</item>
+        <item>BMW</item>
+        <item>Bugatti</item>
+        <item>Cadillac</item>
+        <item>Chevrolet</item>
+        <item>Chrysler</item>
+        <item>Citroen</item>
+        <item>Corvette</item>
+        <item>DAF</item>
+        <item>Dacia</item>
+        <item>Daewoo</item>
+        <item>Daihatsu</item>
+        <item>Datsun</item>
+        <item>De Lorean</item>
+        <item>Dino</item>
+        <item>Dodge</item>
+        <item>Farboud</item>
+        <item>Ferrari</item>
+        <item>Fiat</item>
+        <item>Ford</item>
+        <item>Honda</item>
+        <item>Hummer</item>
+        <item>Hyundai</item>
+        <item>Jaguar</item>
+        <item>Jeep</item>
+        <item>KIA</item>
+        <item>Koenigsegg</item>
+        <item>Lada</item>
+        <item>Lamborghini</item>
+        <item>Lancia</item>
+        <item>Land Rover</item>
+        <item>Lexus</item>
+        <item>Ligier</item>
+        <item>Lincoln</item>
+        <item>Lotus</item>
+        <item>Martini</item>
+        <item>Maserati</item>
+        <item>Maybach</item>
+        <item>Mazda</item>
+        <item>McLaren</item>
+        <item>Mercedes</item>
+        <item>Mercedes-Benz</item>
+        <item>Mini</item>
+        <item>Mitsubishi</item>
+        <item>Nissan</item>
+        <item>Noble</item>
+        <item>Opel</item>
+        <item>Peugeot</item>
+        <item>Pontiac</item>
+        <item>Porsche</item>
+        <item>Renault</item>
+        <item>Rolls-Royce</item>
+        <item>Rover</item>
+        <item>Saab</item>
+        <item>Seat</item>
+        <item>Skoda</item>
+        <item>Smart</item>
+        <item>Spyker</item>
+        <item>Subaru</item>
+        <item>Suzuki</item>
+        <item>Toyota</item>
+        <item>Vauxhall</item>
+        <item>Volkswagen</item>
+        <item>Volvo</item>
+    </string-array>
+</resources>

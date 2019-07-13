@@ -2,7 +2,7 @@ package com.newvisiondz.sayara.model
 
 import com.google.gson.annotations.SerializedName
 
-class Model() {
+class Model {
     @SerializedName("id")
     var id: String = ""
     @SerializedName("name")
@@ -14,17 +14,4 @@ class Model() {
     @SerializedName("images")
     var images = mutableListOf<String>()
 
-    constructor(
-        id: String,
-        name: String,
-        color: MutableList<Color>,
-        options: MutableList<Option>,
-        images: MutableList<String>
-    ) : this() {
-        this.id = id
-        this.name = name
-        this.colors = color
-        this.options = options
-        this.images = images
-    }
 }
