@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
             authGoogle!!.signIn()
             binding.progressLogin.visibility = View.GONE
         }
-        binding.loginFb.setReadPermissions("email", "public_profile")
+        binding.loginFb.setPermissions("email", "public_profile")
         binding.loginFb.setOnClickListener {
             LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult?) {
@@ -67,11 +67,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == GoogleAuthentification.REQ_CODE ) {

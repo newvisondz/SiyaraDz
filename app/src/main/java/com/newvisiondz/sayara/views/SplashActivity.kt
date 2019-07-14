@@ -5,12 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.ActivitySplashBinding
+import com.newvisiondz.sayara.views.fragments.Brands
 import com.newvisiondz.sayara.views.viewModel.SplashViewModel
 import com.newvisiondz.sayara.views.viewModel.SplashViewModelFactory
 
@@ -38,6 +42,7 @@ class SplashActivity : AppCompatActivity() {
         splashViewModel.userConnected.observe(this, Observer { connected ->
             if (!connected) {
                 val intent = Intent(this, LoginActivity::class.java)
+                updateNotificationToken(splashViewModel)
                 startActivity(intent)
             } else {
                 val intent = Intent(this, MainActivity::class.java)
@@ -45,11 +50,10 @@ class SplashActivity : AppCompatActivity() {
             }
             finish()
         })
-
         val runnable = Runnable {
             splashViewModel.navigateToMainActivity()
         }
-        Handler().postDelayed(runnable, 3000)
+        Handler().postDelayed(runnable, 2000)
     }
 
     private fun showDialog(context: Context): AlertDialog {
@@ -60,6 +64,21 @@ class SplashActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
         return dialogBuilder.create()
+    }
+
+    private fun updateNotificationToken(viewModel: SplashViewModel) {
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(Brands.TAG, "getInstanceId failed", task.exception)
+                }
+                val token = task.result?.token
+                Log.i("FirebaseServiceRes", token)
+                viewModel.updateNotificationToken(token!!)
+                // Log and toast
+                val msg = getString(R.string.msg_token_fmt, token)
+                Log.d(Brands.TAG, msg)
+            }
     }
 
 }

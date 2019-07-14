@@ -13,9 +13,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 
     <style name="LargeDark">
@@ -209,8 +209,9 @@
 
     <style name="PauseDialogAnimation">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
+
     <style name="Base.Widget.MaterialComponents.TextInputEditText.dialog_Input">
         <item name="android:textSize">22sp</item>
         <item name="android:padding">16dp</item>
