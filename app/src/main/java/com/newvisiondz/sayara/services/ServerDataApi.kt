@@ -77,7 +77,7 @@ interface ServerDataApi {
         @Query("options[]") options: MutableList<String>
     ): Call<Command>
 
-    @POST("commande/")
+    @POST("commands/")
     fun confirmUserCommande(
         @Header("Authorization") token: String,
         @Body body: JsonObject

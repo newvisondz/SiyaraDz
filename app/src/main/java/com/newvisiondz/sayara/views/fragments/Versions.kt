@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.adapters.SliderAdapter
 import com.newvisiondz.sayara.adapters.SpinnerAdapter
@@ -118,16 +119,18 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
                 Toast.makeText(context, "Cette voiture n'est plus disponible", Toast.LENGTH_LONG).show()
             }
         })
-//        binding.datasheetButton.setOnClickListener {
-//            //TODO params
-//            it.findNavController().navigate(VersionsDirections.actionModelViewToDataSheetView())
-//        }
+        versionViewModel.commandConfirmed.observe(this, Observer { confirmed ->
+            if (confirmed == true) {
+                Navigation.findNavController(activity!!, R.id.action_Versions_to_tabs)
+            } else {
+                Toast.makeText(context, "Try again later", Toast.LENGTH_SHORT)
+            }
+        })
 
         binding.orderButton.setOnClickListener {
             //TODO do something about order Form
             //todo format String in the placesAdapter
             versionViewModel.sendCommand(manufacturer, modelId, versionId, userChoices.values.toMutableList())
-//            it.findNavController().navigate(VersionsDirections.actionModelViewToOrderForm())
         }
 
         binding.versionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -152,7 +155,6 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
             .setIcon(R.drawable.ic_money)
             .setPositiveButton("Proceed") { dialog, id ->
                 versionViewModel.confirmCommande(command.cars[0])
-                //todo observe another variable when command is successfully saved to navigate to tabs
             }
             .setNegativeButton("Cancel") { dialog, id ->
                 dialog.cancel()

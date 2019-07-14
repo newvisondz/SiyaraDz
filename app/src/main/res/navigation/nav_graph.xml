@@ -74,6 +74,7 @@
 	    <action
             android:id="@+id/action_modelView_to_orderForm"
             app:destination="@id/orderForm" />
+        <action android:id="@+id/action_Versions_to_tabs" app:destination="@id/tabs"/>
     </fragment>
     <fragment
         android:id="@+id/dataSheetView"
