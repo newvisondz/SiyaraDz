@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.newvisiondz.sayara.model.Token
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.setUserPrefrences
+import com.newvisiondz.sayara.utils.updateNotificationToken
 import com.newvisiondz.sayara.views.MainActivity
 import org.json.JSONObject
 import retrofit2.Call
@@ -44,6 +45,7 @@ class FacebookAuthentification(var context: Context, val auth: FirebaseAuth) {
                 if (response!!.isSuccessful) {
                     setUserPrefrences(userInfo, response.body()!!, jsonResponseObject)
                     val intent = Intent(context, MainActivity::class.java)
+                    updateNotificationToken(context)
                     context.startActivity(intent)
                     (context as Activity).finish()
                 }

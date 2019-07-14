@@ -17,6 +17,7 @@ import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.Token
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.setUserPrefrences
+import com.newvisiondz.sayara.utils.updateNotificationToken
 import com.newvisiondz.sayara.views.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -68,6 +69,7 @@ class GoogleAuthentification(private var context: Context, private var auth: Fir
                         setUserPrefrences(userInfo, response.body()!!, result)
                         val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
+                        updateNotificationToken(context)
                         (context as Activity).finish()
                     }
                 }

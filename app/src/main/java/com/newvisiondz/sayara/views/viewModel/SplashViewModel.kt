@@ -53,25 +53,7 @@ class SplashViewModel(application: Application, lifeCycle: Lifecycle) : AndroidV
         }
     }
 
-    fun updateNotificationToken(token: String) {
-        val jsonObject = JsonObject()
-        jsonObject.addProperty("token", token)
-        val call = RetrofitClient(context).serverDataApi
-            .updateUser(getUserToken(userInfo)!!, jsonObject)
-        Log.i("FirebaseServiceRes", "sending Token")
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onFailure(call: retrofit2.Call<JsonObject>, t: Throwable) {
-                t.printStackTrace()
-            }
 
-            override fun onResponse(call: retrofit2.Call<JsonObject>, response: Response<JsonObject>) {
-                if (response.isSuccessful) {
-                    Log.i("FirebaseServiceRes", response.body().toString())
-                }
-            }
-
-        })
-    }
 
 }
 

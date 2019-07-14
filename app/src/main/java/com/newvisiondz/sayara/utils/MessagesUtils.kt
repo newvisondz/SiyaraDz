@@ -40,23 +40,3 @@ fun dispalyDialogBox(context: Context, titel: String, message: String) {
     alert.show()
 }
 
-fun displayeColorPicker(context: Context): String {
-    var res = ""
-    ColorPickerDialogBuilder
-        .with(context)
-        .setTitle("Choose color")
-        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-        .density(12)
-        .setOnColorSelectedListener { selectedColor ->
-            Toast.makeText(context, "onColorSelected: 0x ${Integer.toHexString(selectedColor)}", Toast.LENGTH_SHORT)
-                .show()
-            res = Integer.toHexString(selectedColor)
-        }
-        .setPositiveButton("ok") { dialog, selectedColor, allColors ->
-            //            changeBackgroundColor(selectedColor)
-        }
-        .setNegativeButton("cancel") { dialog, which -> }
-        .build()
-        .show()
-    return res
-}
