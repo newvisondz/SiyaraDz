@@ -133,6 +133,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
             versionViewModel.sendCommand(manufacturer, modelId, versionId, userChoices.values.toMutableList())
         }
 
+
         binding.versionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 versionViewModel.getVersionDetails(manufacturer, modelId, versions[position].id)

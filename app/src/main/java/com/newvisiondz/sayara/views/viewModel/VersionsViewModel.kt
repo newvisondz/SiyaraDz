@@ -41,13 +41,13 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
     private val _versionList = MutableLiveData<MutableList<Version>>()
     val versionList: LiveData<MutableList<Version>>
         get() = _versionList
+
     private val _commandConfirmed = MutableLiveData<Boolean>()
     val commandConfirmed: LiveData<Boolean>
         get() = _commandConfirmed
-    private val _price = MutableLiveData<Double>()
-    val price: LiveData<Double>
-        get() = _price
-
+    val price:LiveData<Double> = Transformations.map(commandDetails) {
+        it.price
+    }
 
     init {
         userInfo = application.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
@@ -103,7 +103,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
 
             override fun onResponse(call: Call<Command>, response: Response<Command>) {
                 _commandDetails.value = response.body()
-                _price.value = response.body()?.price
+//                _price.value = response.body()?.price
             }
         })
     }
@@ -122,7 +122,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if (response.isSuccessful) {
 //                    _commandConfirmed.value = (response.body()?.get("ok")?.asString == "1")
-                    _commandConfirmed.value=true
+                    _commandConfirmed.value = true
                     //TODO navigate to Tabs
                 }
             }

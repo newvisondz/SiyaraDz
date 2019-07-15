@@ -241,7 +241,7 @@
 
         <Button
                 android:id="@+id/order_button"
-                android:text="COMMANDER"
+                android:text="COMPARER"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
@@ -250,6 +250,18 @@
                 style="@style/btn_colors"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/compare_version"/>
+        <Button
+                android:id="@+id/compare_version"
+                android:text="COMMANDER"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:textColor="#FFF"
+                android:textSize="@dimen/font_medium"
+                style="@style/btn_colors"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/order_button" app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
 
