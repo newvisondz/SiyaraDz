@@ -1,6 +1,7 @@
 package com.newvisiondz.sayara.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class SpinnerAdapter(context: Context, resource: Int, var list: MutableList<Vers
         return list.size
     }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+
         return initView(position, parent)
     }
 

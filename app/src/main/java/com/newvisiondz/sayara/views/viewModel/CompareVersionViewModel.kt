@@ -14,20 +14,21 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CompareVersionViewModel(application: Application) : AndroidViewModel(application) {
+class CompareVersionViewModel(application: Application, manufacturer: String, modelId: String) :
+    AndroidViewModel(application) {
     private var userInfo: SharedPreferences? = null
     private val context: Context = application.applicationContext
 
-    private val _versionsList1 = MutableLiveData<MutableList<Version>>()
-    val versionList1: LiveData<MutableList<Version>>
-        get() = _versionsList1
+    private val _versionsList = MutableLiveData<MutableList<Version>>()
+    val versionList: LiveData<MutableList<Version>>
+        get() = _versionsList
     private val _versionsList2 = MutableLiveData<MutableList<Version>>()
     val versionList2: LiveData<MutableList<Version>>
         get() = _versionsList2
 
-
     init {
         userInfo = application.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
+        getAllVersions(manufacturer, modelId)
     }
 
     fun getAllVersions(manufacturer: String, modelId: String) {
@@ -42,7 +43,26 @@ class CompareVersionViewModel(application: Application) : AndroidViewModel(appli
             override fun onResponse(call: Call<JsonArray>, response: Response<JsonArray>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Version>>() {}.type
-                    _versionsList1.value = JsonFormatter.listFormatter(response.body()!!, listType)
+                    val list: MutableList<Version> = JsonFormatter.listFormatter(response.body()!!, listType)
+                    _versionsList.value = list
+                }
+            }
+
+        })
+    }
+
+    fun getVersionDetails(manufacturer: String, modelId: String, versionId: String) {
+        val call = RetrofitClient(context).serverDataApi.getVersionDetails(
+            getUserToken(userInfo!!)!!, manufacturer, modelId, versionId
+        )
+        call.enqueue(object : Callback<Version> {
+            override fun onFailure(call: Call<Version>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<Version>, response: Response<Version>) {
+                if (response.isSuccessful) {
+//                    _version.value = response.body()!!
                 }
             }
 
@@ -52,12 +72,12 @@ class CompareVersionViewModel(application: Application) : AndroidViewModel(appli
 }
 
 class CompareVersionViewModelFactory(
-    private val application: Application
+    private val application: Application, private val manufacturer: String, private val modelId: String
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
-            return CompareVersionViewModel(application) as T
+        if (modelClass.isAssignableFrom(CompareVersionViewModel::class.java)) {
+            return CompareVersionViewModel(application, manufacturer, modelId) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

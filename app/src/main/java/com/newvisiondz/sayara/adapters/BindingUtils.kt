@@ -2,9 +2,12 @@ package com.newvisiondz.sayara.adapters
 
 import android.graphics.drawable.ColorDrawable
 import android.widget.RadioButton
+import android.widget.Spinner
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.model.Color
 import com.newvisiondz.sayara.model.Value
+import com.newvisiondz.sayara.model.Version
 
 @BindingAdapter("setRadioEngineChecked")
 fun RadioButton.setRadioEngineChecked(item: Value?) {
@@ -41,6 +44,5 @@ fun RadioButton.setRadioEnginePowerChecked(item: Value?) {
         text = it.value
     }
 }
-
 
 

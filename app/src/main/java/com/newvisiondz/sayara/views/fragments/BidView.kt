@@ -22,7 +22,7 @@ class BidView : androidx.fragment.app.Fragment() {
         if (arguments != null) bidId = BidViewArgs.fromBundle(arguments!!).bidId
         Log.i("Navigation Success", "From BidView, BidId: $bidId")
 
-        view?.findViewById<Button>(R.id.order_button)?.setOnClickListener {
+        view?.findViewById<Button>(R.id.compare_button)?.setOnClickListener {
             val action = BidViewDirections.actionBidViewToBidForm()
             //action.setBidId(bidId)
             NavHostFragment.findNavController(this).navigate(action)

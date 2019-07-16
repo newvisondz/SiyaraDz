@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.adapters.SliderAdapter
 import com.newvisiondz.sayara.adapters.SpinnerAdapter
@@ -122,17 +123,19 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         versionViewModel.commandConfirmed.observe(this, Observer { confirmed ->
             if (confirmed == true) {
                 Navigation.findNavController(activity!!, R.id.action_Versions_to_tabs)
-            } else {
-                Toast.makeText(context, "Try again later", Toast.LENGTH_SHORT)
+            } else if (confirmed == false) {
+                Toast.makeText(context, "Try again later", Toast.LENGTH_SHORT).show()
             }
         })
 
-        binding.orderButton.setOnClickListener {
+        binding.orderVersion.setOnClickListener {
             //TODO do something about order Form
             //todo format String in the placesAdapter
             versionViewModel.sendCommand(manufacturer, modelId, versionId, userChoices.values.toMutableList())
         }
-
+        binding.compareButton.setOnClickListener {
+            it.findNavController().navigate(VersionsDirections.actionVersionsToCompareVersions(manufacturer, modelId))
+        }
 
         binding.versionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -161,6 +164,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
                 dialog.cancel()
             }
         val alert = dialogBuilder.create()
+        @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
         alert.window.attributes.windowAnimations = R.style.FadingDialogAnimation
         alert.show()
     }

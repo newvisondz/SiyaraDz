@@ -71,10 +71,11 @@
                 android:name="modelId"
                 android:defaultValue="0" />
         </action>
-	    <action
-            android:id="@+id/action_modelView_to_compareVersions"
-            app:destination="@id/compareVersions" />
+
+        <action android:id="@+id/action_Versions_to_compareVersions" app:destination="@id/compareVersions"/>
+
         <action android:id="@+id/action_Versions_to_tabs" app:destination="@id/tabs"/>
+
     </fragment>
     <fragment
         android:id="@+id/dataSheetView"
@@ -98,7 +99,10 @@
         android:id="@+id/compareVersions"
         android:name="com.newvisiondz.sayara.views.fragments.CompareVersions"
         android:label="CompareVersions"
-        tools:layout="@layout/fragment_compare_versions"/>
+        tools:layout="@layout/fragment_compare_versions">
+        <argument android:name="brandName" app:argType="string"/>
+        <argument android:name="modelId" app:argType="string"/>
+    </fragment>
     <fragment
         android:id="@+id/bidForm"
         android:name="com.newvisiondz.sayara.views.fragments.BidForm"

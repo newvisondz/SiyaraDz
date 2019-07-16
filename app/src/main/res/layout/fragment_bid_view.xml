@@ -74,7 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/order_button"
+        app:layout_constraintBottom_toTopOf="@+id/compare_button"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
@@ -101,7 +101,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/order_button"
+        android:id="@+id/compare_button"
         android:padding="15dp"
         android:text="Faire une Offre"
         style="@style/ActionButton"
