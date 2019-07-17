@@ -20,7 +20,7 @@ class BidsAdapter(private val bids: MutableList<Bid>, private val context: Conte
         viewHolder.card.setOnClickListener {
             val bidId = 2
             val action = TabsDirections.actionTabsToBidView()
-            action.setBidId(bidId)
+            action.bidId = bidId
             findNavController(view).navigate(action)
         }
         return viewHolder

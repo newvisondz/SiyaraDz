@@ -22,12 +22,14 @@ fun getUserToken(userInfo: SharedPreferences): String? {
 }
 
 fun getUserInfo(userInfo: SharedPreferences): Array<String> {
-    val userTmp = arrayOf("", "", "", "", "")
+    val userTmp = arrayOf("", "", "", "", "", "", "")
     userTmp[0] = userInfo.getString("userlastname", "Not Found")!!
     userTmp[1] = userInfo.getString("userimg", "Not Found")!!
     userTmp[2] = userInfo.getString("useremail", "Not Found")!!
     userTmp[3] = userInfo.getString("userfirstname", "Not Found")!!
     userTmp[4] = userInfo.getString("type", "Not Found")!!
+    userTmp[5] = userInfo.getString("birthDate", "Not Found")!!
+    userTmp[6] = userInfo.getString("address", "Not Found")!!
     return userTmp
 }
 
@@ -42,6 +44,24 @@ fun setUserPrefrences(userInfo: SharedPreferences, account: Token, acc: GoogleSi
     editor.apply()
 }
 
+fun udpateUserPrefrences(
+    userInfo: SharedPreferences,
+    firstName: String,
+    lastName: String,
+    address: String,
+    phone: String,
+    birthDate: String
+) {
+    val editor = userInfo.edit()
+    editor.putString("", firstName)
+    editor.putString("", lastName)
+    editor.putString("", birthDate)
+    editor.putString("", address)
+    editor.putString("", phone)
+    editor.apply()
+
+}
+
 fun setUserPrefrences(userInfo: SharedPreferences, account: Token, jsonObject: JSONObject) {
     val editor = userInfo.edit()
     editor.putString("useremail", account.email)
@@ -50,6 +70,10 @@ fun setUserPrefrences(userInfo: SharedPreferences, account: Token, jsonObject: J
     editor.putString("token", account.token)
     editor.putString("type", "facebook")
     editor.apply()
+}
+
+fun setUserAdditionalInfo(userInfo: SharedPreferences) {
+
 }
 
 fun clearUserInfo(userInfo: SharedPreferences) {
@@ -141,7 +165,7 @@ fun getOptionListAsString(options: MutableList<Value>): String {
     for (item in options) {
         result.append("${item.value},")
     }
-    Log.i("compare method",result.toString())
+    Log.i("compare method", result.toString())
     return result.toString()
 }
 

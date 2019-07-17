@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.*
 import com.newvisiondz.sayara.utils.clearUserInfo
+import com.newvisiondz.sayara.utils.getUserInfo
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
     private var userInfo: SharedPreferences? = null
@@ -27,7 +28,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
     init {
         userInfo = context!!.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-        userInfoTmp = com.newvisiondz.sayara.utils.getUserInfo(userInfo!!)
+        userInfoTmp = getUserInfo(userInfo!!)
         _userName.value = userInfoTmp[0]
         if (userInfoTmp[4] == "google") {
             _imgUrl.value = userInfoTmp[1]

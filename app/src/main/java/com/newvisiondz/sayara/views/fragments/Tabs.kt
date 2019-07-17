@@ -19,7 +19,6 @@ class Tabs : Fragment() {
     ): View? {
         val binding: FragmentTabsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_tabs, container, false)
         val adapter = TabPagerAdapter(childFragmentManager)
-
         binding.pager.adapter = adapter
         binding.pager.offscreenPageLimit = 2
         binding.pager.addOnPageChangeListener(
