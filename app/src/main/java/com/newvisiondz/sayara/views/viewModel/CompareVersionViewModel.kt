@@ -22,13 +22,23 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
     private val _versionsList = MutableLiveData<MutableList<Version>>()
     val versionList: LiveData<MutableList<Version>>
         get() = _versionsList
-    private val _versionsList2 = MutableLiveData<MutableList<Version>>()
-    val versionList2: LiveData<MutableList<Version>>
-        get() = _versionsList2
+
+    private val _versionDetails1 = MutableLiveData<Version>()
+    val versionDetails1: LiveData<Version>
+        get() = _versionDetails1
+
+    private val _versionDetails2 = MutableLiveData<Version>()
+    val versionDetails2: LiveData<Version>
+        get() = _versionDetails2
+
+    private val _doneGettingResult = MutableLiveData<Boolean>()
+    val doneGettingResult: LiveData<Boolean>
+        get() = _doneGettingResult
 
     init {
         userInfo = application.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
         getAllVersions(manufacturer, modelId)
+        _doneGettingResult.value = null
     }
 
     fun getAllVersions(manufacturer: String, modelId: String) {
@@ -51,7 +61,8 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
         })
     }
 
-    fun getVersionDetails(manufacturer: String, modelId: String, versionId: String) {
+    fun getVersionDetails(manufacturer: String, modelId: String, versionId: String, spinnerId: Int) {
+        _doneGettingResult.value = false
         val call = RetrofitClient(context).serverDataApi.getVersionDetails(
             getUserToken(userInfo!!)!!, manufacturer, modelId, versionId
         )
@@ -62,7 +73,9 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
 
             override fun onResponse(call: Call<Version>, response: Response<Version>) {
                 if (response.isSuccessful) {
-//                    _version.value = response.body()!!
+                    if (spinnerId == 0) _versionDetails1.value = response.body()!!
+                    else _versionDetails2.value = response.body()!!
+                    _doneGettingResult.value = true
                 }
             }
 

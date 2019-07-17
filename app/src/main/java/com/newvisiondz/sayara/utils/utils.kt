@@ -8,12 +8,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.model.Token
+import com.newvisiondz.sayara.model.*
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.views.fragments.Brands
+import com.newvisiondz.sayara.views.fragments.Versions
 import org.json.JSONObject
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.StringBuilder
 
 fun getUserToken(userInfo: SharedPreferences): String? {
     return userInfo.getString("token", "Not Found")
@@ -99,4 +101,53 @@ fun updateNotificationToken(context: Context) {
             val msg = context.getString(R.string.msg_token_fmt, token)
             Log.d(Brands.TAG, msg)
         }
+}
+
+fun optionsMapping(list1: Version, list2: Version): MutableList<VersionCompare> {
+    val listRes = mutableListOf<VersionCompare>()
+    var itemRes: VersionCompare
+    for (item in list1.options) {
+        itemRes = VersionCompare()
+        when (item.name) {
+            "places" -> {
+                itemRes.optionName = "places"
+                itemRes.firstValue = getOptionListAsString(item.values)
+                itemRes.secondValue = getOptionWithName(list2, "places")?.values?.let { getOptionListAsString(it) }!!
+            }
+            "Type du carburant" -> {
+                itemRes.optionName = "Type du carburant"
+                itemRes.firstValue = getOptionListAsString(item.values)
+                itemRes.secondValue =
+                    getOptionWithName(list2, "Type du carburant")?.values?.let { getOptionListAsString(it) }!!
+            }
+            "moteur" -> {
+                itemRes.optionName = "moteur"
+                itemRes.firstValue = getOptionListAsString(item.values)
+                itemRes.secondValue = getOptionWithName(list2, "moteur")?.values?.let { getOptionListAsString(it) }!!
+            }
+            "Boite" -> {
+                itemRes.optionName = "Boite"
+                itemRes.firstValue = getOptionListAsString(item.values)
+                itemRes.secondValue = getOptionWithName(list2, "Boite")?.values?.let { getOptionListAsString(it) }!!
+            }
+        }
+        listRes.add(itemRes)
+    }
+    return listRes
+}
+
+fun getOptionListAsString(options: MutableList<Value>): String {
+    val result = StringBuilder()
+    for (item in options) {
+        result.append("${item.value},")
+    }
+    Log.i("compare method",result.toString())
+    return result.toString()
+}
+
+fun getOptionWithName(version: Version, name: String): Option? {
+    for (item in version.options) {
+        if (item.name == name) return item
+    }
+    return null
 }

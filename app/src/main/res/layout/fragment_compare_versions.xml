@@ -3,10 +3,6 @@
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="viewModel" type="com.newvisiondz.sayara.views.viewModel.CompareVersionViewModel"/>
-        <variable name="brandName" type="String"/>
-        <variable name="modelId" type="String"/>
-        <variable name="versionId1" type="String"/>
-        <variable name="versionId2" type="String"/>
     </data>
     <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
 
@@ -19,27 +15,27 @@
                     android:layout_width="0dp"
                     android:paddingStart="8dp"
                     tools:listitem="@layout/spinner_element"
-                    android:layout_height="wrap_content" android:id="@+id/spinner_v1"
+                    android:layout_height="wrap_content" android:id="@+id/spinnerV1"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/view" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" app:layout_constraintEnd_toStartOf="@+id/spinner_v2"/>
+                    android:layout_marginStart="8dp" app:layout_constraintEnd_toStartOf="@+id/spinnerV2"/>
             <Spinner
                     tools:listitem="@layout/spinner_element"
                     android:layout_width="0dp"
                     android:paddingStart="8dp"
-                    android:layout_height="wrap_content" android:id="@+id/spinner_v2"
+                    android:layout_height="wrap_content" android:id="@+id/spinnerV2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintStart_toEndOf="@+id/spinner_v1" app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintBottom_toBottomOf="@+id/spinner_v1"/>
+                    app:layout_constraintStart_toEndOf="@+id/spinnerV1" app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerV1"/>
 
             <View
                     android:layout_width="0dp"
                     android:layout_height="8dp"
                     android:padding="3dp"
                     android:background="#FFC107"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner_v1" android:id="@+id/view"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerV1" android:id="@+id/view"
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                     app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp"/>
