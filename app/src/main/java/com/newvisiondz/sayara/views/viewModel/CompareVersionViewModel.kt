@@ -8,8 +8,8 @@ import com.google.gson.JsonArray
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.services.RetrofitClient
-import com.newvisiondz.sayara.utils.JsonFormatter
 import com.newvisiondz.sayara.utils.getUserToken
+import com.newvisiondz.sayara.utils.listFormatter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +53,7 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
             override fun onResponse(call: Call<JsonArray>, response: Response<JsonArray>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Version>>() {}.type
-                    val list: MutableList<Version> = JsonFormatter.listFormatter(response.body()!!, listType)
+                    val list: MutableList<Version> = listFormatter(response.body()!!, listType)
                     _versionsList.value = list
                 }
             }

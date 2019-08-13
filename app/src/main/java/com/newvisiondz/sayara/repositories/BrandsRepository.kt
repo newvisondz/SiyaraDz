@@ -9,13 +9,12 @@ import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.model.Brand
 import com.newvisiondz.sayara.services.RetrofitClient
-import com.newvisiondz.sayara.utils.JsonFormatter
 import com.newvisiondz.sayara.utils.getUserToken
+import com.newvisiondz.sayara.utils.listFormatter
 import retrofit2.Call
 import retrofit2.Response
 
 class BrandsRepository private constructor(var context: Context) {
-    private val formatter = JsonFormatter()
     private val userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     val listType = object : TypeToken<MutableList<Brand>>() {}.type!!
     private val _list: MutableLiveData<MutableList<Brand>> = MutableLiveData()
@@ -53,7 +52,7 @@ class BrandsRepository private constructor(var context: Context) {
 
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    _list.value = formatter.listFormatter(response.body()!!, listType, "manufacturers")
+                    _list.value = listFormatter(response.body()!!, listType, "manufacturers")
                 }
             }
         })
@@ -71,7 +70,7 @@ class BrandsRepository private constructor(var context: Context) {
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    val tmp: MutableList<Brand> = formatter.listFormatter(response.body()!!, listType, "manufacturers")
+                    val tmp: MutableList<Brand> = listFormatter(response.body()!!, listType, "manufacturers")
                     if (tmp.size != 0) {
                         list.value!!.addAll(tmp)
                     }
@@ -96,7 +95,7 @@ class BrandsRepository private constructor(var context: Context) {
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     _list.value!!.clear()
-                    _list.value = (formatter.listFormatter(response.body()!!, listType, "manufacturers"))
+                    _list.value = (listFormatter(response.body()!!, listType, "manufacturers"))
                 }
             }
         })

@@ -16,8 +16,6 @@ import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.messaging.FirebaseMessaging
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.ActivityLoginBinding
 import com.newvisiondz.sayara.services.auth.FacebookAuthentification

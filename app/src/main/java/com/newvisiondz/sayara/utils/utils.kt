@@ -11,11 +11,9 @@ import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.*
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.views.fragments.Brands
-import com.newvisiondz.sayara.views.fragments.Versions
 import org.json.JSONObject
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.StringBuilder
 
 fun getUserToken(userInfo: SharedPreferences): String? {
     return userInfo.getString("token", "Not Found")
@@ -71,10 +69,6 @@ fun setUserPrefrences(userInfo: SharedPreferences, account: Token, jsonObject: J
     editor.putString("token", account.token)
     editor.putString("type", "facebook")
     editor.apply()
-}
-
-fun setUserAdditionalInfo(userInfo: SharedPreferences) {
-
 }
 
 fun clearUserInfo(userInfo: SharedPreferences) {

@@ -1,21 +1,20 @@
 package com.newvisiondz.sayara
 
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.util.Base64
+import android.util.Log
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.services.RetrofitClient
-import com.newvisiondz.sayara.utils.JsonFormatter
+import com.newvisiondz.sayara.utils.listFormatter
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import android.content.pm.PackageManager
-import com.google.android.gms.common.util.IOUtils.toByteArray
-import android.content.pm.PackageInfo
-import android.util.Base64
-import android.util.Log
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -25,7 +24,7 @@ class InstrumentedTest {
     private val appContext = InstrumentationRegistry.getTargetContext()
 
     @Test
-    fun Get_hash_key() {
+    fun GetHashKey() {
         val info: PackageInfo
         try {
             info = appContext.packageManager.getPackageInfo(appContext.packageName, PackageManager.GET_SIGNATURES)
@@ -68,7 +67,7 @@ class InstrumentedTest {
         )
         val modelRes = call.execute().body()
         val listType = object : TypeToken<MutableList<Version>>() {}.type
-        val resultList = JsonFormatter.listFormatter<Version>(modelRes!!, listType)
+        val resultList = listFormatter<Version>(modelRes!!, listType)
         assertEquals("5d08145efce5dc0019de875b", resultList[0].id)
     }
 

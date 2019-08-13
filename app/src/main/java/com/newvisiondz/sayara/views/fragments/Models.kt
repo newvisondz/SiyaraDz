@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class Models : Fragment() {
     private var models = mutableListOf<Model>()
-    private var modelsAdapter: ModelsAdapter? = null
     private var brandName = ""
 
     private var pageNumber: Int = 1

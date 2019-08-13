@@ -10,8 +10,8 @@ import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.model.Command
 import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.services.RetrofitClient
-import com.newvisiondz.sayara.utils.JsonFormatter
 import com.newvisiondz.sayara.utils.getUserToken
+import com.newvisiondz.sayara.utils.listFormatter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +45,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
     private val _commandConfirmed = MutableLiveData<Boolean>()
     val commandConfirmed: LiveData<Boolean>
         get() = _commandConfirmed
-    val price:LiveData<Double> = Transformations.map(commandDetails) {
+    val price: LiveData<Double> = Transformations.map(commandDetails) {
         it.price
     }
 
@@ -66,7 +66,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
             override fun onResponse(call: Call<JsonArray>, response: Response<JsonArray>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<Version>>() {}.type
-                    _versionList.value = JsonFormatter.listFormatter(response.body()!!, listType)
+                    _versionList.value = listFormatter(response.body()!!, listType)
                 }
             }
 

@@ -50,8 +50,4 @@ class BidsAdapter(private val bids: MutableList<Bid>, private val context: Conte
         val bidPrice = view.bid_price!!
     }
 
-    fun addBid(bids: List<Bid>) {
-        this.bids.addAll(bids)
-        notifyDataSetChanged()
-    }
 }

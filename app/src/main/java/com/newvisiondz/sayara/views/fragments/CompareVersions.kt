@@ -1,7 +1,6 @@
 package com.newvisiondz.sayara.views.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.adapters.CompareVersionAdapter
 import com.newvisiondz.sayara.adapters.SpinnerAdapter
 import com.newvisiondz.sayara.databinding.FragmentCompareVersionsBinding
-import com.newvisiondz.sayara.databinding.FragmentCompareVersionsBindingImpl
 import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.model.VersionCompare
 import com.newvisiondz.sayara.utils.optionsMapping

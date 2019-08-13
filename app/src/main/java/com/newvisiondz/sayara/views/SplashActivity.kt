@@ -5,18 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.messaging.FirebaseMessaging
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.ActivitySplashBinding
-import com.newvisiondz.sayara.utils.updateNotificationToken
-import com.newvisiondz.sayara.views.fragments.Brands
 import com.newvisiondz.sayara.views.viewModel.SplashViewModel
 import com.newvisiondz.sayara.views.viewModel.SplashViewModelFactory
 

@@ -3,14 +3,9 @@ package com.newvisiondz.sayara.views.viewModel
 import android.app.Application
 import android.content.*
 import android.net.ConnectivityManager
-import android.util.Log
 import androidx.lifecycle.*
-import com.google.gson.JsonObject
-import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.getUserToken
 import com.newvisiondz.sayara.utils.isOnline
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class SplashViewModel(application: Application, lifeCycle: Lifecycle) : AndroidViewModel(application),
