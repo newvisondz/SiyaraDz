@@ -5,12 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import com.facebook.AccessToken
 import com.facebook.GraphRequest
-import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.newvisiondz.sayara.model.Token
@@ -59,10 +57,9 @@ class FacebookAuthentification(var context: Context, val auth: FirebaseAuth) {
         auth.signInWithCredential(credential).addOnCompleteListener(context as Activity) { task ->
             if (task.isSuccessful) {
                 Log.d("FacebookLog", "signInWithCredential:success")
-                val user = auth.currentUser
                 signIn(token)
             } else {
-                Toast.makeText(context, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Authentication failed. May be you signed in with a google account !", Toast.LENGTH_SHORT).show()
             }
         }
 

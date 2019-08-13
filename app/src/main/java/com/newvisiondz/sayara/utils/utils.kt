@@ -22,7 +22,7 @@ fun getUserToken(userInfo: SharedPreferences): String? {
 }
 
 fun getUserInfo(userInfo: SharedPreferences): Array<String> {
-    val userTmp = arrayOf("", "", "", "", "", "", "")
+    val userTmp = arrayOf("", "", "", "", "", "", "","")
     userTmp[0] = userInfo.getString("userlastname", "Not Found")!!
     userTmp[1] = userInfo.getString("userimg", "Not Found")!!
     userTmp[2] = userInfo.getString("useremail", "Not Found")!!
@@ -30,6 +30,7 @@ fun getUserInfo(userInfo: SharedPreferences): Array<String> {
     userTmp[4] = userInfo.getString("type", "Not Found")!!
     userTmp[5] = userInfo.getString("birthDate", "Not Found")!!
     userTmp[6] = userInfo.getString("address", "Not Found")!!
+    userTmp[7] = userInfo.getString("phone", "Not Found")!!
     return userTmp
 }
 
@@ -53,11 +54,11 @@ fun udpateUserPrefrences(
     birthDate: String
 ) {
     val editor = userInfo.edit()
-    editor.putString("", firstName)
-    editor.putString("", lastName)
-    editor.putString("", birthDate)
-    editor.putString("", address)
-    editor.putString("", phone)
+    editor.putString("userlastname", firstName)
+    editor.putString("userfirstname", lastName)
+    editor.putString("birthDate", birthDate)
+    editor.putString("address", address)
+    editor.putString("phone", phone)
     editor.apply()
 
 }

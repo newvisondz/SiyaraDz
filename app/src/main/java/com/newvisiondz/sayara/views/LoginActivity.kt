@@ -40,8 +40,6 @@ class LoginActivity : AppCompatActivity() {
         authFacebook = FacebookAuthentification(this, auth)
         authGoogle = GoogleAuthentification(this, auth)
 
-
-
         binding.loging.setOnClickListener {
             binding.progressLogin.visibility = View.VISIBLE
             authGoogle!!.signIn()
@@ -52,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
             LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult?) {
                     binding.progressLogin.visibility = View.VISIBLE
-//                    authFacebook!!.signIn(result!!)
                     authFacebook!!.handleFacebookAccessToken(result?.accessToken!!)
                     binding.progressLogin.visibility = View.GONE
                 }
@@ -76,7 +73,6 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)
                 authGoogle?.firebaseAuthWithGoogle(account!!, this)
-//                authGoogle?.handleResult(account)
             } catch (e: ApiException) {
                 Log.w("GOOGLE", "Google sign in failed", e)
             }

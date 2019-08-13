@@ -45,7 +45,7 @@ class ProfileFormViewModel(application: Application) : AndroidViewModel(applicat
         email.value = tmp[2]
         birthDate.value = tmp[5]
         address.value = tmp[6]
-
+        phone.value=tmp[7]
         _updateWithSuccess.value = null
     }
 
