@@ -5,7 +5,7 @@
 
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
-			tools:context=".views.fragments.Models"
+			tools:context=".screens.fragments.Models"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent" android:id="@+id/linearLayout2">
 

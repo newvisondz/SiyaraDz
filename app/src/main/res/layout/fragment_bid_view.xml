@@ -5,7 +5,7 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:orientation="vertical"
-                                                   tools:context=".views.fragments.BidView">
+                                                   tools:context=".screens.fragments.BidView">
 
     <ScrollView
         android:id="@+id/scrollView2"

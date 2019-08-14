@@ -9,7 +9,7 @@
 			android:id="@+id/coordinator"
 			tools:ignore="HardcodedText"
 			android:layout_height="match_parent"
-			tools:context=".views.LoginActivity">
+			tools:context=".screens.LoginActivity">
 
 		<androidx.constraintlayout.widget.ConstraintLayout
 				android:id="@+id/constraintLayout"

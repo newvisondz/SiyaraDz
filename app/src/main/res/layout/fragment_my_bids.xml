@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.MyBids">
+    tools:context=".screens.fragments.MyBids">
 
     <fragment
         android:id="@+id/my_bids"
-        android:name="com.newvisiondz.sayara.views.fragments.Bids"
+        android:name="com.newvisiondz.sayara.screens.bids.Bids"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_bids" />

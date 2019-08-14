@@ -19,7 +19,7 @@ import com.newvisiondz.sayara.model.Token
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.setUserPrefrences
 import com.newvisiondz.sayara.utils.updateNotificationToken
-import com.newvisiondz.sayara.views.MainActivity
+import com.newvisiondz.sayara.screens.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

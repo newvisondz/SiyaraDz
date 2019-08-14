@@ -5,12 +5,12 @@
 
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
-			android:id="@+id/brands_layout"
-			android:layout_width="match_parent"
-			android:orientation="vertical"
-			android:layout_height="match_parent"
-			tools:context=".views.fragments.Brands" app:layout_constraintStart_toStartOf="@+id/progressBar"
-			app:layout_constraintEnd_toStartOf="@+id/progressBar">
+            android:id="@+id/brands_layout"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            tools:context=".screens.fragments.Brands" app:layout_constraintStart_toStartOf="@+id/progressBar"
+            app:layout_constraintEnd_toStartOf="@+id/progressBar">
 
 		<ProgressBar
 				style="?android:attr/progressBarStyle"

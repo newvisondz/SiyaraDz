@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.Brand
-import com.newvisiondz.sayara.views.fragments.TabsDirections
+import com.newvisiondz.sayara.screens.fragments.TabsDirections
 import kotlinx.android.synthetic.main.brand_marks_items.view.*
 
 

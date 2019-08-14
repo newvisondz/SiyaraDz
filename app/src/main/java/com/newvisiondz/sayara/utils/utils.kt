@@ -10,7 +10,7 @@ import com.google.gson.JsonObject
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.*
 import com.newvisiondz.sayara.services.RetrofitClient
-import com.newvisiondz.sayara.views.fragments.Brands
+import com.newvisiondz.sayara.screens.fragments.Brands
 import org.json.JSONObject
 import retrofit2.Callback
 import retrofit2.Response

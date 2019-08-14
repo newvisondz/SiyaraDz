@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 	<data>
-		<variable name="viewModel" type="com.newvisiondz.sayara.views.viewModel.ProfileViewModel"/>
+		<variable name="viewModel" type="com.newvisiondz.sayara.screens.viewModel.ProfileViewModel"/>
 	</data>
 	<ScrollView
 			android:layout_width="match_parent"
@@ -15,7 +15,7 @@
 				android:background="@color/colorPrimaryDark"
 				android:orientation="vertical"
 				android:padding="20dp"
-				tools:context=".views.fragments.Profile">
+				tools:context=".screens.fragments.Profile">
 
 			<androidx.constraintlayout.widget.ConstraintLayout style="@style/IconButtonStyle">
 
