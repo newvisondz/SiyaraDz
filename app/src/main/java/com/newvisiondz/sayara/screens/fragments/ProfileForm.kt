@@ -1,7 +1,5 @@
 package com.newvisiondz.sayara.screens.fragments
 
-import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +14,8 @@ import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentProfileFormBinding
 import com.newvisiondz.sayara.screens.viewModel.ProfileFormViewModel
 import com.newvisiondz.sayara.screens.viewModel.ProfileFormViewModelFactory
+import com.newvisiondz.sayara.utils.datePicker
 import kotlinx.android.synthetic.main.fragment_profile_form.*
-import java.util.*
 
 
 class ProfileForm : Fragment() {
@@ -44,25 +42,8 @@ class ProfileForm : Fragment() {
                 Snackbar.make(binding.profileFormConstraint, "Try again..!!", Snackbar.LENGTH_INDEFINITE).show()
             }
         })
-        binding.userDate.setOnClickListener { datePicker() }
+        binding.userDate.setOnClickListener { datePicker(this.user_date,context!!) }
         return binding.root
     }
 
-    private fun datePicker() {
-        val c = Calendar.getInstance()
-        val yearFromCal = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        val dpd = DatePickerDialog(
-            activity as Context,
-            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                this.user_date.text = context?.getString(R.string.date_format, year, monthOfYear, dayOfMonth)
-            },
-            yearFromCal,
-            month,
-            day
-        )
-
-        dpd.show()
-    }
 }

@@ -4,8 +4,8 @@ import android.graphics.drawable.ColorDrawable
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
-
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -15,6 +15,7 @@ import com.newvisiondz.sayara.model.Color
 import com.newvisiondz.sayara.model.Value
 import com.newvisiondz.sayara.model.VersionCompare
 import com.newvisiondz.sayara.screens.bids.BidsAdapter
+
 
 @BindingAdapter("loadImageUrl")
 fun loadImageUrl(imgView: ImageView, bid: Bid?) {
@@ -41,13 +42,14 @@ fun TextView.setBidPrice(bid: Bid?) {
 @BindingAdapter("setBidBrand")
 fun TextView.setBidBrand(bid: Bid?) {
     bid?.let {
-        text =bid.carBrand
+        text = bid.carBrand
     }
 }
+
 @BindingAdapter("setEngineGear")
 fun TextView.setEngineGear(bid: Bid?) {
     bid?.let {
-        text =bid.gearBoxType
+        text = bid.gearBoxType
     }
 }
 
@@ -55,10 +57,9 @@ fun TextView.setEngineGear(bid: Bid?) {
 @BindingAdapter("setBidAdresse")
 fun TextView.setBidddresse(bid: Bid?) {
     bid?.let {
-        text =bid.adresse
+        text = bid.adresse
     }
 }
-
 
 
 @BindingAdapter("setRadioEngineChecked")
@@ -122,3 +123,14 @@ fun TextView.setCompareVersionText(item: VersionCompare?) {
 }
 
 
+@InverseBindingAdapter(attribute = "app:setDouble", event = "android:textAttrChanged")
+fun captureTextValue(view: TextView): Double {
+    return view.text.toString().toDouble()
+}
+
+@BindingAdapter("setDouble")
+fun TextView.setDouble(value: Double?) {
+    value?.let {
+        text = value.toString()
+    }
+}

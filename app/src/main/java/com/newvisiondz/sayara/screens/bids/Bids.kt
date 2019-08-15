@@ -12,19 +12,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.newvisiondz.sayara.R
+import com.newvisiondz.sayara.databinding.DataEntryDialogBinding
 import com.newvisiondz.sayara.databinding.FragmentBidsBinding
-import com.newvisiondz.sayara.screens.viewModel.BrandsViewModel
+import com.newvisiondz.sayara.utils.datePicker
 import com.newvisiondz.sayara.utils.displaySnackBar
-import kotlinx.android.synthetic.main.data_entry_dialog.view.*
+import kotlinx.android.synthetic.main.data_entry_dialog.*
 import kotlinx.android.synthetic.main.fragment_bids.*
-import kotlinx.android.synthetic.main.fragment_bids.view.*
 
 
-class Bids : androidx.fragment.app.Fragment() {
+class Bids : Fragment() {
     companion object {
         const val TAKE_PHOTO = 123
         const val OPEN_GALLERY = 321
@@ -49,24 +50,29 @@ class Bids : androidx.fragment.app.Fragment() {
             val mBuilder = AlertDialog.Builder(
                 context!!, android.R.style.Theme_Light_NoTitleBar_Fullscreen
             )
-            val mView = layoutInflater.inflate(R.layout.data_entry_dialog, null)
-            mBuilder.setView(mView)
+            val bindingDialog: DataEntryDialogBinding =
+                DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.data_entry_dialog, null, false)
+            bindingDialog.viewModel = viewModel
+            mBuilder.setView(bindingDialog.root)
             val dialog = mBuilder.create()
             dialog.setCanceledOnTouchOutside(true)
             dialog.window?.attributes?.windowAnimations = R.style.PauseDialogAnimation
             dialog.show()
-            mView.btnImg.setOnClickListener {
+            bindingDialog.btnImg.setOnClickListener {
                 takePhoto()
             }
-            mView.btnOk.setOnClickListener {
-                addItem(mView)
-                //TODO post request here from viewModel
+            bindingDialog.btnOk.setOnClickListener {
+//                addItem(bindingDialog.root)
+                //TODO make button gets it's values form layout
                 dialog.dismiss()
             }
-            mView.btnCancel.setOnClickListener {
+            bindingDialog.btnCancel.setOnClickListener {
                 dialog.cancel()
             }
-            mView.color.setOnClickListener {
+            bindingDialog.carDistance.setOnClickListener {
+                datePicker(car_distance, context!!)
+            }
+            bindingDialog.color.setOnClickListener {
                 ColorPickerDialogBuilder
                     .with(context)
                     .setTitle("Choose color")
@@ -81,7 +87,7 @@ class Bids : androidx.fragment.app.Fragment() {
                             .show()
                         val res = Integer.toHexString(selectedColor)
 
-                        mView.color.setBackgroundColor(selectedColor)
+                        bindingDialog.color.setBackgroundColor(selectedColor)
                     }
                     .build()
                     .show()
@@ -109,7 +115,7 @@ class Bids : androidx.fragment.app.Fragment() {
 //        bids_list.adapter!!.notifyDataSetChanged()
     }
 
-    fun takePhoto() {
+    private fun takePhoto() {
         val imgIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(imgIntent, TAKE_PHOTO)
     }

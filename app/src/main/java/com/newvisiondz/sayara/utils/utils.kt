@@ -1,26 +1,32 @@
 package com.newvisiondz.sayara.utils
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.util.Log
+import android.widget.TextView
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.*
-import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.screens.fragments.Brands
+import com.newvisiondz.sayara.services.RetrofitClient
 import org.json.JSONObject
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 fun getUserToken(userInfo: SharedPreferences): String? {
     return userInfo.getString("token", "Not Found")
 }
 
 fun getUserInfo(userInfo: SharedPreferences): Array<String> {
-    val userTmp = arrayOf("", "", "", "", "", "", "","")
+    val userTmp = arrayOf("", "", "", "", "", "", "", "")
     userTmp[0] = userInfo.getString("userlastname", "Not Found")!!
     userTmp[1] = userInfo.getString("userimg", "Not Found")!!
     userTmp[2] = userInfo.getString("useremail", "Not Found")!!
@@ -169,4 +175,33 @@ fun getOptionWithName(version: Version, name: String): Option? {
         if (item.name == name) return item
     }
     return null
+}
+
+fun parseStringtoDate(dtStart: String): Date? {
+    val format = SimpleDateFormat("yyyy-MM-dd")
+    try {
+        return format.parse(dtStart)
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+    return null
+}
+
+
+fun datePicker(viewText: TextView,context:Context) {
+    val c = Calendar.getInstance()
+    val yearFromCal = c.get(Calendar.YEAR)
+    val month = c.get(Calendar.MONTH)
+    val day = c.get(Calendar.DAY_OF_MONTH)
+    val dpd = DatePickerDialog(
+        context,
+        DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            viewText.text = context.getString(R.string.date_format, year, monthOfYear, dayOfMonth)
+        },
+        yearFromCal,
+        month,
+        day
+    )
+
+    dpd.show()
 }
