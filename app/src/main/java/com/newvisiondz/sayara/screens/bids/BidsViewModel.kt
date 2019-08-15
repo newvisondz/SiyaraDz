@@ -20,20 +20,25 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         get() = _bidsList
 
     val newCarGearBox = MutableLiveData<Int>()
+    val newItem = MutableLiveData<Bid>()
     val newCarMiles = MutableLiveData<Double>()
     val newCarBrand = MutableLiveData<Int>()
     val newCarPrice = MutableLiveData<Double>()
     val newCarColor = MutableLiveData<String>()
+    val newCarAdress = MutableLiveData<String>()
     val newCarImage = MutableLiveData<String>()
     val newCarDate = MutableLiveData<String>()
-    var tmp = arrayOf<String>()
+    var tmpGearBox = arrayOf<String>()
+    var tmpCarBrand = arrayOf<String>()
 
     init {
         getAllBids()
-        tmp = application.resources.getStringArray(R.array.gearboxtypes)
+        tmpGearBox = application.resources.getStringArray(R.array.gearboxtypes)
+        tmpCarBrand = application.resources.getStringArray(R.array.cars_brands)
     }
 
     private fun getAllBids() {
+        //todo get stuff from server when ready
         _bidsList.value = mutableListOf(
             Bid(0, "Automatique", 1283.2, "Mercedes", 1220.9, "2018-5-12", "#fff", adresse = "Medea"),
             Bid(0, "Manuelle", 1283.2, "Volvo", 1230.9, "2014-5-12", "#020", adresse = "ALger"),
@@ -43,10 +48,17 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun addItemToList() {
-        Log.i(
-            "databindingtest",
-            " miles ==${newCarMiles.value.toString()} gearBox== ${tmp[newCarGearBox.value?.toInt()!!]}"
+//        newItem.
+        newItem.value = Bid(
+            0,
+            tmpGearBox[newCarGearBox.value!!],
+            newCarMiles.value!!,
+            tmpCarBrand[newCarBrand.value!!],
+            newCarPrice.value!!,
+            newCarDate.toString()
         )
+        _bidsList.value?.add(newItem.value!!)
+
     }
 
 }

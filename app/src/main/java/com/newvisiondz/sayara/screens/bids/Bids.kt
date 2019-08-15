@@ -61,16 +61,16 @@ class Bids : Fragment() {
             bindingDialog.btnImg.setOnClickListener {
                 takePhoto()
             }
-            bindingDialog.btnOk.setOnClickListener {
-//                addItem(bindingDialog.root)
-                //TODO make button gets it's values form layout
-                dialog.dismiss()
-            }
+//            bindingDialog.btnOk.setOnClickListener {
+//                //                addItem(bindingDialog.root)
+//                //TODO make button gets it's values form layout
+//                dialog.dismiss()
+//            }
             bindingDialog.btnCancel.setOnClickListener {
                 dialog.cancel()
             }
             bindingDialog.carDistance.setOnClickListener {
-                datePicker(car_distance, context!!)
+//                datePicker(car_distance, context!!)
             }
             bindingDialog.color.setOnClickListener {
                 ColorPickerDialogBuilder
@@ -85,13 +85,14 @@ class Bids : Fragment() {
                             Toast.LENGTH_SHORT
                         )
                             .show()
-                        val res = Integer.toHexString(selectedColor)
+                        binding.viewModel!!.newItem.value?.color = Integer.toHexString(selectedColor)
 
                         bindingDialog.color.setBackgroundColor(selectedColor)
                     }
                     .build()
                     .show()
             }
+
         }
         binding.swipeRefreshBids.setOnRefreshListener {
             displaySnackBar(binding.bidsLayout, "Nice ")
