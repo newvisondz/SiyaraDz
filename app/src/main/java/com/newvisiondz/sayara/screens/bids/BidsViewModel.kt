@@ -35,6 +35,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     var tmpDataList = mutableListOf<Bid>()
 
     init {
+                //todo optimize this code
         insertIsDone.value = null
         getAllBids()
         tmpGearBox = application.resources.getStringArray(R.array.gearboxtypes)

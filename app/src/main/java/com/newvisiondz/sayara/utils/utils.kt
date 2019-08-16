@@ -11,7 +11,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.*
-import com.newvisiondz.sayara.screens.fragments.Brands
+import com.newvisiondz.sayara.screens.brands.Brands
 import com.newvisiondz.sayara.services.RetrofitClient
 import org.json.JSONObject
 import retrofit2.Callback

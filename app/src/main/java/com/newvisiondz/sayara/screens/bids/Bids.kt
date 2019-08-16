@@ -47,9 +47,11 @@ class Bids : Fragment() {
             ViewModelProviders.of(this, BidsViewModelFactory(application)).get(BidsViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
         binding.bidsList.adapter = BidsAdapter(BidsAdapter.Listener {
             Toast.makeText(context, it.carBrand, Toast.LENGTH_SHORT).show()
         })
+
         viewModel.insertIsDone.observe(this, Observer {
             if (it == true) {
                 (binding.bidsList.adapter as BidsAdapter).notifyDataSetChanged()

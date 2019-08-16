@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/tabs"
-        android:name="com.newvisiondz.sayara.screens.fragments.Tabs"
+        android:name="com.newvisiondz.sayara.screens.tabs.Tabs"
         android:label="fragment_tabs"
         tools:layout="@layout/fragment_tabs">
         <action
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/models"
-        android:name="com.newvisiondz.sayara.screens.fragments.Models"
+        android:name="com.newvisiondz.sayara.screens.models.Models"
         android:label="fragment_models"
         tools:layout="@layout/fragment_models">
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/Versions"
-        android:name="com.newvisiondz.sayara.screens.fragments.Versions"
+        android:name="com.newvisiondz.sayara.screens.versions.Versions"
         android:label="fragment_model_view"
         tools:layout="@layout/fragment_versions">
         <action
@@ -97,7 +97,7 @@
     </fragment>
     <fragment
         android:id="@+id/compareVersions"
-        android:name="com.newvisiondz.sayara.screens.fragments.CompareVersions"
+        android:name="com.newvisiondz.sayara.screens.compareversions.CompareVersions"
         android:label="CompareVersions"
         tools:layout="@layout/fragment_compare_versions">
         <argument android:name="brandName" app:argType="string"/>
@@ -110,7 +110,7 @@
         tools:layout="@layout/fragment_bid_form" />
     <fragment
         android:id="@+id/profileForm"
-        android:name="com.newvisiondz.sayara.screens.fragments.ProfileForm"
+        android:name="com.newvisiondz.sayara.screens.profileform.ProfileForm"
         android:label="fragment_profile_form"
         tools:layout="@layout/fragment_profile_form" >
         <action android:id="@+id/action_profileForm_to_tabs" app:destination="@id/tabs" app:enterAnim="@anim/fade_out"/>
