@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
@@ -45,9 +46,16 @@ class Bids : Fragment() {
         val viewModel =
             ViewModelProviders.of(this, BidsViewModelFactory(application)).get(BidsViewModel::class.java)
         binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.lifecycleOwner = this
         binding.bidsList.adapter = BidsAdapter(BidsAdapter.Listener {
             Toast.makeText(context, it.carBrand, Toast.LENGTH_SHORT).show()
+        })
+        viewModel.insertIsDone.observe(this, Observer {
+            if (it == true) {
+                (binding.bidsList.adapter as BidsAdapter).notifyDataSetChanged()
+                viewModel.insertIsDone.value = null
+                //todo optimize this code
+            }
         })
         binding.addNewBid.setOnClickListener {
             val mBuilder = AlertDialog.Builder(
@@ -66,10 +74,11 @@ class Bids : Fragment() {
                 openImageSoureDialog()
             }
             bindingDialog.btnOk.setOnClickListener {
-                if (imageSourceChoice == 1) viewModel.newItem.value?.uris = tmpUris
-                else if (imageSourceChoice == 2) viewModel.newItem.value?.bitmap = bitmapRes
+                if (imageSourceChoice == 1) viewModel.newItem.uris = tmpUris
+                else if (imageSourceChoice == 2) viewModel.newItem.bitmap = bitmapRes
                 viewModel.addItemToList()
                 dialog.dismiss()
+                imageSourceChoice = 0
             }
 
             bindingDialog.btnCancel.setOnClickListener {
@@ -105,7 +114,7 @@ class Bids : Fragment() {
                     Toast.LENGTH_SHORT
                 )
                     .show()
-                binding.viewModel!!.newItem.value?.color = Integer.toHexString(selectedColor)
+                binding.viewModel!!.newItem.color = Integer.toHexString(selectedColor)
 
                 bindingDialog.color.setBackgroundColor(selectedColor)
             }
@@ -118,7 +127,7 @@ class Bids : Fragment() {
         startActivityForResult(imgIntent, TAKE_PHOTO)
     }
 
-    fun openGallery() {
+    private fun openGallery() {
         val intent = Intent()
             .setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             .setAction(Intent.ACTION_GET_CONTENT)
@@ -128,12 +137,12 @@ class Bids : Fragment() {
         )
     }
 
-    fun openImageSoureDialog() {
+    private fun openImageSoureDialog() {
         val builder = AlertDialog.Builder(context!!)
         val mView = layoutInflater.inflate(R.layout.camera_gallery, null)
         builder.setView(mView).setTitle("Chooose an Action").setCancelable(true)
         builder.create().setCanceledOnTouchOutside(true)
-        val dialog=builder.show()
+        val dialog = builder.show()
         mView.cameraButton.setOnClickListener {
             takePhoto()
             dialog.dismiss()
@@ -148,7 +157,7 @@ class Bids : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if ((requestCode == OPEN_GALLERY) && (resultCode == Activity.RESULT_OK)) {
-            imageSourceChoice=1
+            imageSourceChoice = 1
             if (data!!.data != null) {
                 tmpUris.add(data.data!!)
             } else if (data.clipData != null) {
@@ -158,7 +167,7 @@ class Bids : Fragment() {
                 }
             }
         } else if ((requestCode == TAKE_PHOTO) && (resultCode == Activity.RESULT_OK)) {
-            imageSourceChoice=2
+            imageSourceChoice = 2
             bitmapRes = data?.extras?.get("data") as Bitmap
         }
     }

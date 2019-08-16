@@ -34,12 +34,10 @@ fun loadImageUrl(imgView: ImageView, bid: Bid?) {
 @BindingAdapter("loadLocalImage")
 fun loadLocalImage(imgView: ImageView, bid: Bid?){
     bid?.let {
-        if (bid.bitmap != null){
-            imgView.setImageBitmap(bid.bitmap)
-        }else if (bid.uris.isNotEmpty()) {
-            imgView.setImageURI(bid.uris[0])
-        }else {
-            Glide.with(imgView.context)
+        when {
+            bid.bitmap != null -> imgView.setImageBitmap(bid.bitmap)
+            bid.uris.isNotEmpty() -> imgView.setImageURI(bid.uris[0])
+            else -> Glide.with(imgView.context)
                 .load(bid.image)
                 .apply(
                     RequestOptions()
