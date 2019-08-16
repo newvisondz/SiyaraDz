@@ -86,8 +86,8 @@ class Bids : Fragment() {
             bindingDialog.btnCancel.setOnClickListener {
                 dialog.cancel()
             }
-            bindingDialog.carDistance.setOnClickListener {
-                datePicker(bindingDialog.root.car_distance, context!!)
+            bindingDialog.carDate.setOnClickListener {
+                datePicker(bindingDialog.root.car_date, context!!)
             }
             bindingDialog.color.setOnClickListener {
                 colorPicker(binding, bindingDialog)

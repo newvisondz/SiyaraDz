@@ -20,7 +20,6 @@ import com.newvisiondz.sayara.model.Color
 import com.newvisiondz.sayara.model.Command
 import com.newvisiondz.sayara.model.Value
 import com.newvisiondz.sayara.model.Version
-import com.newvisiondz.sayara.screens.fragments.VersionsDirections
 
 
 class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.SingleClickListener,

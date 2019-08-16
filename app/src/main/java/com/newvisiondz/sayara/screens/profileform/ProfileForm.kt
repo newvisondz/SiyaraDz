@@ -12,7 +12,6 @@ import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentProfileFormBinding
-import com.newvisiondz.sayara.screens.fragments.ProfileFormDirections
 import com.newvisiondz.sayara.utils.datePicker
 import kotlinx.android.synthetic.main.fragment_profile_form.*
 

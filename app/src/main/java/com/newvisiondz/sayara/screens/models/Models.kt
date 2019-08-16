@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentModelsBinding
 import com.newvisiondz.sayara.model.Model
-import com.newvisiondz.sayara.screens.fragments.ModelsArgs
 import kotlinx.android.synthetic.main.activity_main.*
 
 class Models : Fragment() {

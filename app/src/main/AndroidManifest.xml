@@ -44,12 +44,12 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".screens.MainActivity"
+                android:name=".screens.entryScreens.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
-                android:name=".screens.LoginActivity"
+                android:name=".screens.entryScreens.LoginActivity"
                 android:label="@string/app_name"
                 android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>

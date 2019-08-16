@@ -19,8 +19,8 @@ import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.Scope
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentProfileBinding
-import com.newvisiondz.sayara.screens.LoginActivity
-import com.newvisiondz.sayara.screens.fragments.TabsDirections
+import com.newvisiondz.sayara.screens.entryScreens.LoginActivity
+import com.newvisiondz.sayara.screens.tabs.TabsDirections
 
 
 class Profile : Fragment() {

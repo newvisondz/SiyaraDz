@@ -27,7 +27,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     val newCarMiles = MutableLiveData<Double>()
     val newCarBrand = MutableLiveData<Int>()
     val newCarPrice = MutableLiveData<Double>()
-    val newCarColor = MutableLiveData<String>()
+    val newCarModel = MutableLiveData<String>()
     val newCarAdress = MutableLiveData<String>()//todo don't forget to add the adresse attribute
     val newCarDate = MutableLiveData<String>()
     var tmpGearBox = arrayOf<String>()
@@ -35,7 +35,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     var tmpDataList = mutableListOf<Bid>()
 
     init {
-                //todo optimize this code
+        //todo optimize this code
         insertIsDone.value = null
         getAllBids()
         tmpGearBox = application.resources.getStringArray(R.array.gearboxtypes)
@@ -57,6 +57,8 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         newItem.carBrand = tmpCarBrand[newCarBrand.value!!]
         newItem.price = newCarPrice.value!!
         newItem.yearOfRegistration = newCarDate.value!!
+        newItem.adresse=newCarAdress.value!!
+        newItem.carModel=newCarModel.value!!
         tmpDataList.add(newItem)
         _bidsList.value = tmpDataList
         resetLiveDate()

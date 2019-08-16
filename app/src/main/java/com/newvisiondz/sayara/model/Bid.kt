@@ -13,7 +13,8 @@ data class Bid(
     var color: String="",
     var uris: MutableList<Uri> = mutableListOf(),
     var adresse :String="",
-    var image :String="https://drop.ndtv.com/albums/AUTO/2019-bmw-x7-suv/30.jpg"
-) {
+    var image :String="https://drop.ndtv.com/albums/AUTO/2019-bmw-x7-suv/30.jpg",
+    var carModel: String=""
+    ) {
     var bitmap:Bitmap?=null
 }

@@ -1,4 +1,4 @@
-package com.newvisiondz.sayara.screens
+package com.newvisiondz.sayara.screens.entryScreens
 
 import android.os.Bundle
 import android.view.View

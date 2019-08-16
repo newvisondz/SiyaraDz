@@ -11,8 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.ActivitySplashBinding
-import com.newvisiondz.sayara.screens.LoginActivity
-import com.newvisiondz.sayara.screens.MainActivity
+import com.newvisiondz.sayara.screens.entryScreens.LoginActivity
+import com.newvisiondz.sayara.screens.entryScreens.MainActivity
 
 
 class SplashActivity : AppCompatActivity() {
