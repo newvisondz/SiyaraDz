@@ -24,7 +24,7 @@ class InstrumentedTest {
     private val appContext = InstrumentationRegistry.getTargetContext()
 
     @Test
-    fun GetHashKey() {
+    fun getHashKey() {
         val info: PackageInfo
         try {
             info = appContext.packageManager.getPackageInfo(appContext.packageName, PackageManager.GET_SIGNATURES)

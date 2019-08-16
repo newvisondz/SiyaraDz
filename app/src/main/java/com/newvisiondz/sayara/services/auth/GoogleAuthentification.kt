@@ -28,11 +28,11 @@ class GoogleAuthentification(private var context: Context, private var auth: Fir
 
     companion object {
         const val REQ_CODE: Int = 9001
-        private val TAG: String = "GOOGLE"
+        private const val TAG: String = "GOOGLE"
     }
 
 
-    var googleSignInClient: GoogleSignInClient
+    private var googleSignInClient: GoogleSignInClient
 
     private var userInfo: SharedPreferences
 
@@ -55,7 +55,7 @@ class GoogleAuthentification(private var context: Context, private var auth: Fir
         (context as Activity).startActivityForResult(signInIntent, REQ_CODE)
     }
 
-    fun handleResult(result: GoogleSignInAccount?) {
+    private fun handleResult(result: GoogleSignInAccount?) {
         if (result != null) {
             val call = RetrofitClient(context)
                 .authentificationApi

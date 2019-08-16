@@ -1,9 +1,8 @@
 package com.newvisiondz.sayara.model
 
-import android.graphics.Bitmap
 import com.google.gson.annotations.SerializedName
 
-class Brand() {
+class Brand {
     @SerializedName("id")
     var id = ""
     @SerializedName("brand")

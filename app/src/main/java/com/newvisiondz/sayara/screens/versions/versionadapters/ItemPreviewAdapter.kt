@@ -24,7 +24,7 @@ class ItemPreviewAdapter(private val previewListValues: MutableList<Value>) :
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val previewKey = itemView.preview_key
+        private val previewKey = itemView.preview_key
         val previewValue = itemView.preview_value
 
         fun bind(value: Value) {

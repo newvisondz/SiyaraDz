@@ -1,7 +1,6 @@
 package com.newvisiondz.sayara.screens.bids
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.Bid
@@ -30,9 +29,9 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     val newCarModel = MutableLiveData<String>()
     val newCarAdress = MutableLiveData<String>()//todo don't forget to add the adresse attribute
     val newCarDate = MutableLiveData<String>()
-    var tmpGearBox = arrayOf<String>()
-    var tmpCarBrand = arrayOf<String>()
-    var tmpDataList = mutableListOf<Bid>()
+    private var tmpGearBox = arrayOf<String>()
+    private var tmpCarBrand = arrayOf<String>()
+    private var tmpDataList = mutableListOf<Bid>()
 
     init {
         //todo optimize this code

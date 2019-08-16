@@ -21,11 +21,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FacebookAuthentification(var context: Context, val auth: FirebaseAuth) {
+class FacebookAuthentification(var context: Context, private val auth: FirebaseAuth) {
 
     private var userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
 
-    fun signIn(accessToken: AccessToken) {
+    private fun signIn(accessToken: AccessToken) {
         val client = RetrofitClient(context).authentificationApi.sendKeysFacebook(accessToken.token)
         lateinit var jsonResponseObject: JSONObject
         val request = GraphRequest.newMeRequest(accessToken) { objet, _ ->
