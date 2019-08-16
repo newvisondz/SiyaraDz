@@ -48,17 +48,24 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun addItemToList() {
-//        newItem.
         newItem.value = Bid(
             0,
             tmpGearBox[newCarGearBox.value!!],
             newCarMiles.value!!,
             tmpCarBrand[newCarBrand.value!!],
             newCarPrice.value!!,
-            newCarDate.toString()
+            newCarDate.value!!
         )
         _bidsList.value?.add(newItem.value!!)
+        resetLiveDate()
+    }
 
+    private fun resetLiveDate() {
+        newCarGearBox.value = null
+        newCarMiles.value = null
+        newCarBrand.value = null
+        newCarPrice.value = null
+        newCarDate.value = null
     }
 
 }

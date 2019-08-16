@@ -21,7 +21,8 @@ import com.newvisiondz.sayara.databinding.DataEntryDialogBinding
 import com.newvisiondz.sayara.databinding.FragmentBidsBinding
 import com.newvisiondz.sayara.utils.datePicker
 import com.newvisiondz.sayara.utils.displaySnackBar
-import kotlinx.android.synthetic.main.data_entry_dialog.*
+import kotlinx.android.synthetic.main.camera_gallery.view.*
+import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_bids.*
 
 
@@ -31,6 +32,8 @@ class Bids : Fragment() {
         const val OPEN_GALLERY = 321
     }
 
+    private lateinit var bitmapRes: Bitmap
+    private var imageSourceChoice = 0
     private var tmpUris = mutableListOf<Uri>()
 
     override fun onCreateView(
@@ -58,41 +61,26 @@ class Bids : Fragment() {
             dialog.setCanceledOnTouchOutside(true)
             dialog.window?.attributes?.windowAnimations = R.style.PauseDialogAnimation
             dialog.show()
+            //interaction handlers
             bindingDialog.btnImg.setOnClickListener {
-                takePhoto()
+                openImageSoureDialog()
             }
-//            bindingDialog.btnOk.setOnClickListener {
-//                //                addItem(bindingDialog.root)
-//                //TODO make button gets it's values form layout
-//                dialog.dismiss()
-//            }
+            bindingDialog.btnOk.setOnClickListener {
+                if (imageSourceChoice == 1) viewModel.newItem.value?.uris = tmpUris
+                else if (imageSourceChoice == 2) viewModel.newItem.value?.bitmap = bitmapRes
+                viewModel.addItemToList()
+                dialog.dismiss()
+            }
+
             bindingDialog.btnCancel.setOnClickListener {
                 dialog.cancel()
             }
             bindingDialog.carDistance.setOnClickListener {
-//                datePicker(car_distance, context!!)
+                datePicker(bindingDialog.root.car_distance, context!!)
             }
             bindingDialog.color.setOnClickListener {
-                ColorPickerDialogBuilder
-                    .with(context)
-                    .setTitle("Choose color")
-                    .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                    .density(12)
-                    .setOnColorSelectedListener { selectedColor: Int ->
-                        Toast.makeText(
-                            context,
-                            "onColorSelected: 0x ${Integer.toHexString(selectedColor)}",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                        binding.viewModel!!.newItem.value?.color = Integer.toHexString(selectedColor)
-
-                        bindingDialog.color.setBackgroundColor(selectedColor)
-                    }
-                    .build()
-                    .show()
+                colorPicker(binding, bindingDialog)
             }
-
         }
         binding.swipeRefreshBids.setOnRefreshListener {
             displaySnackBar(binding.bidsLayout, "Nice ")
@@ -101,19 +89,28 @@ class Bids : Fragment() {
         return binding.root
     }
 
+    private fun colorPicker(
+        binding: FragmentBidsBinding,
+        bindingDialog: DataEntryDialogBinding
+    ) {
+        ColorPickerDialogBuilder
+            .with(context)
+            .setTitle("Choose color")
+            .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+            .density(12)
+            .setOnColorSelectedListener { selectedColor: Int ->
+                Toast.makeText(
+                    context,
+                    "onColorSelected: 0x ${Integer.toHexString(selectedColor)}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                binding.viewModel!!.newItem.value?.color = Integer.toHexString(selectedColor)
 
-    private fun addItem(mView: View) {
-//        val newBid = Bid(
-//            Random().nextInt(),
-//            mView.brand_spinner.selectedItem.toString(),
-//            mView.chassis_number.text.toString().toInt(),
-//            mView.color.text.toString(),
-//            mView.price.text.toString().toDouble(),
-//            mView.current_miles.text.toString().toDouble()
-//        )
-//        newBid.uris = tmpUris
-//        bidsList.add(newBid)
-//        bids_list.adapter!!.notifyDataSetChanged()
+                bindingDialog.color.setBackgroundColor(selectedColor)
+            }
+            .build()
+            .show()
     }
 
     private fun takePhoto() {
@@ -131,10 +128,27 @@ class Bids : Fragment() {
         )
     }
 
+    fun openImageSoureDialog() {
+        val builder = AlertDialog.Builder(context!!)
+        val mView = layoutInflater.inflate(R.layout.camera_gallery, null)
+        builder.setView(mView).setTitle("Chooose an Action").setCancelable(true)
+        builder.create().setCanceledOnTouchOutside(true)
+        val dialog=builder.show()
+        mView.cameraButton.setOnClickListener {
+            takePhoto()
+            dialog.dismiss()
+        }
+        mView.galleryButton.setOnClickListener {
+            openGallery()
+            dialog.dismiss()
+        }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if ((requestCode == OPEN_GALLERY) && (resultCode == Activity.RESULT_OK)) {
+            imageSourceChoice=1
             if (data!!.data != null) {
                 tmpUris.add(data.data!!)
             } else if (data.clipData != null) {
@@ -144,13 +158,8 @@ class Bids : Fragment() {
                 }
             }
         } else if ((requestCode == TAKE_PHOTO) && (resultCode == Activity.RESULT_OK)) {
-            val bitmapRes = data?.extras?.get("data") as Bitmap
+            imageSourceChoice=2
+            bitmapRes = data?.extras?.get("data") as Bitmap
         }
     }
-
-    private fun initRecyclerView(view: View) {
-//        bidsAdapter = BidsAdapter(bidsList, context as Context)
-//        view.bids_list.adapter = bidsAdapter
-    }
-
 }

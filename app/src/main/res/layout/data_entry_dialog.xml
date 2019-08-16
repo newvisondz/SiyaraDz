@@ -114,7 +114,6 @@
                     android:textSize="16sp"
                     android:id="@+id/btnOk"
                     style="@style/btn_colors"
-                    android:onClick="@{()-> viewModel.addItemToList()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Save"

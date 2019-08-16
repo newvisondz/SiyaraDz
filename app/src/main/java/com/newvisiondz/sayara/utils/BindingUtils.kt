@@ -31,6 +31,25 @@ fun loadImageUrl(imgView: ImageView, bid: Bid?) {
 
     }
 }
+@BindingAdapter("loadLocalImage")
+fun loadLocalImage(imgView: ImageView, bid: Bid?){
+    bid?.let {
+        if (bid.bitmap != null){
+            imgView.setImageBitmap(bid.bitmap)
+        }else if (bid.uris.isNotEmpty()) {
+            imgView.setImageURI(bid.uris[0])
+        }else {
+            Glide.with(imgView.context)
+                .load(bid.image)
+                .apply(
+                    RequestOptions()
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.ic_broken_image)
+                )
+                .into(imgView)
+        }
+    }
+}
 
 @BindingAdapter("setBidPrice")
 fun TextView.setBidPrice(bid: Bid?) {

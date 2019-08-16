@@ -1,5 +1,6 @@
 package com.newvisiondz.sayara.model
 
+import android.graphics.Bitmap
 import android.net.Uri
 
 data class Bid(
@@ -13,4 +14,6 @@ data class Bid(
     var uris: MutableList<Uri> = mutableListOf(),
     var adresse :String="",
     var image :String="https://drop.ndtv.com/albums/AUTO/2019-bmw-x7-suv/30.jpg"
-)
+) {
+    var bitmap:Bitmap?=null
+}
