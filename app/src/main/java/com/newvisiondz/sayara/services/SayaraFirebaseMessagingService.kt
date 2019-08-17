@@ -21,7 +21,7 @@ import retrofit2.Response
 
 class SayaraFirebaseMessagingService : FirebaseMessagingService() {
 
-    private var userInfo: SharedPreferences = applicationContext.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
+    private var userInfo: SharedPreferences? = applicationContext?.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
 
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
@@ -37,7 +37,7 @@ class SayaraFirebaseMessagingService : FirebaseMessagingService() {
         val jsonObject = JsonObject()
         jsonObject.addProperty("token", token)
         val call = RetrofitClient(applicationContext).serverDataApi
-            .updateUser(getUserToken(userInfo)!!, jsonObject)
+            .updateUser(getUserToken(userInfo!!)!!, jsonObject)
 
         Log.i("FirebaseServiceRes","sending Token")
         call.enqueue(object : Callback<JsonObject> {

@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class Brands : Fragment() {
 
     companion object {
+
         const val TAG: String = "FireBaseNotif"
     }
     private var mViewModel: BrandsViewModel? = null

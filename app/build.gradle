@@ -71,5 +71,6 @@ dependencies {
 
 //Live data viewmodel jetpack
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+//e-payment
 
 }

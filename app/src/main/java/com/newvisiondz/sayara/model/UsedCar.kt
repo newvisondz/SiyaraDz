@@ -3,7 +3,7 @@ package com.newvisiondz.sayara.model
 import android.graphics.Bitmap
 import android.net.Uri
 
-data class Bid(
+data class UsedCar(
     var id: Int = 0,
     var gearBoxType: String="",
     var currrentMiles: Double=0.0,

@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.databinding.FragmentBidCardBinding
-import com.newvisiondz.sayara.model.Bid
+import com.newvisiondz.sayara.model.UsedCar
 
-class BidsAdapter(private val clickListener: Listener?) : ListAdapter<Bid, BidsAdapter.ViewHolder>(AdsCompareDiffUtil()) {
+class BidsAdapter(private val clickListener: Listener?) : ListAdapter<UsedCar, BidsAdapter.ViewHolder>(AdsCompareDiffUtil()) {
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
@@ -26,8 +26,8 @@ class BidsAdapter(private val clickListener: Listener?) : ListAdapter<Bid, BidsA
 
     class ViewHolder private constructor(val binding: FragmentBidCardBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(bid: Bid) {
-            binding.bid = bid
+        fun bind(usedCar: UsedCar) {
+            binding.usedCar = usedCar
             binding.executePendingBindings()
         }
 
@@ -42,18 +42,18 @@ class BidsAdapter(private val clickListener: Listener?) : ListAdapter<Bid, BidsA
         }
     }
 
-    class Listener(val clickListener: (adver: Bid) -> Unit) {
-        fun onClick(adver: Bid) = clickListener(adver)
+    class Listener(val clickListener: (adver: UsedCar) -> Unit) {
+        fun onClick(adver: UsedCar) = clickListener(adver)
     }
 }
 
 class AdsCompareDiffUtil :
-    DiffUtil.ItemCallback<Bid>() {
-    override fun areItemsTheSame(oldItem: Bid, newItem: Bid): Boolean {
+    DiffUtil.ItemCallback<UsedCar>() {
+    override fun areItemsTheSame(oldItem: UsedCar, newItem: UsedCar): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Bid, newItem: Bid): Boolean {
+    override fun areContentsTheSame(oldItem: UsedCar, newItem: UsedCar): Boolean {
         return newItem == oldItem
     }
 }

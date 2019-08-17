@@ -3,7 +3,7 @@ package com.newvisiondz.sayara.screens.bids
 import android.app.Application
 import androidx.lifecycle.*
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.model.Bid
+import com.newvisiondz.sayara.model.UsedCar
 
 class BidsViewModelFactory(private var app: Application) :
     ViewModelProvider.Factory {
@@ -14,13 +14,13 @@ class BidsViewModelFactory(private var app: Application) :
 }
 
 class BidsViewModel(application: Application) : AndroidViewModel(application) {
-    private val _bidsList = MutableLiveData<MutableList<Bid>>()
-    val bidsList: LiveData<MutableList<Bid>>
+    private val _bidsList = MutableLiveData<MutableList<UsedCar>>()
+    val bidsList: LiveData<MutableList<UsedCar>>
         get() = _bidsList
 
     val insertIsDone= MutableLiveData<Boolean>()
 
-    var newItem = Bid()
+    var newItem = UsedCar()
 
     val newCarGearBox = MutableLiveData<Int>()
     val newCarMiles = MutableLiveData<Double>()
@@ -31,7 +31,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     val newCarDate = MutableLiveData<String>()
     private var tmpGearBox = arrayOf<String>()
     private var tmpCarBrand = arrayOf<String>()
-    private var tmpDataList = mutableListOf<Bid>()
+    private var tmpDataList = mutableListOf<UsedCar>()
 
     init {
         //todo optimize this code
@@ -43,10 +43,10 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getAllBids() {
         //todo get stuff from server when ready
-        tmpDataList.add(Bid(0, "Automatique", 1283.2, "Mercedes", 1220.9, "2018-5-12", "#fff", adresse = "Medea"))
-        tmpDataList.add(Bid(0, "Manuelle", 1283.2, "Volvo", 1230.9, "2014-5-12", "#020", adresse = "ALger"))
-        tmpDataList.add(Bid(0, "Automatique", 1283.2, "Renault", 1240.9, "2012-5-12", "#fc3", adresse = "Oran"))
-        tmpDataList.add(Bid(0, "Manuelle", 1283.2, "Honda", 1250.9, "2016-5-12", "#000", adresse = "Blida"))
+        tmpDataList.add(UsedCar(0, "Automatique", 1283.2, "Mercedes", 1220.9, "2018-5-12", "#fff", adresse = "Medea"))
+        tmpDataList.add(UsedCar(0, "Manuelle", 1283.2, "Volvo", 1230.9, "2014-5-12", "#020", adresse = "ALger"))
+        tmpDataList.add(UsedCar(0, "Automatique", 1283.2, "Renault", 1240.9, "2012-5-12", "#fc3", adresse = "Oran"))
+        tmpDataList.add(UsedCar(0, "Manuelle", 1283.2, "Honda", 1250.9, "2016-5-12", "#000", adresse = "Blida"))
         _bidsList.value = tmpDataList
     }
 
@@ -61,7 +61,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         tmpDataList.add(newItem)
         _bidsList.value = tmpDataList
         resetLiveDate()
-        newItem=Bid()
+        newItem=UsedCar()
         insertIsDone.value = true
     }
 
