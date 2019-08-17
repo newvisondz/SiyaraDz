@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.newvisiondz.sayara
 
 import android.content.pm.PackageInfo
@@ -24,7 +26,7 @@ class InstrumentedTest {
     private val appContext = InstrumentationRegistry.getTargetContext()
 
     @Test
-    fun GetHashKey() {
+    fun getHashKey() {
         val info: PackageInfo
         try {
             info = appContext.packageManager.getPackageInfo(appContext.packageName, PackageManager.GET_SIGNATURES)
@@ -33,7 +35,7 @@ class InstrumentedTest {
                 md.update(signature.toByteArray())
                 val something = String(Base64.encode(md.digest(), 0))
                 //String something = new String(Base64.encodeBytes(md.digest()));
-                Log.e("hash key", something)
+                Log.e("hashkey", something)
             }
         } catch (e1: PackageManager.NameNotFoundException) {
             Log.e("name not found", e1.toString())

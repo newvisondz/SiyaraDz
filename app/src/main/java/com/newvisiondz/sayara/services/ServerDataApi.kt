@@ -10,6 +10,8 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ServerDataApi {
+
+
     @GET("manufacturers/")
     fun getAllBrands(
         @Header("Authorization") token: String,

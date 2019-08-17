@@ -4,13 +4,48 @@
 	<data>
 		<variable name="viewModel" type="com.newvisiondz.sayara.screens.splash.SplashViewModel"/>
 	</data>
-	<androidx.constraintlayout.widget.ConstraintLayout
-			android:background="@color/colorPrimary"
+	<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:background="@android:color/white"
 			tools:context=".screens.splash.SplashActivity">
 
-		<TextView
+		<ImageView
+				android:id="@+id/splashBg"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:scaleType="fitStart"
+				android:src="@drawable/splash_bg"
+				/>
+
+		<RelativeLayout
+				android:id="@+id/containerLayout"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_margin="@dimen/container_layout_margin">
+
+
+			<ImageView
+					android:id="@+id/logo"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_marginBottom="150dp"
+					app:srcCompat="@drawable/logo_trans"
+					/>
+
+			<TextView
+					android:id="@+id/textlogo"
+					style="@style/LabelStyle"
+					android:layout_alignParentBottom="true"
+					android:layout_marginBottom="80dp"
+					android:fontFamily="@font/over_the_rainbow"
+					android:text="Tout l'univers des voitures en une application"
+					android:textSize="18sp"
+					android:textStyle="bold"
+					android:textAlignment="center"/>
+
+			<TextView
 				android:text="Try Again"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -18,40 +53,11 @@
 				android:textSize="@dimen/font_large"
 				android:visibility="gone"
 				android:id="@+id/checkNet"
-				app:layout_constraintTop_toBottomOf="@+id/imageView7"
-				app:layout_constraintEnd_toEndOf="@+id/imageView7"
-				app:layout_constraintStart_toStartOf="@+id/imageView7" />
-		<ImageView
-				android:layout_width="0dp"
-				android:layout_height="200dp" app:srcCompat="@drawable/logo"
-				android:id="@+id/imageView7"
-				app:layout_constraintEnd_toEndOf="parent"
-				android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-				android:layout_marginStart="8dp"
-				app:layout_constraintHorizontal_bias="0.0"
-				app:layout_constraintTop_toTopOf="parent"
-				android:layout_marginTop="8dp"/>
-		<TextView
-				android:text="Tout l'univers des voitures, en un click"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/textView"
-				android:fontFamily="@font/over_the_rainbow"
-				android:textSize="18sp"
-				android:textColor="@color/common_google_signin_btn_text_dark_focused"
-				android:textStyle="bold"
-				android:textAllCaps="false"
-				android:background="@android:color/transparent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/checkNet"/>
-		<TextView
-				android:text="All copyrights goes to NewVision"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/textView5" android:layout_marginBottom="8dp"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-				android:layout_marginEnd="8dp" android:fontFamily="@font/over_the_rainbow" android:textStyle="bold"
-				android:textColor="@android:color/black"/>
-	</androidx.constraintlayout.widget.ConstraintLayout>
+				app:layout_constraintTop_toBottomOf="@+id/logo"
+				app:layout_constraintEnd_toEndOf="@+id/logo"
+				app:layout_constraintStart_toStartOf="@+id/logo" />
+
+
+		</RelativeLayout>
+	</RelativeLayout>
 </layout>
