@@ -90,10 +90,10 @@
 						app:srcCompat="@drawable/ic_award"/>
 
 				<Button
-						android:id="@+id/button_mybids"
+						android:id="@+id/button_used_cars"
 						style="@style/btn_colors"
 						android:textSize="18sp"
-						android:text="Annoces"
+						android:text="Mes Annoces"
 						app:layout_constraintBottom_toBottomOf="@+id/imageView1"
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintTop_toTopOf="@+id/imageView1" android:layout_marginStart="8dp"

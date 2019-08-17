@@ -119,7 +119,6 @@ fun RadioButton.setRadioEnginePowerChecked(item: Value?) {
 fun bidsListData(recyclerView: RecyclerView, data: List<UsedCar>?) {
     val adapter = recyclerView.adapter as BidsAdapter
     adapter.submitList(data)
-
 }
 
 @BindingAdapter("setCompareVersionText")

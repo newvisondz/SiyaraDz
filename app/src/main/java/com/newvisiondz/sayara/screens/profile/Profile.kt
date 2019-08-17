@@ -42,8 +42,8 @@ class Profile : Fragment() {
             it.findNavController().navigate(TabsDirections.actionTabsToProfileForm())
         }
 
-        binding.buttonMybids.setOnClickListener {
-            it.findNavController().navigate(TabsDirections.actionTabsToMyBids())
+        binding.buttonUsedCars.setOnClickListener {
+            it.findNavController().navigate(TabsDirections.actionTabsToUsedCars())
         }
 
         binding.buttonMymodels.setOnClickListener {

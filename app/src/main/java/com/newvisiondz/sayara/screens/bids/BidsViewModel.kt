@@ -3,7 +3,9 @@ package com.newvisiondz.sayara.screens.bids
 import android.app.Application
 import androidx.lifecycle.*
 import com.newvisiondz.sayara.R
+import com.newvisiondz.sayara.database.getDatabase
 import com.newvisiondz.sayara.model.UsedCar
+import kotlinx.coroutines.*
 
 class BidsViewModelFactory(private var app: Application) :
     ViewModelProvider.Factory {
@@ -18,7 +20,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     val bidsList: LiveData<MutableList<UsedCar>>
         get() = _bidsList
 
-    val insertIsDone= MutableLiveData<Boolean>()
+    val insertIsDone = MutableLiveData<Boolean>()
 
     var newItem = UsedCar()
 
@@ -32,6 +34,11 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     private var tmpGearBox = arrayOf<String>()
     private var tmpCarBrand = arrayOf<String>()
     private var tmpDataList = mutableListOf<UsedCar>()
+
+
+    private var viewModelJob = Job()
+    private var uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    val dataSource= getDatabase(application.applicationContext).usedCarDao
 
     init {
         //todo optimize this code
@@ -56,12 +63,13 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         newItem.carBrand = tmpCarBrand[newCarBrand.value!!]
         newItem.price = newCarPrice.value!!
         newItem.yearOfRegistration = newCarDate.value!!
-        newItem.adresse=newCarAdress.value!!
-        newItem.carModel=newCarModel.value!!
+        newItem.adresse = newCarAdress.value!!
+        newItem.carModel = newCarModel.value!!
         tmpDataList.add(newItem)
         _bidsList.value = tmpDataList
+        addToDataBase(newItem)
         resetLiveDate()
-        newItem=UsedCar()
+        newItem = UsedCar()
         insertIsDone.value = true
     }
 
@@ -73,4 +81,11 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         newCarDate.value = null
     }
 
+    fun addToDataBase(car:UsedCar) {
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                dataSource.insertAll(car)
+            }
+        }
+    }
 }
