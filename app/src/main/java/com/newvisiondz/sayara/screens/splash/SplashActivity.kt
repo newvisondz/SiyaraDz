@@ -30,12 +30,11 @@ class SplashActivity : AppCompatActivity() {
         binding.viewModel = splashViewModel
         binding.lifecycleOwner = this
 
-        var uptodown: Animation = AnimationUtils.loadAnimation(this, R.anim.uptodown)
-        var downtoup:Animation = AnimationUtils.loadAnimation(this, R.anim.downtoup)
+        val uptodown: Animation = AnimationUtils.loadAnimation(this, R.anim.uptodown)
 
         splashBg.animation = uptodown
         logo.animation = uptodown
-        textlogo.animation = downtoup
+        textlogo.animation = AnimationUtils.loadAnimation(this, R.anim.downtoup)
 
 
         splashViewModel.online.observe(this, Observer { online ->

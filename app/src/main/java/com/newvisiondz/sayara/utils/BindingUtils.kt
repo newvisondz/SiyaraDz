@@ -21,7 +21,7 @@ import com.newvisiondz.sayara.screens.bids.BidsAdapter
 fun loadImageUrl(imgView: ImageView, usedCar: UsedCar?) {
     usedCar?.let {
         Glide.with(imgView.context)
-            .load(usedCar.image[0])
+            .load(usedCar.images[0])
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
@@ -38,7 +38,7 @@ fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?){
             usedCar.bitmap != null -> imgView.setImageBitmap(usedCar.bitmap)
             usedCar.uris.isNotEmpty() -> imgView.setImageURI(usedCar.uris[0])
             else -> Glide.with(imgView.context)
-                .load(usedCar.image[0])
+                .load(usedCar.images[0])
                 .apply(
                     RequestOptions()
                         .placeholder(R.drawable.loading_animation)
@@ -71,12 +71,12 @@ fun TextView.setEngineGear(usedCar: UsedCar?) {
 }
 
 
-@BindingAdapter("setBidAdresse")
-fun TextView.setBidddresse(usedCar: UsedCar?) {
-    usedCar?.let {
-        text = usedCar.adresse
-    }
-}
+    //@BindingAdapter("setBidAdresse")
+    //fun TextView.setBidddresse(usedCar: UsedCar?) {
+    //    usedCar?.let {
+    //        text = usedCar.adresse
+    //    }
+    //}
 
 
 @BindingAdapter("setRadioEngineChecked")

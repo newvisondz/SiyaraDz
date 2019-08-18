@@ -16,8 +16,9 @@ data class UsedCar(
     var gearBoxType: String = "",
     @SerializedName("currrentMiles")
     var currrentMiles: Double = 0.0,
+    @SerializedName("manufacturer")
     var carBrand: String = "",
-    @SerializedName("minPrice       ")
+    @SerializedName("minPrice")
     var price: Double = 0.0,
     @SerializedName("registrationDate")
     var yearOfRegistration: String = "",
@@ -27,12 +28,13 @@ data class UsedCar(
     var uris: MutableList<Uri> = mutableListOf(),
     var adresse: String = "",
     @Ignore
-    var image: List<String> = listOf("https://drop.ndtv.com/albums/AUTO/2019-bmw-x7-suv/30.jpg"),
+    var images: List<String> = listOf("https://drop.ndtv.com/albums/AUTO/2019-bmw-x7-suv/30.jpg"),
     @SerializedName("model")
     var carModel: String = "",
     var version: String = "",
     var owner: String = ""
 ) {
+    @Expose(serialize = false, deserialize = false)
     @Ignore
     var bitmap: Bitmap? = null
 }
