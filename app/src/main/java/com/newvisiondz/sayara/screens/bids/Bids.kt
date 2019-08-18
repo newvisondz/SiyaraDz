@@ -20,6 +20,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.DataEntryDialogBinding
 import com.newvisiondz.sayara.databinding.FragmentBidsBinding
+import com.newvisiondz.sayara.model.CarInfo
 import com.newvisiondz.sayara.utils.datePicker
 import com.newvisiondz.sayara.utils.displaySnackBar
 import kotlinx.android.synthetic.main.camera_gallery.view.*
@@ -36,6 +37,10 @@ class Bids : Fragment() {
     private lateinit var bitmapRes: Bitmap
     private var imageSourceChoice = 0
     private var tmpUris = mutableListOf<Uri>()
+
+    private val brands = mutableListOf<CarInfo>()
+    private val models = mutableListOf<CarInfo>()
+    private val versions = mutableListOf<CarInfo>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,12 +71,33 @@ class Bids : Fragment() {
             val bindingDialog: DataEntryDialogBinding =
                 DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.data_entry_dialog, null, false)
             bindingDialog.viewModel = viewModel
+
+            bindingDialog.brandSpinner.adapter = InfoSpinner(context!!, R.layout.spinner_element, brands)
+            bindingDialog.modelSpinner.adapter = InfoSpinner(context!!, R.layout.spinner_element, models)
+            bindingDialog.versionSpinner.adapter = InfoSpinner(context!!, R.layout.spinner_element, versions)
+
+            viewModel.brandList.observe(this, Observer { newBrands->
+                brands.clear()
+                brands.addAll(newBrands)
+                (bindingDialog.brandSpinner.adapter as InfoSpinner).notifyDataSetChanged()
+            })
+            viewModel.modelList.observe(this, Observer { newModels->
+                models.clear()
+                models.addAll(newModels)
+                (bindingDialog.modelSpinner.adapter as InfoSpinner).notifyDataSetChanged()
+            })
+            viewModel.brandList.observe(this, Observer { newVersions->
+                versions.clear()
+                versions.addAll(newVersions)
+                (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
+            })
+
+
             mBuilder.setView(bindingDialog.root)
             val dialog = mBuilder.create()
             dialog.setCanceledOnTouchOutside(true)
             dialog.window?.attributes?.windowAnimations = R.style.PauseDialogAnimation
             dialog.show()
-            //interaction handlers
             bindingDialog.btnImg.setOnClickListener {
                 openImageSoureDialog()
             }
@@ -154,7 +180,6 @@ class Bids : Fragment() {
             dialog.dismiss()
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

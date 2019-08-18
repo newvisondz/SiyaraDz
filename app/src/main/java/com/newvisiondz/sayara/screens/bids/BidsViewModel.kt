@@ -1,11 +1,25 @@
 package com.newvisiondz.sayara.screens.bids
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.*
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.database.getDatabase
+import com.newvisiondz.sayara.model.CarInfo
+import com.newvisiondz.sayara.model.Model
 import com.newvisiondz.sayara.model.UsedCar
+import com.newvisiondz.sayara.model.Version
+import com.newvisiondz.sayara.services.RetrofitClient
+import com.newvisiondz.sayara.utils.getUserToken
+import com.newvisiondz.sayara.utils.listFormatter
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class BidsViewModelFactory(private var app: Application) :
     ViewModelProvider.Factory {
@@ -16,12 +30,27 @@ class BidsViewModelFactory(private var app: Application) :
 }
 
 class BidsViewModel(application: Application) : AndroidViewModel(application) {
+    private var token: String = ""
+    private val userInfo: SharedPreferences =
+        application.applicationContext.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
     private val _bidsList = MutableLiveData<MutableList<UsedCar>>()
     val bidsList: LiveData<MutableList<UsedCar>>
         get() = _bidsList
 
-    val insertIsDone = MutableLiveData<Boolean>()
+    private val _brandList = MutableLiveData<List<CarInfo>>()
+    val brandList: LiveData<List<CarInfo>>
+        get() = _brandList
 
+    private val _modelList = MutableLiveData<List<CarInfo>>()
+    val modelList: LiveData<List<CarInfo>>
+        get() = _modelList
+    private val _versionList = MutableLiveData<List<CarInfo>>()
+    val versionList: LiveData<List<CarInfo>>
+        get() = _versionList
+
+
+    val insertIsDone = MutableLiveData<Boolean>()
+    val call = RetrofitClient(application.applicationContext).serverDataApi
     var newItem = UsedCar()
 
     val newCarMiles = MutableLiveData<Double>()
@@ -37,14 +66,18 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     private var viewModelJob = Job()
     private var uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val dataSource= getDatabase(application.applicationContext).usedCarDao
+    private val dataSource = getDatabase(application.applicationContext).usedCarDao
 
     init {
+        token = getUserToken(userInfo)!!
         //todo optimize this code
         insertIsDone.value = null
         getAllBids()
         tmpGearBox = application.resources.getStringArray(R.array.gearboxtypes)
         tmpCarBrand = application.resources.getStringArray(R.array.cars_brands)
+        //---------------------get spinners data :D
+
+        getBrandsList()
     }
 
     private fun getAllBids() {
@@ -79,11 +112,65 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         newCarDate.value = null
     }
 
-    private fun addToDataBase(car:UsedCar) {
+    private fun addToDataBase(car: UsedCar) {
         uiScope.launch {
             withContext(Dispatchers.IO) {
                 dataSource.insertAll(car)
             }
         }
     }
+
+
+    fun getBrandsList() {
+        token.let {
+            call.getAdditionalInfo(it, "brand").enqueue(object : Callback<JsonElement> {
+                override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                }
+
+                override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                    if (response.isSuccessful) {
+                        val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
+                        _brandList.value = listFormatter<CarInfo>(call.execute().body()!!, listType, "manufacturers")
+                    }
+                }
+            })
+        }
+    }
+
+    fun getModelsList(brand: String) {
+        token.let {
+            call.getAllModels(it, brand, "").enqueue(object : Callback<JsonElement> {
+                override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                    if (response.isSuccessful) {
+                        val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
+                        _modelList.value= listFormatter(call.execute().body()!!, listType, "models")
+                    }
+                }
+
+            })
+        }
+    }
+
+    fun getVersionList(brand: String, model: String) {
+        token.let {
+            call.getAllVersion(it, brand, model).enqueue(object : Callback<JsonArray> {
+                override fun onFailure(call: Call<JsonArray>, t: Throwable) {
+                }
+
+                override fun onResponse(call: Call<JsonArray>, response: Response<JsonArray>) {
+                    if (response.isSuccessful) {
+                        val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
+                        _versionList.value = listFormatter(response.body()!!, listType)
+                    }
+                }
+
+            })
+        }
+    }
+
+
 }

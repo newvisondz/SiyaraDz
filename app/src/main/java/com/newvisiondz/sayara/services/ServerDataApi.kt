@@ -3,10 +3,7 @@ package com.newvisiondz.sayara.services
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.newvisiondz.sayara.model.Command
-import com.newvisiondz.sayara.model.Model
-import com.newvisiondz.sayara.model.UsedCar
-import com.newvisiondz.sayara.model.Version
+import com.newvisiondz.sayara.model.*
 import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.http.*
@@ -99,4 +96,10 @@ interface ServerDataApi {
     fun getAllBids(
         @Header("Authorization") token: String
     ): Call<List<UsedCar>>
+
+    @GET("manufacturers")
+    fun getAdditionalInfo(
+        @Header("Authorization") token: String,
+        @Query("fields")fields:String
+    ):Call<JsonElement>
 }

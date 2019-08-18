@@ -1,4 +1,4 @@
-package com.newvisiondz.sayara.screens.versions
+package com.newvisiondz.sayara.screens.bids
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.model.Version
+import com.newvisiondz.sayara.model.CarInfo
 import kotlinx.android.synthetic.main.spinner_element.view.*
 
-
-class SpinnerAdapter(context: Context, resource: Int, var list: MutableList<Version>) :
-    ArrayAdapter<Version>(context, resource, list) {
+class InfoSpinner (context: Context, resource: Int, var list: MutableList<CarInfo>) :
+    ArrayAdapter<CarInfo>(context, resource, list) {
 
     override fun getCount(): Int {
         return list.size
