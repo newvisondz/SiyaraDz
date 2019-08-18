@@ -6,9 +6,11 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -37,6 +39,7 @@ class Bids : Fragment() {
     private lateinit var bitmapRes: Bitmap
     private var imageSourceChoice = 0
     private var tmpUris = mutableListOf<Uri>()
+    private var currentBrandId: String = ""
 
     private val brands = mutableListOf<CarInfo>()
     private val models = mutableListOf<CarInfo>()
@@ -71,33 +74,60 @@ class Bids : Fragment() {
             val bindingDialog: DataEntryDialogBinding =
                 DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.data_entry_dialog, null, false)
             bindingDialog.viewModel = viewModel
+            mBuilder.setView(bindingDialog.root)
+
+
 
             bindingDialog.brandSpinner.adapter = InfoSpinner(context!!, R.layout.spinner_element, brands)
             bindingDialog.modelSpinner.adapter = InfoSpinner(context!!, R.layout.spinner_element, models)
             bindingDialog.versionSpinner.adapter = InfoSpinner(context!!, R.layout.spinner_element, versions)
 
-            viewModel.brandList.observe(this, Observer { newBrands->
+            viewModel.brandList.observe(this, Observer { newBrands ->
                 brands.clear()
                 brands.addAll(newBrands)
                 (bindingDialog.brandSpinner.adapter as InfoSpinner).notifyDataSetChanged()
             })
-            viewModel.modelList.observe(this, Observer { newModels->
+            viewModel.modelList.observe(this, Observer { newModels ->
                 models.clear()
                 models.addAll(newModels)
                 (bindingDialog.modelSpinner.adapter as InfoSpinner).notifyDataSetChanged()
             })
-            viewModel.brandList.observe(this, Observer { newVersions->
+            viewModel.versionList.observe(this, Observer { newVersions ->
                 versions.clear()
                 versions.addAll(newVersions)
                 (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
             })
+            bindingDialog.root.brand_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    currentBrandId = brands[position].id
+                    Log.i("BIds",currentBrandId)
+                    viewModel.getModelsList(currentBrandId)
+                }
 
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    currentBrandId = brands[0].id
+                    Log.i("BIds",currentBrandId)
+                    viewModel.getModelsList(currentBrandId)
+                }
+            }
+            bindingDialog.modelSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    viewModel.getVersionList(currentBrandId, models[position].id)
+                    Log.i("BIds models",models[position].id)
 
-            mBuilder.setView(bindingDialog.root)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    viewModel.getVersionList(currentBrandId, models[0].id)
+                    Log.i("BIds models",models[0].id)
+
+                }
+            }
             val dialog = mBuilder.create()
             dialog.setCanceledOnTouchOutside(true)
             dialog.window?.attributes?.windowAnimations = R.style.PauseDialogAnimation
             dialog.show()
+
             bindingDialog.btnImg.setOnClickListener {
                 openImageSoureDialog()
             }

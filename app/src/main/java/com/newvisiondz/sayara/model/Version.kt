@@ -13,7 +13,7 @@ data class Version(
     var options: MutableList<Option>
 )
 data class CarInfo(
-    val id:String,
+    val id:String ="",
     @SerializedName("brand",alternate= ["name"])
-    val name:String
+    val name:String=""
 )

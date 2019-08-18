@@ -121,7 +121,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun getBrandsList() {
+    private fun getBrandsList() {
         token.let {
             call.getAdditionalInfo(it, "brand").enqueue(object : Callback<JsonElement> {
                 override fun onFailure(call: Call<JsonElement>, t: Throwable) {
@@ -130,7 +130,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
                 override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                     if (response.isSuccessful) {
                         val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
-                        _brandList.value = listFormatter<CarInfo>(call.execute().body()!!, listType, "manufacturers")
+                        _brandList.value = listFormatter(response.body()!!, listType, "manufacturers")
                     }
                 }
             })
@@ -147,7 +147,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
                 override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                     if (response.isSuccessful) {
                         val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
-                        _modelList.value= listFormatter(call.execute().body()!!, listType, "models")
+                        _modelList.value= listFormatter(response.body()!!, listType, "models")
                     }
                 }
 

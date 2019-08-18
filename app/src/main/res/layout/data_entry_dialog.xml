@@ -15,7 +15,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="22sp"
                     android:padding="16dp"
-                    android:selectedItemPosition="@={viewModel.newCarModel}"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
                     android:text="Choisir Une marque"
                     app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +36,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
-                    android:selectedItemPosition="@={viewModel.newCarBrand}"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.5"
@@ -45,7 +43,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/brand_spinner_label"/>
             <Button
                     android:id="@+id/color"
-                    android:layout_width="395dp"
+                    android:layout_width="0dp"
                     android:ellipsize="end"
                     android:textSize="20sp"
                     android:layout_height="wrap_content"
@@ -198,7 +196,6 @@
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
                     android:ems="10"
                     android:id="@+id/version_spinner"
-                    android:selectedItemPosition="@={viewModel.newCarVersion}"
                     app:layout_constraintStart_toEndOf="@+id/model_spinner" app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/brand_spinner_label" android:layout_marginBottom="8dp"
