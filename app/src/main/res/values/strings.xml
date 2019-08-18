@@ -38,4 +38,9 @@
     <string name="car_final_price">le prix de votre automobile est %s Da</string>
     <string name="msg_token_fmt">Msg Token is : %s</string>
     <string name="bid_price_text">from %s DA</string>
+
+    <string name="login_fb_btn_label">"S'autentifier avec Facebook"</string>
+    <string name="login_google_btn_label">"S'autentifier  avec Google"</string>
+
+    <string name="get_started_btn_label">Commencer</string>
 </resources>

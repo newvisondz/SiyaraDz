@@ -44,6 +44,9 @@ class LoginActivity : AppCompatActivity() {
             binding.progressLogin.visibility = View.GONE
         }
         binding.loginFb.setPermissions("email", "public_profile")
+        binding.myLoginFb.setOnClickListener {
+            binding.loginFb.performClick()
+        }
         binding.loginFb.setOnClickListener {
             LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult?) {

@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -13,6 +15,7 @@ import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.ActivitySplashBinding
 import com.newvisiondz.sayara.screens.entryScreens.LoginActivity
 import com.newvisiondz.sayara.screens.entryScreens.MainActivity
+import kotlinx.android.synthetic.main.activity_splash.*
 
 
 class SplashActivity : AppCompatActivity() {
@@ -26,6 +29,14 @@ class SplashActivity : AppCompatActivity() {
         val splashViewModel = ViewModelProviders.of(this, viewModelFactory).get(SplashViewModel::class.java)
         binding.viewModel = splashViewModel
         binding.lifecycleOwner = this
+
+        var uptodown: Animation = AnimationUtils.loadAnimation(this, R.anim.uptodown)
+        var downtoup:Animation = AnimationUtils.loadAnimation(this, R.anim.downtoup)
+
+        splashBg.animation = uptodown
+        logo.animation = uptodown
+        textlogo.animation = downtoup
+
 
         splashViewModel.online.observe(this, Observer { online ->
             alertDialog = showDialog(this@SplashActivity)

@@ -19,7 +19,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
         }
     }
     android {
@@ -69,6 +68,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
 
+
 //Live data viewmodel jetpack
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 //room databases
@@ -77,5 +77,10 @@ dependencies {
 // Coroutines for getting off the UI thread
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
+
+//Splash and Login Activity
+    implementation 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
+    implementation "com.mikepenz:iconics-core:3.0.2@aar"
+    implementation 'com.mikepenz:fontawesome-typeface:5.0.6.0@aar'
 
 }
