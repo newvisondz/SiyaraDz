@@ -5,7 +5,9 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.model.Command
 import com.newvisiondz.sayara.model.Model
+import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.model.Version
+import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -92,4 +94,9 @@ interface ServerDataApi {
         @Path("modelId") modelId: String,
         @Path("version_id") version_id: String
     ): Call<JsonElement>
+
+    @GET("used-cars")
+    fun getAllBids(
+        @Header("Authorization") token: String
+    ): Call<List<UsedCar>>
 }

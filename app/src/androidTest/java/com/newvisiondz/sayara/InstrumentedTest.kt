@@ -128,4 +128,12 @@ class InstrumentedTest {
         call.execute()
     }
 
+    @Test
+    fun testUsedCarGet() {
+        val call = RetrofitClient(appContext).serverDataApi.getAllBids(
+            "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYjNjNzhmYjc5NTM5MDAxOWY4ZDIzYSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTYwODA0MjY3LCJleHAiOjE1NjkzNTc4Njd9.kAD2_-3xg7hS84BI3J9J0W8uHV2UgDLKtS1abaKSdWg"
+        )
+        val body =call.execute().body()
+        assertEquals("5d585583c4e2ff46b880eff2", body!![0].id)
+    }
 }

@@ -50,10 +50,10 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getAllBids() {
         //todo get stuff from server when ready
-        tmpDataList.add(UsedCar(0, "Automatique", 1283.2, "Mercedes", 1220.9, "2018-5-12", "#fff", adresse = "Medea"))
-        tmpDataList.add(UsedCar(0, "Manuelle", 1283.2, "Volvo", 1230.9, "2014-5-12", "#020", adresse = "ALger"))
-        tmpDataList.add(UsedCar(0, "Automatique", 1283.2, "Renault", 1240.9, "2012-5-12", "#fc3", adresse = "Oran"))
-        tmpDataList.add(UsedCar(0, "Manuelle", 1283.2, "Honda", 1250.9, "2016-5-12", "#000", adresse = "Blida"))
+        tmpDataList.add(UsedCar("", "Automatique", 1283.2, "Mercedes", 1220.9, "2018-5-12", "#fff", adresse = "Medea"))
+        tmpDataList.add(UsedCar("", "Manuelle", 1283.2, "Volvo", 1230.9, "2014-5-12", "#020", adresse = "ALger"))
+        tmpDataList.add(UsedCar("", "Automatique", 1283.2, "Renault", 1240.9, "2012-5-12", "#fc3", adresse = "Oran"))
+        tmpDataList.add(UsedCar("", "Manuelle", 1283.2, "Honda", 1250.9, "2016-5-12", "#000", adresse = "Blida"))
         _bidsList.value = tmpDataList
     }
 
@@ -81,7 +81,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         newCarDate.value = null
     }
 
-    fun addToDataBase(car:UsedCar) {
+    private fun addToDataBase(car:UsedCar) {
         uiScope.launch {
             withContext(Dispatchers.IO) {
                 dataSource.insertAll(car)

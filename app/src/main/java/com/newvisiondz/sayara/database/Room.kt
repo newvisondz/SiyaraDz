@@ -13,6 +13,9 @@ interface UsedCarDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg cars: UsedCar)
+
+    @Query("DELETE FROM usedCar WHERE usedCar.id=:id;")
+    fun deleteOne(id: String)
 }
 
 @Database(entities = [UsedCar::class], version = 1, exportSchema = false)

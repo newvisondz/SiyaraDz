@@ -63,7 +63,7 @@
 					android:layout_alignParentEnd="true"
 					android:layout_marginStart="8dp"
 					android:layout_marginEnd="8dp"
-					android:layout_marginBottom="8"
+					android:layout_marginBottom="8dp"
 					android:fontFamily="@font/over_the_rainbow"
 					android:text="S'autentifier"
 					android:textAlignment="center"
@@ -122,7 +122,7 @@
 					android:layout_marginLeft="4dp"
 					android:layout_marginTop="2dp"
 					android:layout_marginRight="4dp"
-					android:layout_marginBottom="20"
+					android:layout_marginBottom="20dp"
 					android:backgroundTint="@color/fb_blue"
 					android:text="@string/login_fb_btn_label"
 					android:textSize="16sp"
@@ -142,7 +142,7 @@
 					android:layout_height="wrap_content"
 					android:id="@+id/progressLogin"
 					android:indeterminateDrawable="@drawable/progress"
-					android:layout_alignTop="@+id/signup_title" android:layout_marginTop="-40"
+					android:layout_alignTop="@+id/signup_title" android:layout_marginTop="-40dp"
 			/>
 
 			<RelativeLayout

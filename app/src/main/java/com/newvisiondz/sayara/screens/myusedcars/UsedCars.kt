@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
 import com.newvisiondz.sayara.screens.bids.BidsAdapter
+
 
 class UsedCars : Fragment() {
     override fun onCreateView(
@@ -25,6 +29,27 @@ class UsedCars : Fragment() {
         binding.viewModel = mViewModel
         binding.lifecycleOwner = this
         binding.myBidsList.adapter = BidsAdapter(null)
+
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                mViewModel.deleteUsedCarAd(viewHolder.adapterPosition)
+                Toast.makeText(context, "Note deleted", Toast.LENGTH_SHORT).show()
+            }
+        }).attachToRecyclerView(binding.myBidsList)
+
+
         return binding.root
     }
 }
