@@ -4,7 +4,8 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.model.*
-import org.json.JSONArray
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -97,9 +98,23 @@ interface ServerDataApi {
         @Header("Authorization") token: String
     ): Call<List<UsedCar>>
 
+    @Multipart
+    @POST("used-cars")
+    fun createUsedCar(
+        @Header("Authorization") token: String,
+        @Part images: MultipartBody.Part,
+        @Part("manufacturer") manufacturer: String,
+        @Part("model") model: String,
+        @Part("version") version: String,
+        @Part("registrationDate") registrationDate: String,
+        @Part("currrentMiles") currrentMiles: Double,
+        @Part("minPrice") minPrice: Double,
+        @Part("color") color: String
+    ): Call<UsedCar>
+
     @GET("manufacturers")
     fun getAdditionalInfo(
         @Header("Authorization") token: String,
-        @Query("fields")fields:String
-    ):Call<JsonElement>
+        @Query("fields") fields: String
+    ): Call<JsonElement>
 }

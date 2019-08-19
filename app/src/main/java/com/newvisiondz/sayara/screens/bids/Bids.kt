@@ -1,12 +1,13 @@
 package com.newvisiondz.sayara.screens.bids
 
+import android.Manifest
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.karumi.dexter.listener.single.BasePermissionListener
+import com.karumi.dexter.listener.single.PermissionListener
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.DataEntryDialogBinding
 import com.newvisiondz.sayara.databinding.FragmentBidsBinding
@@ -28,6 +38,7 @@ import com.newvisiondz.sayara.utils.displaySnackBar
 import kotlinx.android.synthetic.main.camera_gallery.view.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_bids.*
+import java.security.Permission
 
 
 class Bids : Fragment() {
@@ -40,6 +51,7 @@ class Bids : Fragment() {
     private var imageSourceChoice = 0
     private var tmpUris = mutableListOf<Uri>()
     private var currentBrandId: String = ""
+    private var currentModel: String = ""
 
     private val brands = mutableListOf<CarInfo>()
     private val models = mutableListOf<CarInfo>()
@@ -57,7 +69,7 @@ class Bids : Fragment() {
         binding.lifecycleOwner = this
 
         binding.bidsList.adapter = BidsAdapter(BidsAdapter.Listener {
-            Toast.makeText(context, it.carBrand, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, it.carBrandId, Toast.LENGTH_SHORT).show()
         })
 
         viewModel.insertIsDone.observe(this, Observer {
@@ -100,28 +112,39 @@ class Bids : Fragment() {
             bindingDialog.root.brand_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     currentBrandId = brands[position].id
-                    Log.i("BIds",currentBrandId)
+                    viewModel.newItem.carBrandId = currentBrandId
                     viewModel.getModelsList(currentBrandId)
+                    versions.clear()
+                    (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    currentBrandId = brands[0].id
-                    Log.i("BIds",currentBrandId)
-                    viewModel.getModelsList(currentBrandId)
+                    if (brands.size > 0) {
+                        currentBrandId = brands[0].id
+                        viewModel.getModelsList(currentBrandId)
+                    }
+
                 }
             }
             bindingDialog.modelSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.getVersionList(currentBrandId, models[position].id)
-                    Log.i("BIds models",models[position].id)
-
+                    currentModel = models[position].id
+                    viewModel.getVersionList(currentBrandId, currentModel)
+                    viewModel.newItem.carModel = models[position].id
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    viewModel.getVersionList(currentBrandId, models[0].id)
-                    Log.i("BIds models",models[0].id)
-
+                    if (models.size > 0) {
+                        viewModel.getVersionList(currentBrandId, models[0].id)
+                    }
                 }
+            }
+            bindingDialog.versionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    viewModel.newItem.version = versions[position].id
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
             val dialog = mBuilder.create()
             dialog.setCanceledOnTouchOutside(true)
@@ -132,6 +155,7 @@ class Bids : Fragment() {
                 openImageSoureDialog()
             }
             bindingDialog.btnOk.setOnClickListener {
+
                 if (imageSourceChoice == 1) viewModel.newItem.uris = tmpUris
                 else if (imageSourceChoice == 2) viewModel.newItem.bitmap = bitmapRes
                 viewModel.addItemToList()
@@ -181,8 +205,25 @@ class Bids : Fragment() {
     }
 
     private fun takePhoto() {
-        val imgIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(imgIntent, TAKE_PHOTO)
+        Dexter.withActivity(context as Activity)
+            .withPermission(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            .withListener(object : BasePermissionListener() {
+                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+                    val values = ContentValues()
+                    values.put(MediaStore.Images.Media.TITLE, "New Picture")
+                    values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera")
+                    val imageUri = context?.contentResolver?.insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values
+                    )
+                    val imgIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    imgIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+                    startActivityForResult(imgIntent, TAKE_PHOTO)
+                }
+            }
+            ).check()
+
     }
 
     private fun openGallery() {

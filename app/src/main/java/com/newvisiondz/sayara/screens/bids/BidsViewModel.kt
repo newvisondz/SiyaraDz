@@ -3,23 +3,27 @@ package com.newvisiondz.sayara.screens.bids
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.*
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
-import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.database.getDatabase
 import com.newvisiondz.sayara.model.CarInfo
-import com.newvisiondz.sayara.model.Model
 import com.newvisiondz.sayara.model.UsedCar
-import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.services.RetrofitClient
+import com.newvisiondz.sayara.utils.convertBitmapToFile
 import com.newvisiondz.sayara.utils.getUserToken
 import com.newvisiondz.sayara.utils.listFormatter
 import kotlinx.coroutines.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class BidsViewModelFactory(private var app: Application) :
     ViewModelProvider.Factory {
@@ -33,6 +37,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     private var token: String = ""
     private val userInfo: SharedPreferences =
         application.applicationContext.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
+    val context = application.applicationContext
     private val _bidsList = MutableLiveData<MutableList<UsedCar>>()
     val bidsList: LiveData<MutableList<UsedCar>>
         get() = _bidsList
@@ -54,13 +59,8 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     var newItem = UsedCar()
 
     val newCarMiles = MutableLiveData<Double>()
-    val newCarBrand = MutableLiveData<Int>()
-    val newCarVersion = MutableLiveData<Int>()
     val newCarPrice = MutableLiveData<Double>()
-    val newCarModel = MutableLiveData<Int>()
     val newCarDate = MutableLiveData<String>()
-    private var tmpGearBox = arrayOf<String>()
-    private var tmpCarBrand = arrayOf<String>()
     private var tmpDataList = mutableListOf<UsedCar>()
 
 
@@ -70,44 +70,68 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         token = getUserToken(userInfo)!!
-        //todo optimize this code
         insertIsDone.value = null
         getAllBids()
-        tmpGearBox = application.resources.getStringArray(R.array.gearboxtypes)
-        tmpCarBrand = application.resources.getStringArray(R.array.cars_brands)
-        //---------------------get spinners data :D
-
         getBrandsList()
     }
 
     private fun getAllBids() {
         //todo get stuff from server when ready
-        tmpDataList.add(UsedCar("", "Automatique", 1283.2, "Mercedes", 1220.9, "2018-5-12", "#fff"))
-        tmpDataList.add(UsedCar("", "Manuelle", 1283.2, "Volvo", 1230.9, "2014-5-12", "#020"))
-        tmpDataList.add(UsedCar("", "Automatique", 1283.2, "Renault", 1240.9, "2012-5-12", "#fc3"))
-        tmpDataList.add(UsedCar("", "Manuelle", 1283.2, "Honda", 1250.9, "2016-5-12", "#000"))
+        tmpDataList.add(
+            UsedCar(
+                "",
+                123.4,
+                "asne",
+                2731.3,
+                "2017-12-12",
+                "#fc3",
+                carModel = "haosid",
+                version = "asdhadas"
+            )
+        )
+        tmpDataList.add(
+            UsedCar(
+                "",
+                123423.4,
+                "asne",
+                2731.3,
+                "2017-12-12",
+                "#fc3",
+                carModel = "haosid",
+                version = "asdhadas"
+            )
+        )
+        tmpDataList.add(
+            UsedCar(
+                "",
+                7342.4,
+                "asne",
+                2731.3,
+                "2017-12-12",
+                "#fc3",
+                carModel = "haosid",
+                version = "asdhadas"
+            )
+        )
         _bidsList.value = tmpDataList
     }
 
     fun addItemToList() {
-//        newItem.gearBoxType = tmpGearBox[newCarGearBox.value!!]
+
         newItem.currrentMiles = newCarMiles.value!!
-        newItem.carBrand = tmpCarBrand[newCarBrand.value!!]
         newItem.price = newCarPrice.value!!
         newItem.yearOfRegistration = newCarDate.value!!
-//        newItem.adresse = newCarAdress.value!!
-//        newItem.carModel = newCarModel.value!!    this has to be getting an item from the array
         tmpDataList.add(newItem)
         _bidsList.value = tmpDataList
-        addToDataBase(newItem)
-        resetLiveDate()
+        createUsedCarinServer(newItem, context)
+//        addToDataBase(newItem)
+//        resetLiveDate()
         newItem = UsedCar()
         insertIsDone.value = true
     }
 
     private fun resetLiveDate() {
         newCarMiles.value = null
-        newCarBrand.value = null
         newCarPrice.value = null
         newCarDate.value = null
     }
@@ -147,7 +171,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
                 override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                     if (response.isSuccessful) {
                         val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
-                        _modelList.value= listFormatter(response.body()!!, listType, "models")
+                        _modelList.value = listFormatter(response.body()!!, listType, "models")
                     }
                 }
 
@@ -172,5 +196,42 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun createUsedCarinServer(newItem: UsedCar, context: Context) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("manufacturer", newItem.carBrandId)
+        jsonObject.addProperty("model", newItem.carModel)
+        jsonObject.addProperty("version", newItem.version)
+        jsonObject.addProperty("registrationDate", newItem.yearOfRegistration)
+        jsonObject.addProperty("currrentMiles", newItem.currrentMiles)
+        jsonObject.addProperty("minPrice", newItem.price)
+        jsonObject.addProperty("color", newItem.color)
+
+        val file = convertBitmapToFile(context, newItem.bitmap!!)
+
+        val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
+        val part = MultipartBody.Part.createFormData("images", file.name, requestFile)
+
+        call.createUsedCar(
+            token,
+            part,
+            newItem.carBrandId,
+            newItem.carModel,
+            newItem.version,
+            newItem.yearOfRegistration,
+            newItem.currrentMiles,
+            newItem.price,
+            newItem.color
+        ).enqueue(object : Callback<UsedCar> {
+            override fun onFailure(call: Call<UsedCar>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<UsedCar>, response: Response<UsedCar>) {
+                if (response.isSuccessful) {
+                    Log.i("response", response.body()?.color)
+                }
+            }
+        })
+    }
 
 }

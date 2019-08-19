@@ -12,12 +12,10 @@ import com.google.gson.annotations.SerializedName
 data class UsedCar(
     @PrimaryKey
     var id: String = "",
-    @Expose(serialize = false, deserialize = false)
-    var gearBoxType: String = "",
     @SerializedName("currrentMiles")
     var currrentMiles: Double = 0.0,
     @SerializedName("manufacturer")
-    var carBrand: String = "",
+    var carBrandId: String = "",
     @SerializedName("minPrice")
     var price: Double = 0.0,
     @SerializedName("registrationDate")
@@ -26,7 +24,6 @@ data class UsedCar(
     @Expose(serialize = false, deserialize = false)
     @Ignore
     var uris: MutableList<Uri> = mutableListOf(),
-    var adresse: String = "",
     @Ignore
     var images: List<String> = listOf("https://drop.ndtv.com/albums/AUTO/2019-bmw-x7-suv/30.jpg"),
     @SerializedName("model")

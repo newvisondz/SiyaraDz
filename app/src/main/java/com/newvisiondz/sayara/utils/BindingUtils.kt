@@ -59,17 +59,9 @@ fun TextView.setBidPrice(usedCar: UsedCar?) {
 @BindingAdapter("setBidBrand")
 fun TextView.setBidBrand(usedCar: UsedCar?) {
     usedCar?.let {
-        text = usedCar.carBrand
+        text = usedCar.carBrandId
     }
 }
-
-@BindingAdapter("setEngineGear")
-fun TextView.setEngineGear(usedCar: UsedCar?) {
-    usedCar?.let {
-        text = usedCar.gearBoxType
-    }
-}
-
 
     //@BindingAdapter("setBidAdresse")
     //fun TextView.setBidddresse(usedCar: UsedCar?) {
