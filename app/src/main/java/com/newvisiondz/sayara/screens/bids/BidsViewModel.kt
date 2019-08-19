@@ -222,9 +222,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
             newItem.price,
             newItem.color
         ).enqueue(object : Callback<UsedCar> {
-            override fun onFailure(call: Call<UsedCar>, t: Throwable) {
-
-            }
+            override fun onFailure(call: Call<UsedCar>, t: Throwable) {}
 
             override fun onResponse(call: Call<UsedCar>, response: Response<UsedCar>) {
                 if (response.isSuccessful) {

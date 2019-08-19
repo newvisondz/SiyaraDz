@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -38,7 +40,11 @@ import com.newvisiondz.sayara.utils.displaySnackBar
 import kotlinx.android.synthetic.main.camera_gallery.view.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_bids.*
+import java.io.File
+import java.io.IOException
 import java.security.Permission
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class Bids : Fragment() {
@@ -47,11 +53,13 @@ class Bids : Fragment() {
         const val OPEN_GALLERY = 321
     }
 
+    private var mCurrentPhotoPath: String? = ""
     private lateinit var bitmapRes: Bitmap
     private var imageSourceChoice = 0
     private var tmpUris = mutableListOf<Uri>()
     private var currentBrandId: String = ""
     private var currentModel: String = ""
+    private lateinit var photoURI: Uri
 
     private val brands = mutableListOf<CarInfo>()
     private val models = mutableListOf<CarInfo>()
@@ -211,15 +219,16 @@ class Bids : Fragment() {
             )
             .withListener(object : BasePermissionListener() {
                 override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-                    val values = ContentValues()
-                    values.put(MediaStore.Images.Media.TITLE, "New Picture")
-                    values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera")
-                    val imageUri = context?.contentResolver?.insert(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values
-                    )
-                    val imgIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    imgIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-                    startActivityForResult(imgIntent, TAKE_PHOTO)
+//                    val values = ContentValues()
+//                    values.put(MediaStore.Images.Media.TITLE, "New Picture")
+//                    values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera")
+//                    val imageUri = context?.contentResolver?.insert(
+//                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values
+//                    )
+//                    val imgIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                    imgIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+//                    startActivityForResult(imgIntent, TAKE_PHOTO)
+                    dispatchTakePictureIntent()
                 }
             }
             ).check()
@@ -266,7 +275,50 @@ class Bids : Fragment() {
             }
         } else if ((requestCode == TAKE_PHOTO) && (resultCode == Activity.RESULT_OK)) {
             imageSourceChoice = 2
-            bitmapRes = data?.extras?.get("data") as Bitmap
+//            bitmapRes = data?.extras?.get("data") as Bitmap
+            bitmapRes = MediaStore.Images.Media.getBitmap(context?.contentResolver, photoURI)
+        }
+    }
+
+    @Throws(IOException::class)
+    fun createImageFile(): File {
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val imageFileName: String = "JPEG_" + timeStamp + "_"
+        val storageDir: File = context!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
+
+        val image = File.createTempFile(
+            imageFileName,  /* prefix */
+            ".jpg",         /* suffix */
+            storageDir      /* directory */
+        )
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.absolutePath
+        return image
+    }
+
+
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            // Ensure that there's a camera activity to handle the intent
+            takePictureIntent.resolveActivity(context!!.packageManager)?.also {
+                // Create the File where the photo should go
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+
+                    null
+                }
+                // Continue only if the File was successfully created
+                photoFile?.also {
+                    photoURI = FileProvider.getUriForFile(
+                        context!!,
+                        "com.example.android.fileprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, TAKE_PHOTO)
+                }
+            }
         }
     }
 }
