@@ -206,14 +206,17 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         jsonObject.addProperty("minPrice", newItem.price)
         jsonObject.addProperty("color", newItem.color)
 
-        val file = convertBitmapToFile(context, newItem.bitmap!!)
+        val partList = mutableListOf<MultipartBody.Part>()
 
-        val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
-        val part = MultipartBody.Part.createFormData("images", file.name, requestFile)
+        newItem.uris.forEach {
+            val tmpFile = convertBitmapToFile(context, it)
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), tmpFile)
+            partList.add(MultipartBody.Part.createFormData("images", tmpFile.name, requestFile))
+        }
 
         call.createUsedCar(
             token,
-            part,
+            partList,
             newItem.carBrandId,
             newItem.carModel,
             newItem.version,

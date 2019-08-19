@@ -35,7 +35,6 @@ fun loadImageUrl(imgView: ImageView, usedCar: UsedCar?) {
 fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?){
     usedCar?.let {
         when {
-            usedCar.bitmap != null -> imgView.setImageBitmap(usedCar.bitmap)
             usedCar.uris.isNotEmpty() -> imgView.setImageURI(usedCar.uris[0])
             else -> Glide.with(imgView.context)
                 .load(usedCar.images[0])

@@ -1,6 +1,5 @@
 package com.newvisiondz.sayara.model
 
-import android.graphics.Bitmap
 import android.net.Uri
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -30,8 +29,4 @@ data class UsedCar(
     var carModel: String = "",
     var version: String = "",
     var owner: String = ""
-) {
-    @Expose(serialize = false, deserialize = false)
-    @Ignore
-    var bitmap: Bitmap? = null
-}
+)

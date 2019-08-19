@@ -102,7 +102,7 @@ interface ServerDataApi {
     @POST("used-cars")
     fun createUsedCar(
         @Header("Authorization") token: String,
-        @Part images: MultipartBody.Part,
+        @Part images: List<MultipartBody.Part>,
         @Part("manufacturer") manufacturer: String,
         @Part("model") model: String,
         @Part("version") version: String,

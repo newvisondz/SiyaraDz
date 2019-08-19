@@ -53,9 +53,6 @@ class Bids : Fragment() {
         const val OPEN_GALLERY = 321
     }
 
-    private var mCurrentPhotoPath: String? = ""
-    private lateinit var bitmapRes: Bitmap
-    private var imageSourceChoice = 0
     private var tmpUris = mutableListOf<Uri>()
     private var currentBrandId: String = ""
     private var currentModel: String = ""
@@ -164,11 +161,10 @@ class Bids : Fragment() {
             }
             bindingDialog.btnOk.setOnClickListener {
 
-                if (imageSourceChoice == 1) viewModel.newItem.uris = tmpUris
-                else if (imageSourceChoice == 2) viewModel.newItem.bitmap = bitmapRes
+                viewModel.newItem.uris = tmpUris
+
                 viewModel.addItemToList()
                 dialog.dismiss()
-                imageSourceChoice = 0
             }
 
             bindingDialog.btnCancel.setOnClickListener {
@@ -212,29 +208,6 @@ class Bids : Fragment() {
             .show()
     }
 
-    private fun takePhoto() {
-        Dexter.withActivity(context as Activity)
-            .withPermission(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
-            .withListener(object : BasePermissionListener() {
-                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-//                    val values = ContentValues()
-//                    values.put(MediaStore.Images.Media.TITLE, "New Picture")
-//                    values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera")
-//                    val imageUri = context?.contentResolver?.insert(
-//                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values
-//                    )
-//                    val imgIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//                    imgIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-//                    startActivityForResult(imgIntent, TAKE_PHOTO)
-                    dispatchTakePictureIntent()
-                }
-            }
-            ).check()
-
-    }
-
     private fun openGallery() {
         val intent = Intent()
             .setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
@@ -252,7 +225,7 @@ class Bids : Fragment() {
         builder.create().setCanceledOnTouchOutside(true)
         val dialog = builder.show()
         mView.cameraButton.setOnClickListener {
-            takePhoto()
+            dispatchTakePictureIntent()
             dialog.dismiss()
         }
         mView.galleryButton.setOnClickListener {
@@ -264,7 +237,6 @@ class Bids : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if ((requestCode == OPEN_GALLERY) && (resultCode == Activity.RESULT_OK)) {
-            imageSourceChoice = 1
             if (data!!.data != null) {
                 tmpUris.add(data.data!!)
             } else if (data.clipData != null) {
@@ -274,9 +246,8 @@ class Bids : Fragment() {
                 }
             }
         } else if ((requestCode == TAKE_PHOTO) && (resultCode == Activity.RESULT_OK)) {
-            imageSourceChoice = 2
-//            bitmapRes = data?.extras?.get("data") as Bitmap
-            bitmapRes = MediaStore.Images.Media.getBitmap(context?.contentResolver, photoURI)
+//            bitmapRes = MediaStore.Images.Media.getBitmap(context?.contentResolver, photoURI)
+            tmpUris.add(photoURI)
         }
     }
 
@@ -291,34 +262,40 @@ class Bids : Fragment() {
             ".jpg",         /* suffix */
             storageDir      /* directory */
         )
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.absolutePath
         return image
     }
 
 
     private fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            // Ensure that there's a camera activity to handle the intent
-            takePictureIntent.resolveActivity(context!!.packageManager)?.also {
-                // Create the File where the photo should go
-                val photoFile: File? = try {
-                    createImageFile()
-                } catch (ex: IOException) {
-
-                    null
-                }
-                // Continue only if the File was successfully created
-                photoFile?.also {
-                    photoURI = FileProvider.getUriForFile(
-                        context!!,
-                        "com.example.android.fileprovider",
-                        it
-                    )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, TAKE_PHOTO)
+        Dexter.withActivity(context as Activity)
+            .withPermission(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            .withListener(object : BasePermissionListener() {
+                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+                    Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                        // Ensure that there's a camera activity to handle the intent
+                        takePictureIntent.resolveActivity(context!!.packageManager)?.also {
+                            // Create the File where the photo should go
+                            val photoFile: File? = try {
+                                createImageFile()
+                            } catch (ex: IOException) {
+                                null
+                            }
+                            // Continue only if the File was successfully created
+                            photoFile?.also {
+                                photoURI = FileProvider.getUriForFile(
+                                    context!!,
+                                    "com.example.android.fileprovider",
+                                    it
+                                )
+                                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                                startActivityForResult(takePictureIntent, TAKE_PHOTO)
+                            }
+                        }
+                    }
                 }
             }
-        }
+            ).check()
     }
 }
