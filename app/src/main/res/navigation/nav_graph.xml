@@ -30,8 +30,8 @@
                 app:destination="@id/profileForm" app:enterAnim="@anim/fade_in" app:exitAnim="@anim/fade_out"
                 app:popExitAnim="@anim/fade_out"/>
         <action
-            android:id="@+id/action_tabs_to_myBids"
-            app:destination="@id/myBids" />
+            android:id="@+id/action_tabs_to_used_cars"
+            app:destination="@id/UsedCars" />
         <action
             android:id="@+id/action_tabs_to_myVersions"
             app:destination="@id/myVersions" />
@@ -116,10 +116,10 @@
         <action android:id="@+id/action_profileForm_to_tabs" app:destination="@id/tabs" app:enterAnim="@anim/fade_out"/>
     </fragment>
     <fragment
-        android:id="@+id/myBids"
-        android:name="com.newvisiondz.sayara.screens.fragments.MyBids"
+        android:id="@+id/UsedCars"
+        android:name="com.newvisiondz.sayara.screens.myusedcars.UsedCars"
         android:label="fragment_my_bids"
-        tools:layout="@layout/fragment_my_bids" >
+        tools:layout="@layout/fragment_used_cars" >
         <action
             android:id="@+id/action_myBids_to_bidView"
             app:destination="@id/bidView" />

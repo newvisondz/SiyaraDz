@@ -18,7 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class Brands : Fragment() {
 
     companion object {
-        val TAG: String = "FireBaseNotif"
+
+        const val TAG: String = "FireBaseNotif"
     }
     private var mViewModel: BrandsViewModel? = null
     private var brands = mutableListOf<Brand>()

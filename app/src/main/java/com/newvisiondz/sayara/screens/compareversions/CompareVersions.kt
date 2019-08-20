@@ -18,7 +18,7 @@ import com.newvisiondz.sayara.utils.optionsMapping
 
 class CompareVersions : Fragment() {
     private val versions = mutableListOf<Version>()
-    var compareList = mutableListOf<VersionCompare>()
+    private var compareList = mutableListOf<VersionCompare>()
     private lateinit var v1: Version
     private lateinit var v2: Version
     override fun onCreateView(

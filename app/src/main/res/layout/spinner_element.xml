@@ -3,7 +3,7 @@
           android:layout_width="match_parent"
           style="@style/LargeDark"
           tools:text="Nice"
-          android:padding="8dp"
+          android:padding="4dp"
           android:textAlignment="center"
           android:layout_height="wrap_content" android:id="@+id/spinner_item">
 

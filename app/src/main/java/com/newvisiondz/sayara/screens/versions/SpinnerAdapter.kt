@@ -26,7 +26,7 @@ class SpinnerAdapter(context: Context, resource: Int, var list: MutableList<Vers
     }
 
     private fun initView(position: Int, parent: ViewGroup): View {
-        val customView = LayoutInflater.from(this.context).inflate(R.layout.spinner_element, parent, false)
+        val customView = LayoutInflater.from(parent.context).inflate(R.layout.spinner_element, parent, false)
         val versionName = customView.spinner_item
         versionName.text = list[position].name
         return customView

@@ -9,8 +9,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-
+            <Spinner
+                    android:id="@+id/model_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:padding="16dp"
+                    style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
+                    android:text="Choisir Une marque"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/version_spinner"
+                    app:layout_constraintTop_toBottomOf="@+id/brand_spinner_label"
+                    app:layout_constraintBottom_toTopOf="@+id/current_miles_label"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:textColor="#212121"
@@ -18,36 +28,19 @@
                     android:text="Poster une annonce"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1" android:id="@+id/textView18"
                     android:fontFamily="@font/montserrat"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
             <Spinner
                     android:id="@+id/brand_spinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
-                    android:padding="16dp"
-                    android:selectedItemPosition="@={viewModel.newCarBrand}"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
-                    android:text="Choisir Une marque"
-                    android:entries="@array/cars_brands"
-                    app:layout_constraintTop_toBottomOf="@+id/brand_spinner_label"
-                    app:layout_constraintBottom_toTopOf="@+id/price_label"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toStartOf="@+id/car_model"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"/>
-            <Spinner
-                    android:id="@+id/gear_box_option"
-                    android:layout_width="0dp"
-                    android:selectedItemPosition="@={viewModel.newCarGearBox}"
-                    android:layout_height="wrap_content"
-                    style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
-                    app:layout_constraintTop_toBottomOf="@+id/gear_box_label"
-                    app:layout_constraintBottom_toTopOf="@+id/current_miles_label"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                    android:entries="@array/gearboxtypes"
-            />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintTop_toBottomOf="@+id/brand_label"
+                    app:layout_constraintBottom_toTopOf="@+id/brand_spinner_label"/>
             <Button
                     android:id="@+id/color"
                     android:layout_width="0dp"
@@ -56,10 +49,10 @@
                     android:layout_height="wrap_content"
                     style="@style/btn_colors"
                     android:text="Color"
-                    app:layout_constraintTop_toBottomOf="@+id/color_label"
-                    app:layout_constraintBottom_toTopOf="@+id/btnCancel" android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp" app:layout_constraintTop_toBottomOf="@+id/color_label"
+                    app:layout_constraintHorizontal_bias="0.5" app:layout_constraintBottom_toTopOf="@+id/btnCancel"/>
             <EditText
                     android:id="@+id/current_miles"
                     android:textSize="20sp"
@@ -70,10 +63,9 @@
                     android:inputType="numberDecimal"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
                     app:layout_constraintTop_toBottomOf="@+id/current_miles_label"
-                    app:layout_constraintBottom_toTopOf="@+id/brand_spinner_label"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp" android:layout_marginStart="8dp"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintBottom_toTopOf="@+id/price_label" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"/>
             <EditText
                     android:id="@+id/price"
                     android:layout_width="0dp"
@@ -84,9 +76,9 @@
                     android:inputType="numberDecimal"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
                     app:layout_constraintTop_toBottomOf="@+id/price_label"
-                    app:layout_constraintBottom_toTopOf="@+id/car_date_label" android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintBottom_toTopOf="@+id/car_date_label" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
 
 
             <Button
@@ -96,10 +88,10 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:text="Cancel"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0" app:layout_constraintEnd_toStartOf="@+id/btnImg"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/btnImg"/>
+                    app:layout_constraintBaseline_toBaselineOf="@+id/btnImg"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintEnd_toStartOf="@+id/btnImg"
+                    app:layout_constraintHorizontal_chainStyle="packed"/>
 
             <Button
                     android:textSize="16sp"
@@ -108,9 +100,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Upload Images"
-                    app:layout_constraintStart_toEndOf="@+id/btnCancel" app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toStartOf="@+id/btnOk"
-                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintStart_toEndOf="@+id/btnCancel"
+                    app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/btnOk"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/color"/>
 
             <Button
                     android:textSize="16sp"
@@ -119,19 +111,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Save"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/btnImg"
                     app:layout_constraintStart_toEndOf="@+id/btnImg" app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBaseline_toBaselineOf="@+id/btnImg"/>
+                    app:layout_constraintEnd_toEndOf="parent"/>
             <TextView
-                    android:text="Boite de vitesse"
-                    android:labelFor="@id/gear_box_option"
+                    android:text="Marque"
+                    android:labelFor="@id/model_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/MediumLight"
-                    android:id="@+id/gear_box_label"
+                    android:id="@+id/brand_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/textView18"
-                    app:layout_constraintBottom_toTopOf="@+id/gear_box_option"
-                    app:layout_constraintVertical_chainStyle="packed" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp"/>
+                    app:layout_constraintBottom_toTopOf="@+id/brand_spinner"/>
             <TextView
                     android:text="Distance parcouru par l'automobile"
                     android:layout_width="wrap_content"
@@ -139,23 +132,21 @@
                     android:labelFor="@id/current_miles"
                     android:layout_height="wrap_content"
                     android:id="@+id/current_miles_label"
-                    app:layout_constraintTop_toBottomOf="@+id/gear_box_option"
+                    app:layout_constraintTop_toBottomOf="@+id/model_spinner"
                     app:layout_constraintBottom_toTopOf="@+id/current_miles"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp"/>
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
             <TextView
-                    android:text="La marque de votre automobile et le model"
-                    android:layout_width="0dp"
+                    android:text="Model"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/brand_spinner_label"
                     android:textAlignment="textStart"
                     style="@style/MediumLight"
-                    android:labelFor="@id/brand_spinner"
-                    app:layout_constraintTop_toBottomOf="@+id/current_miles"
-                    app:layout_constraintBottom_toTopOf="@+id/brand_spinner"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0" android:layout_marginEnd="8dp"/>
+                    android:labelFor="@id/model_spinner"
+                    app:layout_constraintTop_toBottomOf="@+id/brand_spinner"
+                    app:layout_constraintBottom_toTopOf="@+id/model_spinner"
+                    app:layout_constraintEnd_toEndOf="@+id/model_spinner"
+                    app:layout_constraintStart_toStartOf="@+id/model_spinner"/>
             <TextView
                     android:text="Prix initial"
                     android:labelFor="@id/price"
@@ -163,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/price_label"
-                    app:layout_constraintTop_toBottomOf="@+id/brand_spinner"
+                    app:layout_constraintTop_toBottomOf="@+id/current_miles"
                     app:layout_constraintBottom_toTopOf="@+id/price" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp"/>
             <TextView
@@ -181,11 +172,10 @@
                     android:layout_width="wrap_content"
                     style="@style/MediumLight"
                     android:layout_height="wrap_content"
-                    android:id="@+id/car_date_label" app:layout_constraintTop_toBottomOf="@+id/price"
-                    app:layout_constraintBottom_toTopOf="@+id/car_date"
-                    app:layout_constraintStart_toStartOf="@+id/car_date"
-                    app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintEnd_toEndOf="@+id/car_date"/>
+                    android:id="@+id/car_date_label"
+                    app:layout_constraintTop_toBottomOf="@+id/price"
+                    app:layout_constraintBottom_toTopOf="@+id/car_date" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
             <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -193,48 +183,31 @@
                     android:textSize="20sp"
                     android:id="@+id/car_date"
                     android:text="@={viewModel.newCarDate}"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                     android:hint="ex:2014-02-1"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
                     app:layout_constraintTop_toBottomOf="@+id/car_date_label"
-                    app:layout_constraintBottom_toTopOf="@+id/color_label"
-                    app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/car_adr"/>
-            <EditText
+                    app:layout_constraintBottom_toTopOf="@+id/color_label" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"/>
+            <Spinner
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:hint="Model"
-                    android:text="@={viewModel.newCarModel}"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
                     android:ems="10"
-                    android:id="@+id/car_model" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp" app:layout_constraintStart_toEndOf="@+id/brand_spinner"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    android:layout_marginTop="8dp"
+                    android:id="@+id/version_spinner"
+                    app:layout_constraintStart_toEndOf="@+id/model_spinner" app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/brand_spinner_label" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/price_label"/>
+                    app:layout_constraintBottom_toTopOf="@+id/current_miles_label"/>
             <TextView
-                    android:text="Adresse"
-                    style="@style/MediumLight"
+                    android:text="Version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/car_adr_label" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/price"
-                    app:layout_constraintEnd_toEndOf="@+id/car_adr"
-                    app:layout_constraintStart_toStartOf="@+id/car_adr"/>
-            <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:inputType="textPersonName"
-                    android:hint="Addresse"
-                    android:ems="10"
-                    android:text="@={viewModel.newCarAdress}"
-                    style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
-                    android:id="@+id/car_adr" app:layout_constraintStart_toEndOf="@+id/car_date"
-                    app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/car_adr_label"
-                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/color_label"/>
+                    android:id="@+id/version_label" style="@style/MediumLight"
+                    app:layout_constraintStart_toStartOf="@+id/version_spinner"
+                    app:layout_constraintEnd_toEndOf="@+id/version_spinner" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/brand_spinner"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

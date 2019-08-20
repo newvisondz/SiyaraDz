@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.model.Bid
+import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.model.Color
 import com.newvisiondz.sayara.model.Value
 import com.newvisiondz.sayara.model.VersionCompare
@@ -18,10 +18,10 @@ import com.newvisiondz.sayara.screens.bids.BidsAdapter
 
 
 @BindingAdapter("loadImageUrl")
-fun loadImageUrl(imgView: ImageView, bid: Bid?) {
-    bid?.let {
+fun loadImageUrl(imgView: ImageView, usedCar: UsedCar?) {
+    usedCar?.let {
         Glide.with(imgView.context)
-            .load(bid.image)
+            .load(usedCar.images[0])
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
@@ -32,13 +32,12 @@ fun loadImageUrl(imgView: ImageView, bid: Bid?) {
     }
 }
 @BindingAdapter("loadLocalImage")
-fun loadLocalImage(imgView: ImageView, bid: Bid?){
-    bid?.let {
+fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?){
+    usedCar?.let {
         when {
-            bid.bitmap != null -> imgView.setImageBitmap(bid.bitmap)
-            bid.uris.isNotEmpty() -> imgView.setImageURI(bid.uris[0])
+            usedCar.uris.isNotEmpty() -> imgView.setImageURI(usedCar.uris[0])
             else -> Glide.with(imgView.context)
-                .load(bid.image)
+                .load(usedCar.images[0])
                 .apply(
                     RequestOptions()
                         .placeholder(R.drawable.loading_animation)
@@ -50,33 +49,25 @@ fun loadLocalImage(imgView: ImageView, bid: Bid?){
 }
 
 @BindingAdapter("setBidPrice")
-fun TextView.setBidPrice(bid: Bid?) {
-    bid?.let {
-        text = this.context.getString(R.string.bid_price_text, bid.price.toString())
+fun TextView.setBidPrice(usedCar: UsedCar?) {
+    usedCar?.let {
+        text = this.context.getString(R.string.bid_price_text, usedCar.price.toString())
     }
 }
 
 @BindingAdapter("setBidBrand")
-fun TextView.setBidBrand(bid: Bid?) {
-    bid?.let {
-        text = bid.carBrand
+fun TextView.setBidBrand(usedCar: UsedCar?) {
+    usedCar?.let {
+        text = usedCar.carBrandId
     }
 }
 
-@BindingAdapter("setEngineGear")
-fun TextView.setEngineGear(bid: Bid?) {
-    bid?.let {
-        text = bid.gearBoxType
-    }
-}
-
-
-@BindingAdapter("setBidAdresse")
-fun TextView.setBidddresse(bid: Bid?) {
-    bid?.let {
-        text = bid.adresse
-    }
-}
+    //@BindingAdapter("setBidAdresse")
+    //fun TextView.setBidddresse(usedCar: UsedCar?) {
+    //    usedCar?.let {
+    //        text = usedCar.adresse
+    //    }
+    //}
 
 
 @BindingAdapter("setRadioEngineChecked")
@@ -116,10 +107,9 @@ fun RadioButton.setRadioEnginePowerChecked(item: Value?) {
 }
 
 @BindingAdapter("bidsListData")
-fun bidsListData(recyclerView: RecyclerView, data: List<Bid>?) {
+fun bidsListData(recyclerView: RecyclerView, data: List<UsedCar>?) {
     val adapter = recyclerView.adapter as BidsAdapter
     adapter.submitList(data)
-
 }
 
 @BindingAdapter("setCompareVersionText")

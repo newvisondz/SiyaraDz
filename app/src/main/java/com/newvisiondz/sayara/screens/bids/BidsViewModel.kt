@@ -1,10 +1,29 @@
 package com.newvisiondz.sayara.screens.bids
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.*
-import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.model.Bid
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.reflect.TypeToken
+import com.newvisiondz.sayara.database.getDatabase
+import com.newvisiondz.sayara.model.CarInfo
+import com.newvisiondz.sayara.model.UsedCar
+import com.newvisiondz.sayara.services.RetrofitClient
+import com.newvisiondz.sayara.utils.convertBitmapToFile
+import com.newvisiondz.sayara.utils.getUserToken
+import com.newvisiondz.sayara.utils.listFormatter
+import kotlinx.coroutines.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class BidsViewModelFactory(private var app: Application) :
     ViewModelProvider.Factory {
@@ -15,63 +34,205 @@ class BidsViewModelFactory(private var app: Application) :
 }
 
 class BidsViewModel(application: Application) : AndroidViewModel(application) {
-    private val _bidsList = MutableLiveData<MutableList<Bid>>()
-    val bidsList: LiveData<MutableList<Bid>>
+    private var token: String = ""
+    private val userInfo: SharedPreferences =
+        application.applicationContext.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
+    val context = application.applicationContext
+    private val _bidsList = MutableLiveData<MutableList<UsedCar>>()
+    val bidsList: LiveData<MutableList<UsedCar>>
         get() = _bidsList
 
-    val insertIsDone= MutableLiveData<Boolean>()
+    private val _brandList = MutableLiveData<List<CarInfo>>()
+    val brandList: LiveData<List<CarInfo>>
+        get() = _brandList
 
-    var newItem = Bid()
+    private val _modelList = MutableLiveData<List<CarInfo>>()
+    val modelList: LiveData<List<CarInfo>>
+        get() = _modelList
+    private val _versionList = MutableLiveData<List<CarInfo>>()
+    val versionList: LiveData<List<CarInfo>>
+        get() = _versionList
 
-    val newCarGearBox = MutableLiveData<Int>()
+
+    val insertIsDone = MutableLiveData<Boolean>()
+    val call = RetrofitClient(application.applicationContext).serverDataApi
+    var newItem = UsedCar()
+
     val newCarMiles = MutableLiveData<Double>()
-    val newCarBrand = MutableLiveData<Int>()
     val newCarPrice = MutableLiveData<Double>()
-    val newCarModel = MutableLiveData<String>()
-    val newCarAdress = MutableLiveData<String>()//todo don't forget to add the adresse attribute
     val newCarDate = MutableLiveData<String>()
-    var tmpGearBox = arrayOf<String>()
-    var tmpCarBrand = arrayOf<String>()
-    var tmpDataList = mutableListOf<Bid>()
+    private var tmpDataList = mutableListOf<UsedCar>()
+
+
+    private var viewModelJob = Job()
+    private var uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private val dataSource = getDatabase(application.applicationContext).usedCarDao
 
     init {
-        //todo optimize this code
+        token = getUserToken(userInfo)!!
         insertIsDone.value = null
         getAllBids()
-        tmpGearBox = application.resources.getStringArray(R.array.gearboxtypes)
-        tmpCarBrand = application.resources.getStringArray(R.array.cars_brands)
+        getBrandsList()
     }
 
     private fun getAllBids() {
         //todo get stuff from server when ready
-        tmpDataList.add(Bid(0, "Automatique", 1283.2, "Mercedes", 1220.9, "2018-5-12", "#fff", adresse = "Medea"))
-        tmpDataList.add(Bid(0, "Manuelle", 1283.2, "Volvo", 1230.9, "2014-5-12", "#020", adresse = "ALger"))
-        tmpDataList.add(Bid(0, "Automatique", 1283.2, "Renault", 1240.9, "2012-5-12", "#fc3", adresse = "Oran"))
-        tmpDataList.add(Bid(0, "Manuelle", 1283.2, "Honda", 1250.9, "2016-5-12", "#000", adresse = "Blida"))
+        tmpDataList.add(
+            UsedCar(
+                "",
+                123.4,
+                "asne",
+                2731.3,
+                "2017-12-12",
+                "#fc3",
+                carModel = "haosid",
+                version = "asdhadas"
+            )
+        )
+        tmpDataList.add(
+            UsedCar(
+                "",
+                123423.4,
+                "asne",
+                2731.3,
+                "2017-12-12",
+                "#fc3",
+                carModel = "haosid",
+                version = "asdhadas"
+            )
+        )
+        tmpDataList.add(
+            UsedCar(
+                "",
+                7342.4,
+                "asne",
+                2731.3,
+                "2017-12-12",
+                "#fc3",
+                carModel = "haosid",
+                version = "asdhadas"
+            )
+        )
         _bidsList.value = tmpDataList
     }
 
     fun addItemToList() {
-        newItem.gearBoxType = tmpGearBox[newCarGearBox.value!!]
+
         newItem.currrentMiles = newCarMiles.value!!
-        newItem.carBrand = tmpCarBrand[newCarBrand.value!!]
         newItem.price = newCarPrice.value!!
         newItem.yearOfRegistration = newCarDate.value!!
-        newItem.adresse=newCarAdress.value!!
-        newItem.carModel=newCarModel.value!!
         tmpDataList.add(newItem)
         _bidsList.value = tmpDataList
-        resetLiveDate()
-        newItem=Bid()
+        createUsedCarinServer(newItem, context)
+//        addToDataBase(newItem)
+//        resetLiveDate()
+        newItem = UsedCar()
         insertIsDone.value = true
     }
 
     private fun resetLiveDate() {
-        newCarGearBox.value = null
         newCarMiles.value = null
-        newCarBrand.value = null
         newCarPrice.value = null
         newCarDate.value = null
+    }
+
+    private fun addToDataBase(car: UsedCar) {
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                dataSource.insertAll(car)
+            }
+        }
+    }
+
+
+    private fun getBrandsList() {
+        token.let {
+            call.getAdditionalInfo(it, "brand").enqueue(object : Callback<JsonElement> {
+                override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                }
+
+                override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                    if (response.isSuccessful) {
+                        val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
+                        _brandList.value = listFormatter(response.body()!!, listType, "manufacturers")
+                    }
+                }
+            })
+        }
+    }
+
+    fun getModelsList(brand: String) {
+        token.let {
+            call.getAllModels(it, brand, "").enqueue(object : Callback<JsonElement> {
+                override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                    if (response.isSuccessful) {
+                        val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
+                        _modelList.value = listFormatter(response.body()!!, listType, "models")
+                    }
+                }
+
+            })
+        }
+    }
+
+    fun getVersionList(brand: String, model: String) {
+        token.let {
+            call.getAllVersion(it, brand, model).enqueue(object : Callback<JsonArray> {
+                override fun onFailure(call: Call<JsonArray>, t: Throwable) {
+                }
+
+                override fun onResponse(call: Call<JsonArray>, response: Response<JsonArray>) {
+                    if (response.isSuccessful) {
+                        val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
+                        _versionList.value = listFormatter(response.body()!!, listType)
+                    }
+                }
+
+            })
+        }
+    }
+
+    fun createUsedCarinServer(newItem: UsedCar, context: Context) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("manufacturer", newItem.carBrandId)
+        jsonObject.addProperty("model", newItem.carModel)
+        jsonObject.addProperty("version", newItem.version)
+        jsonObject.addProperty("registrationDate", newItem.yearOfRegistration)
+        jsonObject.addProperty("currrentMiles", newItem.currrentMiles)
+        jsonObject.addProperty("minPrice", newItem.price)
+        jsonObject.addProperty("color", newItem.color)
+
+        val partList = mutableListOf<MultipartBody.Part>()
+
+        newItem.uris.forEach {
+            val tmpFile = convertBitmapToFile(context, it)
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), tmpFile)
+            partList.add(MultipartBody.Part.createFormData("images", tmpFile.name, requestFile))
+        }
+
+        call.createUsedCar(
+            token,
+            partList,
+            newItem.carBrandId,
+            newItem.carModel,
+            newItem.version,
+            newItem.yearOfRegistration,
+            newItem.currrentMiles,
+            newItem.price,
+            newItem.color
+        ).enqueue(object : Callback<UsedCar> {
+            override fun onFailure(call: Call<UsedCar>, t: Throwable) {}
+
+            override fun onResponse(call: Call<UsedCar>, response: Response<UsedCar>) {
+                if (response.isSuccessful) {
+                    Log.i("response", response.body()?.color)
+                }
+            }
+        })
     }
 
 }

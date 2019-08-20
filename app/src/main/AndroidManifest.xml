@@ -6,8 +6,11 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.camera" android:required="true"/>
 
     <application
+            android:largeHeap="true"
             android:allowBackup="true"
             android:icon="@drawable/newlogo_app"
             android:label="@string/app_name"
@@ -25,6 +28,15 @@
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
                 android:value="@string/default_notification_channel_id"/>
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="com.example.android.fileprovider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths"/>
+        </provider>
         <service
                 android:name=".services.SayaraFirebaseMessagingService"
                 android:enabled="true"

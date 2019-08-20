@@ -3,7 +3,11 @@ package com.newvisiondz.sayara.utils
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.Bitmap.CompressFormat
 import android.net.ConnectivityManager
+import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.TextView
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -16,6 +20,9 @@ import com.newvisiondz.sayara.services.RetrofitClient
 import org.json.JSONObject
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -188,7 +195,7 @@ fun parseStringtoDate(dtStart: String): Date? {
 }
 
 
-fun datePicker(viewText: TextView,context:Context) {
+fun datePicker(viewText: TextView, context: Context) {
     val c = Calendar.getInstance()
     val yearFromCal = c.get(Calendar.YEAR)
     val month = c.get(Calendar.MONTH)
@@ -204,4 +211,19 @@ fun datePicker(viewText: TextView,context:Context) {
     )
 
     dpd.show()
+}
+
+fun convertBitmapToFile(context: Context, photoURI: Uri): File {
+    val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoURI)
+    val file = File(context.cacheDir, "tmpImage")
+    file.createNewFile()
+    val bos = ByteArrayOutputStream()
+    bitmap.compress(CompressFormat.JPEG, 70, bos)
+    val bitmapdata = bos.toByteArray()
+
+    val fos = FileOutputStream(file)
+    fos.write(bitmapdata)
+    fos.flush()
+    fos.close()
+    return file
 }

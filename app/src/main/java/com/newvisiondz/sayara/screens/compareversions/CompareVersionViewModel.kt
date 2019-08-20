@@ -41,7 +41,7 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
         _doneGettingResult.value = null
     }
 
-    fun getAllVersions(manufacturer: String, modelId: String) {
+    private fun getAllVersions(manufacturer: String, modelId: String) {
         val call = RetrofitClient(context).serverDataApi.getAllVersion(
             getUserToken(userInfo!!)!!, manufacturer, modelId
         )
