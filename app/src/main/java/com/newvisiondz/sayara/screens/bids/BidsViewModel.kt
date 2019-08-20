@@ -77,43 +77,18 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getAllBids() {
         //todo get stuff from server when ready
-        tmpDataList.add(
-            UsedCar(
-                "",
-                123.4,
-                "asne",
-                2731.3,
-                "2017-12-12",
-                "#fc3",
-                carModel = "haosid",
-                version = "asdhadas"
-            )
-        )
-        tmpDataList.add(
-            UsedCar(
-                "",
-                123423.4,
-                "asne",
-                2731.3,
-                "2017-12-12",
-                "#fc3",
-                carModel = "haosid",
-                version = "asdhadas"
-            )
-        )
-        tmpDataList.add(
-            UsedCar(
-                "",
-                7342.4,
-                "asne",
-                2731.3,
-                "2017-12-12",
-                "#fc3",
-                carModel = "haosid",
-                version = "asdhadas"
-            )
-        )
-        _bidsList.value = tmpDataList
+        token?.let {
+            call.getAllBids(it).enqueue(object : Callback<List<UsedCar>> {
+                override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<List<UsedCar>>, response: Response<List<UsedCar>>) {
+                    tmpDataList.addAll(response.body()!!)
+                    _bidsList.value = tmpDataList
+                }
+            })
+        }
     }
 
     fun addItemToList() {

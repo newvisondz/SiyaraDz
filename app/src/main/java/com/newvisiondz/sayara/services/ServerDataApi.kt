@@ -98,11 +98,11 @@ interface ServerDataApi {
         @Header("Authorization") token: String
     ): Call<List<UsedCar>>
 
-    @DELETE
+    @DELETE("used-cars/{usedCarId}")
     fun deleteUsedCar(
         @Header("Authorization") token: String,
         @Path("usedCarId") usedCarId: String
-    ): Call<JsonElement>
+    ): Call<JsonObject>
 
     @Multipart
     @POST("used-cars")

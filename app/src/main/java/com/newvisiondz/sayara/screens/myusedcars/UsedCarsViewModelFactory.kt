@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.newvisiondz.sayara.database.getDatabase
 import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.services.RetrofitClient
@@ -33,6 +34,9 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
     private var uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     val usedCarsList = dataSource.getAds()
+    private val _deletedWithSuccess = MutableLiveData<Boolean>()
+    val deletedWithSuccess: LiveData<Boolean>
+        get() = _deletedWithSuccess
 
 
     fun deleteUsedCarAd(carPosition: Int) {
@@ -45,11 +49,16 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
         }
         RetrofitClient(context).serverDataApi.deleteUsedCar(token!!, usedCarsList.value?.get(carPosition)!!.id)
             .enqueue(
-                object : Callback<JsonElement> {
-                    override fun onFailure(call: Call<JsonElement>, t: Throwable) {}
+                object : Callback<JsonObject> {
+                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {}
 
-                    override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
-                        Log.i("responseDel", response.body().toString())
+                    override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                        val res: String = response.body()!!["ok"].asString
+                        if (res == "true") {
+                            _deletedWithSuccess.value = true
+                        } else if (res == "false") {
+                            _deletedWithSuccess.value = false
+                        }
                     }
                 })
     }

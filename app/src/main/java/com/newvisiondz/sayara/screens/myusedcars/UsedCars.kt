@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -47,11 +48,22 @@ class UsedCars : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 if (isOnline(context!!)) {
                     mViewModel.deleteUsedCarAd(viewHolder.adapterPosition)
-                } else Toast.makeText(context, "You'll have to be online to delete permanantly !", Toast.LENGTH_SHORT).show()
+                } else Toast.makeText(
+                    context,
+                    "You'll have to be online to delete this used car permanantly !",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }).attachToRecyclerView(binding.myBidsList)
 
-
+        mViewModel.deletedWithSuccess.observe(this, Observer {
+            if (it == true) {
+                Toast.makeText(context, "Deleted !", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "There was a problem with the server or your internet !", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
         return binding.root
     }
 }

@@ -7,11 +7,6 @@ import retrofit2.http.*
 
 interface AuthentificationApi {
 
-    @GET("auth/facebook/")
-    fun sendKeysFacebook(
-        @Query("access_token") token: String
-    ): Call<Token>
-
     @GET("auth/firebase")
     fun sendKeyFirebase(
         @Query("token") token: String

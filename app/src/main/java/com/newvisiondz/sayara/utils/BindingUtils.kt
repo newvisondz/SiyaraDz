@@ -37,7 +37,7 @@ fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?) {
     usedCar?.let {
         when {
             usedCar.images.isNotEmpty() -> Glide.with(imgView.context)
-                .load(usedCar.images[0])
+                .load("${imgView.context.getString(R.string.baseUrl)}${usedCar.images[0]}")
                 .apply(
                     RequestOptions()
                         .placeholder(R.drawable.loading_animation)

@@ -30,8 +30,9 @@
                 app:destination="@id/profileForm" app:enterAnim="@anim/fade_in" app:exitAnim="@anim/fade_out"
                 app:popExitAnim="@anim/fade_out"/>
         <action
-            android:id="@+id/action_tabs_to_used_cars"
-            app:destination="@id/UsedCars" />
+                android:id="@+id/action_tabs_to_used_cars"
+                app:destination="@id/UsedCars" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/fade_out" app:popExitAnim="@anim/fade_out"/>
         <action
             android:id="@+id/action_tabs_to_myVersions"
             app:destination="@id/myVersions" />
