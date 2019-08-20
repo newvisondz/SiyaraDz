@@ -56,7 +56,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     val insertIsDone = MutableLiveData<Boolean>()
     val call = RetrofitClient(application.applicationContext).serverDataApi
-    var newItem = UsedCar()
+    var newItemServer = UsedCar()
 
     val newCarMiles = MutableLiveData<Double>()
     val newCarPrice = MutableLiveData<Double>()
@@ -118,16 +118,13 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addItemToList() {
 
-        newItem.currrentMiles = newCarMiles.value!!
-        newItem.price = newCarPrice.value!!
-        newItem.yearOfRegistration = newCarDate.value!!
-        tmpDataList.add(newItem)
+        newItemServer.currrentMiles = newCarMiles.value!!
+        newItemServer.price = newCarPrice.value!!
+        newItemServer.yearOfRegistration = newCarDate.value!!
+        tmpDataList.add(newItemServer)
         _bidsList.value = tmpDataList
-        createUsedCarinServer(newItem, context)
-//        addToDataBase(newItem)
-//        resetLiveDate()
-        newItem = UsedCar()
-        insertIsDone.value = true
+        createUsedCarInServer(newItemServer, context)
+
     }
 
     private fun resetLiveDate() {
@@ -196,18 +193,8 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun createUsedCarinServer(newItem: UsedCar, context: Context) {
-        val jsonObject = JsonObject()
-        jsonObject.addProperty("manufacturer", newItem.carBrandId)
-        jsonObject.addProperty("model", newItem.carModel)
-        jsonObject.addProperty("version", newItem.version)
-        jsonObject.addProperty("registrationDate", newItem.yearOfRegistration)
-        jsonObject.addProperty("currrentMiles", newItem.currrentMiles)
-        jsonObject.addProperty("minPrice", newItem.price)
-        jsonObject.addProperty("color", newItem.color)
-
+    private fun createUsedCarInServer(newItem: UsedCar, context: Context) {
         val partList = mutableListOf<MultipartBody.Part>()
-
         newItem.uris.forEach {
             val tmpFile = convertBitmapToFile(context, it)
             val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), tmpFile)
@@ -229,7 +216,16 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
             override fun onResponse(call: Call<UsedCar>, response: Response<UsedCar>) {
                 if (response.isSuccessful) {
-                    Log.i("response", response.body()?.color)
+                    val usedRes = response.body()
+                    newItem.images = usedRes!!.images
+                    newItem.id = usedRes.id
+                    //database insertion
+                    addToDataBase(newItem)
+                    //reset and Ui handling
+                    resetLiveDate()
+                    newItemServer = UsedCar()
+                    insertIsDone.value = true
+
                 }
             }
         })

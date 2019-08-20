@@ -25,6 +25,15 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import androidx.test.orchestrator.junit.BundleJUnitUtils.getResult
+import org.junit.experimental.results.ResultMatchers.isSuccessful
+import com.google.firebase.auth.GetTokenResult
+import androidx.annotation.NonNull
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.newvisiondz.sayara.model.UsedCar
 
 
 @RunWith(AndroidJUnit4::class)
@@ -133,14 +142,19 @@ class InstrumentedTest {
         )
         call.execute()
     }
-//Suzuki ma
+
     @Test
     fun testUsedCarGet() {
-        val call = RetrofitClient(appContext).serverDataApi.getAllBids(
-            "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYjNjNzhmYjc5NTM5MDAxOWY4ZDIzYSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTYwODA0MjY3LCJleHAiOjE1NjkzNTc4Njd9.kAD2_-3xg7hS84BI3J9J0W8uHV2UgDLKtS1abaKSdWg"
-        )
+        var call: Call<List<UsedCar>> =
+            RetrofitClient(appContext).serverDataApi.getAllBids("bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNWE4Nzg0ZmI2NmRlNDAyYmM5N2IzMSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTY2MjQxMjI1LCJleHAiOjE1NzQ3OTQ4MjV9.WhK-rbHO55GaTBcMO1853DIbAthY-4Rt_-uztNMLqsY")
+        val mUser = FirebaseAuth.getInstance().currentUser
+        mUser!!.getIdToken(true).addOnCompleteListener {
+            //            it.result.token
+        }
+
         val body = call.execute().body()
-        assertEquals("5d585583c4e2ff46b880eff2", body!![0].id)
+        //bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNWE4Nzg0ZmI2NmRlNDAyYmM5N2IzMSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTY2MjQxMjI1LCJleHAiOjE1NzQ3OTQ4MjV9.WhK-rbHO55GaTBcMO1853DIbAthY-4Rt_-uztNMLqsY
+//        assertEquals("5d585583c4e2ff46b880eff2", body!![0].id)
     }
 
     @Test
@@ -161,7 +175,7 @@ class InstrumentedTest {
             "Suzuku", ""
         )
         val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
-        val body: MutableList<CarInfo> = listFormatter(call.execute().body()!!, listType,"models")
+        val body: MutableList<CarInfo> = listFormatter(call.execute().body()!!, listType, "models")
         print(body[0].name)
     }
 }

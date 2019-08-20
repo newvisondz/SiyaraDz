@@ -31,12 +31,12 @@ fun loadImageUrl(imgView: ImageView, usedCar: UsedCar?) {
 
     }
 }
+
 @BindingAdapter("loadLocalImage")
-fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?){
+fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?) {
     usedCar?.let {
         when {
-            usedCar.uris.isNotEmpty() -> imgView.setImageURI(usedCar.uris[0])
-            else -> Glide.with(imgView.context)
+            usedCar.images.isNotEmpty() -> Glide.with(imgView.context)
                 .load(usedCar.images[0])
                 .apply(
                     RequestOptions()
@@ -44,6 +44,7 @@ fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?){
                         .error(R.drawable.ic_broken_image)
                 )
                 .into(imgView)
+            else -> imgView.setImageURI(usedCar.uris[0])
         }
     }
 }
@@ -62,12 +63,12 @@ fun TextView.setBidBrand(usedCar: UsedCar?) {
     }
 }
 
-    //@BindingAdapter("setBidAdresse")
-    //fun TextView.setBidddresse(usedCar: UsedCar?) {
-    //    usedCar?.let {
-    //        text = usedCar.adresse
-    //    }
-    //}
+//@BindingAdapter("setBidAdresse")
+//fun TextView.setBidddresse(usedCar: UsedCar?) {
+//    usedCar?.let {
+//        text = usedCar.adresse
+//    }
+//}
 
 
 @BindingAdapter("setRadioEngineChecked")

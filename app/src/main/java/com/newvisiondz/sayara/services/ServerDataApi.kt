@@ -98,6 +98,12 @@ interface ServerDataApi {
         @Header("Authorization") token: String
     ): Call<List<UsedCar>>
 
+    @DELETE
+    fun deleteUsedCar(
+        @Header("Authorization") token: String,
+        @Path("usedCarId") usedCarId: String
+    ): Call<JsonElement>
+
     @Multipart
     @POST("used-cars")
     fun createUsedCar(

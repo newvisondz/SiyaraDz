@@ -2,9 +2,7 @@ package com.newvisiondz.sayara.screens.bids
 
 import android.Manifest
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -23,14 +21,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.BasePermissionListener
-import com.karumi.dexter.listener.single.PermissionListener
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.DataEntryDialogBinding
 import com.newvisiondz.sayara.databinding.FragmentBidsBinding
@@ -42,7 +34,6 @@ import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_bids.*
 import java.io.File
 import java.io.IOException
-import java.security.Permission
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -57,6 +48,8 @@ class Bids : Fragment() {
     private var currentBrandId: String = ""
     private var currentModel: String = ""
     private lateinit var photoURI: Uri
+    private lateinit var dialog: AlertDialog
+
 
     private val brands = mutableListOf<CarInfo>()
     private val models = mutableListOf<CarInfo>()
@@ -82,6 +75,7 @@ class Bids : Fragment() {
                 (binding.bidsList.adapter as BidsAdapter).notifyDataSetChanged()
                 viewModel.insertIsDone.value = null
                 //todo optimize this code
+                dialog?.let(AlertDialog::dismiss)
             }
         })
         binding.addNewBid.setOnClickListener {
@@ -114,10 +108,10 @@ class Bids : Fragment() {
                 versions.addAll(newVersions)
                 (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
             })
-            bindingDialog.root.brand_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            bindingDialog.brandSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     currentBrandId = brands[position].id
-                    viewModel.newItem.carBrandId = currentBrandId
+                    viewModel.newItemServer.carBrandId = currentBrandId
                     viewModel.getModelsList(currentBrandId)
                     versions.clear()
                     (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
@@ -135,7 +129,7 @@ class Bids : Fragment() {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     currentModel = models[position].id
                     viewModel.getVersionList(currentBrandId, currentModel)
-                    viewModel.newItem.carModel = models[position].id
+                    viewModel.newItemServer.carModel = models[position].id
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -146,12 +140,12 @@ class Bids : Fragment() {
             }
             bindingDialog.versionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.newItem.version = versions[position].id
+                    viewModel.newItemServer.version = versions[position].id
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-            val dialog = mBuilder.create()
+            dialog = mBuilder.create()
             dialog.setCanceledOnTouchOutside(true)
             dialog.window?.attributes?.windowAnimations = R.style.PauseDialogAnimation
             dialog.show()
@@ -161,10 +155,10 @@ class Bids : Fragment() {
             }
             bindingDialog.btnOk.setOnClickListener {
 
-                viewModel.newItem.uris = tmpUris
+                viewModel.newItemServer.uris = tmpUris
 
                 viewModel.addItemToList()
-                dialog.dismiss()
+//                dialog.dismiss()
             }
 
             bindingDialog.btnCancel.setOnClickListener {
@@ -178,7 +172,7 @@ class Bids : Fragment() {
             }
         }
         binding.swipeRefreshBids.setOnRefreshListener {
-            displaySnackBar(binding.bidsLayout, "Nice ")
+            displaySnackBar(binding.bidsLayout, "Nice")
             swipeRefreshBids.isRefreshing = false
         }
         return binding.root
@@ -200,7 +194,7 @@ class Bids : Fragment() {
                     Toast.LENGTH_SHORT
                 )
                     .show()
-                binding.viewModel!!.newItem.color = Integer.toHexString(selectedColor)
+                binding.viewModel!!.newItemServer.color = Integer.toHexString(selectedColor)
 
                 bindingDialog.color.setBackgroundColor(selectedColor)
             }
@@ -246,7 +240,6 @@ class Bids : Fragment() {
                 }
             }
         } else if ((requestCode == TAKE_PHOTO) && (resultCode == Activity.RESULT_OK)) {
-//            bitmapRes = MediaStore.Images.Media.getBitmap(context?.contentResolver, photoURI)
             tmpUris.add(photoURI)
         }
     }

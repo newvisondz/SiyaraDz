@@ -25,8 +25,8 @@ class FacebookAuthentification(var context: Context, private val auth: FirebaseA
 
     private var userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
 
-    private fun signIn(accessToken: AccessToken) {
-        val client = RetrofitClient(context).authentificationApi.sendKeysFacebook(accessToken.token)
+    private fun signIn(idToken: String, accessToken: AccessToken) {
+        val client = RetrofitClient(context).authentificationApi.sendKeyFirebase(idToken)
         lateinit var jsonResponseObject: JSONObject
         val request = GraphRequest.newMeRequest(accessToken) { objet, _ ->
             jsonResponseObject = objet
@@ -56,10 +56,25 @@ class FacebookAuthentification(var context: Context, private val auth: FirebaseA
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential).addOnCompleteListener(context as Activity) { task ->
             if (task.isSuccessful) {
+                auth.currentUser?.getIdToken(true)
+                    ?.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val idToken = task.result?.token
+                            idToken?.let {
+                                signIn(it, token)
+
+                            }
+                        } else {
+                            Log.w("Facebook", "signInWithBackend:failure", task.exception)
+                        }
+                    }
                 Log.d("FacebookLog", "signInWithCredential:success")
-                signIn(token)
             } else {
-                Toast.makeText(context, "Authentication failed. May be you signed in with a google account !", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    "Authentication failed. May be you signed in with a google account !",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 

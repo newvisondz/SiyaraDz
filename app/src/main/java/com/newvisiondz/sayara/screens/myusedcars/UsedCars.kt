@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
 import com.newvisiondz.sayara.screens.bids.BidsAdapter
+import com.newvisiondz.sayara.utils.isOnline
 
 
 class UsedCars : Fragment() {
@@ -44,8 +45,9 @@ class UsedCars : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                mViewModel.deleteUsedCarAd(viewHolder.adapterPosition)
-                Toast.makeText(context, "Note deleted", Toast.LENGTH_SHORT).show()
+                if (isOnline(context!!)) {
+                    mViewModel.deleteUsedCarAd(viewHolder.adapterPosition)
+                } else Toast.makeText(context, "You'll have to be online to delete permanantly !", Toast.LENGTH_SHORT).show()
             }
         }).attachToRecyclerView(binding.myBidsList)
 
