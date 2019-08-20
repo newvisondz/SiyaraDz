@@ -14,11 +14,14 @@ import com.newvisiondz.sayara.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         val navController = findNavController(R.id.navigation_host)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
+
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, _: Bundle? ->
