@@ -2,20 +2,15 @@ package com.newvisiondz.sayara.screens.myusedcars
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.*
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.database.getDatabase
-import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.getUserToken
 import kotlinx.coroutines.*
-import okhttp3.internal.userAgent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class UsedCarsViewModelFactory(private var app: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

@@ -18,13 +18,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/main_constraint_layout">
+        >
 
             <androidx.cardview.widget.CardView
                     app:cardCornerRadius="10dp"
                     android:layout_width="0dp"
                     android:layout_height="250dp"
-                    android:id="@+id/cardView" android:layout_marginTop="8dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp" app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
             >
@@ -88,7 +88,7 @@
             android:fontFamily="@font/montserrat"
             android:text="Faire une Offre"
             style="@style/btn_colors"
-            android:padding="15dp"
+            android:padding="16dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -3,9 +3,11 @@ package com.newvisiondz.sayara.services
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.newvisiondz.sayara.model.*
+import com.newvisiondz.sayara.model.Command
+import com.newvisiondz.sayara.model.Model
+import com.newvisiondz.sayara.model.UsedCar
+import com.newvisiondz.sayara.model.Version
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 

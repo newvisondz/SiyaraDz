@@ -8,11 +8,11 @@ import android.util.Base64
 import android.util.Log
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-import com.facebook.internal.Mutable
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.model.CarInfo
-import com.newvisiondz.sayara.model.Model
+import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.listFormatter
@@ -21,19 +21,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import androidx.test.orchestrator.junit.BundleJUnitUtils.getResult
-import org.junit.experimental.results.ResultMatchers.isSuccessful
-import com.google.firebase.auth.GetTokenResult
-import androidx.annotation.NonNull
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.newvisiondz.sayara.model.UsedCar
 
 
 @RunWith(AndroidJUnit4::class)
@@ -145,7 +134,7 @@ class InstrumentedTest {
 
     @Test
     fun testUsedCarGet() {
-        var call: Call<List<UsedCar>> =
+        val call: Call<List<UsedCar>> =
             RetrofitClient(appContext).serverDataApi.getAllBids("bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNWE4Nzg0ZmI2NmRlNDAyYmM5N2IzMSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTY2MjQxMjI1LCJleHAiOjE1NzQ3OTQ4MjV9.WhK-rbHO55GaTBcMO1853DIbAthY-4Rt_-uztNMLqsY")
         val mUser = FirebaseAuth.getInstance().currentUser
         mUser!!.getIdToken(true).addOnCompleteListener {

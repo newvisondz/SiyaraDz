@@ -14,12 +14,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.screens.versions.versionadapters.*
 import com.newvisiondz.sayara.databinding.FragmentVersionsBinding
 import com.newvisiondz.sayara.model.Color
 import com.newvisiondz.sayara.model.Command
 import com.newvisiondz.sayara.model.Value
 import com.newvisiondz.sayara.model.Version
+import com.newvisiondz.sayara.screens.versions.versionadapters.*
 
 
 class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.SingleClickListener,
@@ -168,7 +168,7 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
             }
         val alert = dialogBuilder.create()
         @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-        alert.window.attributes.windowAnimations = R.style.FadingDialogAnimation
+        alert.window.attributes.windowAnimations = R.style.RtlOverlay_DialogWindowTitle_AppCompat
         alert.show()
     }
 

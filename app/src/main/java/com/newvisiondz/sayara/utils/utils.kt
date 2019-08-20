@@ -3,7 +3,6 @@ package com.newvisiondz.sayara.utils
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.net.ConnectivityManager
 import android.net.Uri

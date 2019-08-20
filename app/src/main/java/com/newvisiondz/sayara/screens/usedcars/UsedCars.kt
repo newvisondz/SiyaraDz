@@ -1,4 +1,4 @@
-package com.newvisiondz.sayara.screens.bids
+package com.newvisiondz.sayara.screens.usedcars
 
 import android.Manifest
 import android.app.Activity
@@ -25,20 +25,20 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.single.BasePermissionListener
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.DataEntryDialogBinding
-import com.newvisiondz.sayara.databinding.FragmentBidsBinding
+import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
 import com.newvisiondz.sayara.model.CarInfo
 import com.newvisiondz.sayara.utils.datePicker
 import com.newvisiondz.sayara.utils.displaySnackBar
 import kotlinx.android.synthetic.main.camera_gallery.view.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
-import kotlinx.android.synthetic.main.fragment_bids.*
+import kotlinx.android.synthetic.main.fragment_used_cars.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class Bids : Fragment() {
+class UsedCars : Fragment() {
     companion object {
         const val TAKE_PHOTO = 123
         const val OPEN_GALLERY = 321
@@ -59,7 +59,8 @@ class Bids : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentBidsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_bids, container, false)
+        val binding: FragmentUsedCarsBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_used_cars, container, false)
         val application = requireNotNull(this.activity).application
         val viewModel =
             ViewModelProviders.of(this, BidsViewModelFactory(application)).get(BidsViewModel::class.java)
@@ -75,7 +76,7 @@ class Bids : Fragment() {
                 (binding.bidsList.adapter as BidsAdapter).notifyDataSetChanged()
                 viewModel.insertIsDone.value = null
                 //todo optimize this code
-                dialog?.let(AlertDialog::dismiss)
+                dialog.let(AlertDialog::dismiss)
             }
         })
         binding.addNewBid.setOnClickListener {
@@ -179,7 +180,7 @@ class Bids : Fragment() {
     }
 
     private fun colorPicker(
-        binding: FragmentBidsBinding,
+        binding: FragmentUsedCarsBinding,
         bindingDialog: DataEntryDialogBinding
     ) {
         ColorPickerDialogBuilder
@@ -250,12 +251,11 @@ class Bids : Fragment() {
         val imageFileName: String = "JPEG_" + timeStamp + "_"
         val storageDir: File = context!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
 
-        val image = File.createTempFile(
+        return File.createTempFile(
             imageFileName,  /* prefix */
             ".jpg",         /* suffix */
             storageDir      /* directory */
         )
-        return image
     }
 
 

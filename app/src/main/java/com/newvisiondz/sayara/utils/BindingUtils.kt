@@ -14,7 +14,7 @@ import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.model.Color
 import com.newvisiondz.sayara.model.Value
 import com.newvisiondz.sayara.model.VersionCompare
-import com.newvisiondz.sayara.screens.bids.BidsAdapter
+import com.newvisiondz.sayara.screens.usedcars.BidsAdapter
 
 
 @BindingAdapter("loadImageUrl")

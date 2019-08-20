@@ -12,18 +12,18 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
-import com.newvisiondz.sayara.screens.bids.BidsAdapter
+import com.newvisiondz.sayara.databinding.FragmentMyUsedCarsBinding
+import com.newvisiondz.sayara.screens.usedcars.BidsAdapter
 import com.newvisiondz.sayara.utils.isOnline
 
 
-class UsedCars : Fragment() {
+class MyUsedCars : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentUsedCarsBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_used_cars, container, false)
+        val binding: FragmentMyUsedCarsBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_my_used_cars, container, false)
         val application = requireNotNull(this.activity).application
 
         val mViewModel =

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/fragment4"
-        android:name="com.newvisiondz.sayara.screens.bids.Bids"
+        android:name="com.newvisiondz.sayara.screens.usedcars.UsedCars"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_bids" />
+        tools:layout="@layout/fragment_used_cars" />
 
 </FrameLayout>

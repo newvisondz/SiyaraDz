@@ -1,32 +1,16 @@
 <resources>
     <string name="app_name">SayaraDz</string>
-    <string name="action_settings">Settings</string>
     <string name="server_client_id">1029394036505-m42frhtpm6v6vdvlavlqff5q28il4389.apps.googleusercontent.com</string>
     <string name="facebook_app_id">881908538845231</string>
     <string name="fb_login_protocol_scheme">fb881908538845231</string>
-    <string name="hello_blank_fragment">Hello</string>
-    <string name="title_activity_navigation">NavigationActivity</string>
-    <string name="neuf">neuf</string>
-    <string name="occasion">occasion</string>
-    <string name="profile">profile</string>
-    <string name="connect_with_google">Connect with Google</string>
-    <string name="connect_with_facebook">Connect with FACEBOOK</string>
     <string name="_used">OCCASION</string>
-    <string name="_filter">FILTRER</string>
     <string name="_new">NEUF</string>
     <string name="_profile">PROFILE</string>
-
-    <string-array name="gearboxtypes">
-        <item>Automatique</item>
-        <item>Manuelle</item>
-    </string-array>
 
     <!--some fonts -->
 
     <string name="font_bold">sans-serif-medium</string>
     <string name="font_light">sans-serif</string>
-
-    <string name="title_activity_splash">SplashActivity</string>
 
     <!--URLS -->
     <string name="baseUrl">https://sayaradz2.herokuapp.com</string>
@@ -35,12 +19,10 @@
     <string name="model_price">From %s Dz</string>
     <string name="brand_detail">By %1$s</string>
     <string name="date_format">%1$d-%2$d-%3$d</string>
-    <string name="car_final_price">le prix de votre automobile est %s Da</string>
     <string name="msg_token_fmt">Msg Token is : %s</string>
     <string name="bid_price_text">from %s DA</string>
 
     <string name="login_fb_btn_label">"S'autentifier avec Facebook"</string>
     <string name="login_google_btn_label">"S'autentifier  avec Google"</string>
 
-    <string name="get_started_btn_label">Commencer</string>
 </resources>

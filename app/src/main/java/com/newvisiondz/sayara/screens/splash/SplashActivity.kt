@@ -5,14 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.firebase.auth.FirebaseAuth
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.ActivitySplashBinding
 import com.newvisiondz.sayara.screens.entryScreens.LoginActivity
@@ -21,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_splash.*
 
 
 class SplashActivity : AppCompatActivity() {
-    private lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -71,16 +68,6 @@ class SplashActivity : AppCompatActivity() {
             splashViewModel.navigateToMainActivity()
         }
         Handler().postDelayed(runnable, 2000)
-    }
-
-    private fun showDialog(context: Context): AlertDialog {
-        val dialogBuilder = AlertDialog.Builder(context)
-            .setMessage("You'll need internet connection in order to use this app")
-            .setTitle("No internet connection")
-            .setNeutralButton("Try again!") { dialog, _ ->
-                dialog.dismiss()
-            }
-        return dialogBuilder.create()
     }
 
 

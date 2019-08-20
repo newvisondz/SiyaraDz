@@ -1,13 +1,11 @@
-package com.newvisiondz.sayara.screens.bids
+package com.newvisiondz.sayara.screens.usedcars
 
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.*
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
-import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.database.getDatabase
 import com.newvisiondz.sayara.model.CarInfo
@@ -20,6 +18,7 @@ import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,7 +36,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     private var token: String = ""
     private val userInfo: SharedPreferences =
         application.applicationContext.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-    val context = application.applicationContext
+    val context: Context = application.applicationContext
     private val _bidsList = MutableLiveData<MutableList<UsedCar>>()
     val bidsList: LiveData<MutableList<UsedCar>>
         get() = _bidsList
@@ -172,7 +171,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         val partList = mutableListOf<MultipartBody.Part>()
         newItem.uris.forEach {
             val tmpFile = convertBitmapToFile(context, it)
-            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), tmpFile)
+            val requestFile = tmpFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             partList.add(MultipartBody.Part.createFormData("images", tmpFile.name, requestFile))
         }
 
