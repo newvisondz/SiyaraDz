@@ -96,8 +96,10 @@ interface ServerDataApi {
     ): Call<JsonElement>
 
     @GET("used-cars")
-    fun getAllBids(
-        @Header("Authorization") token: String
+    fun getAllUsedCars(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int,
+        @Query("perpage") perPage: Int
     ): Call<List<UsedCar>>
 
     @DELETE("used-cars/{usedCarId}")
@@ -125,4 +127,10 @@ interface ServerDataApi {
         @Header("Authorization") token: String,
         @Query("fields") fields: String
     ): Call<JsonElement>
+
+    @GET("used-cars/{usedCarId}/bids")
+    fun getAllBidsOfUsedCar(
+        @Header("Authorization") token: String,
+        @Query("fields") fields: String = "creator"
+    )
 }

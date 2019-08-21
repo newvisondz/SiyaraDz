@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentBrandsBinding
 import com.newvisiondz.sayara.model.Brand
@@ -79,8 +80,8 @@ class Brands : Fragment() {
                     return false
                 }
             })
-        binding.brandsList.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+        binding.brandsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 this@Brands.visibleItemsCount = binding.brandsList.layoutManager!!.childCount
                 this@Brands.totalItemsCount = binding.brandsList.layoutManager!!.itemCount

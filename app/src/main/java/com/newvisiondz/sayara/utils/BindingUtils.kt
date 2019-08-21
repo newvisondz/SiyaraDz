@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.model.Color
+import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.model.Value
 import com.newvisiondz.sayara.model.VersionCompare
 import com.newvisiondz.sayara.screens.usedcars.BidsAdapter
@@ -44,6 +44,7 @@ fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?) {
                         .error(R.drawable.ic_broken_image)
                 )
                 .into(imgView)
+
             else -> imgView.setImageURI(usedCar.uris[0])
         }
     }

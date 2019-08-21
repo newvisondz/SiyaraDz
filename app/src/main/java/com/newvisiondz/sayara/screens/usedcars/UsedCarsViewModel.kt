@@ -17,7 +17,6 @@ import com.newvisiondz.sayara.utils.listFormatter
 import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -76,11 +75,22 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getAllBids() {
         //todo get stuff from server when ready
-        token?.let {
-            call.getAllBids(it).enqueue(object : Callback<List<UsedCar>> {
-                override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {
+        token.let {
+            call.getAllUsedCars(it, 1, 6).enqueue(object : Callback<List<UsedCar>> {
+                override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {}
 
+                override fun onResponse(call: Call<List<UsedCar>>, response: Response<List<UsedCar>>) {
+                    tmpDataList.addAll(response.body()!!)
+                    _bidsList.value = tmpDataList
                 }
+            })
+        }
+    }
+
+    fun performPagination(pageNumber: Int, viewThreshold: Int) {
+        token.let {
+            call.getAllUsedCars(it, pageNumber, viewThreshold).enqueue(object : Callback<List<UsedCar>> {
+                override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {}
 
                 override fun onResponse(call: Call<List<UsedCar>>, response: Response<List<UsedCar>>) {
                     tmpDataList.addAll(response.body()!!)
@@ -191,6 +201,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
             override fun onResponse(call: Call<UsedCar>, response: Response<UsedCar>) {
                 if (response.isSuccessful) {
                     val usedRes = response.body()
+                    newItem.images.clear()
                     newItem.images = usedRes!!.images
                     newItem.id = usedRes.id
                     //database insertion

@@ -18,6 +18,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.karumi.dexter.Dexter
@@ -50,6 +52,15 @@ class UsedCars : Fragment() {
     private lateinit var photoURI: Uri
     private lateinit var dialog: AlertDialog
 
+
+    private var isloading: Boolean = true
+    private var pastVisibleItems: Int = 0
+    private var visibleItemsCount: Int = 0
+    private var totalItemsCount: Int = 0
+    private var previousTotal: Int = 0
+
+    private var viewThreshold = 6
+    private var pageNumber: Int = 1
 
     private val brands = mutableListOf<CarInfo>()
     private val models = mutableListOf<CarInfo>()
@@ -155,11 +166,8 @@ class UsedCars : Fragment() {
                 openImageSoureDialog()
             }
             bindingDialog.btnOk.setOnClickListener {
-
                 viewModel.newItemServer.uris = tmpUris
-
                 viewModel.addItemToList()
-//                dialog.dismiss()
             }
 
             bindingDialog.btnCancel.setOnClickListener {
@@ -172,6 +180,28 @@ class UsedCars : Fragment() {
                 colorPicker(binding, bindingDialog)
             }
         }
+        binding.bidsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                visibleItemsCount = binding.bidsList.layoutManager!!.childCount
+                totalItemsCount = binding.bidsList.layoutManager!!.itemCount
+                pastVisibleItems =
+                    (binding.bidsList.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                if (dy > 0) {
+                    if (isloading) {
+                        if (totalItemsCount > previousTotal) {
+                            isloading = false
+                            previousTotal = totalItemsCount
+                        }
+                    }
+                    if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
+                        pageNumber++
+                        viewModel.performPagination(pageNumber, viewThreshold)
+                        isloading = true
+                    }
+                }
+            }
+        })
         binding.swipeRefreshBids.setOnRefreshListener {
             displaySnackBar(binding.bidsLayout, "Nice")
             swipeRefreshBids.isRefreshing = false
@@ -211,6 +241,10 @@ class UsedCars : Fragment() {
             Intent.createChooser(intent, "Select a file"),
             OPEN_GALLERY
         )
+    }
+    override fun onPause() {
+        super.onPause()
+        pageNumber = 1
     }
 
     private fun openImageSoureDialog() {

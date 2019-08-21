@@ -135,7 +135,7 @@ class InstrumentedTest {
     @Test
     fun testUsedCarGet() {
         val call: Call<List<UsedCar>> =
-            RetrofitClient(appContext).serverDataApi.getAllBids("bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNWE4Nzg0ZmI2NmRlNDAyYmM5N2IzMSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTY2MjQxMjI1LCJleHAiOjE1NzQ3OTQ4MjV9.WhK-rbHO55GaTBcMO1853DIbAthY-4Rt_-uztNMLqsY")
+            RetrofitClient(appContext).serverDataApi.getAllUsedCars("bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNWE4Nzg0ZmI2NmRlNDAyYmM5N2IzMSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTY2MjQxMjI1LCJleHAiOjE1NzQ3OTQ4MjV9.WhK-rbHO55GaTBcMO1853DIbAthY-4Rt_-uztNMLqsY")
         val mUser = FirebaseAuth.getInstance().currentUser
         mUser!!.getIdToken(true).addOnCompleteListener {
             //            it.result.token

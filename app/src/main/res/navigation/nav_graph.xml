@@ -118,7 +118,7 @@
     </fragment>
     <fragment
         android:id="@+id/UsedCars"
-        android:name="com.newvisiondz.sayara.screens.myusedcars.UsedCars"
+        android:name="com.newvisiondz.sayara.screens.myusedcars.MyUsedCars"
         android:label="fragment_my_bids"
         tools:layout="@layout/fragment_used_cars" >
         <action

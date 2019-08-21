@@ -23,8 +23,7 @@ data class UsedCar(
     @Expose(serialize = false, deserialize = false)
     @Ignore
     var uris: MutableList<Uri> = mutableListOf(),
-    @Ignore
-    var images: List<String> = listOf("https://drop.ndtv.com/albums/AUTO/2019-bmw-x7-suv/30.jpg"),
+    var images: MutableList<String> = mutableListOf("https://drop.ndtv.com/albums/AUTO/2019-bmw-x7-suv/30.jpg"),
     @SerializedName("model")
     var carModel: String = "",
     var version: String = "",

@@ -1,9 +1,6 @@
 package com.newvisiondz.sayara.database
 
-import androidx.room.PrimaryKey
-
 data class DatabaseUsedCar constructor(
-    @PrimaryKey
     var id: Int = 0,
     var currrentMiles: Double = 0.0,
     var carBrand: String = "",
