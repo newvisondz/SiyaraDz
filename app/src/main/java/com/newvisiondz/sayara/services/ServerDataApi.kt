@@ -113,13 +113,17 @@ interface ServerDataApi {
     fun createUsedCar(
         @Header("Authorization") token: String,
         @Part images: List<MultipartBody.Part>,
+        @Part("manufacturerId") manufacturerId: String,
+        @Part("modelId") modelId: String,
+        @Part("versionId") versionId: String,
+        @Part("registrationDate") registrationDate: String,
+        @Part("currentMiles") currentMiles: Double,
+        @Part("minPrice") minPrice: Double,
+        @Part("color") color: String,
+        @Part("title") title: String,
         @Part("manufacturer") manufacturer: String,
         @Part("model") model: String,
-        @Part("version") version: String,
-        @Part("registrationDate") registrationDate: String,
-        @Part("currrentMiles") currrentMiles: Double,
-        @Part("minPrice") minPrice: Double,
-        @Part("color") color: String
+        @Part("version") version: String
     ): Call<UsedCar>
 
     @GET("manufacturers")

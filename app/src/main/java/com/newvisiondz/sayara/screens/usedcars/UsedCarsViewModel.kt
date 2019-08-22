@@ -102,7 +102,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addItemToList() {
 
-        newItemServer.currrentMiles = newCarMiles.value!!
+        newItemServer.currentMiles = newCarMiles.value!!
         newItemServer.price = newCarPrice.value!!
         newItemServer.yearOfRegistration = newCarDate.value!!
         tmpDataList.add(newItemServer)
@@ -188,13 +188,17 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         call.createUsedCar(
             token,
             partList,
-            newItem.carBrandId,
-            newItem.carModel,
-            newItem.version,
+            newItem.manufacturerId,
+            newItem.modelId,
+            newItem.versionId,
             newItem.yearOfRegistration,
-            newItem.currrentMiles,
+            newItem.currentMiles,
             newItem.price,
-            newItem.color
+            newItem.color,
+            newItem.title,
+            newItem.manufacturer,
+            newItem.model,
+            newItem.version
         ).enqueue(object : Callback<UsedCar> {
             override fun onFailure(call: Call<UsedCar>, t: Throwable) {}
 

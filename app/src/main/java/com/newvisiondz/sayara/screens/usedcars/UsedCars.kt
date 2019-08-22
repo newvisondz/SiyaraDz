@@ -79,7 +79,7 @@ class UsedCars : Fragment() {
         binding.lifecycleOwner = this
 
         binding.bidsList.adapter = BidsAdapter(BidsAdapter.Listener {
-            Toast.makeText(context, it.carBrandId, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, it.manufacturerId, Toast.LENGTH_SHORT).show()
         })
 
         viewModel.insertIsDone.observe(this, Observer {
@@ -123,7 +123,8 @@ class UsedCars : Fragment() {
             bindingDialog.brandSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     currentBrandId = brands[position].id
-                    viewModel.newItemServer.carBrandId = currentBrandId
+                    viewModel.newItemServer.manufacturerId = currentBrandId
+                    viewModel.newItemServer.manufacturer = brands[position].name
                     viewModel.getModelsList(currentBrandId)
                     versions.clear()
                     (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
@@ -141,7 +142,8 @@ class UsedCars : Fragment() {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     currentModel = models[position].id
                     viewModel.getVersionList(currentBrandId, currentModel)
-                    viewModel.newItemServer.carModel = models[position].id
+                    viewModel.newItemServer.modelId = models[position].id
+                    viewModel.newItemServer.model = models[position].name
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -152,7 +154,8 @@ class UsedCars : Fragment() {
             }
             bindingDialog.versionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.newItemServer.version = versions[position].id
+                    viewModel.newItemServer.versionId = versions[position].id
+                    viewModel.newItemServer.version = versions[position].name
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -242,6 +245,7 @@ class UsedCars : Fragment() {
             OPEN_GALLERY
         )
     }
+
     override fun onPause() {
         super.onPause()
         pageNumber = 1

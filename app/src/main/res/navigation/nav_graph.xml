@@ -89,9 +89,9 @@
         android:label="fragment_bid_view"
         tools:layout="@layout/fragment_bid_view" >
         <argument
-            android:name="bidId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="usedCar"
+            app:argType="com.newvisiondz.sayara.model.UsedCar"
+        />
         <action
             android:id="@+id/action_bidView_to_bidForm"
             app:destination="@id/bidForm" />
