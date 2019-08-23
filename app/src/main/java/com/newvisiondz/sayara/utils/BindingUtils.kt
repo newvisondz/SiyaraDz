@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.*
+import com.newvisiondz.sayara.screens.myoffers.UserBidAdapter
 import com.newvisiondz.sayara.screens.usedcardetails.BidsAdapter
 import com.newvisiondz.sayara.screens.usedcars.UsedCarsAdapter
 
@@ -227,4 +228,13 @@ fun TextView.setBidPrice(bid: Bid?) {
 fun bidsListItems(recyclerView: RecyclerView, data: List<Bid>?) {
     val adapter = recyclerView.adapter as BidsAdapter
     adapter.submitList(data)
+}
+
+@BindingAdapter("setStringType")
+fun TextView.setStringType(info: String?) {
+    info.let {
+        text = if (id ==R.id.used_car_bid_price) {
+            context.getString(R.string.bid_price_text,info)
+        }else info
+    }
 }

@@ -144,4 +144,9 @@ interface ServerDataApi {
         @Body body: JsonObject
 
     ): Call<Bid>
+
+    @GET("autom/me/bids")
+    fun getUserBid(
+        @Header("Authorization") token: String
+    ):Call<List<UserBid>>
 }

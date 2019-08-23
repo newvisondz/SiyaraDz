@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.newvisiondz.sayara.R
@@ -38,6 +39,11 @@ class UsedCarDetail : Fragment() {
 
         binding.usedCar = usedCar
         binding.lifecycleOwner = this
+        viewModel?.createWithSuccess?.observe(this, Observer {
+            if (it == true) {
+                Toast.makeText(context,"Created with Success !",Toast.LENGTH_SHORT).show()
+            }
+        })
         binding.executePendingBindings()
         val dividerItemDecoration = DividerItemDecoration(
             binding.bidsCarList.context,

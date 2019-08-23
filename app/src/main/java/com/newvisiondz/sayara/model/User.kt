@@ -7,3 +7,9 @@ data class User(
     var phone: String = "",
     var address: String = ""
 )
+
+data class UserBid(
+    var id: String = "",
+    var usedCar: UsedCar = UsedCar(),
+    var price: String = ""
+)

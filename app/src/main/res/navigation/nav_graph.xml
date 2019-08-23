@@ -142,7 +142,7 @@
     </fragment>
     <fragment
         android:id="@+id/myOffers"
-        android:name="com.newvisiondz.sayara.screens.fragments.MyOffers"
+        android:name="com.newvisiondz.sayara.screens.myoffers.MyOffers"
         android:label="fragment_my_offers"
         tools:layout="@layout/fragment_my_offers" >
         <action

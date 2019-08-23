@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.model.Bid
 import com.newvisiondz.sayara.model.Brand
 import com.newvisiondz.sayara.model.Model
+import com.newvisiondz.sayara.model.UserBid
 import com.newvisiondz.sayara.utils.listFormatter
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -35,22 +36,12 @@ class UnitTest {
         println(brands[0].logo)
         assertEquals("public/31af40e4-541b-42e6-8f86-b870bc99bd6f.jpg", brands[0].logo)
     }
+
     @Test
     fun testBidParsing() {
-        val test="[\n" +
-                "    {\n" +
-                "        \"id\": \"5d5ff66735dcee0017275e2b\",\n" +
-                "        \"creator\": {\n" +
-                "            \"id\": \"5d5c14aa9ac0010017adaeaf\",\n" +
-                "            \"firstName\": \"akram benrandja akram\",\n" +
-                "            \"lastName\": \"benra\",\n" +
-                "            \"phone\": \"458887\",\n" +
-                "            \"address\": \"dec 11\"\n" +
-                "        },\n" +
-                "        \"price\": 12394\n" +
-                "    }\n" +
-                "]"
-        val listType = object : TypeToken<MutableList<Bid>>() {}.type
-        val res= Gson().fromJson<MutableList<Bid>>(JsonParser().parse(test),listType)
+        val test =
+            "[{\"id\":\"5d6044eb8ca816001717e2b3\",\"creator\":\"5d5fedff35dcee0017275e29\",\"usedCar\":{\"id\":\"5d5fc986b54a0d001773e38c\",\"title\":\"\\\"\\\"\",\"manufacturer\":\"\\\"Suzuku\\\"\",\"manufacturerId\":\"\\\"Suzuku\\\"\",\"model\":\"\\\"Suzuki ma\\\"\",\"modelId\":\"\\\"5d206ac16fffac001957a65c\\\"\",\"version\":\"\\\"S V1\\\"\",\"versionId\":\"\\\"5d206bf96fffac001957a664\\\"\",\"currentMiles\":456.7,\"registrationDate\":\"2019-07-19T00:00:00.000Z\",\"color\":\"\\\"ff0080ff\\\"\",\"images\":[\"/public/0624a6f05ce8d3411c79b5ed57d89d94\",\"/public/34fad615807f29d0f469c76126926727\"],\"minPrice\":45.9,\"owner\":\"5d5c14aa9ac0010017adaeaf\",\"createdAt\":\"2019-08-23T11:09:58.989Z\"},\"createdAt\":\"2019-08-23T19:56:27.658Z\",\"price\":213.87},{\"id\":\"5d6045758ca816001717e2b4\",\"creator\":\"5d5fedff35dcee0017275e29\",\"usedCar\":{\"id\":\"5d5fc986b54a0d001773e38c\",\"title\":\"\\\"\\\"\",\"manufacturer\":\"\\\"Suzuku\\\"\",\"manufacturerId\":\"\\\"Suzuku\\\"\",\"model\":\"\\\"Suzuki ma\\\"\",\"modelId\":\"\\\"5d206ac16fffac001957a65c\\\"\",\"version\":\"\\\"S V1\\\"\",\"versionId\":\"\\\"5d206bf96fffac001957a664\\\"\",\"currentMiles\":456.7,\"registrationDate\":\"2019-07-19T00:00:00.000Z\",\"color\":\"\\\"ff0080ff\\\"\",\"images\":[\"/public/0624a6f05ce8d3411c79b5ed57d89d94\",\"/public/34fad615807f29d0f469c76126926727\"],\"minPrice\":45.9,\"owner\":\"5d5c14aa9ac0010017adaeaf\",\"createdAt\":\"2019-08-23T11:09:58.989Z\"},\"createdAt\":\"2019-08-23T19:58:45.329Z\",\"price\":564.8},{\"id\":\"5d6045988ca816001717e2b5\",\"creator\":\"5d5fedff35dcee0017275e29\",\"usedCar\":{\"id\":\"5d5fc986b54a0d001773e38c\",\"title\":\"\\\"\\\"\",\"manufacturer\":\"\\\"Suzuku\\\"\",\"manufacturerId\":\"\\\"Suzuku\\\"\",\"model\":\"\\\"Suzuki ma\\\"\",\"modelId\":\"\\\"5d206ac16fffac001957a65c\\\"\",\"version\":\"\\\"S V1\\\"\",\"versionId\":\"\\\"5d206bf96fffac001957a664\\\"\",\"currentMiles\":456.7,\"registrationDate\":\"2019-07-19T00:00:00.000Z\",\"color\":\"\\\"ff0080ff\\\"\",\"images\":[\"/public/0624a6f05ce8d3411c79b5ed57d89d94\",\"/public/34fad615807f29d0f469c76126926727\"],\"minPrice\":45.9,\"owner\":\"5d5c14aa9ac0010017adaeaf\",\"createdAt\":\"2019-08-23T11:09:58.989Z\"},\"createdAt\":\"2019-08-23T19:59:20.951Z\",\"price\":6666.66}]"
+        val listType = object : TypeToken<MutableList<UserBid>>() {}.type
+        val res = Gson().fromJson<MutableList<UserBid>>(JsonParser().parse(test), listType)
     }
 }

@@ -46,6 +46,7 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
         userInfo.let {
             token = getUserToken(it)
         }
+        _createWithSuccess.value=null
     }
 
     fun getAllBidsOfCar(carId: String) {
@@ -73,11 +74,12 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
                }
 
                override fun onResponse(call: Call<Bid>, response: Response<Bid>) {
-
+                   _createWithSuccess.value=true
                }
            })
        }
        catch (e:IllegalStateException){
+           _createWithSuccess.value=false
            //todo something went wrong
        }
     }

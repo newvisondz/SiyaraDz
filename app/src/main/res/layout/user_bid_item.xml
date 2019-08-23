@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="userBid"
+                type="com.newvisiondz.sayara.model.UserBid" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:background="#fff"
+                android:layout_height="wrap_content">
+
+            <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/imageSlider"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:elevation="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/left_guidlline"
+                    app:layout_constraintTop_toBottomOf="@+id/used_car_bid_brand"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderCircularHandlerEnabled="true"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="3dp"
+                    app:sliderIndicatorRadius="2dp"
+                    app:sliderIndicatorSelectedColor="@color/colorAccent"
+                    app:sliderIndicatorUnselectedColor="#FFF"
+                    app:sliderScrollTimeInSec="5"
+                    app:sliderStartAutoCycle="false" />
+
+            <TextView
+                    android:id="@+id/used_car_bid_brand"
+                    style="@style/MediumLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/left_guidlline"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:setStringType="@{userBid.usedCar.manufacturer}"
+                    tools:text="Brand" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/left_guidlline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="8dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="8dp" />
+
+            <TextView
+                    android:id="@+id/used_car_bid_price"
+                    style="@style/MediumLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@+id/left_guidlline"
+                    app:layout_constraintTop_toBottomOf="@+id/imageSlider"
+                    app:setStringType="@{String.valueOf(userBid.usedCar.price)}"
+                    tools:text="@string/bid_price_text" />
+
+            <TextView
+                    android:id="@+id/used_car_bid_offer"
+                    style="@style/MediumLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintTop_toBottomOf="@+id/imageSlider"
+                    app:setStringType="@{String.valueOf(userBid.price)}"
+                    tools:text="My Offer " />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

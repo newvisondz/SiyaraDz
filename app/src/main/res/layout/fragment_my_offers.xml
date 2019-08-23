@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.fragments.MyOffers">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <fragment
-        android:id="@+id/fragment4"
-        android:name="com.newvisiondz.sayara.screens.usedcars.UsedCars"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_used_cars" />
+    <data>
 
-</FrameLayout>
+        <variable
+                name="viewModel"
+                type="com.newvisiondz.sayara.screens.myoffers.MyOffersViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".screens.myoffers.MyOffers">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/user_bids_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="3"
+                tools:listitem="@layout/bid_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
