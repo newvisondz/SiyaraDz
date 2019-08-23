@@ -56,7 +56,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
 
     fun getAllVersions(manufacturer: String, modelId: String) {
         val call = RetrofitClient(context).serverDataApi.getAllVersion(
-            getUserToken(userInfo!!)!!, manufacturer, modelId
+            getUserToken(userInfo!!), manufacturer, modelId
         )
         call.enqueue(object : Callback<JsonArray> {
             override fun onFailure(call: Call<JsonArray>, t: Throwable) {
@@ -76,7 +76,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
 
     fun getVersionDetails(manufacturer: String, modelId: String, versionId: String) {
         val call = RetrofitClient(context).serverDataApi.getVersionDetails(
-            getUserToken(userInfo!!)!!, manufacturer, modelId, versionId
+            getUserToken(userInfo!!), manufacturer, modelId, versionId
         )
         call.enqueue(object : Callback<Version> {
             override fun onFailure(call: Call<Version>, t: Throwable) {
@@ -94,7 +94,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
 
     fun sendCommand(manufacturer: String, modelId: String, versionId: String, queries: MutableList<String>) {
         val call = RetrofitClient(context).serverDataApi.sendUserCommand(
-            getUserToken(userInfo!!)!!, manufacturer, modelId, versionId, queries
+            getUserToken(userInfo!!), manufacturer, modelId, versionId, queries
         )
         call.enqueue(object : Callback<Command> {
             override fun onFailure(call: Call<Command>, t: Throwable) {
@@ -112,7 +112,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
         val jsonObject = JsonObject()
         jsonObject.addProperty("vehicle", carId)
         val call = RetrofitClient(context).serverDataApi.confirmUserCommande(
-            getUserToken(userInfo!!)!!, jsonObject
+            getUserToken(userInfo!!), jsonObject
         )
         call.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

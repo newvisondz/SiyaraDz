@@ -55,44 +55,50 @@ fun TextView.setBidPrice(usedCar: UsedCar?) {
         text = this.context.getString(R.string.bid_price_text, usedCar.price.toString())
     }
 }
+
 @BindingAdapter("setUsedCarManufacturer")
-fun TextView.setUsedCarManufacturer(usedCar: UsedCar?){
+fun TextView.setUsedCarManufacturer(usedCar: UsedCar?) {
     usedCar?.let {
-        text=context.getString(R.string.manufacturer,it.manufacturer)
+        text = context.getString(R.string.manufacturer, it.manufacturer)
     }
 }
+
 @BindingAdapter("setUsedCarModel")
-fun TextView.setUsedCarModel(usedCar: UsedCar?){
+fun TextView.setUsedCarModel(usedCar: UsedCar?) {
     usedCar?.let {
-        text=context.getString(R.string.model,it.model)
+        text = context.getString(R.string.model, it.model)
     }
 }
+
 @BindingAdapter("setUsedCarVersion")
-fun TextView.setUsedCarVersion(usedCar: UsedCar?){
+fun TextView.setUsedCarVersion(usedCar: UsedCar?) {
     usedCar?.let {
-        text=context.getString(R.string.version,it.version)
+        text = context.getString(R.string.version, it.version)
     }
 }
+
 @BindingAdapter("setUsedCarDate")
-fun TextView.setUsedCarDate(usedCar: UsedCar?){
+fun TextView.setUsedCarDate(usedCar: UsedCar?) {
     usedCar?.let {
         text = try {
-            context.getString(R.string.registration_date,it.yearOfRegistration.substring(0,9))
-        } catch (e:StringIndexOutOfBoundsException){
-            context.getString(R.string.registration_date,it.yearOfRegistration)
+            context.getString(R.string.registration_date, it.yearOfRegistration.substring(0, 9))
+        } catch (e: StringIndexOutOfBoundsException) {
+            context.getString(R.string.registration_date, it.yearOfRegistration)
         }
     }
 }
+
 @BindingAdapter("setUsedCarMiles")
-fun TextView.setUsedCarMiles(usedCar: UsedCar?){
+fun TextView.setUsedCarMiles(usedCar: UsedCar?) {
     usedCar?.let {
-        text=context.getString(R.string.miles,it.currentMiles.toString())
+        text = context.getString(R.string.miles, it.currentMiles.toString())
     }
 }
+
 @BindingAdapter("setBackgroundColor")
 fun View.setBackgroundColor(usedCar: UsedCar?) {
     usedCar?.let {
-//        setBackgroundColor(android.graphics.Color.parseColor(usedCar.color))
+//        setBackgroundColor(Integer.parseInt(usedCar.color))
     }
 }
 
@@ -100,12 +106,13 @@ fun View.setBackgroundColor(usedCar: UsedCar?) {
 fun TextView.setBidDate(usedCar: UsedCar?) {
     usedCar?.let {
         text = try {
-            it.yearOfRegistration.substring(0,9)
-        } catch (e:StringIndexOutOfBoundsException){
+            it.yearOfRegistration.substring(0, 9)
+        } catch (e: StringIndexOutOfBoundsException) {
             it.yearOfRegistration
         }
     }
 }
+
 @BindingAdapter("setBidBrand")
 fun TextView.setBidBrand(usedCar: UsedCar?) {
     usedCar?.let {
@@ -195,23 +202,27 @@ fun TextView.setDouble(value: Double?) {
 
 
 @BindingAdapter("setBidCreator")
-fun TextView.setBidCreator(bid: Bid?){
+fun TextView.setBidCreator(bid: Bid?) {
     bid?.let {
-        text=context.getString(R.string.firstLastName,bid.creator.firstName,bid.creator.lastName)
+        text =
+            context.getString(R.string.firstLastName, bid.creator.firstName, bid.creator.lastName)
     }
 }
+
 @BindingAdapter("setBidCreatorPhone")
-fun TextView.setBidCreatorPhone(bid: Bid?){
+fun TextView.setBidCreatorPhone(bid: Bid?) {
     bid?.let {
-        text=bid.creator.phone
+        text = bid.creator.phone
     }
 }
+
 @BindingAdapter("setBidPrice")
-fun TextView.setBidPrice(bid: Bid?){
+fun TextView.setBidPrice(bid: Bid?) {
     bid?.let {
-        text=bid.price.toString()
+        text = bid.price.toString()
     }
 }
+
 @BindingAdapter("bidsListItems")
 fun bidsListItems(recyclerView: RecyclerView, data: List<Bid>?) {
     val adapter = recyclerView.adapter as BidsAdapter

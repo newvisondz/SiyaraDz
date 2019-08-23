@@ -68,7 +68,7 @@ class ProfileFormViewModel(application: Application) : AndroidViewModel(applicat
         Log.i("update","Done")
         val call = RetrofitClient(context!!)
             .serverDataApi
-            .updateUser(getUserToken(userInfo!!)!!, jsonObject)
+            .updateUser(getUserToken(userInfo!!), jsonObject)
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if (response.isSuccessful) {

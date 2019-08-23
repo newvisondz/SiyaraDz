@@ -159,10 +159,10 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
             .setTitle("Confirmation d'achat")
             .setCancelable(true)
             .setIcon(R.drawable.ic_money)
-            .setPositiveButton("Proceed") { dialog, id ->
+            .setPositiveButton("Proceed") { _, _ ->
                 versionViewModel.confirmCommande(command.cars[0])
             }
-            .setNegativeButton("Cancel") { dialog, id ->
+            .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.cancel()
             }
         val alert = dialogBuilder.create()

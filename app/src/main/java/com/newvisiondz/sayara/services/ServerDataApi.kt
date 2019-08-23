@@ -116,7 +116,7 @@ interface ServerDataApi {
         @Part("registrationDate") registrationDate: String,
         @Part("currentMiles") currentMiles: Double,
         @Part("minPrice") minPrice: Double,
-        @Part("color") color: String    ,
+        @Part("color") color: String,
         @Part("title") title: String,
         @Part("manufacturer") manufacturer: String,
         @Part("model") model: String,
@@ -134,5 +134,14 @@ interface ServerDataApi {
         @Header("Authorization") token: String,
         @Path("usedCarId") usedCarId: String,
         @Query("fields") fields: String = "creator,price"
-    ):Call<List<Bid>>
+    ): Call<List<Bid>>
+
+
+    @POST("used-cars/{carId}/bids")
+    fun createNewBid(
+        @Header("Authorization") token: String,
+        @Path("carId") usedCarId: String,
+        @Body body: JsonObject
+
+    ): Call<Bid>
 }

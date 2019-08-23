@@ -44,7 +44,7 @@ class BrandsRepository private constructor(var context: Context) {
     fun getBrandsData() {
         val call = RetrofitClient(context)
             .serverDataApi
-            .getAllBrands(getUserToken(userInfo)!!, 1, 6, "")
+            .getAllBrands(getUserToken(userInfo), 1, 6, "")
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
@@ -62,7 +62,7 @@ class BrandsRepository private constructor(var context: Context) {
         val call = RetrofitClient(context)
             .serverDataApi
             .getAllBrands(
-                getUserToken(userInfo)!!,
+                getUserToken(userInfo),
                 (pageNumber),
                 (viewThreshold),
                 ""
@@ -86,7 +86,7 @@ class BrandsRepository private constructor(var context: Context) {
     fun filterBrands(q: String) {
         val call = RetrofitClient(context)
             .serverDataApi
-            .filterBrands(getUserToken(userInfo)!!, q)
+            .filterBrands(getUserToken(userInfo), q)
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
                 t.printStackTrace()

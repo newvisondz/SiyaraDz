@@ -42,7 +42,7 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
                 }
             }
         }
-        RetrofitClient(context).serverDataApi.deleteUsedCar(token!!, usedCarsList.value?.get(carPosition)!!.id)
+        RetrofitClient(context).serverDataApi.deleteUsedCar(token, usedCarsList.value?.get(carPosition)!!.id)
             .enqueue(
                 object : Callback<JsonObject> {
                     override fun onFailure(call: Call<JsonObject>, t: Throwable) {}

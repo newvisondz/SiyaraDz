@@ -53,7 +53,7 @@
                 <TextView
                         android:text="@string/manufacturer"
                         android:layout_width="wrap_content"
-                        style="@style/SmallLight"
+                        style="@style/SmallDark"
                         app:setUsedCarManufacturer="@{usedCar}"
                         android:layout_height="wrap_content" android:id="@+id/used_car_manufacturer"
                         app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
@@ -61,7 +61,7 @@
                         app:layout_constraintBottom_toTopOf="@+id/used_car_model" android:layout_marginBottom="8dp"/>
                 <TextView
                         android:text="@string/model"
-                        style="@style/SmallLight"
+                        style="@style/SmallDark"
                         app:setUsedCarModel="@{usedCar}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/used_car_model"
@@ -71,7 +71,7 @@
                         android:layout_marginBottom="8dp"/>
                 <TextView
                         android:text="@string/color"
-                        style="@style/SmallLight"
+                        style="@style/SmallDark"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/used_car_color"
@@ -81,7 +81,7 @@
                 <TextView
                         android:text="@string/miles"
                         android:layout_width="wrap_content"
-                        style="@style/SmallLight"
+                        style="@style/SmallDark"
                         app:setUsedCarMiles="@{usedCar}"
                         android:layout_height="wrap_content" android:id="@+id/used_car_miles"
                         app:layout_constraintTop_toBottomOf="@+id/used_car_date"
@@ -90,7 +90,8 @@
                         android:layout_marginBottom="8dp"/>
                 <TextView
                         android:text="@string/registration_date"
-                        style="@style/SmallLight"
+                        style="@style/SmallDark"
+
                         app:setUsedCarDate="@{usedCar}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/used_car_date"
@@ -101,7 +102,7 @@
                 <TextView
                         android:text="@string/version"
                         android:layout_width="wrap_content"
-                        style="@style/SmallLight"
+                        style="@style/SmallDark"
                         app:setUsedCarVersion="@{usedCar}"
                         android:layout_height="wrap_content" android:id="@+id/used_car_version"
                         app:layout_constraintTop_toBottomOf="@+id/used_car_model"
@@ -141,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"
-                app:layout_constraintBottom_toTopOf="@+id/compare_button"
+                app:layout_constraintBottom_toTopOf="@+id/make_new_offere"
                 app:layout_constraintStart_toStartOf="parent">
 
             <TextView
@@ -169,8 +170,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-                android:id="@+id/compare_button"
-                android:textSize="@dimen/font_medium"
+                android:id="@+id/make_new_offere"
+                android:textSize="@dimen/font_large"
                 android:fontFamily="@font/montserrat"
                 android:text="Faire une Offre"
                 style="@style/btn_colors"

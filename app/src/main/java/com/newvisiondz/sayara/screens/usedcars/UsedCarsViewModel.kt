@@ -67,7 +67,7 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
     private val dataSource = getDatabase(application.applicationContext).usedCarDao
 
     init {
-        token = getUserToken(userInfo)!!
+        token = getUserToken(userInfo)
         insertIsDone.value = null
         getAllBids()
         getBrandsList()

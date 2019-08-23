@@ -213,30 +213,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"
-                app:layout_constraintBottom_toTopOf="@+id/compare_button"
+                app:layout_constraintBottom_toTopOf="@id/compare_button"
                 app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                     android:id="@+id/textView16"
+                    style="@style/MediumDark"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:text="Total HT"
-                    style="@style/MediumDark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                     android:id="@+id/textView17"
+                    style="@style/MediumDarkBold"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp"
                     android:text="@{String.valueOf(viewModel.price)}"
-                    style="@style/MediumDarkBold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
@@ -251,18 +251,20 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/order_version"/>
+
         <Button
                 android:id="@+id/order_version"
-                android:text="COMMANDER"
+                style="@style/btn_colors"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
+                android:text="COMMANDER"
                 android:textColor="#FFF"
                 android:textSize="@dimen/font_medium"
-                style="@style/btn_colors"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/compare_button" app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/compare_button" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

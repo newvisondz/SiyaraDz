@@ -17,7 +17,7 @@
     <style name="LargeDark">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">@string/font_light</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:textColor">@color/colorSecondary</item>
         <item name="android:textSize">@dimen/font_large</item>
     </style>
@@ -42,7 +42,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@string/font_light</item>
-        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:textColor">@color/primary_txt</item>
         <item name="android:textSize">@dimen/font_small</item>
     </style>
 

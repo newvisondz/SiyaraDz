@@ -98,7 +98,7 @@ fun updateNotificationTokenWithToken(token: String, context: Context, userInfo: 
     val jsonObject = JsonObject()
     jsonObject.addProperty("token", token)
     val call = RetrofitClient(context).serverDataApi
-        .updateUser(getUserToken(userInfo)!!, jsonObject)
+        .updateUser(getUserToken(userInfo), jsonObject)
     Log.i("FirebaseServiceRes", "sending Token")
     call.enqueue(object : Callback<JsonObject> {
         override fun onFailure(call: retrofit2.Call<JsonObject>, t: Throwable) {

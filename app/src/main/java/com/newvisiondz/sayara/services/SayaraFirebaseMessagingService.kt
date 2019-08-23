@@ -22,7 +22,7 @@ import retrofit2.Response
 class SayaraFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        remoteMessage?.notification?.let {
+        remoteMessage.notification?.let {
             Log.d(Brands.TAG, "Message Notification Body: ${it.body}")
             sendNotification(it.body.toString())
         }
@@ -37,7 +37,7 @@ class SayaraFirebaseMessagingService : FirebaseMessagingService() {
         val jsonObject = JsonObject()
         jsonObject.addProperty("token", token)
         val call = RetrofitClient(applicationContext).serverDataApi
-            .updateUser(getUserToken(userInfo!!)!!, jsonObject)
+            .updateUser(getUserToken(userInfo!!), jsonObject)
 
         Log.i("FirebaseServiceRes", "sending Token")
         call.enqueue(object : Callback<JsonObject> {
