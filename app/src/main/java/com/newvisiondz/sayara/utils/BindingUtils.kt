@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.model.Color
-import com.newvisiondz.sayara.model.UsedCar
-import com.newvisiondz.sayara.model.Value
-import com.newvisiondz.sayara.model.VersionCompare
+import com.newvisiondz.sayara.model.*
+import com.newvisiondz.sayara.screens.usedcardetails.BidsAdapter
 import com.newvisiondz.sayara.screens.usedcars.UsedCarsAdapter
 
 
@@ -78,11 +76,10 @@ fun TextView.setUsedCarVersion(usedCar: UsedCar?){
 @BindingAdapter("setUsedCarDate")
 fun TextView.setUsedCarDate(usedCar: UsedCar?){
     usedCar?.let {
-        try {
-            text=context.getString(R.string.registration_date,it.yearOfRegistration.substring(0,9))
-        }
-        catch (e:StringIndexOutOfBoundsException){
-            text=context.getString(R.string.registration_date,it.yearOfRegistration)
+        text = try {
+            context.getString(R.string.registration_date,it.yearOfRegistration.substring(0,9))
+        } catch (e:StringIndexOutOfBoundsException){
+            context.getString(R.string.registration_date,it.yearOfRegistration)
         }
     }
 }
@@ -95,18 +92,17 @@ fun TextView.setUsedCarMiles(usedCar: UsedCar?){
 @BindingAdapter("setBackgroundColor")
 fun View.setBackgroundColor(usedCar: UsedCar?) {
     usedCar?.let {
-//        setBackgroundColor(android.graphics.Color.parseColor("#${usedCar.color}"))
+//        setBackgroundColor(android.graphics.Color.parseColor(usedCar.color))
     }
 }
 
 @BindingAdapter("setBidDate")
 fun TextView.setBidDate(usedCar: UsedCar?) {
     usedCar?.let {
-        try {
-            text=it.yearOfRegistration.substring(0,9)
-        }
-        catch (e:StringIndexOutOfBoundsException){
-            text=it.yearOfRegistration
+        text = try {
+            it.yearOfRegistration.substring(0,9)
+        } catch (e:StringIndexOutOfBoundsException){
+            it.yearOfRegistration
         }
     }
 }
@@ -198,3 +194,26 @@ fun TextView.setDouble(value: Double?) {
 }
 
 
+@BindingAdapter("setBidCreator")
+fun TextView.setBidCreator(bid: Bid?){
+    bid?.let {
+        text=context.getString(R.string.firstLastName,bid.creator.firstName,bid.creator.lastName)
+    }
+}
+@BindingAdapter("setBidCreatorPhone")
+fun TextView.setBidCreatorPhone(bid: Bid?){
+    bid?.let {
+        text=bid.creator.phone
+    }
+}
+@BindingAdapter("setBidPrice")
+fun TextView.setBidPrice(bid: Bid?){
+    bid?.let {
+        text=bid.price.toString()
+    }
+}
+@BindingAdapter("bidsListItems")
+fun bidsListItems(recyclerView: RecyclerView, data: List<Bid>?) {
+    val adapter = recyclerView.adapter as BidsAdapter
+    adapter.submitList(data)
+}

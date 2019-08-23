@@ -26,8 +26,8 @@ class UsedCarDetailViewModelFactory(
 }
 
 class UsedCarDetailViewModel(application: Application) : AndroidViewModel(application) {
-    private val _bidsList = MutableLiveData<MutableList<Bid>>()
-    val bidsList: LiveData<MutableList<Bid>>
+    private val _bidsList = MutableLiveData<List<Bid>>()
+    val bidsList: LiveData<List<Bid>>
         get() = _bidsList
     private val context = application.applicationContext
     private val userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
@@ -41,13 +41,13 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
 
     fun getAllBidsOfCar(carId: String) {
         RetrofitClient(context).serverDataApi.getAllBidsOfUsedCar(token, usedCarId = carId)
-            .enqueue(object : Callback<JsonElement> {
-                override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+            .enqueue(object : Callback<List<Bid>> {
+                override fun onFailure(call: Call<List<Bid>>, t: Throwable) {
 
                 }
 
-                override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
-
+                override fun onResponse(call: Call<List<Bid>>, response: Response<List<Bid>>) {
+                    _bidsList.value=response.body()
                 }
 
             })

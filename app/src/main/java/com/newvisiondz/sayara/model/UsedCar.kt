@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import java.io.Serializable
 
+@Parcelize
 @Entity(tableName = "usedCar")
 data class UsedCar(
     @PrimaryKey
@@ -33,10 +33,11 @@ data class UsedCar(
     @Ignore
     var uris: MutableList<Uri> = mutableListOf(),
     var owner: String = ""
-) : Serializable
+) : Parcelable
 
 data class Bid(
-    @SerializedName("car")
+    @SerializedName("id")
     var carId: String = "",
+    var creator:User=User(),
     var price: Double = 0.0
 )

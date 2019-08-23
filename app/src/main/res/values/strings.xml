@@ -29,6 +29,9 @@
     <string name="version">Version : %s</string>
     <string name="registration_date">Registration Date : %s</string>
     <string name="color">Color : </string>
+    <string name="firstLastName">%s %s</string>
     <string name="miles">Miles : %s</string>
+
+
 
 </resources>

@@ -3,10 +3,7 @@ package com.newvisiondz.sayara.services
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.newvisiondz.sayara.model.Command
-import com.newvisiondz.sayara.model.Model
-import com.newvisiondz.sayara.model.UsedCar
-import com.newvisiondz.sayara.model.Version
+import com.newvisiondz.sayara.model.*
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -135,7 +132,7 @@ interface ServerDataApi {
     @GET("used-cars/{usedCarId}/bids")
     fun getAllBidsOfUsedCar(
         @Header("Authorization") token: String,
-        @Query("fields") fields: String = "creator",
-        @Path("usedCarId") usedCarId: String
-    ):Call<JsonElement>
+        @Path("usedCarId") usedCarId: String,
+        @Query("fields") fields: String = "creator,price"
+    ):Call<List<Bid>>
 }

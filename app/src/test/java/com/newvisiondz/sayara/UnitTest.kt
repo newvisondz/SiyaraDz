@@ -1,7 +1,9 @@
 package com.newvisiondz.sayara
 
+import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
+import com.newvisiondz.sayara.model.Bid
 import com.newvisiondz.sayara.model.Brand
 import com.newvisiondz.sayara.model.Model
 import com.newvisiondz.sayara.utils.listFormatter
@@ -10,8 +12,6 @@ import org.junit.Test
 
 
 class UnitTest {
-
-
 
     @Test
     fun formatModels() {
@@ -35,5 +35,22 @@ class UnitTest {
         println(brands[0].logo)
         assertEquals("public/31af40e4-541b-42e6-8f86-b870bc99bd6f.jpg", brands[0].logo)
     }
-
+    @Test
+    fun testBidParsing() {
+        val test="[\n" +
+                "    {\n" +
+                "        \"id\": \"5d5ff66735dcee0017275e2b\",\n" +
+                "        \"creator\": {\n" +
+                "            \"id\": \"5d5c14aa9ac0010017adaeaf\",\n" +
+                "            \"firstName\": \"akram benrandja akram\",\n" +
+                "            \"lastName\": \"benra\",\n" +
+                "            \"phone\": \"458887\",\n" +
+                "            \"address\": \"dec 11\"\n" +
+                "        },\n" +
+                "        \"price\": 12394\n" +
+                "    }\n" +
+                "]"
+        val listType = object : TypeToken<MutableList<Bid>>() {}.type
+        val res= Gson().fromJson<MutableList<Bid>>(JsonParser().parse(test),listType)
+    }
 }
