@@ -148,5 +148,12 @@ interface ServerDataApi {
     @GET("autom/me/bids")
     fun getUserBid(
         @Header("Authorization") token: String
-    ):Call<List<UserBid>>
+    ):Call<MutableList<UserBid>>
+
+    @DELETE("used-cars/{carId}/bids/{bidId}")
+    fun removeBid(
+        @Header("Authorization") token: String,
+        @Path("carId") usedCarId: String,
+        @Path("bidId") bidId: String
+        ):Call<JsonObject>
 }
