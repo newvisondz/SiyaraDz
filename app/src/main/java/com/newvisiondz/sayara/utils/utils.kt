@@ -231,5 +231,5 @@ fun convertBitmapToFile(context: Context, photoURI: Uri, index: Int): File {
     fos.write(bitmapdata)
     fos.flush()
     fos.close()
-    return file!!
+    return file
 }

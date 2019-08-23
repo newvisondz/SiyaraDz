@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1029394036505-614nrqg57b7huegqagpn34vbk7h7bue5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.newvisiondz.sayara",
+            "certificate_hash": "04ee3069954dd00fd659ea7f39d6f76d5774a295"
+          }
+        },
+        {
           "client_id": "1029394036505-iaefagmmjssgrdm70pqdl74gphk8un3t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -36,7 +44,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1029394036505-rgiv45dlpsqqn4jarh43iocvr6a3nepa.apps.googleusercontent.com",
+              "client_id": "1029394036505-av5ifhn8mqsnrbq5da57i8tknu92adom.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
