@@ -1,6 +1,7 @@
 package com.newvisiondz.sayara.utils
 
 import android.graphics.drawable.ColorDrawable
+import android.view.View
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
@@ -14,7 +15,7 @@ import com.newvisiondz.sayara.model.Color
 import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.model.Value
 import com.newvisiondz.sayara.model.VersionCompare
-import com.newvisiondz.sayara.screens.usedcars.BidsAdapter
+import com.newvisiondz.sayara.screens.usedcars.UsedCarsAdapter
 
 
 @BindingAdapter("loadImageUrl")
@@ -56,20 +57,72 @@ fun TextView.setBidPrice(usedCar: UsedCar?) {
         text = this.context.getString(R.string.bid_price_text, usedCar.price.toString())
     }
 }
-
-@BindingAdapter("setBidBrand")
-fun TextView.setBidBrand(usedCar: UsedCar?) {
+@BindingAdapter("setUsedCarManufacturer")
+fun TextView.setUsedCarManufacturer(usedCar: UsedCar?){
     usedCar?.let {
-        text = usedCar.manufacturerId
+        text=context.getString(R.string.manufacturer,it.manufacturer)
+    }
+}
+@BindingAdapter("setUsedCarModel")
+fun TextView.setUsedCarModel(usedCar: UsedCar?){
+    usedCar?.let {
+        text=context.getString(R.string.model,it.model)
+    }
+}
+@BindingAdapter("setUsedCarVersion")
+fun TextView.setUsedCarVersion(usedCar: UsedCar?){
+    usedCar?.let {
+        text=context.getString(R.string.version,it.version)
+    }
+}
+@BindingAdapter("setUsedCarDate")
+fun TextView.setUsedCarDate(usedCar: UsedCar?){
+    usedCar?.let {
+        try {
+            text=context.getString(R.string.registration_date,it.yearOfRegistration.substring(0,9))
+        }
+        catch (e:StringIndexOutOfBoundsException){
+            text=context.getString(R.string.registration_date,it.yearOfRegistration)
+        }
+    }
+}
+@BindingAdapter("setUsedCarMiles")
+fun TextView.setUsedCarMiles(usedCar: UsedCar?){
+    usedCar?.let {
+        text=context.getString(R.string.miles,it.currentMiles.toString())
+    }
+}
+@BindingAdapter("setBackgroundColor")
+fun View.setBackgroundColor(usedCar: UsedCar?) {
+    usedCar?.let {
+//        setBackgroundColor(android.graphics.Color.parseColor("#${usedCar.color}"))
     }
 }
 
-//@BindingAdapter("setBidAdresse")
-//fun TextView.setBidddresse(usedCar: UsedCar?) {
-//    usedCar?.let {
-//        text = usedCar.adresse
-//    }
-//}
+@BindingAdapter("setBidDate")
+fun TextView.setBidDate(usedCar: UsedCar?) {
+    usedCar?.let {
+        try {
+            text=it.yearOfRegistration.substring(0,9)
+        }
+        catch (e:StringIndexOutOfBoundsException){
+            text=it.yearOfRegistration
+        }
+    }
+}
+@BindingAdapter("setBidBrand")
+fun TextView.setBidBrand(usedCar: UsedCar?) {
+    usedCar?.let {
+        text = usedCar.manufacturer
+    }
+}
+
+@BindingAdapter("setBidModel")
+fun TextView.setBidddresse(usedCar: UsedCar?) {
+    usedCar?.let {
+        text = usedCar.model
+    }
+}
 
 
 @BindingAdapter("setRadioEngineChecked")
@@ -110,7 +163,7 @@ fun RadioButton.setRadioEnginePowerChecked(item: Value?) {
 
 @BindingAdapter("bidsListData")
 fun bidsListData(recyclerView: RecyclerView, data: List<UsedCar>?) {
-    val adapter = recyclerView.adapter as BidsAdapter
+    val adapter = recyclerView.adapter as UsedCarsAdapter
     adapter.submitList(data)
 }
 
@@ -143,3 +196,5 @@ fun TextView.setDouble(value: Double?) {
         text = value.toString()
     }
 }
+
+

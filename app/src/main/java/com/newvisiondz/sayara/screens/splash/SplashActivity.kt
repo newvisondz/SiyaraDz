@@ -35,24 +35,6 @@ class SplashActivity : AppCompatActivity() {
         logo.animation = uptodown
         textlogo.animation = AnimationUtils.loadAnimation(this, R.anim.downtoup)
 
-//        val mUser = FirebaseAuth.getInstance().currentUser
-//        mUser!!.getIdToken(true)
-//            .addOnCompleteListener {
-//                if (it.isSuccessful) {
-//                    val idToken = it.result?.token
-//                    Log.i("token", idToken)
-//                } else {
-//                    // Handle error -> task.getException();
-//                }
-//            }
-//
-//        splashViewModel.online.observe(this, Observer { online ->
-//            alertDialog = showDialog(this@SplashActivity)
-//            if (!online) {
-//                alertDialog.show()
-//            } else
-//                alertDialog.dismiss()
-//        })
 
         splashViewModel.userConnected.observe(this, Observer { connected ->
             if (!connected) {

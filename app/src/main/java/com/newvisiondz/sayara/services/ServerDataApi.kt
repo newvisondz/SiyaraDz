@@ -119,7 +119,7 @@ interface ServerDataApi {
         @Part("registrationDate") registrationDate: String,
         @Part("currentMiles") currentMiles: Double,
         @Part("minPrice") minPrice: Double,
-        @Part("color") color: String,
+        @Part("color") color: String    ,
         @Part("title") title: String,
         @Part("manufacturer") manufacturer: String,
         @Part("model") model: String,
@@ -135,6 +135,7 @@ interface ServerDataApi {
     @GET("used-cars/{usedCarId}/bids")
     fun getAllBidsOfUsedCar(
         @Header("Authorization") token: String,
-        @Query("fields") fields: String = "creator"
-    )
+        @Query("fields") fields: String = "creator",
+        @Path("usedCarId") usedCarId: String
+    ):Call<JsonElement>
 }

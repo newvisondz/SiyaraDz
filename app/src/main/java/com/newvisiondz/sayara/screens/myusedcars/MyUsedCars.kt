@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentMyUsedCarsBinding
-import com.newvisiondz.sayara.screens.usedcars.BidsAdapter
+import com.newvisiondz.sayara.screens.usedcars.UsedCarsAdapter
 import com.newvisiondz.sayara.utils.isOnline
 
 
@@ -30,7 +30,7 @@ class MyUsedCars : Fragment() {
             ViewModelProviders.of(this, UsedCarsViewModelFactory(application)).get(UsedCarsViewModel::class.java)
         binding.viewModel = mViewModel
         binding.lifecycleOwner = this
-        binding.myBidsList.adapter = BidsAdapter(null)
+        binding.myBidsList.adapter = UsedCarsAdapter(null)
 
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(

@@ -18,6 +18,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.flask.colorpicker.ColorPickerView
@@ -29,6 +31,7 @@ import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.DataEntryDialogBinding
 import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
 import com.newvisiondz.sayara.model.CarInfo
+import com.newvisiondz.sayara.screens.tabs.TabsDirections
 import com.newvisiondz.sayara.utils.datePicker
 import com.newvisiondz.sayara.utils.displaySnackBar
 import kotlinx.android.synthetic.main.camera_gallery.view.*
@@ -74,17 +77,17 @@ class UsedCars : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_used_cars, container, false)
         val application = requireNotNull(this.activity).application
         val viewModel =
-            ViewModelProviders.of(this, BidsViewModelFactory(application)).get(BidsViewModel::class.java)
+            ViewModelProviders.of(this, UsedCarsViewModelFactory(application)).get(UsedCarsViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.bidsList.adapter = BidsAdapter(BidsAdapter.Listener {
-            Toast.makeText(context, it.manufacturerId, Toast.LENGTH_SHORT).show()
+        binding.usedCarsList.adapter = UsedCarsAdapter(UsedCarsAdapter.Listener {
+            findNavController().navigate(TabsDirections.actionTabsToUsedCarsDetails(it))
         })
 
         viewModel.insertIsDone.observe(this, Observer {
             if (it == true) {
-                (binding.bidsList.adapter as BidsAdapter).notifyDataSetChanged()
+                (binding.usedCarsList.adapter as UsedCarsAdapter).notifyDataSetChanged()
                 viewModel.insertIsDone.value = null
                 //todo optimize this code
                 dialog.let(AlertDialog::dismiss)
@@ -183,13 +186,13 @@ class UsedCars : Fragment() {
                 colorPicker(binding, bindingDialog)
             }
         }
-        binding.bidsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.usedCarsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                visibleItemsCount = binding.bidsList.layoutManager!!.childCount
-                totalItemsCount = binding.bidsList.layoutManager!!.itemCount
+                visibleItemsCount = binding.usedCarsList.layoutManager!!.childCount
+                totalItemsCount = binding.usedCarsList.layoutManager!!.itemCount
                 pastVisibleItems =
-                    (binding.bidsList.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                    (binding.usedCarsList.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 if (dy > 0) {
                     if (isloading) {
                         if (totalItemsCount > previousTotal) {

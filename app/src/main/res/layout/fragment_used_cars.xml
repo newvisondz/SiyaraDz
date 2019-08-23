@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="viewModel" type="com.newvisiondz.sayara.screens.usedcars.BidsViewModel"/>
+        <variable name="viewModel" type="com.newvisiondz.sayara.screens.usedcars.UsedCarsViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,7 +19,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/add_new_bid" android:layout_marginBottom="4dp">
             <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/bids_list"
+                    android:id="@+id/used_cars_list"
                     app:bidsListData="@{viewModel.bidsList}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="2"

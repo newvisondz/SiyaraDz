@@ -23,15 +23,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class BidsViewModelFactory(private var app: Application) :
+class UsedCarsViewModelFactory(private var app: Application) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
-        return BidsViewModel(app) as T
+        return UsedCarsViewModel(app) as T
     }
 }
 
-class BidsViewModel(application: Application) : AndroidViewModel(application) {
+class UsedCarsViewModel(application: Application) : AndroidViewModel(application) {
     private var token: String = ""
     private val userInfo: SharedPreferences =
         application.applicationContext.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
@@ -179,10 +179,12 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun createUsedCarInServer(newItem: UsedCar, context: Context) {
         val partList = mutableListOf<MultipartBody.Part>()
+        var index=0
         newItem.uris.forEach {
-            val tmpFile = convertBitmapToFile(context, it)
+            val tmpFile = convertBitmapToFile(context, it,index)
             val requestFile = tmpFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             partList.add(MultipartBody.Part.createFormData("images", tmpFile.name, requestFile))
+            index++
         }
 
         call.createUsedCar(

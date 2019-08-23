@@ -62,9 +62,8 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         binding.versionsSpinner.adapter =
             SpinnerAdapter(context!!, R.layout.spinner_element, versions)
         initializeAdapters(binding)
-
         binding.imageSlider.sliderAdapter =
-            SliderAdapter(context!!, modelImages)
+            SliderAdapter(context!!, modelImages,"${context!!.getString(R.string.baseUrl)}/")
         versionViewModel.getAllVersions(manufacturer, modelId)
 
         versionViewModel.version.observe(this, Observer { newVersion ->

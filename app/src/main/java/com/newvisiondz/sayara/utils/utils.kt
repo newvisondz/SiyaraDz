@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-fun getUserToken(userInfo: SharedPreferences): String? {
+fun getUserToken(userInfo: SharedPreferences): String {
     return userInfo.getString("token", "Not Found")
 }
 
@@ -212,17 +212,24 @@ fun datePicker(viewText: TextView, context: Context) {
     dpd.show()
 }
 
-fun convertBitmapToFile(context: Context, photoURI: Uri): File {
+fun convertBitmapToFile(context: Context, photoURI: Uri, index: Int): File {
+    var file =File(context.cacheDir, "tmpImage${index}")
+    if (file.exists()){
+        file.delete()
+    }
+    else {
+        file = File(context.cacheDir, "tmpImage${index}")
+    }
+
     val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoURI)
-    val file = File(context.cacheDir, "tmpImage")
     file.createNewFile()
     val bos = ByteArrayOutputStream()
-    bitmap.compress(CompressFormat.JPEG, 70, bos)
+    bitmap.compress(CompressFormat.JPEG, 55, bos)
     val bitmapdata = bos.toByteArray()
 
     val fos = FileOutputStream(file)
     fos.write(bitmapdata)
     fos.flush()
     fos.close()
-    return file
+    return file!!
 }

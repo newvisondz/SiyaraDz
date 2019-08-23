@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.databinding.FragmentBidCardBinding
 import com.newvisiondz.sayara.model.UsedCar
 
-class BidsAdapter(private val clickListener: Listener?) : ListAdapter<UsedCar, BidsAdapter.ViewHolder>(AdsCompareDiffUtil()) {
+class UsedCarsAdapter(private val clickListener: Listener?) : ListAdapter<UsedCar, UsedCarsAdapter.ViewHolder>(AdsCompareDiffUtil()) {
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
@@ -18,7 +18,7 @@ class BidsAdapter(private val clickListener: Listener?) : ListAdapter<UsedCar, B
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val bid = getItem(position)
         holder.bind(bid)
-        holder.binding.bidCard.setOnClickListener {
+        holder.binding.expandButton.setOnClickListener {
             this.clickListener?.onClick(bid)
         }
     }
