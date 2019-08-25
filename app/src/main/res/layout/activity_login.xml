@@ -165,7 +165,6 @@
 						style="@style/LabelStyle"
 						android:layout_toEndOf="@id/have_account"
 						android:fontFamily="@font/over_the_rainbow"
-						android:onClick="login"
 						android:text=" NewVision"
 						android:textColor="@color/colorAccent"
 						android:textSize="14sp" />

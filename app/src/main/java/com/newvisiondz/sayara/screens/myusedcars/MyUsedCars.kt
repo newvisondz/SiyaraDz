@@ -7,28 +7,30 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
-import com.newvisiondz.sayara.screens.bids.BidsAdapter
+import com.newvisiondz.sayara.databinding.FragmentMyUsedCarsBinding
+import com.newvisiondz.sayara.screens.usedcars.UsedCarsAdapter
+import com.newvisiondz.sayara.utils.isOnline
 
 
-class UsedCars : Fragment() {
+class MyUsedCars : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentUsedCarsBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_used_cars, container, false)
+        val binding: FragmentMyUsedCarsBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_my_used_cars, container, false)
         val application = requireNotNull(this.activity).application
 
         val mViewModel =
             ViewModelProviders.of(this, UsedCarsViewModelFactory(application)).get(UsedCarsViewModel::class.java)
         binding.viewModel = mViewModel
         binding.lifecycleOwner = this
-        binding.myBidsList.adapter = BidsAdapter(null)
+        binding.myBidsList.adapter = UsedCarsAdapter(null)
 
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
@@ -44,12 +46,24 @@ class UsedCars : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                mViewModel.deleteUsedCarAd(viewHolder.adapterPosition)
-                Toast.makeText(context, "Note deleted", Toast.LENGTH_SHORT).show()
+                if (isOnline(context!!)) {
+                    mViewModel.deleteUsedCarAd(viewHolder.adapterPosition)
+                } else Toast.makeText(
+                    context,
+                    "You'll have to be online to delete this used car permanantly !",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }).attachToRecyclerView(binding.myBidsList)
 
-
+        mViewModel.deletedWithSuccess.observe(this, Observer {
+            if (it == true) {
+                Toast.makeText(context, "Deleted !", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "There was a problem with the server or your internet !", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
         return binding.root
     }
 }

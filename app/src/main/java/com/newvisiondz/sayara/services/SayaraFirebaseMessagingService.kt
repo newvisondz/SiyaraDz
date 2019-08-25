@@ -14,22 +14,21 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.utils.getUserToken
 import com.newvisiondz.sayara.screens.brands.Brands
+import com.newvisiondz.sayara.utils.getUserToken
 import retrofit2.Callback
 import retrofit2.Response
 
 class SayaraFirebaseMessagingService : FirebaseMessagingService() {
 
-
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        remoteMessage?.notification?.let {
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        remoteMessage.notification?.let {
             Log.d(Brands.TAG, "Message Notification Body: ${it.body}")
             sendNotification(it.body.toString())
         }
     }
 
-    override fun onNewToken(token: String?) {
+    override fun onNewToken(token: String) {
         super.onNewToken(token)
 
         val userInfo: SharedPreferences? =
@@ -38,7 +37,7 @@ class SayaraFirebaseMessagingService : FirebaseMessagingService() {
         val jsonObject = JsonObject()
         jsonObject.addProperty("token", token)
         val call = RetrofitClient(applicationContext).serverDataApi
-            .updateUser(getUserToken(userInfo!!)!!, jsonObject)
+            .updateUser(getUserToken(userInfo!!), jsonObject)
 
         Log.i("FirebaseServiceRes", "sending Token")
         call.enqueue(object : Callback<JsonObject> {

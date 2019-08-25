@@ -1,4 +1,4 @@
-package com.newvisiondz.sayara.screens.bids
+package com.newvisiondz.sayara.screens.usedcars
 
 import android.content.Context
 import android.view.LayoutInflater

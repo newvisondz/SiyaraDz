@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="bid"
+                type="com.newvisiondz.sayara.model.Bid" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="5dp"
+            android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+            <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageView7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_user" />
+
+            <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageView8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                    app:srcCompat="@drawable/ic_phone" />
+
+            <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                    app:srcCompat="@drawable/ic_attach_money" />
+
+            <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                    app:layout_constraintStart_toEndOf="@+id/imageView6"
+                    app:layout_constraintTop_toTopOf="@+id/imageView6"
+                    android:layout_height="wrap_content" >
+                <TextView
+                        android:id="@+id/bid_creator_name"
+                        style="@style/MediumLight"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+
+                        app:setBidCreator="@{bid}"
+                        tools:text="TextView" />
+            </HorizontalScrollView>
+            <TextView
+                    android:id="@+id/bid_creator_phone"
+                    style="@style/MediumLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                    app:layout_constraintStart_toEndOf="@+id/imageView7"
+                    app:layout_constraintTop_toTopOf="@+id/imageView7"
+                    app:setBidCreatorPhone="@{bid}"
+                    tools:text="TextView" />
+
+            <TextView
+                    android:id="@+id/bid_creator_price"
+                    style="@style/MediumLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                    app:layout_constraintStart_toEndOf="@+id/imageView8"
+                    app:layout_constraintTop_toTopOf="@+id/imageView8"
+                    app:setBidPrice="@{bid}"
+                    tools:text="TextView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

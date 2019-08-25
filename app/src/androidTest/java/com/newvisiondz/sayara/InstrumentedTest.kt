@@ -8,11 +8,11 @@ import android.util.Base64
 import android.util.Log
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-import com.facebook.internal.Mutable
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.model.CarInfo
-import com.newvisiondz.sayara.model.Model
+import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.listFormatter
@@ -21,8 +21,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -133,14 +131,19 @@ class InstrumentedTest {
         )
         call.execute()
     }
-//Suzuki ma
+
     @Test
     fun testUsedCarGet() {
-        val call = RetrofitClient(appContext).serverDataApi.getAllBids(
-            "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYjNjNzhmYjc5NTM5MDAxOWY4ZDIzYSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTYwODA0MjY3LCJleHAiOjE1NjkzNTc4Njd9.kAD2_-3xg7hS84BI3J9J0W8uHV2UgDLKtS1abaKSdWg"
-        )
+        val call: Call<List<UsedCar>> =
+            RetrofitClient(appContext).serverDataApi.getAllUsedCars("bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNWE4Nzg0ZmI2NmRlNDAyYmM5N2IzMSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTY2MjQxMjI1LCJleHAiOjE1NzQ3OTQ4MjV9.WhK-rbHO55GaTBcMO1853DIbAthY-4Rt_-uztNMLqsY")
+        val mUser = FirebaseAuth.getInstance().currentUser
+        mUser!!.getIdToken(true).addOnCompleteListener {
+            //            it.result.token
+        }
+
         val body = call.execute().body()
-        assertEquals("5d585583c4e2ff46b880eff2", body!![0].id)
+        //bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNWE4Nzg0ZmI2NmRlNDAyYmM5N2IzMSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTY2MjQxMjI1LCJleHAiOjE1NzQ3OTQ4MjV9.WhK-rbHO55GaTBcMO1853DIbAthY-4Rt_-uztNMLqsY
+//        assertEquals("5d585583c4e2ff46b880eff2", body!![0].id)
     }
 
     @Test
@@ -161,7 +164,7 @@ class InstrumentedTest {
             "Suzuku", ""
         )
         val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
-        val body: MutableList<CarInfo> = listFormatter(call.execute().body()!!, listType,"models")
+        val body: MutableList<CarInfo> = listFormatter(call.execute().body()!!, listType, "models")
         print(body[0].name)
     }
 }

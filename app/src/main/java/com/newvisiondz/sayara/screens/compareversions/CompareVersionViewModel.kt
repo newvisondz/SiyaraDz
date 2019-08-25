@@ -43,7 +43,7 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
 
     private fun getAllVersions(manufacturer: String, modelId: String) {
         val call = RetrofitClient(context).serverDataApi.getAllVersion(
-            getUserToken(userInfo!!)!!, manufacturer, modelId
+            getUserToken(userInfo!!), manufacturer, modelId
         )
         call.enqueue(object : Callback<JsonArray> {
             override fun onFailure(call: Call<JsonArray>, t: Throwable) {
@@ -64,7 +64,7 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
     fun getVersionDetails(manufacturer: String, modelId: String, versionId: String, spinnerId: Int) {
         _doneGettingResult.value = false
         val call = RetrofitClient(context).serverDataApi.getVersionDetails(
-            getUserToken(userInfo!!)!!, manufacturer, modelId, versionId
+            getUserToken(userInfo!!), manufacturer, modelId, versionId
         )
         call.enqueue(object : Callback<Version> {
             override fun onFailure(call: Call<Version>, t: Throwable) {

@@ -3,7 +3,6 @@ package com.newvisiondz.sayara.utils
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.net.ConnectivityManager
 import android.net.Uri
@@ -28,7 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-fun getUserToken(userInfo: SharedPreferences): String? {
+fun getUserToken(userInfo: SharedPreferences): String {
     return userInfo.getString("token", "Not Found")
 }
 
@@ -99,7 +98,7 @@ fun updateNotificationTokenWithToken(token: String, context: Context, userInfo: 
     val jsonObject = JsonObject()
     jsonObject.addProperty("token", token)
     val call = RetrofitClient(context).serverDataApi
-        .updateUser(getUserToken(userInfo)!!, jsonObject)
+        .updateUser(getUserToken(userInfo), jsonObject)
     Log.i("FirebaseServiceRes", "sending Token")
     call.enqueue(object : Callback<JsonObject> {
         override fun onFailure(call: retrofit2.Call<JsonObject>, t: Throwable) {
@@ -213,12 +212,19 @@ fun datePicker(viewText: TextView, context: Context) {
     dpd.show()
 }
 
-fun convertBitmapToFile(context: Context, photoURI: Uri): File {
+fun convertBitmapToFile(context: Context, photoURI: Uri, index: Int): File {
+    var file =File(context.cacheDir, "tmpImage${index}")
+    if (file.exists()){
+        file.delete()
+    }
+    else {
+        file = File(context.cacheDir, "tmpImage${index}")
+    }
+
     val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoURI)
-    val file = File(context.cacheDir, "tmpImage")
     file.createNewFile()
     val bos = ByteArrayOutputStream()
-    bitmap.compress(CompressFormat.JPEG, 70, bos)
+    bitmap.compress(CompressFormat.JPEG, 55, bos)
     val bitmapdata = bos.toByteArray()
 
     val fos = FileOutputStream(file)

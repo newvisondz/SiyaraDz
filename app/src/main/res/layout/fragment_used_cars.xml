@@ -2,36 +2,44 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="viewModel" type="com.newvisiondz.sayara.screens.myusedcars.UsedCarsViewModel"/>
+        <variable name="viewModel" type="com.newvisiondz.sayara.screens.usedcars.UsedCarsViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".screens.myusedcars.UsedCars">
+            android:id="@+id/bids_layout"
+            tools:context=".screens.usedcars.UsedCars">
 
-        <TextView
-                android:text="Vos automobiles a vendre"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshBids"
                 android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/add_new_bid" android:layout_marginBottom="4dp">
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/used_cars_list"
+                    app:bidsListData="@{viewModel.bidsList}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/fragment_bid_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:backgroundTint="@color/colorAccent"
                 android:layout_height="wrap_content"
-                style="@style/MediumLight"
-                android:textSize="28sp"
-
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintHorizontal_bias="0.0" android:id="@+id/used_cars_label"/>
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="0dp"
-                android:id="@+id/my_bids_list"
-                tools:itemCount="3"
-                app:bidsListData="@{viewModel.usedCarsList}"
-                tools:listitem="@layout/fragment_bid_card"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="0dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@id/used_cars_label"/>
-
+                android:layout_marginBottom="4dp"
+                android:text="Poster Une Annonce"
+                android:textColor="#fff"
+                android:id="@+id/add_new_bid"
+                app:icon="@drawable/ic_add_circle"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+        />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

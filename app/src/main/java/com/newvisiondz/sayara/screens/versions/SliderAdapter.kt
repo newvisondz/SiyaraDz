@@ -11,7 +11,7 @@ import com.newvisiondz.sayara.R
 import com.smarteist.autoimageslider.SliderViewAdapter
 import kotlinx.android.synthetic.main.slider_item_models.view.*
 
-class SliderAdapter(private val context: Context, private var modelsImages: MutableList<String>) :
+class SliderAdapter(private val context: Context, private var modelsImages: MutableList<String>,private var urlBaseString:String) :
     SliderViewAdapter<SliderAdapter.SliderAdapterVH>() {
     override fun getCount(): Int = modelsImages.size
     override fun onCreateViewHolder(parent: ViewGroup): SliderAdapterVH {
@@ -20,8 +20,7 @@ class SliderAdapter(private val context: Context, private var modelsImages: Muta
     }
     override fun onBindViewHolder(viewHolder: SliderAdapterVH, position: Int) {
         Glide.with(context)
-            .asBitmap()
-            .load("${context.getString(R.string.baseUrl)}/${modelsImages[position]}")
+            .load("${urlBaseString}${modelsImages[position]}")
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)

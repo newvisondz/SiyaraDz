@@ -5,7 +5,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.model.*
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -94,22 +93,34 @@ interface ServerDataApi {
     ): Call<JsonElement>
 
     @GET("used-cars")
-    fun getAllBids(
-        @Header("Authorization") token: String
+    fun getAllUsedCars(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int,
+        @Query("perpage") perPage: Int
     ): Call<List<UsedCar>>
+
+    @DELETE("used-cars/{usedCarId}")
+    fun deleteUsedCar(
+        @Header("Authorization") token: String,
+        @Path("usedCarId") usedCarId: String
+    ): Call<JsonObject>
 
     @Multipart
     @POST("used-cars")
     fun createUsedCar(
         @Header("Authorization") token: String,
         @Part images: List<MultipartBody.Part>,
+        @Part("manufacturerId") manufacturerId: String,
+        @Part("modelId") modelId: String,
+        @Part("versionId") versionId: String,
+        @Part("registrationDate") registrationDate: String,
+        @Part("currentMiles") currentMiles: Double,
+        @Part("minPrice") minPrice: Double,
+        @Part("color") color: String,
+        @Part("title") title: String,
         @Part("manufacturer") manufacturer: String,
         @Part("model") model: String,
-        @Part("version") version: String,
-        @Part("registrationDate") registrationDate: String,
-        @Part("currrentMiles") currrentMiles: Double,
-        @Part("minPrice") minPrice: Double,
-        @Part("color") color: String
+        @Part("version") version: String
     ): Call<UsedCar>
 
     @GET("manufacturers")
@@ -117,4 +128,32 @@ interface ServerDataApi {
         @Header("Authorization") token: String,
         @Query("fields") fields: String
     ): Call<JsonElement>
+
+    @GET("used-cars/{usedCarId}/bids")
+    fun getAllBidsOfUsedCar(
+        @Header("Authorization") token: String,
+        @Path("usedCarId") usedCarId: String,
+        @Query("fields") fields: String = "creator,price"
+    ): Call<List<Bid>>
+
+
+    @POST("used-cars/{carId}/bids")
+    fun createNewBid(
+        @Header("Authorization") token: String,
+        @Path("carId") usedCarId: String,
+        @Body body: JsonObject
+
+    ): Call<Bid>
+
+    @GET("autom/me/bids")
+    fun getUserBid(
+        @Header("Authorization") token: String
+    ):Call<MutableList<UserBid>>
+
+    @DELETE("used-cars/{carId}/bids/{bidId}")
+    fun removeBid(
+        @Header("Authorization") token: String,
+        @Path("carId") usedCarId: String,
+        @Path("bidId") bidId: String
+        ):Call<JsonObject>
 }

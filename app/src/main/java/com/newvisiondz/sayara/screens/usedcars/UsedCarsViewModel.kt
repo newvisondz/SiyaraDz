@@ -1,13 +1,11 @@
-package com.newvisiondz.sayara.screens.bids
+package com.newvisiondz.sayara.screens.usedcars
 
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.*
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
-import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.database.getDatabase
 import com.newvisiondz.sayara.model.CarInfo
@@ -19,25 +17,25 @@ import com.newvisiondz.sayara.utils.listFormatter
 import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class BidsViewModelFactory(private var app: Application) :
+class UsedCarsViewModelFactory(private var app: Application) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
-        return BidsViewModel(app) as T
+        return UsedCarsViewModel(app) as T
     }
 }
 
-class BidsViewModel(application: Application) : AndroidViewModel(application) {
+class UsedCarsViewModel(application: Application) : AndroidViewModel(application) {
     private var token: String = ""
     private val userInfo: SharedPreferences =
         application.applicationContext.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-    val context = application.applicationContext
+    val context: Context = application.applicationContext
     private val _bidsList = MutableLiveData<MutableList<UsedCar>>()
     val bidsList: LiveData<MutableList<UsedCar>>
         get() = _bidsList
@@ -56,7 +54,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     val insertIsDone = MutableLiveData<Boolean>()
     val call = RetrofitClient(application.applicationContext).serverDataApi
-    var newItem = UsedCar()
+    var newItemServer = UsedCar()
 
     val newCarMiles = MutableLiveData<Double>()
     val newCarPrice = MutableLiveData<Double>()
@@ -69,7 +67,7 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
     private val dataSource = getDatabase(application.applicationContext).usedCarDao
 
     init {
-        token = getUserToken(userInfo)!!
+        token = getUserToken(userInfo)
         insertIsDone.value = null
         getAllBids()
         getBrandsList()
@@ -77,57 +75,40 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getAllBids() {
         //todo get stuff from server when ready
-        tmpDataList.add(
-            UsedCar(
-                "",
-                123.4,
-                "asne",
-                2731.3,
-                "2017-12-12",
-                "#fc3",
-                carModel = "haosid",
-                version = "asdhadas"
-            )
-        )
-        tmpDataList.add(
-            UsedCar(
-                "",
-                123423.4,
-                "asne",
-                2731.3,
-                "2017-12-12",
-                "#fc3",
-                carModel = "haosid",
-                version = "asdhadas"
-            )
-        )
-        tmpDataList.add(
-            UsedCar(
-                "",
-                7342.4,
-                "asne",
-                2731.3,
-                "2017-12-12",
-                "#fc3",
-                carModel = "haosid",
-                version = "asdhadas"
-            )
-        )
-        _bidsList.value = tmpDataList
+        token.let {
+            call.getAllUsedCars(it, 1, 6).enqueue(object : Callback<List<UsedCar>> {
+                override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {}
+
+                override fun onResponse(call: Call<List<UsedCar>>, response: Response<List<UsedCar>>) {
+                    tmpDataList.addAll(response.body()!!)
+                    _bidsList.value = tmpDataList
+                }
+            })
+        }
+    }
+
+    fun performPagination(pageNumber: Int, viewThreshold: Int) {
+        token.let {
+            call.getAllUsedCars(it, pageNumber, viewThreshold).enqueue(object : Callback<List<UsedCar>> {
+                override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {}
+
+                override fun onResponse(call: Call<List<UsedCar>>, response: Response<List<UsedCar>>) {
+                    tmpDataList.addAll(response.body()!!)
+                    _bidsList.value = tmpDataList
+                }
+            })
+        }
     }
 
     fun addItemToList() {
 
-        newItem.currrentMiles = newCarMiles.value!!
-        newItem.price = newCarPrice.value!!
-        newItem.yearOfRegistration = newCarDate.value!!
-        tmpDataList.add(newItem)
+        newItemServer.currentMiles = newCarMiles.value!!
+        newItemServer.price = newCarPrice.value!!
+        newItemServer.yearOfRegistration = newCarDate.value!!
+        tmpDataList.add(newItemServer)
         _bidsList.value = tmpDataList
-        createUsedCarinServer(newItem, context)
-//        addToDataBase(newItem)
-//        resetLiveDate()
-        newItem = UsedCar()
-        insertIsDone.value = true
+        createUsedCarInServer(newItemServer, context)
+
     }
 
     private fun resetLiveDate() {
@@ -196,40 +177,46 @@ class BidsViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun createUsedCarinServer(newItem: UsedCar, context: Context) {
-        val jsonObject = JsonObject()
-        jsonObject.addProperty("manufacturer", newItem.carBrandId)
-        jsonObject.addProperty("model", newItem.carModel)
-        jsonObject.addProperty("version", newItem.version)
-        jsonObject.addProperty("registrationDate", newItem.yearOfRegistration)
-        jsonObject.addProperty("currrentMiles", newItem.currrentMiles)
-        jsonObject.addProperty("minPrice", newItem.price)
-        jsonObject.addProperty("color", newItem.color)
-
+    private fun createUsedCarInServer(newItem: UsedCar, context: Context) {
         val partList = mutableListOf<MultipartBody.Part>()
-
+        var index=0
         newItem.uris.forEach {
-            val tmpFile = convertBitmapToFile(context, it)
-            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), tmpFile)
+            val tmpFile = convertBitmapToFile(context, it,index)
+            val requestFile = tmpFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             partList.add(MultipartBody.Part.createFormData("images", tmpFile.name, requestFile))
+            index++
         }
 
         call.createUsedCar(
             token,
             partList,
-            newItem.carBrandId,
-            newItem.carModel,
-            newItem.version,
+            newItem.manufacturerId,
+            newItem.modelId,
+            newItem.versionId,
             newItem.yearOfRegistration,
-            newItem.currrentMiles,
+            newItem.currentMiles,
             newItem.price,
-            newItem.color
+            newItem.color,
+            newItem.title,
+            newItem.manufacturer,
+            newItem.model,
+            newItem.version
         ).enqueue(object : Callback<UsedCar> {
             override fun onFailure(call: Call<UsedCar>, t: Throwable) {}
 
             override fun onResponse(call: Call<UsedCar>, response: Response<UsedCar>) {
                 if (response.isSuccessful) {
-                    Log.i("response", response.body()?.color)
+                    val usedRes = response.body()
+                    newItem.images.clear()
+                    newItem.images = usedRes!!.images
+                    newItem.id = usedRes.id
+                    //database insertion
+                    addToDataBase(newItem)
+                    //reset and Ui handling
+                    resetLiveDate()
+                    newItemServer = UsedCar()
+                    insertIsDone.value = true
+
                 }
             }
         })

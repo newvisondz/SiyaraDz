@@ -3,6 +3,7 @@ package com.newvisiondz.sayara.screens.versions.versionadapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.Value
@@ -25,7 +26,7 @@ class ItemPreviewAdapter(private val previewListValues: MutableList<Value>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val previewKey = itemView.preview_key
-        val previewValue = itemView.preview_value
+        val previewValue: TextView? = itemView.preview_value
 
         fun bind(value: Value) {
             previewKey.text = value.value

@@ -1,10 +1,8 @@
-package com.newvisiondz.sayara.screens.bids
+package com.newvisiondz.sayara.screens.usedcars
 
 import android.Manifest
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -20,34 +18,32 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.BasePermissionListener
-import com.karumi.dexter.listener.single.PermissionListener
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.DataEntryDialogBinding
-import com.newvisiondz.sayara.databinding.FragmentBidsBinding
+import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
 import com.newvisiondz.sayara.model.CarInfo
+import com.newvisiondz.sayara.screens.tabs.TabsDirections
 import com.newvisiondz.sayara.utils.datePicker
 import com.newvisiondz.sayara.utils.displaySnackBar
 import kotlinx.android.synthetic.main.camera_gallery.view.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
-import kotlinx.android.synthetic.main.fragment_bids.*
+import kotlinx.android.synthetic.main.fragment_used_cars.*
 import java.io.File
 import java.io.IOException
-import java.security.Permission
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class Bids : Fragment() {
+class UsedCars : Fragment() {
     companion object {
         const val TAKE_PHOTO = 123
         const val OPEN_GALLERY = 321
@@ -57,6 +53,17 @@ class Bids : Fragment() {
     private var currentBrandId: String = ""
     private var currentModel: String = ""
     private lateinit var photoURI: Uri
+    private lateinit var dialog: AlertDialog
+
+
+    private var isloading: Boolean = true
+    private var pastVisibleItems: Int = 0
+    private var visibleItemsCount: Int = 0
+    private var totalItemsCount: Int = 0
+    private var previousTotal: Int = 0
+
+    private var viewThreshold = 6
+    private var pageNumber: Int = 1
 
     private val brands = mutableListOf<CarInfo>()
     private val models = mutableListOf<CarInfo>()
@@ -66,22 +73,24 @@ class Bids : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentBidsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_bids, container, false)
+        val binding: FragmentUsedCarsBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_used_cars, container, false)
         val application = requireNotNull(this.activity).application
         val viewModel =
-            ViewModelProviders.of(this, BidsViewModelFactory(application)).get(BidsViewModel::class.java)
+            ViewModelProviders.of(this, UsedCarsViewModelFactory(application)).get(UsedCarsViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.bidsList.adapter = BidsAdapter(BidsAdapter.Listener {
-            Toast.makeText(context, it.carBrandId, Toast.LENGTH_SHORT).show()
+        binding.usedCarsList.adapter = UsedCarsAdapter(UsedCarsAdapter.Listener {
+            findNavController().navigate(TabsDirections.actionTabsToUsedCarsDetails(it))
         })
 
         viewModel.insertIsDone.observe(this, Observer {
             if (it == true) {
-                (binding.bidsList.adapter as BidsAdapter).notifyDataSetChanged()
+                (binding.usedCarsList.adapter as UsedCarsAdapter).notifyDataSetChanged()
                 viewModel.insertIsDone.value = null
                 //todo optimize this code
+                dialog.let(AlertDialog::dismiss)
             }
         })
         binding.addNewBid.setOnClickListener {
@@ -114,10 +123,11 @@ class Bids : Fragment() {
                 versions.addAll(newVersions)
                 (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
             })
-            bindingDialog.root.brand_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            bindingDialog.brandSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     currentBrandId = brands[position].id
-                    viewModel.newItem.carBrandId = currentBrandId
+                    viewModel.newItemServer.manufacturerId = currentBrandId
+                    viewModel.newItemServer.manufacturer = brands[position].name
                     viewModel.getModelsList(currentBrandId)
                     versions.clear()
                     (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
@@ -135,7 +145,8 @@ class Bids : Fragment() {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     currentModel = models[position].id
                     viewModel.getVersionList(currentBrandId, currentModel)
-                    viewModel.newItem.carModel = models[position].id
+                    viewModel.newItemServer.modelId = models[position].id
+                    viewModel.newItemServer.model = models[position].name
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -146,12 +157,13 @@ class Bids : Fragment() {
             }
             bindingDialog.versionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.newItem.version = versions[position].id
+                    viewModel.newItemServer.versionId = versions[position].id
+                    viewModel.newItemServer.version = versions[position].name
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-            val dialog = mBuilder.create()
+            dialog = mBuilder.create()
             dialog.setCanceledOnTouchOutside(true)
             dialog.window?.attributes?.windowAnimations = R.style.PauseDialogAnimation
             dialog.show()
@@ -160,11 +172,8 @@ class Bids : Fragment() {
                 openImageSoureDialog()
             }
             bindingDialog.btnOk.setOnClickListener {
-
-                viewModel.newItem.uris = tmpUris
-
+                viewModel.newItemServer.uris = tmpUris
                 viewModel.addItemToList()
-                dialog.dismiss()
             }
 
             bindingDialog.btnCancel.setOnClickListener {
@@ -177,15 +186,37 @@ class Bids : Fragment() {
                 colorPicker(binding, bindingDialog)
             }
         }
+        binding.usedCarsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                visibleItemsCount = binding.usedCarsList.layoutManager!!.childCount
+                totalItemsCount = binding.usedCarsList.layoutManager!!.itemCount
+                pastVisibleItems =
+                    (binding.usedCarsList.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                if (dy > 0) {
+                    if (isloading) {
+                        if (totalItemsCount > previousTotal) {
+                            isloading = false
+                            previousTotal = totalItemsCount
+                        }
+                    }
+                    if (!isloading && (totalItemsCount - visibleItemsCount) <= (pastVisibleItems + viewThreshold)) {
+                        pageNumber++
+                        viewModel.performPagination(pageNumber, viewThreshold)
+                        isloading = true
+                    }
+                }
+            }
+        })
         binding.swipeRefreshBids.setOnRefreshListener {
-            displaySnackBar(binding.bidsLayout, "Nice ")
+            displaySnackBar(binding.bidsLayout, "Nice")
             swipeRefreshBids.isRefreshing = false
         }
         return binding.root
     }
 
     private fun colorPicker(
-        binding: FragmentBidsBinding,
+        binding: FragmentUsedCarsBinding,
         bindingDialog: DataEntryDialogBinding
     ) {
         ColorPickerDialogBuilder
@@ -200,7 +231,7 @@ class Bids : Fragment() {
                     Toast.LENGTH_SHORT
                 )
                     .show()
-                binding.viewModel!!.newItem.color = Integer.toHexString(selectedColor)
+                binding.viewModel!!.newItemServer.color = Integer.toHexString(selectedColor)
 
                 bindingDialog.color.setBackgroundColor(selectedColor)
             }
@@ -216,6 +247,11 @@ class Bids : Fragment() {
             Intent.createChooser(intent, "Select a file"),
             OPEN_GALLERY
         )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        pageNumber = 1
     }
 
     private fun openImageSoureDialog() {
@@ -246,7 +282,6 @@ class Bids : Fragment() {
                 }
             }
         } else if ((requestCode == TAKE_PHOTO) && (resultCode == Activity.RESULT_OK)) {
-//            bitmapRes = MediaStore.Images.Media.getBitmap(context?.contentResolver, photoURI)
             tmpUris.add(photoURI)
         }
     }
@@ -257,12 +292,11 @@ class Bids : Fragment() {
         val imageFileName: String = "JPEG_" + timeStamp + "_"
         val storageDir: File = context!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
 
-        val image = File.createTempFile(
+        return File.createTempFile(
             imageFileName,  /* prefix */
             ".jpg",         /* suffix */
             storageDir      /* directory */
         )
-        return image
     }
 
 

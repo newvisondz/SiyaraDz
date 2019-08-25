@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.newvisiondz.sayara.model.UsedCar
+import com.newvisiondz.sayara.utils.MutableListConverters
 
 @Dao
 interface UsedCarDao {
@@ -19,6 +20,7 @@ interface UsedCarDao {
 }
 
 @Database(entities = [UsedCar::class], version = 1, exportSchema = false)
+@TypeConverters(MutableListConverters::class)
 abstract class UsedCarDatabase : RoomDatabase() {
     abstract val usedCarDao: UsedCarDao
 }

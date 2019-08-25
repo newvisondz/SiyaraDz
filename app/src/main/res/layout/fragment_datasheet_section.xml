@@ -46,8 +46,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView9"
-            style="@style/SmallDark"
+                style="@style/SmallDark"
             android:text="Essence"
             app:layout_constraintBottom_toBottomOf="@+id/textView8"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,8 +54,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView8" />
 
         <View
-            android:id="@+id/view1"
-            android:layout_width="0dp"
+                android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/colorPrimaryExtraDark"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,8 +86,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView10" />
 
         <View
-            android:id="@+id/view2"
-            android:layout_width="0dp"
+                android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/colorPrimaryExtraDark"
             app:layout_constraintEnd_toEndOf="parent"
@@ -121,8 +118,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView12" />
 
         <View
-            android:id="@+id/view3"
-            android:layout_width="0dp"
+                android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/colorPrimaryExtraDark"
             app:layout_constraintEnd_toEndOf="parent"

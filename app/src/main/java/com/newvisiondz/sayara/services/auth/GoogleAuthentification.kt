@@ -16,13 +16,14 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.Token
+import com.newvisiondz.sayara.screens.entryScreens.MainActivity
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.setUserPrefrences
 import com.newvisiondz.sayara.utils.updateNotificationToken
-import com.newvisiondz.sayara.screens.entryScreens.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class GoogleAuthentification(private var context: Context, private var auth: FirebaseAuth) {
 
@@ -40,7 +41,6 @@ class GoogleAuthentification(private var context: Context, private var auth: Fir
     init {
         val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestScopes(Scope(Scopes.APP_STATE))
-//            .requestServerAuthCode(context.getString(R.string.server_client_id))
             .requestIdToken(context.getString(R.string.server_client_id))
             .requestEmail()
             .build()
@@ -55,42 +55,37 @@ class GoogleAuthentification(private var context: Context, private var auth: Fir
         (context as Activity).startActivityForResult(signInIntent, REQ_CODE)
     }
 
-    private fun handleResult(result: GoogleSignInAccount?) {
-        if (result != null) {
-            val call = RetrofitClient(context)
-                .authentificationApi
-                .sendKeysGoogle(result.idToken!!, result.requestedScopes.toString())
-            call.enqueue(object : Callback<Token> {
-                override fun onFailure(call: Call<Token>?, t: Throwable?) {
-                    t!!.printStackTrace()
-                }
-
-                override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
-                    if (response!!.isSuccessful) {
-                        setUserPrefrences(userInfo, response.body()!!, result)
-                        val intent = Intent(context, MainActivity::class.java)
-                        context.startActivity(intent)
-                        updateNotificationToken(context)
-                        (context as Activity).finish()
-                    }
-                }
-            })
-
-        }
-
-    }
-
 
     fun firebaseAuthWithGoogle(acct: GoogleSignInAccount, context: Context) {
-
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-
         auth.signInWithCredential(credential).addOnCompleteListener(context as Activity) { task ->
             if (task.isSuccessful) {
                 Log.d(TAG, "signInWithCredential:success")
                 val user: FirebaseUser? = auth.currentUser
-                handleResult(acct)
-                Log.d(TAG, "${user?.email}")
+                user!!.getIdToken(true)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val idToken = task.result?.token
+                            idToken?.let {
+                                RetrofitClient(context).authentificationApi.sendKeyFirebase(it).enqueue(
+                                    object : Callback<Token> {
+                                        override fun onFailure(call: Call<Token>, t: Throwable) {}
+                                        override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                                            if (response.isSuccessful) {
+                                                setUserPrefrences(userInfo, response.body()!!, acct)
+                                                val intent = Intent(context, MainActivity::class.java)
+                                                context.startActivity(intent)
+                                                updateNotificationToken(context)
+                                                context.finish()
+                                            }
+                                        }
+
+                                    })
+                            }
+                        } else {
+                            Log.w(TAG, "signInWithBackend:failure", task.exception)
+                        }
+                    }
             } else {
                 Log.w(TAG, "signInWithCredential:failure", task.exception)
             }

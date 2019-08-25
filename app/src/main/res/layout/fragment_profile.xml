@@ -159,13 +159,15 @@
 				<Button
 						android:id="@+id/button_myoffers"
 						style="@style/btn_colors"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:text="Mes Offres"
 						android:textSize="18sp"
-						android:text="Offres"
 						app:layout_constraintBottom_toBottomOf="@+id/imageView4"
 						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintTop_toTopOf="@+id/imageView4"
-						app:layout_constraintStart_toEndOf="@+id/imageView4" android:layout_marginStart="8dp"
-						android:layout_width="0dp" android:layout_height="wrap_content"/>
+						app:layout_constraintStart_toEndOf="@+id/imageView4"
+						app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
