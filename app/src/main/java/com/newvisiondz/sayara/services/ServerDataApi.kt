@@ -15,7 +15,7 @@ interface ServerDataApi {
     fun getAllBrands(
         @Header("Authorization") token: String,
         @Query("page") page: Int,
-        @Query("perpage") perPage: Int,
+        @Query("limit") perPage: Int,
         @Query("q") partilStrnig: String
     ): Call<JsonElement>
 
@@ -37,7 +37,7 @@ interface ServerDataApi {
         @Header("Authorization") token: String,
         @Path("manufacturerName") manufacturerName: String,
         @Query("page") page: Int,
-        @Query("perpage") perPage: Int
+        @Query("limit") perPage: Int
     ): Call<JsonElement>
 
     @GET("manufacturers/{manufacturerId}/models")
@@ -96,7 +96,7 @@ interface ServerDataApi {
     fun getAllUsedCars(
         @Header("Authorization") token: String,
         @Query("page") page: Int,
-        @Query("perpage") perPage: Int
+        @Query("limit") perPage: Int
     ): Call<List<UsedCar>>
 
     @DELETE("used-cars/{usedCarId}")

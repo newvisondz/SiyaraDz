@@ -78,7 +78,7 @@
                 android:id="@+id/filters_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:constraint_referenced_ids="max_filter,min_filter,search_filter" />
 
         <ImageButton
