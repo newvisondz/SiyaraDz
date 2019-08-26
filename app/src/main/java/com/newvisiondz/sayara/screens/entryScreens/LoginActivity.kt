@@ -32,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         auth = FirebaseAuth.getInstance()
         userInfo = getSharedPreferences("userinfo", Context.MODE_PRIVATE)

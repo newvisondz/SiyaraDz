@@ -18,7 +18,7 @@ class UsedCarsAdapter(private val clickListener: Listener?) : ListAdapter<UsedCa
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val bid = getItem(position)
         holder.bind(bid)
-        holder.binding.expandButton.setOnClickListener {
+        holder.binding.linearLayout.setOnClickListener {
             this.clickListener?.onClick(bid)
         }
     }

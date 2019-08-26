@@ -17,7 +17,7 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/add_new_bid" android:layout_marginBottom="4dp">
+                app:layout_constraintBottom_toBottomOf="parent">
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/used_cars_list"
                     app:bidsListData="@{viewModel.bidsList}"
@@ -30,16 +30,17 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:layout_width="wrap_content"
-                android:backgroundTint="@color/colorAccent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:textColor="#fff"
+                android:backgroundTint="@color/brightorange"
                 android:id="@+id/add_new_bid"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp"
-                app:icon="@drawable/ic_add_box_black_24dp"
-                style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton" app:iconTint="#FFFFFF"
-                android:text="poster"/>
+                app:icon="@drawable/ic_add_black_24dp"
+                app:iconTint="#FFFFFF"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="4dp"
+                android:elevation="8dp"
+        />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

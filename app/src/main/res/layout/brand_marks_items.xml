@@ -26,7 +26,7 @@
         <ImageView
                 android:id="@+id/brand_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="brand discription"
                 android:scaleType="fitCenter"
