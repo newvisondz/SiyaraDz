@@ -73,7 +73,7 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
         getBrandsList()
     }
 
-    private fun getAllUsedCars() {
+    fun getAllUsedCars() {
         token.let {
             call.getAllUsedCars(it, 1, 6).enqueue(object : Callback<List<UsedCar>> {
                 override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {}
@@ -82,6 +82,7 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
                     call: Call<List<UsedCar>>,
                     response: Response<List<UsedCar>>
                 ) {
+                    tmpDataList.clear()
                     tmpDataList.addAll(response.body()!!)
                     _bidsList.value = tmpDataList
                 }

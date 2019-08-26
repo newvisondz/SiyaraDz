@@ -81,6 +81,12 @@ class UsedCars : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
+        binding.swipeRefreshBids.setOnRefreshListener {
+            viewModel.getAllUsedCars()
+            pageNumber = 1
+            isloading = false
+            binding.swipeRefreshBids.isRefreshing=false
+        }
 
         binding.searchFilter.setOnClickListener {
             val alertDialog = AlertDialog.Builder(context!!, R.style.DialogTheme).create()
@@ -97,7 +103,7 @@ class UsedCars : Fragment() {
                 }
                 dialog.dismiss()
             }
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Distance") { dialog, _ ->
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Distance") { dialog, _ ->
                 try {
                     viewModel.filterUsedCars(
                         "",
@@ -278,10 +284,7 @@ class UsedCars : Fragment() {
                 }
             }
         })
-        binding.swipeRefreshBids.setOnRefreshListener {
-            displaySnackBar(binding.bidsLayout, "Nice")
-            swipeRefreshBids.isRefreshing = false
-        }
+
         return binding.root
     }
 
