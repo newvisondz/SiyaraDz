@@ -21,25 +21,25 @@
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/used_cars_list"
                     app:bidsListData="@{viewModel.bidsList}"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
                     tools:itemCount="2"
                     tools:listitem="@layout/fragment_bid_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:backgroundTint="@color/colorAccent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:text="Poster Une Annonce"
                 android:textColor="#fff"
                 android:id="@+id/add_new_bid"
-                app:icon="@drawable/ic_add_circle"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" android:layout_marginStart="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-        />
+                android:layout_marginEnd="8dp"
+                app:icon="@drawable/ic_add_box_black_24dp"
+                style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton" app:iconTint="#FFFFFF"
+                android:text="poster"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
