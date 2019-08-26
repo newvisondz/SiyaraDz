@@ -7,9 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -18,7 +16,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +31,7 @@ import com.newvisiondz.sayara.model.CarInfo
 import com.newvisiondz.sayara.screens.tabs.TabsDirections
 import com.newvisiondz.sayara.utils.datePicker
 import com.newvisiondz.sayara.utils.displaySnackBar
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.camera_gallery.view.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_used_cars.*
@@ -48,6 +46,8 @@ class UsedCars : Fragment() {
         const val TAKE_PHOTO = 123
         const val OPEN_GALLERY = 321
     }
+
+    lateinit var binding: FragmentUsedCarsBinding
 
     private var tmpUris = mutableListOf<Uri>()
     private var currentBrandId: String = ""
@@ -73,18 +73,62 @@ class UsedCars : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentUsedCarsBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_used_cars, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_used_cars, container, false)
         val application = requireNotNull(this.activity).application
         val viewModel =
-            ViewModelProviders.of(this, UsedCarsViewModelFactory(application)).get(UsedCarsViewModel::class.java)
+            ViewModelProviders.of(this, UsedCarsViewModelFactory(application))
+                .get(UsedCarsViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        setHasOptionsMenu(true)
 
+        binding.searchFilter.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(context!!, R.style.DialogTheme).create()
+            alertDialog.setTitle("Choose a Filter")
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Price") { dialog, _ ->
+                try {
+                    viewModel.filterUsedCars(
+                        "",
+                        maxPrice = binding.maxFilter.text.toString().toDouble(),
+                        minPrice = binding.minFilter.text.toString().toDouble()
+                    )
+                } catch (e: NumberFormatException) {
+                    Toast.makeText(context, "Bad number format", Toast.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            }
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Distance") { dialog, _ ->
+                try {
+                    viewModel.filterUsedCars(
+                        "",
+                        binding.maxFilter.text.toString().toDouble(),
+                        binding.minFilter.text.toString().toDouble()
+                    )
+                } catch (e: NumberFormatException) {
+                    Toast.makeText(context, "Bad number format", Toast.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            }
+            alertDialog.show()
+        }
+        activity!!.action_search
+            .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    viewModel.filterUsedCars(query)
+                    return true
+                }
+
+                override fun onQueryTextChange(query: String): Boolean {
+                    return false
+                }
+            })
         binding.usedCarsList.adapter = UsedCarsAdapter(UsedCarsAdapter.Listener {
             findNavController().navigate(TabsDirections.actionTabsToUsedCarsDetails(it))
         })
 
+        viewModel.bidsList.observe(this, Observer {
+            (binding.usedCarsList.adapter as UsedCarsAdapter).notifyDataSetChanged()
+        })
         viewModel.insertIsDone.observe(this, Observer {
             if (it == true) {
                 (binding.usedCarsList.adapter as UsedCarsAdapter).notifyDataSetChanged()
@@ -98,15 +142,23 @@ class UsedCars : Fragment() {
                 context!!, android.R.style.Theme_Light_NoTitleBar_Fullscreen
             )
             val bindingDialog: DataEntryDialogBinding =
-                DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.data_entry_dialog, null, false)
+                DataBindingUtil.inflate(
+                    LayoutInflater.from(context),
+                    R.layout.data_entry_dialog,
+                    null,
+                    false
+                )
             bindingDialog.viewModel = viewModel
             mBuilder.setView(bindingDialog.root)
 
 
 
-            bindingDialog.brandSpinner.adapter = InfoSpinner(context!!, R.layout.spinner_element, brands)
-            bindingDialog.modelSpinner.adapter = InfoSpinner(context!!, R.layout.spinner_element, models)
-            bindingDialog.versionSpinner.adapter = InfoSpinner(context!!, R.layout.spinner_element, versions)
+            bindingDialog.brandSpinner.adapter =
+                InfoSpinner(context!!, R.layout.spinner_element, brands)
+            bindingDialog.modelSpinner.adapter =
+                InfoSpinner(context!!, R.layout.spinner_element, models)
+            bindingDialog.versionSpinner.adapter =
+                InfoSpinner(context!!, R.layout.spinner_element, versions)
 
             viewModel.brandList.observe(this, Observer { newBrands ->
                 brands.clear()
@@ -123,46 +175,64 @@ class UsedCars : Fragment() {
                 versions.addAll(newVersions)
                 (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
             })
-            bindingDialog.brandSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    currentBrandId = brands[position].id
-                    viewModel.newItemServer.manufacturerId = currentBrandId
-                    viewModel.newItemServer.manufacturer = brands[position].name
-                    viewModel.getModelsList(currentBrandId)
-                    versions.clear()
-                    (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    if (brands.size > 0) {
-                        currentBrandId = brands[0].id
+            bindingDialog.brandSpinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        currentBrandId = brands[position].id
+                        viewModel.newItemServer.manufacturerId = currentBrandId
+                        viewModel.newItemServer.manufacturer = brands[position].name
                         viewModel.getModelsList(currentBrandId)
+                        versions.clear()
+                        (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
                     }
 
-                }
-            }
-            bindingDialog.modelSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    currentModel = models[position].id
-                    viewModel.getVersionList(currentBrandId, currentModel)
-                    viewModel.newItemServer.modelId = models[position].id
-                    viewModel.newItemServer.model = models[position].name
-                }
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        if (brands.size > 0) {
+                            currentBrandId = brands[0].id
+                            viewModel.getModelsList(currentBrandId)
+                        }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    if (models.size > 0) {
-                        viewModel.getVersionList(currentBrandId, models[0].id)
                     }
                 }
-            }
-            bindingDialog.versionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.newItemServer.versionId = versions[position].id
-                    viewModel.newItemServer.version = versions[position].name
-                }
+            bindingDialog.modelSpinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        currentModel = models[position].id
+                        viewModel.getVersionList(currentBrandId, currentModel)
+                        viewModel.newItemServer.modelId = models[position].id
+                        viewModel.newItemServer.model = models[position].name
+                    }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        if (models.size > 0) {
+                            viewModel.getVersionList(currentBrandId, models[0].id)
+                        }
+                    }
+                }
+            bindingDialog.versionSpinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        viewModel.newItemServer.versionId = versions[position].id
+                        viewModel.newItemServer.version = versions[position].name
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
             dialog = mBuilder.create()
             dialog.setCanceledOnTouchOutside(true)
             dialog.window?.attributes?.windowAnimations = R.style.PauseDialogAnimation
@@ -331,5 +401,20 @@ class UsedCars : Fragment() {
                 }
             }
             ).check()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.filter_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.display_filter) {
+            if (binding.filtersGroup.visibility == View.VISIBLE) binding.filtersGroup.visibility =
+                View.GONE
+            else binding.filtersGroup.visibility = View.VISIBLE
+            return true
+        }
+        return false
     }
 }

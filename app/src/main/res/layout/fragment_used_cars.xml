@@ -4,42 +4,94 @@
     <data>
         <variable name="viewModel" type="com.newvisiondz.sayara.screens.usedcars.UsedCarsViewModel"/>
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bids_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/bids_layout"
             tools:context=".screens.usedcars.UsedCars">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefreshBids"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginBottom="4dp"
+                android:backgroundTint="@color/browser_actions_bg_grey"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/add_new_bid"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/add_new_bid" android:layout_marginBottom="4dp">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/max_filter">
+
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/used_cars_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     app:bidsListData="@{viewModel.bidsList}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/fragment_bid_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    tools:itemCount="4"
+                    tools:listitem="@layout/fragment_bid_card" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/add_new_bid"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
                 android:layout_width="wrap_content"
-                android:backgroundTint="@color/colorAccent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp"
+                android:backgroundTint="@color/colorAccent"
                 android:text="Poster Une Annonce"
                 android:textColor="#fff"
-                android:id="@+id/add_new_bid"
                 app:icon="@drawable/ic_add_circle"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+                android:id="@+id/max_filter"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="max"
+                android:inputType="numberDecimal"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/search_filter"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/min_filter"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+                android:id="@+id/min_filter"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="min"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toStartOf="@+id/max_filter"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-        />
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+                android:id="@+id/filters_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="max_filter,min_filter,search_filter" />
+
+        <ImageButton
+                android:id="@+id/search_filter"
+                style="@android:style/Widget.Material.Light.ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/swipeRefreshBids"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/max_filter"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_search" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

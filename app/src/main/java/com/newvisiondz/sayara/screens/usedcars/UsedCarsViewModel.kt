@@ -69,17 +69,19 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
     init {
         token = getUserToken(userInfo)
         insertIsDone.value = null
-        getAllBids()
+        getAllUsedCars()
         getBrandsList()
     }
 
-    private fun getAllBids() {
-        //todo get stuff from server when ready
+    private fun getAllUsedCars() {
         token.let {
             call.getAllUsedCars(it, 1, 6).enqueue(object : Callback<List<UsedCar>> {
                 override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {}
 
-                override fun onResponse(call: Call<List<UsedCar>>, response: Response<List<UsedCar>>) {
+                override fun onResponse(
+                    call: Call<List<UsedCar>>,
+                    response: Response<List<UsedCar>>
+                ) {
                     tmpDataList.addAll(response.body()!!)
                     _bidsList.value = tmpDataList
                 }
@@ -89,14 +91,18 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
 
     fun performPagination(pageNumber: Int, viewThreshold: Int) {
         token.let {
-            call.getAllUsedCars(it, pageNumber, viewThreshold).enqueue(object : Callback<List<UsedCar>> {
-                override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {}
+            call.getAllUsedCars(it, pageNumber, viewThreshold)
+                .enqueue(object : Callback<List<UsedCar>> {
+                    override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {}
 
-                override fun onResponse(call: Call<List<UsedCar>>, response: Response<List<UsedCar>>) {
-                    tmpDataList.addAll(response.body()!!)
-                    _bidsList.value = tmpDataList
-                }
-            })
+                    override fun onResponse(
+                        call: Call<List<UsedCar>>,
+                        response: Response<List<UsedCar>>
+                    ) {
+                        tmpDataList.addAll(response.body()!!)
+                        _bidsList.value = tmpDataList
+                    }
+                })
         }
     }
 
@@ -135,7 +141,8 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
                 override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                     if (response.isSuccessful) {
                         val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
-                        _brandList.value = listFormatter(response.body()!!, listType, "manufacturers")
+                        _brandList.value =
+                            listFormatter(response.body()!!, listType, "manufacturers")
                     }
                 }
             })
@@ -179,9 +186,9 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
 
     private fun createUsedCarInServer(newItem: UsedCar, context: Context) {
         val partList = mutableListOf<MultipartBody.Part>()
-        var index=0
+        var index = 0
         newItem.uris.forEach {
-            val tmpFile = convertBitmapToFile(context, it,index)
+            val tmpFile = convertBitmapToFile(context, it, index)
             val requestFile = tmpFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             partList.add(MultipartBody.Part.createFormData("images", tmpFile.name, requestFile))
             index++
@@ -222,4 +229,24 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
         })
     }
 
+    fun filterUsedCars(
+        q: String,
+        maxCurrentMiles: Double = 9999999999.9,
+        minCurrentMiles: Double = 0.0,
+        maxPrice: Double = 9999999999.9,
+        minPrice: Double = 0.0
+    ) {
+        call.filterUsedCars(token, q, minPrice, maxPrice, minCurrentMiles, maxCurrentMiles)
+            .enqueue(object : Callback<List<UsedCar>> {
+                override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<List<UsedCar>>, response: Response<List<UsedCar>>) {
+                    tmpDataList.clear()
+                    tmpDataList.addAll(response.body()!!)
+                    _bidsList.value = tmpDataList
+                }
+            })
+    }
 }
