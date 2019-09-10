@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.newvisiondz.sayara
 
 import android.content.pm.PackageInfo
@@ -8,14 +6,13 @@ import android.util.Base64
 import android.util.Log
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
-import com.newvisiondz.sayara.model.CarInfo
 import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.listFormatter
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -133,38 +130,11 @@ class InstrumentedTest {
     }
 
     @Test
-    fun testUsedCarGet() {
+    fun getUsedCar() {
         val call: Call<List<UsedCar>> =
-            RetrofitClient(appContext).serverDataApi.getAllUsedCars("bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNWE4Nzg0ZmI2NmRlNDAyYmM5N2IzMSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTY2MjQxMjI1LCJleHAiOjE1NzQ3OTQ4MjV9.WhK-rbHO55GaTBcMO1853DIbAthY-4Rt_-uztNMLqsY")
-        val mUser = FirebaseAuth.getInstance().currentUser
-        mUser!!.getIdToken(true).addOnCompleteListener {
-            //            it.result.token
-        }
-
+            RetrofitClient(appContext).serverDataApi.getAllUsedCars("bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNWZlZGZmMzVkY2VlMDAxNzI3NWUyOSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTY2NTY3OTM1LCJleHAiOjE1NzUxMjE1MzV9.qr9s-WV6nEt23lWDSBFhGRmKKV1Oe1McN37yeIsF_bA",1,10)
         val body = call.execute().body()
-        //bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNWE4Nzg0ZmI2NmRlNDAyYmM5N2IzMSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTY2MjQxMjI1LCJleHAiOjE1NzQ3OTQ4MjV9.WhK-rbHO55GaTBcMO1853DIbAthY-4Rt_-uztNMLqsY
-//        assertEquals("5d585583c4e2ff46b880eff2", body!![0].id)
+        assertEquals("5d6456f6733e59001709a79d", body!![0].id)
     }
 
-    @Test
-    fun getBrandsList() {
-        val call = RetrofitClient(appContext).serverDataApi.getAllVersion(
-            "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYjNjNzhmYjc5NTM5MDAxOWY4ZDIzYSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTYwODA0MjY3LCJleHAiOjE1NjkzNTc4Njd9.kAD2_-3xg7hS84BI3J9J0W8uHV2UgDLKtS1abaKSdWg",
-            "Suzuku", "5d206ac16fffac001957a65c"
-        )
-        val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
-        val body: MutableList<CarInfo> = listFormatter(call.execute().body()!!, listType)
-        print(body[0].name)
-    }
-
-    @Test
-    fun getModels() {
-        val call = RetrofitClient(appContext).serverDataApi.getAllModels(
-            "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYjNjNzhmYjc5NTM5MDAxOWY4ZDIzYSIsInR5cGUiOiJBVVRPTU9CSUxJU1RFIiwiaWF0IjoxNTYwODA0MjY3LCJleHAiOjE1NjkzNTc4Njd9.kAD2_-3xg7hS84BI3J9J0W8uHV2UgDLKtS1abaKSdWg",
-            "Suzuku", ""
-        )
-        val listType = object : TypeToken<MutableList<CarInfo>>() {}.type
-        val body: MutableList<CarInfo> = listFormatter(call.execute().body()!!, listType, "models")
-        print(body[0].name)
-    }
 }

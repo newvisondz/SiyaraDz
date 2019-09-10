@@ -21,6 +21,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 
 class UsedCarsViewModelFactory(private var app: Application) :
@@ -51,6 +52,9 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
     val versionList: LiveData<List<CarInfo>>
         get() = _versionList
 
+    private val _errorObservable = MutableLiveData<Boolean>()
+    val errorObservable: LiveData<Boolean>
+        get() = _errorObservable
 
     val insertIsDone = MutableLiveData<Boolean>()
     val call = RetrofitClient(application.applicationContext).serverDataApi
@@ -69,6 +73,7 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
     init {
         token = getUserToken(userInfo)
         insertIsDone.value = null
+        _errorObservable.value = null
         getAllUsedCars()
         getBrandsList()
     }
@@ -108,10 +113,14 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun addItemToList() {
+        try {
+            newItemServer.currentMiles = newCarMiles.value!!
+            newItemServer.price = newCarPrice.value!!
+            newItemServer.yearOfRegistration = newCarDate.value!!
+        } catch (e: Exception) {
+            _errorObservable.value = true
+        }
 
-        newItemServer.currentMiles = newCarMiles.value!!
-        newItemServer.price = newCarPrice.value!!
-        newItemServer.yearOfRegistration = newCarDate.value!!
         tmpDataList.add(newItemServer)
         _bidsList.value = tmpDataList
         createUsedCarInServer(newItemServer, context)
@@ -243,7 +252,10 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
 
                 }
 
-                override fun onResponse(call: Call<List<UsedCar>>, response: Response<List<UsedCar>>) {
+                override fun onResponse(
+                    call: Call<List<UsedCar>>,
+                    response: Response<List<UsedCar>>
+                ) {
                     tmpDataList.clear()
                     tmpDataList.addAll(response.body()!!)
                     _bidsList.value = tmpDataList

@@ -85,8 +85,13 @@ class UsedCars : Fragment() {
             viewModel.getAllUsedCars()
             pageNumber = 1
             isloading = false
-            binding.swipeRefreshBids.isRefreshing=false
+            binding.swipeRefreshBids.isRefreshing = false
         }
+        viewModel.errorObservable.observe(this, Observer {
+            if (it == true) {
+                Toast.makeText(context, "Please fill all the inputs !", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         binding.searchFilter.setOnClickListener {
             val alertDialog = AlertDialog.Builder(context!!, R.style.DialogTheme).create()
@@ -141,11 +146,13 @@ class UsedCars : Fragment() {
                 viewModel.insertIsDone.value = null
                 //todo optimize this code
                 dialog.let(AlertDialog::dismiss)
+                models.clear()
+                versions.clear()
             }
         })
         binding.addNewBid.setOnClickListener {
             val mBuilder = AlertDialog.Builder(
-                context!!, android.R.style.Theme_Light_NoTitleBar_Fullscreen
+                context!!, android.R.style.ThemeOverlay_Material
             )
             val bindingDialog: DataEntryDialogBinding =
                 DataBindingUtil.inflate(

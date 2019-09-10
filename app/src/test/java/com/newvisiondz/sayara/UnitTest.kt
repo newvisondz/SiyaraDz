@@ -3,14 +3,16 @@ package com.newvisiondz.sayara
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
-import com.newvisiondz.sayara.model.Bid
 import com.newvisiondz.sayara.model.Brand
 import com.newvisiondz.sayara.model.Model
+import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.model.UserBid
+import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.listFormatter
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
-
+import retrofit2.Call
 
 class UnitTest {
 
@@ -44,4 +46,5 @@ class UnitTest {
         val listType = object : TypeToken<MutableList<UserBid>>() {}.type
         val res = Gson().fromJson<MutableList<UserBid>>(JsonParser().parse(test), listType)
     }
+
 }
