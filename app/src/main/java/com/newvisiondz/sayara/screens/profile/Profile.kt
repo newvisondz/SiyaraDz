@@ -47,11 +47,11 @@ class Profile : Fragment() {
         }
 
         binding.buttonMymodels.setOnClickListener {
-            it.findNavController().navigate(TabsDirections.actionTabsToMyModels())
+//            it.findNavController().navigate(TabsDirections.actionTabsToMyModels())
         }
 
         binding.buttonMyversions.setOnClickListener {
-            it.findNavController().navigate(TabsDirections.actionTabsToMyVersions())
+//            it.findNavController().navigate(TabsDirections.actionTabsToMyVersions())
         }
         binding.buttonMyoffers.setOnClickListener {
             it.findNavController().navigate(TabsDirections.actionTabsToMyOffers())
@@ -65,7 +65,7 @@ class Profile : Fragment() {
             }
         })
         binding.viewModel!!.imgUrl.observe(this, Observer { url ->
-            Glide.with(view!!).load(url).into(binding.userImage)
+            Glide.with(view!!).load(url).circleCrop().into(binding.userImage)
         })
         return binding.root
     }

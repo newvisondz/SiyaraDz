@@ -148,24 +148,28 @@ interface ServerDataApi {
     @GET("autom/me/bids")
     fun getUserBid(
         @Header("Authorization") token: String
-    ):Call<MutableList<UserBid>>
+    ): Call<MutableList<UserBid>>
 
     @DELETE("used-cars/{carId}/bids/{bidId}")
     fun removeBid(
         @Header("Authorization") token: String,
         @Path("carId") usedCarId: String,
         @Path("bidId") bidId: String
-        ):Call<JsonObject>
-
+    ): Call<JsonObject>
 
 
     @GET("used-cars")
     fun filterUsedCars(
         @Header("Authorization") token: String,
         @Query("q") q: String,
-        @Query("minPrice")minPrice: Double,
-        @Query("maxPrice")maxPrice: Double,
-        @Query("minCurrentMiles")minCurrentMiles: Double,
-        @Query("maxCurrentMiles")maxCurrentMiles: Double
+        @Query("minPrice") minPrice: Double,
+        @Query("maxPrice") maxPrice: Double,
+        @Query("minCurrentMiles") minCurrentMiles: Double,
+        @Query("maxCurrentMiles") maxCurrentMiles: Double
+    ): Call<List<UsedCar>>
+
+    @GET("/autom/me/usedCars")
+    fun getUsedCarPerUser(
+        @Header("Authorization") token: String
     ): Call<List<UsedCar>>
 }

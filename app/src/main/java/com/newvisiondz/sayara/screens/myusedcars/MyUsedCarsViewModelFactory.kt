@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.*
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.database.getDatabase
+import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.getUserToken
 import kotlinx.coroutines.*
@@ -33,6 +34,9 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
     val deletedWithSuccess: LiveData<Boolean>
         get() = _deletedWithSuccess
 
+    init {
+        getAllUserUsedCars()
+    }
 
     fun deleteUsedCarAd(carPosition: Int) {
         uiScope.launch {
@@ -42,17 +46,45 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
                 }
             }
         }
-        RetrofitClient(context).serverDataApi.deleteUsedCar(token, usedCarsList.value?.get(carPosition)!!.id)
+        RetrofitClient(context).serverDataApi.deleteUsedCar(
+            token,
+            usedCarsList.value?.get(carPosition)!!.id
+        )
             .enqueue(
                 object : Callback<JsonObject> {
                     override fun onFailure(call: Call<JsonObject>, t: Throwable) {}
 
-                    override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    override fun onResponse(
+                        call: Call<JsonObject>,
+                        response: Response<JsonObject>
+                    ) {
                         val res: String = response.body()!!["ok"].asString
                         if (res == "true") {
                             _deletedWithSuccess.value = true
                         } else if (res == "false") {
                             _deletedWithSuccess.value = false
+                        }
+                    }
+                })
+    }
+
+    fun getAllUserUsedCars() {
+        RetrofitClient(context).serverDataApi.getUsedCarPerUser(token)
+            .enqueue(
+                object : Callback<List<UsedCar>> {
+                    override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {}
+
+                    override fun onResponse(
+                        call: Call<List<UsedCar>>,
+                        response: Response<List<UsedCar>>
+                    ) {
+                        if (response.isSuccessful) {
+                            val list = response.body()!!
+                            uiScope.launch {
+                                withContext(Dispatchers.IO) {
+                                    dataSource.insertAll(* list.toTypedArray())
+                                }
+                            }
                         }
                     }
                 })

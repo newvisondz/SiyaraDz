@@ -11,28 +11,34 @@
             tools:context=".screens.myusedcars.MyUsedCars">
 
         <TextView
-                android:text="Vos automobiles a vendre"
+                android:id="@+id/used_cars_label"
+                style="@style/MediumLight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                style="@style/MediumLight"
-                android:textSize="28sp"
-
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintHorizontal_bias="0.0" android:id="@+id/used_cars_label"/>
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="0dp"
-                android:id="@+id/my_bids_list"
-                tools:itemCount="3"
-                app:bidsListData="@{viewModel.usedCarsList}"
-                tools:listitem="@layout/fragment_bid_card"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="0dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@id/used_cars_label"/>
+
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Vos annonces"
+                android:textSize="28sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/my_bids_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                app:bidsListData="@{viewModel.usedCarsList}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/used_cars_label"
+                tools:itemCount="3"
+                tools:listitem="@layout/fragment_bid_card" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
