@@ -163,7 +163,7 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
 
     fun getModelsList(brand: String) {
         token.let {
-            call.getAllModels(it, brand, "").enqueue(object : Callback<JsonElement> {
+            call.getAllModelsNames(it, brand, "").enqueue(object : Callback<JsonElement> {
                 override fun onFailure(call: Call<JsonElement>, t: Throwable) {
 
                 }
@@ -216,17 +216,6 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
         val registrationDate =
             newItem.yearOfRegistration.toRequestBody("text/plain".toMediaTypeOrNull())
 
-        val attrMap = mapOf(
-            Pair("manufacturerId", manufacturerId),
-            Pair("modelId", modelId),
-            Pair("versionId", versionId),
-            Pair("color", color),
-            Pair("manufacturer", manufacturer),
-            Pair("model", model),
-            Pair("registrationDate", registrationDate),
-            Pair("version", version),
-            Pair("title", title)
-        )
         call.createUsedCar(
             token,
             partList,

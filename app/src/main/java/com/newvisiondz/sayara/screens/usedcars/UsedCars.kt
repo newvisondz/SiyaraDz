@@ -30,11 +30,9 @@ import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
 import com.newvisiondz.sayara.model.CarInfo
 import com.newvisiondz.sayara.screens.tabs.TabsDirections
 import com.newvisiondz.sayara.utils.datePicker
-import com.newvisiondz.sayara.utils.displaySnackBar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.camera_gallery.view.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
-import kotlinx.android.synthetic.main.fragment_used_cars.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat

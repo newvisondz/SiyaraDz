@@ -48,6 +48,13 @@ interface ServerDataApi {
         @Query("q") q: String
     ): Call<JsonElement>
 
+    @GET("manufacturers/{manufacturerId}/models")
+    fun getAllModelsNames(
+        @Header("Authorization") token: String,
+        @Path("manufacturerId") manufacturerName: String,
+        @Query("fields") fields: String="name"
+    ): Call<JsonElement>
+
     @GET("manufacturers/{manufacturerId}/models/{modelId}")
     fun getModelDetails(
         @Header("Authorization") token: String,
@@ -61,6 +68,16 @@ interface ServerDataApi {
         @Path("manufacturerId") manufacturerName: String,
         @Path("modelId") modelId: String
     ): Call<JsonArray>
+
+    @GET("manufacturers/{manufacturerId}/models/{modelId}/versions")
+    fun getAllVersionNames(
+        @Header("Authorization") token: String,
+        @Path("manufacturerId") manufacturerName: String,
+        @Path("modelId") modelId: String,
+        @Path("fields") fields: String
+
+    ): Call<JsonArray>
+
 
     @GET("manufacturers/{manufacturerId}/models/{modelId}/versions/{versionId}")
     fun getVersionDetails(
