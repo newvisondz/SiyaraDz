@@ -16,12 +16,14 @@ import com.newvisiondz.sayara.utils.getUserToken
 import com.newvisiondz.sayara.utils.listFormatter
 import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import okhttp3.*
+import okhttp3.RequestBody.Companion.toRequestBody
 
 
 class UsedCarsViewModelFactory(private var app: Application) :
@@ -203,21 +205,42 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
             partList.add(MultipartBody.Part.createFormData("images", tmpFile.name, requestFile))
             index++
         }
+        val manufacturerId = newItem.manufacturerId.toRequestBody("text/plain".toMediaTypeOrNull())
+        val modelId = newItem.modelId.toRequestBody("text/plain".toMediaTypeOrNull())
+        val versionId = newItem.versionId.toRequestBody("text/plain".toMediaTypeOrNull())
+        val manufacturer = newItem.manufacturer.toRequestBody("text/plain".toMediaTypeOrNull())
+        val model = newItem.model.toRequestBody("text/plain".toMediaTypeOrNull())
+        val version = newItem.version.toRequestBody("text/plain".toMediaTypeOrNull())
+        val title = newItem.title.toRequestBody("text/plain".toMediaTypeOrNull())
+        val color = newItem.color.toRequestBody("text/plain".toMediaTypeOrNull())
+        val registrationDate =
+            newItem.yearOfRegistration.toRequestBody("text/plain".toMediaTypeOrNull())
 
+        val attrMap = mapOf(
+            Pair("manufacturerId", manufacturerId),
+            Pair("modelId", modelId),
+            Pair("versionId", versionId),
+            Pair("color", color),
+            Pair("manufacturer", manufacturer),
+            Pair("model", model),
+            Pair("registrationDate", registrationDate),
+            Pair("version", version),
+            Pair("title", title)
+        )
         call.createUsedCar(
             token,
             partList,
-            newItem.manufacturerId,
-            newItem.modelId,
-            newItem.versionId,
-            newItem.yearOfRegistration,
+            manufacturerId,
+            modelId,
+            versionId,
+            registrationDate,
             newItem.currentMiles,
             newItem.price,
-            newItem.color,
-            newItem.title,
-            newItem.manufacturer,
-            newItem.model,
-            newItem.version
+            color,
+            title,
+            manufacturer,
+            model,
+            version
         ).enqueue(object : Callback<UsedCar> {
             override fun onFailure(call: Call<UsedCar>, t: Throwable) {}
 

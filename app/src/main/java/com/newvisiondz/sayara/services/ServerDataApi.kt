@@ -5,6 +5,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.model.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -105,23 +106,25 @@ interface ServerDataApi {
         @Path("usedCarId") usedCarId: String
     ): Call<JsonObject>
 
+
     @Multipart
     @POST("used-cars")
     fun createUsedCar(
         @Header("Authorization") token: String,
         @Part images: List<MultipartBody.Part>,
-        @Part("manufacturerId") manufacturerId: String,
-        @Part("modelId") modelId: String,
-        @Part("versionId") versionId: String,
-        @Part("registrationDate") registrationDate: String,
+        @Part("manufacturerId") manufacturerId: RequestBody,
+        @Part("modelId") modelId: RequestBody,
+        @Part("versionId") versionId: RequestBody,
+        @Part("registrationDate") registrationDate: RequestBody,
         @Part("currentMiles") currentMiles: Double,
         @Part("minPrice") minPrice: Double,
-        @Part("color") color: String,
-        @Part("title") title: String,
-        @Part("manufacturer") manufacturer: String,
-        @Part("model") model: String,
-        @Part("version") version: String
+        @Part("color") color: RequestBody,
+        @Part("title") title: RequestBody,
+        @Part("manufacturer") manufacturer: RequestBody,
+        @Part("model") model: RequestBody,
+        @Part("version") version: RequestBody
     ): Call<UsedCar>
+
 
     @GET("manufacturers")
     fun getAdditionalInfo(

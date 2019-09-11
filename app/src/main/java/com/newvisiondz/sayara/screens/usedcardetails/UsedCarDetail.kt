@@ -62,7 +62,7 @@ class UsedCarDetail : Fragment() {
     private fun displayNewBidDialog() {
         val builder = AlertDialog.Builder(context!!)
         val mView = layoutInflater.inflate(R.layout.add_new_bid, null)
-        builder.setView(mView).setTitle("Chooose an Action").setCancelable(true)
+        builder.setView(mView).setCancelable(true)
         builder.create().setCanceledOnTouchOutside(true)
         val dialog = builder.show()
         mView.Add.setOnClickListener {

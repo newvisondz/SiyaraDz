@@ -54,7 +54,11 @@ fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?) {
                 }
             }
         } catch (e: Exception) {
-            Toast.makeText(imgView.context, "Something went wrong loading image !", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                imgView.context,
+                "Something went wrong loading image !",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 }
@@ -108,7 +112,7 @@ fun TextView.setUsedCarMiles(usedCar: UsedCar?) {
 @BindingAdapter("setBackgroundColor")
 fun View.setBackgroundColor(usedCar: UsedCar?) {
     usedCar?.let {
-        //        setBackgroundColor(Integer.parseInt(usedCar.color))
+//        setBackgroundColor(Integer.parseInt(usedCar.color))
     }
 }
 
