@@ -17,6 +17,10 @@ interface UsedCarDao {
 
     @Query("DELETE FROM usedCar WHERE usedCar.id=:id;")
     fun deleteOne(id: String)
+
+
+    @Query("select count(*) from usedCar")
+    fun getCount(): Int
 }
 
 @Database(entities = [UsedCar::class], version = 1, exportSchema = false)
@@ -32,7 +36,11 @@ fun getDatabase(context: Context): UsedCarDatabase {
     synchronized(UsedCarDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
             INSTANCE =
-                Room.databaseBuilder(context.applicationContext, UsedCarDatabase::class.java, "sayaradz.db").build()
+                Room.databaseBuilder(
+                    context.applicationContext,
+                    UsedCarDatabase::class.java,
+                    "sayaradz.db"
+                ).build()
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
+import com.newvisiondz.sayara.database.UsedCarDao
 import com.newvisiondz.sayara.database.UsedCarDatabase
 import com.newvisiondz.sayara.database.getDatabase
 import com.newvisiondz.sayara.model.Brand
@@ -25,14 +26,13 @@ class NetworkTesting {
     private val appContext = InstrumentationRegistry.getTargetContext()
     private val call = RetrofitClient(appContext).serverDataApi
     private lateinit var dataBase: UsedCarDatabase
+    private lateinit var usedCarDao: UsedCarDao
 
 
     @Before
     fun initDb() {
-        dataBase = Room.inMemoryDatabaseBuilder(
-            appContext,
-            UsedCarDatabase::class.java
-        ).build()
+        dataBase = Room.inMemoryDatabaseBuilder(appContext, UsedCarDatabase::class.java).build()
+        usedCarDao = dataBase.usedCarDao
     }
 
     @After
@@ -41,12 +41,13 @@ class NetworkTesting {
     }
 
     @Test
+    @Throws(Exception::class)
     fun insertBufferoosSavesData() {
-        val database = dataBase.usedCarDao
+        val usedCarDao = dataBase.usedCarDao
         val usedCar = UsedCar("1", "Toyota")
-        database.insertAll(usedCar)
-        val list = database.getAds()
-        Assert.assertTrue(list.value?.isNotEmpty()!!)
+        usedCarDao.insertAll(usedCar)
+        val count = usedCarDao.getCount()
+        Assert.assertEquals(1, count)
     }
 
 
@@ -96,7 +97,6 @@ class NetworkTesting {
         val listType = object : TypeToken<MutableList<Version>>() {}.type
         val versions: MutableList<Version> = listFormatter(body!!, listType)
         Assert.assertEquals("5d206bf96fffac001957a664", versions[0].id)
-
     }
 
 }
