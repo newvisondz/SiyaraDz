@@ -19,8 +19,9 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val navController = findNavController(R.id.navigation_host)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         setSupportActionBar(binding.toolbar)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+//        setupActionBarWithNavController(navController)
         navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, _: Bundle? ->
             if (nd.id != nc.graph.findNode(R.id.tabs)?.id && nd.id != nc.graph.findNode(R.id.models)?.id) {
                 binding.actionSearch.visibility = View.GONE

@@ -50,9 +50,6 @@ class CompareVersions : Fragment() {
                 compareList = optionsMapping(v1, v2)
                 adapter.submitList(compareList)
             }
-//            for (item in compareList) {
-//                Log.i("Compare", "option= ${item.optionName} 1st =${item.firstValue} 2nd ${item.secondValue}")
-//            }
         })
 
         versionCompareViewModel.versionList.observe(this, Observer { list ->

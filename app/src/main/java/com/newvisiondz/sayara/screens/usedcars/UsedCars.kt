@@ -291,6 +291,16 @@ class UsedCars : Fragment() {
                 }
             }
         })
+        binding.usedCarsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    binding.addNewBid.shrink()
+                }else {
+                    binding.addNewBid.extend()
+                }
+            }
+        })
 
         return binding.root
     }

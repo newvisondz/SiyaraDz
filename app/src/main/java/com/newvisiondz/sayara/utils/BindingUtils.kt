@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -35,17 +36,25 @@ fun loadImageUrl(imgView: ImageView, usedCar: UsedCar?) {
 @BindingAdapter("loadLocalImage")
 fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?) {
     usedCar?.let {
-        when {
-            usedCar.images.isNotEmpty() -> Glide.with(imgView.context)
-                .load("${imgView.context.getString(R.string.baseUrl)}${usedCar.images[0]}")
-                .apply(
-                    RequestOptions()
-                        .placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.ic_broken_image)
-                )
-                .into(imgView)
+        try {
+            when {
+                usedCar.images.isNotEmpty() -> Glide.with(imgView.context)
+                    .load("${imgView.context.getString(R.string.baseUrl)}${usedCar.images[0]}")
+                    .apply(
+                        RequestOptions()
 
-            else -> imgView.setImageURI(usedCar.uris[0])
+                            .placeholder(R.drawable.loading_animation)
+                            .error(R.drawable.ic_broken_image)
+                    )
+                    .into(imgView)
+
+                (usedCar.uris.size > 0) -> imgView.setImageURI(usedCar.uris[0])
+                else -> {
+                    imgView.setImageResource(R.drawable.mercedes)
+                }
+            }
+        } catch (e: Exception) {
+            Toast.makeText(imgView.context, "Something went wrong loading image !", Toast.LENGTH_LONG).show()
         }
     }
 }
@@ -99,7 +108,7 @@ fun TextView.setUsedCarMiles(usedCar: UsedCar?) {
 @BindingAdapter("setBackgroundColor")
 fun View.setBackgroundColor(usedCar: UsedCar?) {
     usedCar?.let {
-//        setBackgroundColor(Integer.parseInt(usedCar.color))
+        //        setBackgroundColor(Integer.parseInt(usedCar.color))
     }
 }
 
@@ -206,7 +215,7 @@ fun TextView.setDouble(value: Double?) {
 fun TextView.setBidCreator(bid: Bid?) {
     bid?.let {
         text =
-            context.getString(R.string.firstLastName, bid.creator.firstName, bid.creator.lastName)
+            context.getString(R.string.firstLastName, bid.creator.lastName)
     }
 }
 
@@ -233,8 +242,8 @@ fun bidsListItems(recyclerView: RecyclerView, data: List<Bid>?) {
 @BindingAdapter("setStringType")
 fun TextView.setStringType(info: String?) {
     info.let {
-        text = if (id ==R.id.used_car_bid_price) {
-            context.getString(R.string.bid_price_text,info)
-        }else info
+        text = if (id == R.id.used_car_bid_price) {
+            context.getString(R.string.bid_price_text, info)
+        } else info
     }
 }
