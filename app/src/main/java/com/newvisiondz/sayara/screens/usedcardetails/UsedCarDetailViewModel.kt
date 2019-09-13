@@ -46,7 +46,7 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
         userInfo.let {
             token = getUserToken(it)
         }
-        _createWithSuccess.value=null
+        _createWithSuccess.value = null
     }
 
     fun getAllBidsOfCar(carId: String) {
@@ -57,7 +57,9 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
                 }
 
                 override fun onResponse(call: Call<List<Bid>>, response: Response<List<Bid>>) {
-                    _bidsList.value = response.body()
+                    if (response.isSuccessful) {
+                        _bidsList.value = response.body()
+                    }
                 }
 
             })
@@ -67,21 +69,20 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
         val jsonObject = JsonObject()
         jsonObject.addProperty("car", carId)
         jsonObject.addProperty("price", price)
-       try {
-           call.createNewBid(token,carId, jsonObject).enqueue(object : Callback<Bid> {
-               override fun onFailure(call: Call<Bid>, t: Throwable) {
+        try {
+            call.createNewBid(token, carId, jsonObject).enqueue(object : Callback<Bid> {
+                override fun onFailure(call: Call<Bid>, t: Throwable) {
 
-               }
+                }
 
-               override fun onResponse(call: Call<Bid>, response: Response<Bid>) {
-                   _createWithSuccess.value=true
-               }
-           })
-       }
-       catch (e:IllegalStateException){
-           _createWithSuccess.value=false
-           //todo something went wrong
-       }
+                override fun onResponse(call: Call<Bid>, response: Response<Bid>) {
+                    _createWithSuccess.value = true
+                }
+            })
+        } catch (e: IllegalStateException) {
+            _createWithSuccess.value = false
+            //todo something went wrong
+        }
     }
 
 }

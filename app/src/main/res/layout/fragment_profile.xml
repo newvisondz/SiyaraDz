@@ -12,9 +12,8 @@
 		<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:background="@color/colorPrimaryDark"
+				android:background="@android:color/white"
 				android:orientation="vertical"
-				android:padding="20dp"
 				tools:context=".screens.profile.Profile">
 
 			<androidx.constraintlayout.widget.ConstraintLayout style="@style/IconButtonStyle">
@@ -22,9 +21,7 @@
 				<ImageView
 						android:id="@+id/user_image"
 						style="@style/IconStyle"
-						android:layout_marginStart="8dp"
-						android:layout_marginTop="10dp"
-						android:layout_marginBottom="20dp"
+						android:layout_marginStart="16dp"
 						android:padding="0dp"
 						app:layout_constraintBottom_toBottomOf="parent"
 						app:layout_constraintStart_toStartOf="parent"
@@ -43,13 +40,14 @@
 						tools:text="yacine benkaidali"
 						app:layout_constraintBottom_toBottomOf="@+id/user_image"
 						app:layout_constraintStart_toEndOf="@+id/user_image"
-						app:layout_constraintTop_toTopOf="@+id/user_image"/>
+						app:layout_constraintTop_toTopOf="@+id/user_image" app:layout_constraintEnd_toEndOf="parent"
+						android:layout_marginEnd="8dp" android:textColor="@android:color/black"/>
 
 				<View
 						android:id="@+id/view"
 						android:layout_width="0dp"
 						android:layout_height="1dp"
-						android:layout_marginTop="10dp"
+						android:layout_marginTop="4dp"
 						android:layout_marginEnd="20dp"
 						android:background="@color/colorPrimaryExtraDark"
 						app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +63,8 @@
 						style="@style/IconStyle"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toTopOf="parent"
-						app:srcCompat="@drawable/ic_user"/>
+						app:srcCompat="@drawable/ic_user" android:layout_marginStart="16dp"
+						android:backgroundTint="@color/brightorange"/>
 
 				<Button
 						android:id="@+id/button_profile"
@@ -76,7 +75,8 @@
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintTop_toTopOf="@+id/imageView0"
 						app:layout_constraintStart_toEndOf="@+id/imageView0" android:layout_marginStart="8dp"
-						android:layout_width="0dp" android:layout_height="wrap_content"/>
+						android:layout_width="0dp" android:layout_height="wrap_content"
+						android:layout_marginEnd="16dp" android:textColorLink="@color/brightorange"/>
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -87,7 +87,8 @@
 						style="@style/IconStyle"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toTopOf="parent"
-						app:srcCompat="@drawable/ic_award"/>
+						app:srcCompat="@drawable/ic_award" android:layout_marginStart="16dp"
+						android:backgroundTint="@color/brightorange"/>
 
 				<Button
 						android:id="@+id/button_used_cars"
@@ -98,7 +99,8 @@
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintTop_toTopOf="@+id/imageView1" android:layout_marginStart="8dp"
 						app:layout_constraintStart_toEndOf="@+id/imageView1" android:layout_width="0dp"
-						android:layout_height="wrap_content"/>
+						android:layout_height="wrap_content" android:layout_marginEnd="16dp"
+						android:textColorLink="@color/brightorange"/>
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,10 +109,10 @@
 				<ImageView
 						android:id="@+id/imageView2"
 						style="@style/IconStyle"
-
+						android:backgroundTint="@color/brightorange"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toTopOf="parent"
-						app:srcCompat="@drawable/ic_star_solid"/>
+						app:srcCompat="@drawable/ic_star_solid" android:layout_marginStart="16dp"/>
 
 				<Button
 						android:id="@+id/button_mymodels"
@@ -121,7 +123,8 @@
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintTop_toTopOf="@+id/imageView2"
 						app:layout_constraintStart_toEndOf="@+id/imageView2" android:layout_marginStart="8dp"
-						android:layout_width="0dp" android:layout_height="wrap_content"/>
+						android:layout_width="0dp" android:layout_height="wrap_content"
+						android:layout_marginEnd="16dp" android:textColorLink="@color/brightorange"/>
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -130,9 +133,10 @@
 				<ImageView
 						android:id="@+id/imageView3"
 						style="@style/IconStyle"
+						android:backgroundTint="@color/brightorange"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toTopOf="parent"
-						app:srcCompat="@drawable/ic_bookmark"/>
+						app:srcCompat="@drawable/ic_bookmark" android:layout_marginStart="16dp"/>
 
 				<Button
 						android:id="@+id/button_myversions"
@@ -143,7 +147,8 @@
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintTop_toTopOf="@+id/imageView3"
 						app:layout_constraintStart_toEndOf="@+id/imageView3" android:layout_marginStart="8dp"
-						android:layout_width="0dp" android:layout_height="wrap_content"/>
+						android:layout_width="0dp" android:layout_height="wrap_content"
+						android:layout_marginEnd="16dp" android:textColorLink="@color/brightorange"/>
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -152,9 +157,10 @@
 				<ImageView
 						android:id="@+id/imageView4"
 						style="@style/IconStyle"
+						android:backgroundTint="@color/brightorange"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toTopOf="parent"
-						app:srcCompat="@drawable/ic_donate"/>
+						app:srcCompat="@drawable/ic_donate" android:layout_marginStart="16dp"/>
 
 				<Button
 						android:id="@+id/button_myoffers"
@@ -167,7 +173,8 @@
 						app:layout_constraintBottom_toBottomOf="@+id/imageView4"
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintStart_toEndOf="@+id/imageView4"
-						app:layout_constraintTop_toTopOf="@+id/imageView4" />
+						app:layout_constraintTop_toTopOf="@+id/imageView4" android:layout_marginEnd="16dp"
+						android:textColorLink="@color/brightorange"/>
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -176,9 +183,10 @@
 				<ImageView
 						android:id="@+id/imageView5"
 						style="@style/IconStyle"
+						android:backgroundTint="@color/brightorange"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toTopOf="parent"
-						app:srcCompat="@drawable/ic_sign_out"/>
+						app:srcCompat="@drawable/ic_sign_out" android:layout_marginStart="16dp"/>
 
 				<Button
 						android:id="@+id/button_logout"
@@ -190,7 +198,8 @@
 						app:layout_constraintEnd_toEndOf="parent"
 						app:layout_constraintTop_toTopOf="@+id/imageView5" android:layout_marginStart="8dp"
 						app:layout_constraintStart_toEndOf="@+id/imageView5" android:layout_width="0dp"
-						android:layout_height="wrap_content"/>
+						android:layout_height="wrap_content" android:layout_marginEnd="16dp"
+						android:textColorLink="@color/brightorange"/>
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 

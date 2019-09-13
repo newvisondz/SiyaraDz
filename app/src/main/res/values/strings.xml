@@ -20,7 +20,7 @@
     <string name="brand_detail">By %1$s</string>
     <string name="date_format">%1$d-%2$d-%3$d</string>
     <string name="msg_token_fmt">Msg Token is : %s</string>
-    <string name="bid_price_text">from %s DA</string>
+    <string name="bid_price_text">%s M</string>
 
     <string name="login_fb_btn_label">"S'autentifier avec Facebook"</string>
     <string name="login_google_btn_label">"S'autentifier  avec Google"</string>

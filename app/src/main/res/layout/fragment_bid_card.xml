@@ -4,7 +4,6 @@
     <data>
         <variable name="usedCar" type="com.newvisiondz.sayara.model.UsedCar"/>
     </data>
-
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/bid_card"
             android:layout_width="match_parent"
