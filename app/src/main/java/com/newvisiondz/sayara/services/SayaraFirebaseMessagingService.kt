@@ -59,7 +59,7 @@ class SayaraFirebaseMessagingService : FirebaseMessagingService() {
         val intent = Intent(this, SayaraFirebaseMessagingService::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
-            this, 0 /* Request code */, intent,
+            this, 0 , intent,
             PendingIntent.FLAG_ONE_SHOT
         )
 
@@ -74,8 +74,6 @@ class SayaraFirebaseMessagingService : FirebaseMessagingService() {
             .setContentIntent(pendingIntent)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
@@ -85,7 +83,7 @@ class SayaraFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
+        notificationManager.notify(0, notificationBuilder.build())
     }
 
 }

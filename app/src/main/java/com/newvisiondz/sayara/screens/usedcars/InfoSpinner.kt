@@ -16,7 +16,6 @@ class InfoSpinner (context: Context, resource: Int, var list: MutableList<CarInf
         return list.size
     }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-
         return initView(position, parent)
     }
 
