@@ -34,7 +34,7 @@ class UserBidAdapter(private var userBidsList: List<UserBid>) :
                 slider.sliderAdapter = SliderAdapter(
                     context,
                     userBid.usedCar.images,
-                    "${context!!.getString(R.string.baseUrl)}"
+                    context!!.getString(R.string.baseUrl)
                 )
             } catch (e: NullPointerException) {
                Toast.makeText(context,"No Images found",Toast.LENGTH_SHORT).show()

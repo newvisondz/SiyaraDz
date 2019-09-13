@@ -4,11 +4,12 @@
     <data>
         <variable name="usedCar" type="com.newvisiondz.sayara.model.UsedCar"/>
     </data>
+
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/bid_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="4dp"
             android:clickable="true"
             android:focusable="true"
             app:cardCornerRadius="5dp"
@@ -23,8 +24,9 @@
             <TextView
                     android:id="@+id/bid_model"
                     style="@style/MediumDarkBold"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/krona_one"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:setBidBrand="@{usedCar}"
@@ -33,9 +35,10 @@
             <TextView
                     android:id="@+id/bid_owner"
                     style="@style/SmallDark"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/bid_image"
                     app:layout_constraintTop_toBottomOf="@+id/bid_model"
                     app:setBidModel="@{usedCar}"
                     tools:text="ZED AUTO" />
@@ -43,55 +46,37 @@
             <TextView
                     android:id="@+id/bidAdress"
                     style="@style/SmallDark"
-                    android:layout_marginEnd="15dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/bid_owner"
+                    android:layout_marginTop="8dp"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/bid_owner"
+                    app:layout_constraintStart_toEndOf="@+id/bid_image"
+                    app:layout_constraintTop_toBottomOf="@+id/bid_owner"
                     app:setBidDate="@{usedCar}"
                     tools:text="Dar Beida" />
 
             <ImageView
                     android:id="@+id/bid_image"
-                    android:layout_width="match_parent"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/mercedes"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bid_owner"
+                    app:layout_constraintTop_toBottomOf="@+id/bid_model"
                     app:loadLocalImage="@{usedCar}" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+            <TextView
+                    android:id="@+id/bid_price"
+                    style="@style/SmallLight"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bid_image">
-
-                <TextView
-                        android:id="@+id/bid_price"
-                        style="@style/MediumDarkBold"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/bid_price_text"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:setBidPrice="@{usedCar}" />
-
-                <ImageButton
-                        android:id="@+id/expand_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginEnd="20dp"
-                        android:background="@null"
-                        android:padding="8dp"
-                        android:scaleType="fitCenter"
-                        app:layout_constraintBottom_toBottomOf="@+id/bid_price"
-                        app:layout_constraintDimensionRatio="h,1:1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/bid_price"
-                        app:srcCompat="@drawable/ic_angle_down" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/bid_price_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/bid_image"
+                    app:setBidPrice="@{usedCar}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

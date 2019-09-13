@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     app:bidsListData="@{viewModel.bidsList}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="4"
+                    tools:itemCount="7"
                     tools:listitem="@layout/fragment_bid_card" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

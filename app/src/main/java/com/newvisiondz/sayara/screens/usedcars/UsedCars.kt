@@ -25,14 +25,14 @@ import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.single.BasePermissionListener
 import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.databinding.DataEntryDialogBinding
+import com.newvisiondz.sayara.databinding.AddUsedCarFormBinding
 import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
 import com.newvisiondz.sayara.model.CarInfo
 import com.newvisiondz.sayara.screens.tabs.TabsDirections
 import com.newvisiondz.sayara.utils.datePicker
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.add_used_car_form.view.*
 import kotlinx.android.synthetic.main.camera_gallery.view.*
-import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -152,10 +152,10 @@ class UsedCars : Fragment() {
             val mBuilder = AlertDialog.Builder(
                 context!!, android.R.style.ThemeOverlay_Material
             )
-            val bindingDialog: DataEntryDialogBinding =
+            val bindingDialog: AddUsedCarFormBinding =
                 DataBindingUtil.inflate(
                     LayoutInflater.from(context),
-                    R.layout.data_entry_dialog,
+                    R.layout.add_used_car_form,
                     null,
                     false
                 )
@@ -305,7 +305,7 @@ class UsedCars : Fragment() {
 
     private fun colorPicker(
         binding: FragmentUsedCarsBinding,
-        bindingDialog: DataEntryDialogBinding
+        bindingDialog: AddUsedCarFormBinding
     ) {
         ColorPickerDialogBuilder
             .with(context)

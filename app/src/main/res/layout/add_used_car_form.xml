@@ -54,8 +54,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
                     app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-
             <Button
                     android:id="@+id/color"
                     style="@style/btn_colors"
@@ -149,7 +147,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Upload Images"
+                    android:text="Importer des images"
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -181,7 +179,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/current_miles"
-                    android:text="Distance parcouru"
+                    android:text="Kilométrage"
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toTopOf="@+id/price_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -211,7 +209,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/price"
-                    android:text="Prix initial"
+                    android:text="Prix"
                     app:layout_constraintBottom_toTopOf="@+id/car_date_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintTop_toBottomOf="@+id/current_miles_label" />
@@ -238,7 +236,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Date d'achat"
+                    android:text="Année"
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toTopOf="@+id/color_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"

@@ -4,20 +4,25 @@
 	<data>
 		<variable name="viewModel" type="com.newvisiondz.sayara.screens.profileform.ProfileFormViewModel"/>
 	</data>
+
 	<androidx.constraintlayout.widget.ConstraintLayout
-			android:layout_width="match_parent"
-			tools:ignore="HardcodedText"
-			android:layout_height="match_parent"
 			android:id="@+id/profileFormConstraint"
-			tools:context=".screens.profileform.ProfileForm">
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			tools:context=".screens.profileform.ProfileForm"
+			tools:ignore="HardcodedText">
 
 		<ScrollView
+				android:id="@+id/scrollView3"
 				android:layout_width="0dp"
-				android:layout_height="0dp" android:id="@+id/scrollView3" app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintBottom_toBottomOf="parent">
+				android:layout_height="0dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent">
 
-			<LinearLayout
+			<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/linearLayout6"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="vertical"
@@ -26,158 +31,211 @@
 				<TextView
 						android:id="@+id/textView1"
 						style="@style/MediumDarkBold"
-						android:layout_width="match_parent"
+						android:layout_width="0dp"
 						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:layout_marginEnd="8dp"
 						android:padding="20dp"
-						android:text="Information utilisateur"/>
+						android:text="Information utilisateur"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent" />
 
-				<androidx.constraintlayout.widget.ConstraintLayout
-						style="@style/FieldStyle"
-						android:layout_width="match_parent"
-						android:layout_height="match_parent">
+				<ImageView
+						android:id="@+id/imageView0"
+						style="@style/IconStyle"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:layout_marginTop="8dp"
+						android:layout_marginEnd="8dp"
+						app:layout_constraintBottom_toTopOf="@+id/imageView5"
+						app:layout_constraintEnd_toStartOf="@+id/user_last_name"
+						app:layout_constraintHorizontal_bias="0.5"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/imageView"
+						app:srcCompat="@drawable/ic_user" />
 
-					<ImageView
-							android:id="@+id/imageView0"
-							style="@style/IconStyle"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:srcCompat="@drawable/ic_user"/>
+				<EditText
+						android:id="@+id/user_first_name"
+						style="@style/EditText"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="8dp"
+						android:hint="Nom Complet"
+						android:inputType="textPersonName"
+						android:text="@={viewModel.firstName}"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintHorizontal_bias="0.5"
+						app:layout_constraintStart_toEndOf="@+id/imageView"
+						app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-					<EditText
-							android:id="@+id/user_first_name"
-							style="@style/EditText"
-							android:text="@={viewModel.firstName}"
-							android:hint="Nom Complet"
-							android:inputType="textPersonName"
-							app:layout_constraintBottom_toBottomOf="@+id/imageView0"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toEndOf="@+id/imageView0"
-							app:layout_constraintTop_toTopOf="@+id/imageView0"/>
-				</androidx.constraintlayout.widget.ConstraintLayout>
+				<EditText
+						android:id="@+id/user_last_name"
+						style="@style/EditText"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="8dp"
+						android:hint="Prenom"
+						android:text="@={viewModel.lastName}"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView0"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintHorizontal_bias="0.5"
+						app:layout_constraintStart_toEndOf="@+id/imageView0"
+						app:layout_constraintTop_toTopOf="@+id/imageView0" />
 
-				<androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
+				<ImageView
+						android:id="@+id/imageView"
+						style="@style/IconStyle"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:layout_marginTop="8dp"
+						android:layout_marginEnd="8dp"
+						app:layout_constraintBottom_toTopOf="@+id/imageView0"
+						app:layout_constraintEnd_toStartOf="@+id/user_first_name"
+						app:layout_constraintHorizontal_bias="0.5"
+						app:layout_constraintHorizontal_chainStyle="packed"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/textView1"
+						app:layout_constraintVertical_bias="0.0"
+						app:layout_constraintVertical_chainStyle="packed"
+						app:srcCompat="@drawable/ic_user" />
 
-					<ImageView
-							android:id="@+id/imageView"
-							style="@style/IconStyle"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:srcCompat="@drawable/ic_user"/>
+				<TextView
+						android:id="@+id/user_date"
+						style="@style/EditText"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="8dp"
+						android:hint="Date de Naissance"
+						android:text="@={viewModel.birthDate}"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView1"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintHorizontal_bias="0.5"
+						app:layout_constraintStart_toEndOf="@+id/imageView1"
+						app:layout_constraintTop_toTopOf="@+id/imageView1" />
 
-					<EditText
-							android:id="@+id/user_last_name"
-							android:text="@={viewModel.lastName}"
-							style="@style/EditText"
-							android:hint="Prenom"
-							app:layout_constraintBottom_toBottomOf="@+id/imageView"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toEndOf="@+id/imageView"
-							app:layout_constraintTop_toTopOf="@+id/imageView"/>
-				</androidx.constraintlayout.widget.ConstraintLayout>
+				<EditText
+						android:id="@+id/user_adr"
+						style="@style/EditText"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="8dp"
+						android:hint="Adresse"
+						android:inputType="textPersonName"
+						android:text="@={viewModel.address}"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintHorizontal_bias="0.5"
+						app:layout_constraintStart_toEndOf="@+id/imageView2"
+						app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
-				<androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
+				<ImageView
+						android:id="@+id/imageView2"
+						style="@style/IconStyle"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:layout_marginTop="8dp"
+						android:layout_marginEnd="8dp"
+						app:layout_constraintBottom_toTopOf="@+id/imageView4"
+						app:layout_constraintEnd_toStartOf="@+id/user_adr"
+						app:layout_constraintHorizontal_bias="0.5"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/imageView5"
+						app:srcCompat="@drawable/ic_home" />
 
-					<ImageView
-							android:id="@+id/imageView1"
-							style="@style/IconStyle"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:srcCompat="@drawable/ic_calendar"/>
+				<ImageView
+						android:id="@+id/imageView1"
+						style="@style/IconStyle"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:layout_marginTop="8dp"
+						android:layout_marginEnd="8dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/user_date"
+						app:layout_constraintHorizontal_bias="0.5"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/imageView4"
+						app:srcCompat="@drawable/ic_calendar" />
 
-					<TextView
-							android:id="@+id/user_date"
-							style="@style/EditText"
-							android:text="@={viewModel.birthDate}"
-							android:hint="Date de Naissance"
-							app:layout_constraintBottom_toBottomOf="@+id/imageView1"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toEndOf="@+id/imageView1"
-							app:layout_constraintTop_toTopOf="@+id/imageView1"/>
-				</androidx.constraintlayout.widget.ConstraintLayout>
+				<ImageView
+						android:id="@+id/imageView4"
+						style="@style/IconStyle"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:layout_marginTop="8dp"
+						app:layout_constraintBottom_toTopOf="@+id/imageView1"
+						app:layout_constraintEnd_toStartOf="@+id/user_tel"
+						app:layout_constraintHorizontal_bias="0.5"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/imageView2"
+						app:srcCompat="@drawable/ic_phone" />
 
-				<androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
+				<EditText
+						android:id="@+id/user_tel"
+						style="@style/EditText"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="8dp"
+						android:hint="Num. Tél. min 6 chars"
+						android:inputType="phone"
+						android:text="@={viewModel.phone}"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintHorizontal_bias="0.5"
+						app:layout_constraintStart_toEndOf="@+id/imageView4"
+						app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
-					<ImageView
-							android:id="@+id/imageView2"
-							style="@style/IconStyle"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:srcCompat="@drawable/ic_home"/>
+				<ImageView
+						android:id="@+id/imageView5"
+						style="@style/IconStyle"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:layout_marginEnd="8dp"
+						app:layout_constraintBottom_toTopOf="@+id/imageView2"
+						app:layout_constraintEnd_toStartOf="@+id/user_mail"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/imageView0"
+						app:srcCompat="@drawable/ic_envelope" />
 
-					<EditText
-							android:id="@+id/user_adr"
-							style="@style/EditText"
-							android:text="@={viewModel.address}"
-							android:hint="Adresse"
-							android:inputType="textPersonName"
-							app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toEndOf="@+id/imageView2"
-							app:layout_constraintTop_toTopOf="@+id/imageView2"/>
-				</androidx.constraintlayout.widget.ConstraintLayout>
+				<TextView
+						android:id="@+id/user_mail"
+						style="@style/EditText"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:layout_marginEnd="8dp"
+						android:hint="E-mail"
+						android:text="@{viewModel.email}"
+						app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toEndOf="@+id/imageView5"
+						app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
-				<androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
+				<Button
+						android:id="@+id/button_confirm"
+						style="@style/btn_colors"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="8dp"
+						android:layout_marginTop="32dp"
+						android:layout_marginEnd="8dp"
+						android:onClick="@{()->viewModel.updateUserInfo()}"
+						android:padding="8dp"
+						android:text="VALIDER"
+						android:textSize="28sp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/imageView1" />
 
-					<ImageView
-							android:id="@+id/imageView4"
-							style="@style/IconStyle"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:srcCompat="@drawable/ic_phone"/>
-
-					<EditText
-							android:id="@+id/user_tel"
-							style="@style/EditText"
-							android:text="@={viewModel.phone}"
-							android:hint="Num. Tél. min 6 chars"
-							android:inputType="phone"
-							app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toEndOf="@+id/imageView4"
-							app:layout_constraintTop_toTopOf="@+id/imageView4"/>
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
-				<androidx.constraintlayout.widget.ConstraintLayout style="@style/FieldStyle">
-
-
-					<ImageView
-							android:id="@+id/imageView5"
-							style="@style/IconStyle"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:srcCompat="@drawable/ic_envelope"/>
-
-					<TextView
-							android:id="@+id/user_mail"
-							android:hint="E-mail"
-							android:text="@{viewModel.email}"
-							style="@style/EditText"
-							app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toEndOf="@+id/imageView5"
-							app:layout_constraintTop_toTopOf="@+id/imageView5"
-					/>
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
-				<androidx.constraintlayout.widget.ConstraintLayout
-						style="@style/FieldStyle"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content">
-
-					<Button
-							android:id="@+id/button_confirm"
-							style="@style/btn_colors"
-							android:padding="8dp"
-							android:textSize="28sp"
-							android:layout_width="0dp"
-							android:onClick="@{()->viewModel.updateUserInfo()}"
-							android:layout_height="wrap_content"
-							android:text="VALIDER"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toStartOf="parent"/>
-				</androidx.constraintlayout.widget.ConstraintLayout>
-			</LinearLayout>
+			</androidx.constraintlayout.widget.ConstraintLayout>
 		</ScrollView>
 
 
