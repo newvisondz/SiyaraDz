@@ -112,7 +112,12 @@ fun TextView.setUsedCarMiles(usedCar: UsedCar?) {
 @BindingAdapter("setBackgroundColor")
 fun View.setBackgroundColor(usedCar: UsedCar?) {
     usedCar?.let {
-//        setBackgroundColor(Integer.parseInt(usedCar.color))
+        try {
+            setBackgroundColor(android.graphics.Color.parseColor(usedCar.color))
+        } catch (e: java.lang.Exception) {
+
+        }
+
     }
 }
 

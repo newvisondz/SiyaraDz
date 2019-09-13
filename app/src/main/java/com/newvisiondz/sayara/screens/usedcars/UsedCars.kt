@@ -19,8 +19,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.flask.colorpicker.ColorPickerView
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.single.BasePermissionListener
@@ -29,6 +27,7 @@ import com.newvisiondz.sayara.databinding.AddUsedCarFormBinding
 import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
 import com.newvisiondz.sayara.model.CarInfo
 import com.newvisiondz.sayara.screens.tabs.TabsDirections
+import com.newvisiondz.sayara.utils.colorMap
 import com.newvisiondz.sayara.utils.datePicker
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.add_used_car_form.view.*
@@ -162,7 +161,7 @@ class UsedCars : Fragment() {
             bindingDialog.viewModel = viewModel
             mBuilder.setView(bindingDialog.root)
 
-
+//Adapters
 
             bindingDialog.brandSpinner.adapter =
                 InfoSpinner(context!!, R.layout.spinner_element, brands)
@@ -170,7 +169,12 @@ class UsedCars : Fragment() {
                 InfoSpinner(context!!, R.layout.spinner_element, models)
             bindingDialog.versionSpinner.adapter =
                 InfoSpinner(context!!, R.layout.spinner_element, versions)
-
+            bindingDialog.colorSpinner.adapter = ColorSpinner(
+                context!!, R.layout.color_spinner_item,
+                colorMap.keys.toList()
+            )
+//Done Adapters
+//Observers
             viewModel.brandList.observe(this, Observer { newBrands ->
                 brands.clear()
                 brands.addAll(newBrands)
@@ -186,6 +190,22 @@ class UsedCars : Fragment() {
                 versions.addAll(newVersions)
                 (bindingDialog.versionSpinner.adapter as InfoSpinner).notifyDataSetChanged()
             })
+//Done Observers
+//spinnerItem selected item
+            bindingDialog.colorSpinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        viewModel.newItemServer.color = colorMap[position]?.value!!
+                    }
+
+                }
+
             bindingDialog.brandSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -263,9 +283,9 @@ class UsedCars : Fragment() {
             bindingDialog.carDate.setOnClickListener {
                 datePicker(bindingDialog.root.car_date, context!!)
             }
-            bindingDialog.color.setOnClickListener {
-                colorPicker(binding, bindingDialog)
-            }
+//            bindingDialog.colorSpinner.setOnClickListener {
+//                //                colorPicker(binding, bindingDialog)
+//            }
         }
         binding.usedCarsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -294,37 +314,13 @@ class UsedCars : Fragment() {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
                     binding.addNewBid.shrink()
-                }else {
+                } else {
                     binding.addNewBid.extend()
                 }
             }
         })
 
         return binding.root
-    }
-
-    private fun colorPicker(
-        binding: FragmentUsedCarsBinding,
-        bindingDialog: AddUsedCarFormBinding
-    ) {
-        ColorPickerDialogBuilder
-            .with(context)
-            .setTitle("Choose color")
-            .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-            .density(12)
-            .setOnColorSelectedListener { selectedColor: Int ->
-                Toast.makeText(
-                    context,
-                    "onColorSelected: 0x ${Integer.toHexString(selectedColor)}",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                binding.viewModel!!.newItemServer.color = Integer.toHexString(selectedColor)
-
-                bindingDialog.color.setBackgroundColor(selectedColor)
-            }
-            .build()
-            .show()
     }
 
     private fun openGallery() {

@@ -25,7 +25,7 @@ data class UsedCar(
     var currentMiles: Double = 0.0,
     @SerializedName("registrationDate")
     var yearOfRegistration: String = "",
-    var color: String = "",
+    var color: String = "#ffffff",
     var images: MutableList<String> = mutableListOf("https://drop.ndtv.com/albums/AUTO/2019-bmw-x7-suv/30.jpg"),
     @SerializedName("minPrice")
     var price: Double = 0.0,

@@ -1,6 +1,7 @@
 package com.newvisiondz.sayara.screens.usedcars
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,12 +26,13 @@ class ColorSpinner(context: Context, resource: Int, var list: List<Int>) :
     }
 
     private fun initView(position: Int, parent: ViewGroup): View {
+
         val customView =
             LayoutInflater.from(parent.context).inflate(R.layout.color_spinner_item, parent, false)
         val colorName = customView.color_name
         val colorItem = colorMap[position]
         colorName.text = colorItem?.name
-        customView.color_preview.setBackgroundColor(Integer.parseInt(colorItem?.value!!))
+        customView.color_preview.setBackgroundColor(Color.parseColor(colorItem?.value!!))
         return customView
     }
 }
