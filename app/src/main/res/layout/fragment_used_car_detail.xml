@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".screens.usedcardetails.UsedCarDetail">
+            tools:context=".screens.usedcardetails.UsedCarDetailFragment">
 
         <ScrollView
                 android:id="@+id/scrollView2"
@@ -36,7 +36,7 @@
                 <androidx.cardview.widget.CardView
                         android:id="@+id/cardView"
                         android:layout_width="0dp"
-                        android:layout_height="250dp"
+                        android:layout_height="180dp"
                         app:cardCornerRadius="10dp"
                         app:layout_constraintEnd_toStartOf="@+id/right_used_car_detail_guidline"
                         app:layout_constraintStart_toStartOf="@+id/left_used_car_detail_guidline"
@@ -67,7 +67,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/manufacturer"
-                        app:layout_constraintBottom_toTopOf="@+id/used_car_model"
                         app:layout_constraintStart_toStartOf="@+id/left_used_car_detail_guidline"
                         app:layout_constraintTop_toBottomOf="@+id/cardView"
                         app:setUsedCarManufacturer="@{usedCar}" />
@@ -79,21 +78,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/model"
-                        app:layout_constraintBottom_toTopOf="@+id/used_car_version"
-                        app:layout_constraintStart_toStartOf="@+id/left_used_car_detail_guidline"
-                        app:layout_constraintTop_toBottomOf="@+id/used_car_manufacturer"
+                        app:layout_constraintEnd_toStartOf="@+id/right_used_car_detail_guidline"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView"
                         app:setUsedCarModel="@{usedCar}" />
-
-                <TextView
-                        android:id="@+id/used_car_color"
-                        style="@style/SmallDark"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/color"
-                        app:layout_constraintBottom_toTopOf="@+id/bids_car_list"
-                        app:layout_constraintStart_toStartOf="@+id/left_used_car_detail_guidline"
-                        app:layout_constraintTop_toBottomOf="@+id/used_car_miles" />
 
                 <TextView
                         android:id="@+id/used_car_miles"
@@ -102,9 +89,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/miles"
-                        app:layout_constraintBottom_toTopOf="@+id/used_car_color"
                         app:layout_constraintStart_toStartOf="@+id/left_used_car_detail_guidline"
-                        app:layout_constraintTop_toBottomOf="@+id/used_car_date"
+                        app:layout_constraintTop_toBottomOf="@+id/used_car_version"
                         app:setUsedCarMiles="@{usedCar}" />
 
                 <TextView
@@ -114,9 +100,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/registration_date"
-                        app:layout_constraintBottom_toTopOf="@+id/used_car_miles"
-                        app:layout_constraintStart_toStartOf="@+id/left_used_car_detail_guidline"
-                        app:layout_constraintTop_toBottomOf="@+id/used_car_version"
+                        app:layout_constraintEnd_toStartOf="@+id/right_used_car_detail_guidline"
+                        app:layout_constraintTop_toBottomOf="@+id/used_car_model"
                         app:setUsedCarDate="@{usedCar}" />
 
                 <TextView
@@ -126,33 +111,32 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/version"
-                        app:layout_constraintBottom_toTopOf="@+id/used_car_date"
                         app:layout_constraintStart_toStartOf="@+id/left_used_car_detail_guidline"
-                        app:layout_constraintTop_toBottomOf="@+id/used_car_model"
+                        app:layout_constraintTop_toBottomOf="@+id/used_car_manufacturer"
                         app:setUsedCarVersion="@{usedCar}" />
 
                 <View
                         android:id="@+id/used_car_color_prv"
-                        android:layout_width="0dp"
+                        android:layout_width="200dp"
                         android:layout_height="24dp"
-                        android:layout_marginStart="8dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/used_car_color"
+                        android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toStartOf="@+id/right_used_car_detail_guidline"
-                        app:layout_constraintStart_toEndOf="@+id/used_car_color"
-                        app:layout_constraintTop_toTopOf="@+id/used_car_color"
+                        app:layout_constraintTop_toBottomOf="@+id/used_car_date"
                         app:setBackgroundColor="@{usedCar}" />
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/bids_car_list"
                         android:layout_width="0dp"
-                        android:layout_height="124dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         app:bidsListItems="@{viewModel.bidsList}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toStartOf="@+id/right_used_car_detail_guidline"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/left_used_car_detail_guidline"
-                        app:layout_constraintTop_toBottomOf="@+id/used_car_color"
-                        tools:itemCount="3" />
+                        app:layout_constraintTop_toBottomOf="@+id/used_car_color_prv"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/bid_item" />
 
                 <TextView
                         android:id="@+id/used_car_owner"
@@ -182,11 +166,11 @@
 
                 <TextView
                         android:id="@+id/used_car_phone"
-                        style="@style/UserDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textSize="24sp"
+                        android:padding="8dp"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toStartOf="@+id/right_used_car_detail_guidline"
                         app:layout_constraintTop_toTopOf="parent"
                         app:setUserPhone="@{viewModel.userInfoServer}"
@@ -194,11 +178,11 @@
 
                 <TextView
                         android:id="@+id/used_car_email"
-                        style="@style/UserDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textSize="24sp"
+                        android:textSize="14sp"
+                        android:padding="8dp"
                         app:layout_constraintEnd_toStartOf="@+id/right_used_car_detail_guidline"
                         app:layout_constraintTop_toBottomOf="@+id/used_car_phone"
                         app:setUserEmail="@{viewModel.userInfoServer}"

@@ -1,5 +1,9 @@
 package com.newvisiondz.sayara.screens.usedcardetails
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,15 +17,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentUsedCarDetailBinding
 import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.screens.versions.SliderAdapter
 import kotlinx.android.synthetic.main.add_new_bid.view.*
-import java.lang.Exception
 
 
-class UsedCarDetail : Fragment() {
+class UsedCarDetailFragment : Fragment() {
     var viewModel: UsedCarDetailViewModel? = null
     var usedCar: UsedCar = UsedCar()
     private var ownerResponse: Boolean? = null
@@ -38,8 +47,8 @@ class UsedCarDetail : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_used_car_detail, container, false)
 
         val application = requireNotNull(activity).application
-        ownerResponse = UsedCarDetailArgs.fromBundle(arguments!!).myUsedCar
-        usedCar = UsedCarDetailArgs.fromBundle(arguments!!).usedCar
+        ownerResponse = UsedCarDetailFragmentArgs.fromBundle(arguments!!).myUsedCar
+        usedCar = UsedCarDetailFragmentArgs.fromBundle(arguments!!).usedCar
         usedCarId = usedCar.id
 
         if (ownerResponse!!) {
@@ -82,6 +91,7 @@ class UsedCarDetail : Fragment() {
                 displayMessage("Rejected !")
             }
         })
+
         binding.executePendingBindings()
         val dividerItemDecoration = DividerItemDecoration(
             binding.bidsCarList.context,
@@ -94,6 +104,28 @@ class UsedCarDetail : Fragment() {
         viewModel?.getAllBidsOfCar(usedCar.id)
         binding.imageSlider.sliderAdapter =
             SliderAdapter(context!!, usedCar.images, context!!.getString(R.string.baseUrl))
+        binding.usedCarPhone.setOnClickListener {
+            Dexter.withActivity(context as Activity)
+                .withPermission(Manifest.permission.CALL_PHONE)
+                .withListener(object : PermissionListener {
+                    override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                        val callIntent = Intent(Intent.ACTION_CALL)
+                        callIntent.data = Uri.parse("tel:${binding.usedCarPhone.text}")
+                        startActivity(callIntent)
+                    }
+
+                    override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(
+                        permission: PermissionRequest,
+                        token: PermissionToken
+                    ) {
+                        Toast.makeText(context,"You need to grant me permission !",Toast.LENGTH_SHORT).show()
+                    }
+                }).check()
+
+        }
         return binding.root
     }
 

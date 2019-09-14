@@ -85,7 +85,7 @@
         android:label="fragment_data_sheet_view"/>
     <fragment
         android:id="@+id/UsedCarDetail"
-        android:name="com.newvisiondz.sayara.screens.usedcardetails.UsedCarDetail"
+        android:name="com.newvisiondz.sayara.screens.usedcardetails.UsedCarDetailFragment"
         android:label="fragment_bid_view"
         tools:layout="@layout/fragment_used_car_detail" >
         <argument

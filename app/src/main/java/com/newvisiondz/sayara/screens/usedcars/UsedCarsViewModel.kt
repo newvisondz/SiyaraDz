@@ -203,11 +203,8 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
             val requestFile2 = tmpFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
             partList.add(MultipartBody.Part.createFormData("images", tmpFile.name, requestFile2))
             //todo bug with image upload
-//            partList.add( TypedFile("image/jpeg",  File(imagePath));)
             index++
         }
-//        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
-
         val manufacturerId = newItem.manufacturerId.toRequestBody("text/plain".toMediaTypeOrNull())
         val modelId = newItem.modelId.toRequestBody("text/plain".toMediaTypeOrNull())
         val versionId = newItem.versionId.toRequestBody("text/plain".toMediaTypeOrNull())

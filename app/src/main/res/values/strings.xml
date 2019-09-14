@@ -27,10 +27,10 @@
     <string name="manufacturer">Manufacturer : %s</string>
     <string name="model">Model : %s</string>
     <string name="version">Version : %s</string>
-    <string name="registration_date">Registration Date : %s</string>
+    <string name="registration_date">Annee : %s</string>
     <string name="color">Color : </string>
     <string name="firstLastName">%s</string>
-    <string name="miles">Miles : %s</string>
+    <string name="miles">kilometrage : %s</string>
 
 
 
