@@ -34,7 +34,7 @@ class Brands : Fragment() {
     private var totalItemsCount: Int = 0
     private var previousTotal: Int = 0
 
-    private var viewThreshold = 6
+    private var viewThreshold = 8
 
 
     override fun onCreateView(

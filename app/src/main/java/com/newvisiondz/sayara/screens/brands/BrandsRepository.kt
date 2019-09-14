@@ -20,6 +20,7 @@ class BrandsRepository private constructor(var context: Context) {
     private val _list: MutableLiveData<MutableList<Brand>> = MutableLiveData()
     val list: LiveData<MutableList<Brand>>
         get() = _list
+    var tmpManufacturers= mutableListOf<Brand>()
 
     init {
         getBrandsData()
@@ -44,7 +45,7 @@ class BrandsRepository private constructor(var context: Context) {
     fun getBrandsData() {
         val call = RetrofitClient(context)
             .serverDataApi
-            .getAllBrands(getUserToken(userInfo), 1, 6, "")
+            .getAllBrands(getUserToken(userInfo), 1, 8, "")
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
@@ -52,7 +53,8 @@ class BrandsRepository private constructor(var context: Context) {
 
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    _list.value = listFormatter(response.body()!!, listType, "manufacturers")
+                    tmpManufacturers = listFormatter(response.body()!!, listType, "manufacturers")
+                    _list.value = tmpManufacturers
                 }
             }
         })
@@ -72,7 +74,8 @@ class BrandsRepository private constructor(var context: Context) {
                 if (response.isSuccessful) {
                     val tmp: MutableList<Brand> = listFormatter(response.body()!!, listType, "manufacturers")
                     if (tmp.size != 0) {
-                        list.value!!.addAll(tmp)
+                       tmpManufacturers.addAll(tmp)
+                        _list.value=tmpManufacturers
                     }
                 }
             }
