@@ -16,14 +16,12 @@ import com.newvisiondz.sayara.utils.getUserToken
 import com.newvisiondz.sayara.utils.listFormatter
 import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import okhttp3.*
-import okhttp3.RequestBody.Companion.toRequestBody
 
 
 class UsedCarsViewModelFactory(private var app: Application) :
@@ -202,9 +200,14 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
         newItem.uris.forEach {
             val tmpFile = convertBitmapToFile(context, it, index)
             val requestFile = tmpFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-            partList.add(MultipartBody.Part.createFormData("images", tmpFile.name, requestFile))
+            val requestFile2 = tmpFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            partList.add(MultipartBody.Part.createFormData("images", tmpFile.name, requestFile2))
+            //todo bug with image upload
+//            partList.add( TypedFile("image/jpeg",  File(imagePath));)
             index++
         }
+//        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
+
         val manufacturerId = newItem.manufacturerId.toRequestBody("text/plain".toMediaTypeOrNull())
         val modelId = newItem.modelId.toRequestBody("text/plain".toMediaTypeOrNull())
         val versionId = newItem.versionId.toRequestBody("text/plain".toMediaTypeOrNull())

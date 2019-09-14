@@ -46,13 +46,17 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
     val userInfoServer: LiveData<User>
         get() = _userInfoServer
 
+    private val _bidResponse = MutableLiveData<Boolean>()
+    val bidResponse: LiveData<Boolean>
+        get() = _bidResponse
+
 
     init {
         userInfo.let {
             token = getUserToken(it)
         }
         _createWithSuccess.value = null
-
+        _bidResponse.value = null
     }
 
     fun getAllBidsOfCar(carId: String) {
@@ -108,12 +112,15 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
     fun acceptBid(ownerResponse: Boolean, usedCarId: String, bidId: String) {
         val json = JsonObject()
         json.addProperty("accepted", ownerResponse)
-        call.acceptBid(token,usedCarId,bidId,json).enqueue(object : Callback<JsonElement> {
+        call.acceptBid(token, usedCarId, bidId, json).enqueue(object : Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
 
             }
 
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                if (response.isSuccessful) {
+                    _bidResponse.value=ownerResponse
+                }
             }
 
         })

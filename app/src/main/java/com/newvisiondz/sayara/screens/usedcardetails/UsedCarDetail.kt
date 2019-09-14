@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentUsedCarDetailBinding
 import com.newvisiondz.sayara.model.UsedCar
@@ -39,21 +40,21 @@ class UsedCarDetail : Fragment() {
         val application = requireNotNull(activity).application
         ownerResponse = UsedCarDetailArgs.fromBundle(arguments!!).myUsedCar
         usedCar = UsedCarDetailArgs.fromBundle(arguments!!).usedCar
-        usedCarId=usedCar.id
+        usedCarId = usedCar.id
 
         if (ownerResponse!!) {
             binding.bidsCarList.adapter = BidsAdapter(true,
                 BidsAdapter.Listener {
-                    bidId=it.bidId
-                    acceptOrRefuse=true
-                    viewModel?.acceptBid(acceptOrRefuse!!,usedCarId,bidId)
+                    bidId = it.bidId
+                    acceptOrRefuse = true
+                    viewModel?.acceptBid(acceptOrRefuse!!, usedCarId, bidId)
                 }, BidsAdapter.Listener {
-                    bidId=it.bidId
-                    acceptOrRefuse=false
-                    viewModel?.acceptBid(acceptOrRefuse!!,usedCarId,bidId)
+                    bidId = it.bidId
+                    acceptOrRefuse = false
+                    viewModel?.acceptBid(acceptOrRefuse!!, usedCarId, bidId)
                 })
         } else {
-            binding.bidsCarList.adapter = BidsAdapter(false, null,null)
+            binding.bidsCarList.adapter = BidsAdapter(false, null, null)
         }
 
         val viewModelFactory = UsedCarDetailViewModelFactory(application)
@@ -72,6 +73,13 @@ class UsedCarDetail : Fragment() {
         viewModel?.createWithSuccess?.observe(this, Observer {
             if (it == true) {
                 Toast.makeText(context, "Created with Success !", Toast.LENGTH_SHORT).show()
+            }
+        })
+        viewModel?.bidResponse?.observe(this, Observer {
+            if (it == true){
+                displayMessage("Accepted")
+            }else  if (it == false){
+                displayMessage("Rejected !")
             }
         })
         binding.executePendingBindings()
@@ -107,5 +115,12 @@ class UsedCarDetail : Fragment() {
         mView.cancel.setOnClickListener {
             dialog.cancel()
         }
+    }
+
+    private fun displayMessage(message: String) {
+        SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Here's a message!")
+            .setContentText(message)
+            .show()
     }
 }

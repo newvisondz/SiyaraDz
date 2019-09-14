@@ -160,9 +160,7 @@ class UsedCarsFragment : Fragment() {
                 )
             bindingDialog.viewModel = viewModel
             mBuilder.setView(bindingDialog.root)
-
 //Adapters
-
             bindingDialog.brandSpinner.adapter =
                 InfoSpinner(context!!, R.layout.spinner_element, brands)
             bindingDialog.modelSpinner.adapter =
