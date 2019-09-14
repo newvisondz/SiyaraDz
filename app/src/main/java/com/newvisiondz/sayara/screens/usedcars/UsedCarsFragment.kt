@@ -25,6 +25,7 @@ import com.karumi.dexter.listener.single.BasePermissionListener
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.AddUsedCarFormBinding
 import com.newvisiondz.sayara.databinding.FragmentUsedCarsBinding
+import com.newvisiondz.sayara.databinding.UsedCarsFilterDialogBinding
 import com.newvisiondz.sayara.model.CarInfo
 import com.newvisiondz.sayara.screens.tabs.TabsDirections
 import com.newvisiondz.sayara.utils.colorMap
@@ -50,7 +51,9 @@ class UsedCarsFragment : Fragment() {
     private var currentBrandId: String = ""
     private var currentModel: String = ""
     private lateinit var photoURI: Uri
-    private lateinit var dialog: AlertDialog
+    private lateinit var dialogNewUsedCar: AlertDialog
+    private lateinit var dialogFilter: AlertDialog
+    private lateinit var viewModel: UsedCarsViewModel
 
 
     private var isloading: Boolean = true
@@ -72,9 +75,8 @@ class UsedCarsFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_used_cars, container, false)
         val application = requireNotNull(this.activity).application
-        val viewModel =
-            ViewModelProviders.of(this, UsedCarsViewModelFactory(application))
-                .get(UsedCarsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, UsedCarsViewModelFactory(application))
+            .get(UsedCarsViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
@@ -89,40 +91,16 @@ class UsedCarsFragment : Fragment() {
                 Toast.makeText(context, "Please fill all the inputs !", Toast.LENGTH_SHORT).show()
             }
         })
-
-        binding.searchFilter.setOnClickListener {
-            val alertDialog = AlertDialog.Builder(context!!, R.style.DialogTheme).create()
-            alertDialog.setTitle("Choose a Filter")
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Price") { dialog, _ ->
-                try {
-                    viewModel.filterUsedCars(
-                        "",
-                        maxPrice = binding.maxFilter.text.toString().toDouble(),
-                        minPrice = binding.minFilter.text.toString().toDouble()
-                    )
-                } catch (e: NumberFormatException) {
-                    Toast.makeText(context, "Bad number format", Toast.LENGTH_SHORT).show()
-                }
-                dialog.dismiss()
+        viewModel.filterDone.observe(this, Observer {
+            if (it == true) {
+                dialogFilter.dismiss()
             }
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Distance") { dialog, _ ->
-                try {
-                    viewModel.filterUsedCars(
-                        "",
-                        binding.maxFilter.text.toString().toDouble(),
-                        binding.minFilter.text.toString().toDouble()
-                    )
-                } catch (e: NumberFormatException) {
-                    Toast.makeText(context, "Bad number format", Toast.LENGTH_SHORT).show()
-                }
-                dialog.dismiss()
-            }
-            alertDialog.show()
-        }
+        })
         activity!!.action_search
             .setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    viewModel.filterUsedCars(query)
+//                    viewModel.filterUsedCars()
+                    //todo think of somehting xD
                     return true
                 }
 
@@ -131,7 +109,7 @@ class UsedCarsFragment : Fragment() {
                 }
             })
         binding.usedCarsList.adapter = UsedCarsAdapter(UsedCarsAdapter.Listener {
-            findNavController().navigate(TabsDirections.actionTabsToUsedCarsDetails(it,false))
+            findNavController().navigate(TabsDirections.actionTabsToUsedCarsDetails(it, false))
         })
 
         viewModel.bidsList.observe(this, Observer {
@@ -142,7 +120,7 @@ class UsedCarsFragment : Fragment() {
                 (binding.usedCarsList.adapter as UsedCarsAdapter).notifyDataSetChanged()
                 viewModel.insertIsDone.value = null
                 //todo optimize this code
-                dialog.let(AlertDialog::dismiss)
+                dialogNewUsedCar.let(AlertDialog::dismiss)
                 models.clear()
                 versions.clear()
             }
@@ -160,6 +138,8 @@ class UsedCarsFragment : Fragment() {
                 )
             bindingDialog.viewModel = viewModel
             mBuilder.setView(bindingDialog.root)
+
+
 //Adapters
             bindingDialog.brandSpinner.adapter =
                 InfoSpinner(context!!, R.layout.spinner_element, brands)
@@ -171,6 +151,8 @@ class UsedCarsFragment : Fragment() {
                 context!!, R.layout.color_spinner_item,
                 colorMap.keys.toList()
             )
+
+
 //Done Adapters
 //Observers
             viewModel.brandList.observe(this, Observer { newBrands ->
@@ -262,10 +244,10 @@ class UsedCarsFragment : Fragment() {
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
-            dialog = mBuilder.create()
-            dialog.setCanceledOnTouchOutside(true)
-            dialog.window?.attributes?.windowAnimations = R.style.PauseDialogAnimation
-            dialog.show()
+            dialogNewUsedCar = mBuilder.create()
+            dialogNewUsedCar.setCanceledOnTouchOutside(true)
+            dialogNewUsedCar.window?.attributes?.windowAnimations = R.style.PauseDialogAnimation
+            dialogNewUsedCar.show()
 
             bindingDialog.btnImg.setOnClickListener {
                 openImageSoureDialog()
@@ -276,14 +258,16 @@ class UsedCarsFragment : Fragment() {
             }
 
             bindingDialog.btnCancel.setOnClickListener {
-                dialog.cancel()
+                dialogNewUsedCar.cancel()
             }
             bindingDialog.carDate.setOnClickListener {
                 datePicker(bindingDialog.root.car_date, context!!)
             }
-//            bindingDialog.colorSpinner.setOnClickListener {
-//                //                colorPicker(binding, bindingDialog)
-//            }
+        }
+
+
+        binding.searchFilter.setOnClickListener {
+            filterDialog(viewModel)
         }
         binding.usedCarsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -319,6 +303,27 @@ class UsedCarsFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    private fun filterDialog(viewModel: UsedCarsViewModel) {
+        val mBuilder = AlertDialog.Builder(context!!)
+        val bindingFilter: UsedCarsFilterDialogBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(context)
+            , R.layout.used_cars_filter_dialog,
+            null, false
+        )
+        bindingFilter.viewModel = viewModel
+        mBuilder.setView(bindingFilter.root)
+        bindingFilter.filterFilterSubmit.setOnClickListener {
+            viewModel.filterUsedCars()
+        }
+        bindingFilter.filterCancel.setOnClickListener {
+            dialogFilter.cancel()
+        }
+        dialogFilter = mBuilder.create()
+        dialogFilter.setCanceledOnTouchOutside(true)
+        dialogFilter.window?.attributes?.windowAnimations = R.style.PauseDialogAnimation
+        dialogFilter.show()
     }
 
     private fun openGallery() {
@@ -415,6 +420,10 @@ class UsedCarsFragment : Fragment() {
             ).check()
     }
 
+    fun displayFilterDialog() {
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.filter_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -422,11 +431,12 @@ class UsedCarsFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.display_filter) {
-            if (binding.filtersGroup.visibility == View.VISIBLE) binding.filtersGroup.visibility =
-                View.GONE
-            else binding.filtersGroup.visibility = View.VISIBLE
+
+            filterDialog(viewModel = viewModel)
             return true
         }
         return false
     }
+
+
 }

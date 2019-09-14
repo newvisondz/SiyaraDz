@@ -29,7 +29,7 @@ import java.util.*
 
 
 fun getUserToken(userInfo: SharedPreferences): String {
-    return userInfo.getString("token", "Not Found")
+    return userInfo.getString("token", "Not Found")!!
 }
 
 fun getUserInfo(userInfo: SharedPreferences): Array<String> {

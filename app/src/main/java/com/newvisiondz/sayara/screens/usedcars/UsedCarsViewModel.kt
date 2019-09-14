@@ -65,7 +65,16 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
     val newCarDate = MutableLiveData<String>()
     private var tmpDataList = mutableListOf<UsedCar>()
 
+    //filter Live data
+    val queryText = MutableLiveData<String>()
+    val minPrice = MutableLiveData<Double>()
+    val maxPrice = MutableLiveData<Double>()
+    val minDistance = MutableLiveData<Double>()
+    val maxDistance = MutableLiveData<Double>()
 
+    private val _filterDone=MutableLiveData<Boolean>()
+    val filterDone:LiveData<Boolean>
+        get() = _filterDone
     private var viewModelJob = Job()
     private var uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val dataSource = getDatabase(application.applicationContext).usedCarDao
@@ -74,8 +83,14 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
         token = getUserToken(userInfo)
         insertIsDone.value = null
         _errorObservable.value = null
+        queryText.value = ""
+        minDistance.value = 0.0
+        minPrice.value = 0.0
+        maxDistance.value = 999999999.9
+        maxPrice.value = 9999999999.9
         getAllUsedCars()
         getBrandsList()
+        _filterDone.value=null
     }
 
     fun getAllUsedCars() {
@@ -251,14 +266,15 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
         })
     }
 
-    fun filterUsedCars(
-        q: String,
-        maxCurrentMiles: Double = 9999999999.9,
-        minCurrentMiles: Double = 0.0,
-        maxPrice: Double = 9999999999.9,
-        minPrice: Double = 0.0
-    ) {
-        call.filterUsedCars(token, q, minPrice, maxPrice, minCurrentMiles, maxCurrentMiles)
+    fun filterUsedCars() {
+        call.filterUsedCars(
+            token,
+            queryText.value!!,
+            minPrice.value!!,
+            maxPrice.value!!,
+            minDistance.value!!,
+            maxDistance.value!!
+        )
             .enqueue(object : Callback<List<UsedCar>> {
                 override fun onFailure(call: Call<List<UsedCar>>, t: Throwable) {
 
@@ -271,6 +287,7 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
                     tmpDataList.clear()
                     tmpDataList.addAll(response.body()!!)
                     _bidsList.value = tmpDataList
+                    _filterDone.value =true
                 }
             })
     }

@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.*
-import com.newvisiondz.sayara.screens.myoffers.UserBidAdapter
 import com.newvisiondz.sayara.screens.usedcardetails.BidsAdapter
 import com.newvisiondz.sayara.screens.usedcars.UsedCarsAdapter
 
@@ -209,7 +208,11 @@ fun TextView.setCompareVersionText(item: VersionCompare?) {
 
 @InverseBindingAdapter(attribute = "app:setDouble", event = "android:textAttrChanged")
 fun captureTextValue(view: TextView): Double {
-    return view.text.toString().toDouble()
+    return try {
+        view.text.toString().toDouble()
+    } catch (e: java.lang.Exception) {
+        0.0
+    }
 }
 
 @BindingAdapter("setDouble")

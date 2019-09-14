@@ -102,8 +102,6 @@ class Brands : Fragment() {
                 }
             }
         })
-
-        //this can be accecced whenever i need auth
         return binding.root
     }
 

@@ -25,6 +25,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentUsedCarDetailBinding
+import com.newvisiondz.sayara.exceptions.LowerAmount
 import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.screens.versions.SliderAdapter
 import kotlinx.android.synthetic.main.add_new_bid.view.*
@@ -85,9 +86,9 @@ class UsedCarDetailFragment : Fragment() {
             }
         })
         viewModel?.bidResponse?.observe(this, Observer {
-            if (it == true){
+            if (it == true) {
                 displayMessage("Accepted")
-            }else  if (it == false){
+            } else if (it == false) {
                 displayMessage("Rejected !")
             }
         })
@@ -99,7 +100,7 @@ class UsedCarDetailFragment : Fragment() {
         )
         binding.bidsCarList.addItemDecoration(dividerItemDecoration)
         binding.makeNewOffere.setOnClickListener {
-            displayNewBidDialog()
+            displayNewBidDialog(usedCar.price)
         }
         viewModel?.getAllBidsOfCar(usedCar.id)
         binding.imageSlider.sliderAdapter =
@@ -121,7 +122,11 @@ class UsedCarDetailFragment : Fragment() {
                         permission: PermissionRequest,
                         token: PermissionToken
                     ) {
-                        Toast.makeText(context,"You need to grant me permission !",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "You need to grant me permission !",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }).check()
 
@@ -129,7 +134,7 @@ class UsedCarDetailFragment : Fragment() {
         return binding.root
     }
 
-    private fun displayNewBidDialog() {
+    private fun displayNewBidDialog(ownerPrice: Double) {
         val builder = AlertDialog.Builder(context!!)
         val mView = layoutInflater.inflate(R.layout.add_new_bid, null)
         builder.setView(mView).setCancelable(true)
@@ -137,10 +142,14 @@ class UsedCarDetailFragment : Fragment() {
         val dialog = builder.show()
         mView.Add.setOnClickListener {
             try {
-                viewModel?.createNewBid(usedCar.id, mView.new_bid_price.text.toString().toDouble())
+                val newPrice = mView.new_bid_price.text.toString().toDouble()
+                if (newPrice < ownerPrice) throw LowerAmount()
+                viewModel?.createNewBid(usedCar.id, newPrice)
+            } catch (e: LowerAmount) {
+                Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 e.printStackTrace()
-                Toast.makeText(context, "insert a valid price", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Insert a valid price", Toast.LENGTH_SHORT).show()
             }
             dialog.dismiss()
         }

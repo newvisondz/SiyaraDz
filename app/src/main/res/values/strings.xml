@@ -31,7 +31,8 @@
     <string name="color">Color : </string>
     <string name="firstLastName">%s</string>
     <string name="miles">kilometrage : %s</string>
-
+    <string name="filter_dialog_title">Filter Options</string>
+    <string name="filter_text">brand,model,version or title</string>
 
 
 </resources>
