@@ -31,7 +31,7 @@
                 app:popExitAnim="@anim/fade_out"/>
         <action
                 android:id="@+id/action_tabs_to_used_cars"
-                app:destination="@id/UsedCars" app:enterAnim="@anim/nav_default_enter_anim"
+                app:destination="@id/MyUsedCars" app:enterAnim="@anim/nav_default_enter_anim"
                 app:exitAnim="@anim/fade_out" app:popExitAnim="@anim/fade_out"/>
         <action
             android:id="@+id/action_tabs_to_myVersions"
@@ -95,6 +95,9 @@
         <action
             android:id="@+id/action_bidView_to_bidForm"
             app:destination="@id/bidForm" />
+        <argument
+                android:name="myUsedCar"
+                app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/compareVersions"
@@ -117,11 +120,15 @@
         <action android:id="@+id/action_profileForm_to_tabs" app:destination="@id/tabs" app:enterAnim="@anim/fade_out"/>
     </fragment>
     <fragment
-            android:id="@+id/UsedCars"
+            android:id="@+id/MyUsedCars"
             android:name="com.newvisiondz.sayara.screens.myusedcars.MyUsedCars"
             tools:layout="@layout/fragment_my_used_cars"
             android:label="fragment_my_used_cars"
-    />
+    >
+        <action
+                android:id="@+id/action_MyUsedCars_to_UsedCarDetail"
+                app:destination="@id/UsedCarDetail" />
+    </fragment>
     <fragment
         android:id="@+id/myModels"
         android:name="com.newvisiondz.sayara.screens.fragments.MyModels"

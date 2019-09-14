@@ -9,7 +9,7 @@
             android:id="@+id/bids_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".screens.usedcars.UsedCars">
+            tools:context=".screens.usedcars.UsedCarsFragment">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefreshBids"

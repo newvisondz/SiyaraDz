@@ -105,4 +105,18 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
         })
     }
 
+    fun acceptBid(ownerResponse: Boolean, usedCarId: String, bidId: String) {
+        val json = JsonObject()
+        json.addProperty("accepted", ownerResponse)
+        call.acceptBid(token,usedCarId,bidId,json).enqueue(object : Callback<JsonElement> {
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+            }
+
+        })
+    }
+
 }

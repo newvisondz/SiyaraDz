@@ -38,7 +38,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class UsedCars : Fragment() {
+class UsedCarsFragment : Fragment() {
     companion object {
         const val TAKE_PHOTO = 123
         const val OPEN_GALLERY = 321
@@ -131,7 +131,7 @@ class UsedCars : Fragment() {
                 }
             })
         binding.usedCarsList.adapter = UsedCarsAdapter(UsedCarsAdapter.Listener {
-            findNavController().navigate(TabsDirections.actionTabsToUsedCarsDetails(it))
+            findNavController().navigate(TabsDirections.actionTabsToUsedCarsDetails(it,false))
         })
 
         viewModel.bidsList.observe(this, Observer {

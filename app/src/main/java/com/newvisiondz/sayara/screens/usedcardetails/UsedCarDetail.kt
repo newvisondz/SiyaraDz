@@ -23,19 +23,48 @@ import java.lang.Exception
 class UsedCarDetail : Fragment() {
     var viewModel: UsedCarDetailViewModel? = null
     var usedCar: UsedCar = UsedCar()
+    private var ownerResponse: Boolean? = null
+
+    private var usedCarId = ""
+    private var bidId = ""
+    private var acceptOrRefuse: Boolean? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding: FragmentUsedCarDetailBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_used_car_detail, container, false)
+
         val application = requireNotNull(activity).application
-        binding.bidsCarList.adapter = BidsAdapter()
+        ownerResponse = UsedCarDetailArgs.fromBundle(arguments!!).myUsedCar
+        usedCar = UsedCarDetailArgs.fromBundle(arguments!!).usedCar
+        usedCarId=usedCar.id
+
+        if (ownerResponse!!) {
+            binding.bidsCarList.adapter = BidsAdapter(true,
+                BidsAdapter.Listener {
+                    bidId=it.bidId
+                    acceptOrRefuse=true
+                    viewModel?.acceptBid(acceptOrRefuse!!,usedCarId,bidId)
+                }, BidsAdapter.Listener {
+                    bidId=it.bidId
+                    acceptOrRefuse=false
+                    viewModel?.acceptBid(acceptOrRefuse!!,usedCarId,bidId)
+                })
+        } else {
+            binding.bidsCarList.adapter = BidsAdapter(false, null,null)
+        }
+
         val viewModelFactory = UsedCarDetailViewModelFactory(application)
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(UsedCarDetailViewModel::class.java)
         binding.viewModel = viewModel
-        usedCar = UsedCarDetailArgs.fromBundle(arguments!!).usedCar
+
+
+        if (ownerResponse!!) {
+            binding.makeNewOffere.visibility = View.GONE
+        }
         viewModel?.getOwnerInfo(usedCar.owner)
 
         binding.usedCar = usedCar

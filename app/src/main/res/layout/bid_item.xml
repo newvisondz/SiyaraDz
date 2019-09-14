@@ -19,8 +19,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
             <ImageView
                     android:id="@+id/imageView6"
@@ -75,6 +74,7 @@
                         app:setBidCreator="@{bid}"
                         tools:text="TextView" />
             </HorizontalScrollView>
+
             <TextView
                     android:id="@+id/bid_creator_phone"
                     style="@style/MediumLight"
@@ -100,6 +100,34 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView8"
                     app:setBidPrice="@{bid}"
                     tools:text="TextView" />
+
+            <Button
+                    android:id="@+id/accept_bid"
+                    style="@style/btn_colors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="#4CAF50"
+                    android:text="Accept"
+                    app:layout_constraintBottom_toBottomOf="@+id/bid_creator_phone"
+                    app:layout_constraintEnd_toStartOf="@+id/reject_bid"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@+id/bid_creator_phone"
+                    app:layout_constraintTop_toTopOf="@+id/bid_creator_phone" />
+
+            <Button
+                    android:id="@+id/reject_bid"
+                    style="@style/btn_colors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="#F44336"
+                    android:text="Reject"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/accept_bid"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/accept_bid" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

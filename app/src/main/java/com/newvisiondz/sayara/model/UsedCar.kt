@@ -37,7 +37,7 @@ data class UsedCar(
 
 data class Bid(
     @SerializedName("id")
-    var carId: String = "",
+    var bidId: String = "",
     var creator:User=User(),
     var price: Double = 0.0
 )

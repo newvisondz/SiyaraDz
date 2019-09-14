@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.newvisiondz.sayara.R
@@ -34,7 +35,9 @@ class MyUsedCars : Fragment() {
                 .get(UsedCarsViewModel::class.java)
         binding.viewModel = mViewModel
         binding.lifecycleOwner = this
-        binding.myBidsList.adapter = UsedCarsAdapter(null)
+        binding.myBidsList.adapter = UsedCarsAdapter(UsedCarsAdapter.Listener{
+            findNavController().navigate(MyUsedCarsDirections.actionMyUsedCarsToUsedCarDetail(it,true))
+        })
 
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
@@ -51,9 +54,12 @@ class MyUsedCars : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val alertDialog = AlertDialog.Builder(context!!).create()
+                val alertDialog = AlertDialog.Builder(context!!,R.style.DialogTheme).create()
                 alertDialog.setTitle("Attenetion")
                 alertDialog.setMessage("Voue êtes entrain de supprimer cet élément !")
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Cancel") { dialog, which ->
+                    binding.myBidsList.adapter?.notifyItemChanged(viewHolder.adapterPosition)
+                }
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK") { dialog, which ->
                     if (isOnline(context!!)) {
                         mViewModel.deleteUsedCarAd(viewHolder.adapterPosition)
@@ -62,9 +68,6 @@ class MyUsedCars : Fragment() {
                         "You'll have to be online to delete this used car permanantly !",
                         Toast.LENGTH_SHORT
                     ).show()
-                }
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Cancel") { dialog, which ->
-                    binding.myBidsList.adapter?.notifyItemChanged(viewHolder.adapterPosition)
                 }
                 alertDialog.show()
             }
@@ -83,9 +86,5 @@ class MyUsedCars : Fragment() {
             }
         })
         return binding.root
-    }
-
-    fun simpleDialog(context: Context) {
-
     }
 }

@@ -52,7 +52,7 @@ interface ServerDataApi {
     fun getAllModelsNames(
         @Header("Authorization") token: String,
         @Path("manufacturerId") manufacturerName: String,
-        @Query("fields") fields: String="name"
+        @Query("fields") fields: String = "name"
     ): Call<JsonElement>
 
     @GET("manufacturers/{manufacturerId}/models/{modelId}")
@@ -157,10 +157,10 @@ interface ServerDataApi {
     ): Call<List<Bid>>
 
 
-    @POST("used-cars/{carId}/bids")
+    @POST("used-cars/{bidId}/bids")
     fun createNewBid(
         @Header("Authorization") token: String,
-        @Path("carId") usedCarId: String,
+        @Path("bidId") usedCarId: String,
         @Body body: JsonObject
 
     ): Call<Bid>
@@ -170,10 +170,10 @@ interface ServerDataApi {
         @Header("Authorization") token: String
     ): Call<MutableList<UserBid>>
 
-    @DELETE("used-cars/{carId}/bids/{bidId}")
+    @DELETE("used-cars/{bidId}/bids/{bidId}")
     fun removeBid(
         @Header("Authorization") token: String,
-        @Path("carId") usedCarId: String,
+        @Path("bidId") usedCarId: String,
         @Path("bidId") bidId: String
     ): Call<JsonObject>
 
@@ -196,6 +196,15 @@ interface ServerDataApi {
     @GET("/autom/{ownerId}")
     fun getUserProfileInfo(
         @Header("Authorization") token: String,
-        @Path("ownerId")ownerId:String
+        @Path("ownerId") ownerId: String
     ): Call<User>
+
+
+    @POST("/used-cars/{usedCarId}/bids/{bidId}/accept")
+    fun acceptBid(
+        @Header("Authorization") token: String,
+        @Path("usedCarId") usedCarId: String,
+        @Path("bidId") bidId: String,
+        @Body body: JsonObject
+    ):Call<JsonElement>
 }
