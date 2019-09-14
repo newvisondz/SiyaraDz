@@ -256,3 +256,24 @@ fun TextView.setStringType(info: String?) {
         } else info
     }
 }
+
+@BindingAdapter("setUserName")
+fun TextView.setUserName(user: User?) {
+    user?.let {
+        text = user.lastName
+    }
+}
+
+@BindingAdapter("setUserPhone")
+fun TextView.setUserPhone(user: User?) {
+    user?.let {
+        text = user.phone
+    }
+}
+
+@BindingAdapter("setUserEmail")
+fun TextView.setUserEmail(user: User?) {
+    user?.let {
+        text = it.email
+    }
+}

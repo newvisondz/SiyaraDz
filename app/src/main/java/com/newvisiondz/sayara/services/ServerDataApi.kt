@@ -192,4 +192,10 @@ interface ServerDataApi {
     fun getUsedCarPerUser(
         @Header("Authorization") token: String
     ): Call<List<UsedCar>>
+
+    @GET("/autom/{ownerId}")
+    fun getUserProfileInfo(
+        @Header("Authorization") token: String,
+        @Path("ownerId")ownerId:String
+    ): Call<User>
 }

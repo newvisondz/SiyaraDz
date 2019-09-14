@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.model.Bid
+import com.newvisiondz.sayara.model.User
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.getUserToken
 import retrofit2.Call
@@ -41,12 +42,17 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
     val createWithSuccess: LiveData<Boolean>
         get() = _createWithSuccess
 
+    private val _userInfoServer = MutableLiveData<User>()
+    val userInfoServer: LiveData<User>
+        get() = _userInfoServer
+
 
     init {
         userInfo.let {
             token = getUserToken(it)
         }
         _createWithSuccess.value = null
+
     }
 
     fun getAllBidsOfCar(carId: String) {
@@ -83,6 +89,20 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
             _createWithSuccess.value = false
             //todo something went wrong
         }
+    }
+
+    fun getOwnerInfo(ownerId: String) {
+        call.getUserProfileInfo(token, ownerId).enqueue(object : Callback<User> {
+            override fun onFailure(call: Call<User>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    _userInfoServer.value = response.body()
+                }
+            }
+        })
     }
 
 }

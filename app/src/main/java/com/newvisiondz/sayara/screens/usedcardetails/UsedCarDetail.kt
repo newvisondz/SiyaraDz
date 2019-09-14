@@ -36,12 +36,13 @@ class UsedCarDetail : Fragment() {
             ViewModelProviders.of(this, viewModelFactory).get(UsedCarDetailViewModel::class.java)
         binding.viewModel = viewModel
         usedCar = UsedCarDetailArgs.fromBundle(arguments!!).usedCar
+        viewModel?.getOwnerInfo(usedCar.owner)
 
         binding.usedCar = usedCar
         binding.lifecycleOwner = this
         viewModel?.createWithSuccess?.observe(this, Observer {
             if (it == true) {
-                Toast.makeText(context,"Created with Success !",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Created with Success !", Toast.LENGTH_SHORT).show()
             }
         })
         binding.executePendingBindings()

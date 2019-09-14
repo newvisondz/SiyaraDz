@@ -49,6 +49,14 @@
         <item name="android:textSize">@dimen/font_small</item>
     </style>
 
+    <style name="UserDetail">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@string/font_light</item>
+        <item name="android:textColor">@color/primary_txt</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="SmallLight">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
