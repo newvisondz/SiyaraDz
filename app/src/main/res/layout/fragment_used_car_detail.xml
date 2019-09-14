@@ -62,7 +62,7 @@
 
                 <TextView
                         android:id="@+id/used_car_manufacturer"
-                        style="@style/UserDetail"
+                        style="@style/SmallDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -74,7 +74,7 @@
 
                 <TextView
                         android:id="@+id/used_car_model"
-                        style="@style/UserDetail"
+                        style="@style/SmallDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -86,7 +86,7 @@
 
                 <TextView
                         android:id="@+id/used_car_color"
-                        style="@style/UserDetail"
+                        style="@style/SmallDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -97,7 +97,7 @@
 
                 <TextView
                         android:id="@+id/used_car_miles"
-                        style="@style/UserDetail"
+                        style="@style/SmallDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -109,7 +109,7 @@
 
                 <TextView
                         android:id="@+id/used_car_date"
-                        style="@style/UserDetail"
+                        style="@style/SmallDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -121,7 +121,7 @@
 
                 <TextView
                         android:id="@+id/used_car_version"
-                        style="@style/UserDetail"
+                        style="@style/SmallDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"

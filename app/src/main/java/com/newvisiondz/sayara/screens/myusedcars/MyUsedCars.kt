@@ -1,11 +1,13 @@
 package com.newvisiondz.sayara.screens.myusedcars
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -28,7 +30,8 @@ class MyUsedCars : Fragment() {
         val application = requireNotNull(this.activity).application
 
         val mViewModel =
-            ViewModelProviders.of(this, UsedCarsViewModelFactory(application)).get(UsedCarsViewModel::class.java)
+            ViewModelProviders.of(this, UsedCarsViewModelFactory(application))
+                .get(UsedCarsViewModel::class.java)
         binding.viewModel = mViewModel
         binding.lifecycleOwner = this
         binding.myBidsList.adapter = UsedCarsAdapter(null)
@@ -38,6 +41,7 @@ class MyUsedCars : Fragment() {
             0,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
         ) {
+
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -47,13 +51,22 @@ class MyUsedCars : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                if (isOnline(context!!)) {
-                    mViewModel.deleteUsedCarAd(viewHolder.adapterPosition)
-                } else Toast.makeText(
-                    context,
-                    "You'll have to be online to delete this used car permanantly !",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val alertDialog = AlertDialog.Builder(context!!).create()
+                alertDialog.setTitle("Attenetion")
+                alertDialog.setMessage("Voue êtes entrain de supprimer cet élément !")
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK") { dialog, which ->
+                    if (isOnline(context!!)) {
+                        mViewModel.deleteUsedCarAd(viewHolder.adapterPosition)
+                    } else Toast.makeText(
+                        context,
+                        "You'll have to be online to delete this used car permanantly !",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Cancel") { dialog, which ->
+                    binding.myBidsList.adapter?.notifyItemChanged(viewHolder.adapterPosition)
+                }
+                alertDialog.show()
             }
         }).attachToRecyclerView(binding.myBidsList)
 
@@ -61,10 +74,18 @@ class MyUsedCars : Fragment() {
             if (it == true) {
                 Toast.makeText(context, "Deleted !", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(context, "There was a problem with the server or your internet !", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    context,
+                    "There was a problem with the server or your internet !",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         })
         return binding.root
+    }
+
+    fun simpleDialog(context: Context) {
+
     }
 }

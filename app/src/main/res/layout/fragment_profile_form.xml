@@ -15,11 +15,13 @@
 		<ScrollView
 				android:id="@+id/scrollView3"
 				android:layout_width="0dp"
-				android:layout_height="0dp"
-				app:layout_constraintBottom_toBottomOf="parent"
+				android:layout_height="wrap_content"
+				app:layout_constraintBottom_toTopOf="@+id/button_confirm"
 				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.5"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent">
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_chainStyle="spread_inside">
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 					android:id="@+id/linearLayout6"
@@ -218,25 +220,23 @@
 						app:layout_constraintStart_toEndOf="@+id/imageView5"
 						app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
-				<Button
-						android:id="@+id/button_confirm"
-						style="@style/btn_colors"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_marginStart="8dp"
-						android:layout_marginTop="32dp"
-						android:layout_marginEnd="8dp"
-						android:onClick="@{()->viewModel.updateUserInfo()}"
-						android:padding="8dp"
-						android:text="VALIDER"
-						android:textSize="28sp"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintStart_toStartOf="parent"
-						app:layout_constraintTop_toBottomOf="@+id/imageView1" />
-
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</ScrollView>
+
+		<Button
+				android:id="@+id/button_confirm"
+				style="@style/btn_colors"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:onClick="@{()->viewModel.updateUserInfo()}"
+				android:padding="8dp"
+				android:text="VALIDER"
+				android:textSize="28sp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
 
 	</androidx.constraintlayout.widget.ConstraintLayout>

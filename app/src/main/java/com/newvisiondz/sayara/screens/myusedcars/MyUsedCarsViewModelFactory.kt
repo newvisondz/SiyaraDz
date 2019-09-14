@@ -20,9 +20,7 @@ class UsedCarsViewModelFactory(private var app: Application) : ViewModelProvider
     }
 
 }
-
 class UsedCarsViewModel(application: Application) : AndroidViewModel(application) {
-
     private val dataSource = getDatabase(application).usedCarDao
     private val context = application.applicationContext
     val token = getUserToken(context.getSharedPreferences("userinfo", Context.MODE_PRIVATE))
@@ -39,13 +37,6 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun deleteUsedCarAd(carPosition: Int) {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                usedCarsList.value?.get(carPosition)?.id?.let {
-                    dataSource.deleteOne(it)
-                }
-            }
-        }
         RetrofitClient(context).serverDataApi.deleteUsedCar(
             token,
             usedCarsList.value?.get(carPosition)!!.id
@@ -58,17 +49,26 @@ class UsedCarsViewModel(application: Application) : AndroidViewModel(application
                         call: Call<JsonObject>,
                         response: Response<JsonObject>
                     ) {
-                        val res: String = response.body()!!["ok"].asString
-                        if (res == "true") {
-                            _deletedWithSuccess.value = true
-                        } else if (res == "false") {
-                            _deletedWithSuccess.value = false
+                        if (response.isSuccessful){
+                            val res: String = response.body()!!["ok"].asString
+                            if (res == "1") {
+                                _deletedWithSuccess.value = true
+                                uiScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        usedCarsList.value?.get(carPosition)?.id?.let {
+                                            dataSource.deleteOne(it)
+                                        }
+                                    }
+                                }
+                            } else if (res == "false") {
+                                _deletedWithSuccess.value = false
+                            }
                         }
                     }
                 })
     }
 
-    fun getAllUserUsedCars() {
+    private fun getAllUserUsedCars() {
         RetrofitClient(context).serverDataApi.getUsedCarPerUser(token)
             .enqueue(
                 object : Callback<List<UsedCar>> {

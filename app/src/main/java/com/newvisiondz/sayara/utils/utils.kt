@@ -9,6 +9,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.JsonObject
@@ -143,23 +144,29 @@ fun optionsMapping(list1: Version, list2: Version): MutableList<VersionCompare> 
             "places" -> {
                 itemRes.optionName = "places"
                 itemRes.firstValue = getOptionListAsString(item.values)
-                itemRes.secondValue = getOptionWithName(list2, "places")?.values?.let { getOptionListAsString(it) }!!
+                itemRes.secondValue =
+                    getOptionWithName(list2, "places")?.values?.let { getOptionListAsString(it) }!!
             }
             "Type du carburant" -> {
                 itemRes.optionName = "Type du carburant"
                 itemRes.firstValue = getOptionListAsString(item.values)
                 itemRes.secondValue =
-                    getOptionWithName(list2, "Type du carburant")?.values?.let { getOptionListAsString(it) }!!
+                    getOptionWithName(
+                        list2,
+                        "Type du carburant"
+                    )?.values?.let { getOptionListAsString(it) }!!
             }
             "moteur" -> {
                 itemRes.optionName = "moteur"
                 itemRes.firstValue = getOptionListAsString(item.values)
-                itemRes.secondValue = getOptionWithName(list2, "moteur")?.values?.let { getOptionListAsString(it) }!!
+                itemRes.secondValue =
+                    getOptionWithName(list2, "moteur")?.values?.let { getOptionListAsString(it) }!!
             }
             "Boite" -> {
                 itemRes.optionName = "Boite"
                 itemRes.firstValue = getOptionListAsString(item.values)
-                itemRes.secondValue = getOptionWithName(list2, "Boite")?.values?.let { getOptionListAsString(it) }!!
+                itemRes.secondValue =
+                    getOptionWithName(list2, "Boite")?.values?.let { getOptionListAsString(it) }!!
             }
         }
         listRes.add(itemRes)
@@ -213,11 +220,10 @@ fun datePicker(viewText: TextView, context: Context) {
 }
 
 fun convertBitmapToFile(context: Context, photoURI: Uri, index: Int): File {
-    var file =File(context.cacheDir, "tmpImage${index}")
-    if (file.exists()){
+    var file = File(context.cacheDir, "tmpImage${index}")
+    if (file.exists()) {
         file.delete()
-    }
-    else {
+    } else {
         file = File(context.cacheDir, "tmpImage${index}")
     }
 
@@ -233,3 +239,4 @@ fun convertBitmapToFile(context: Context, photoURI: Uri, index: Int): File {
     fos.close()
     return file
 }
+
