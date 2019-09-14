@@ -138,7 +138,7 @@
     </style>
 
     <style name="btn_colors" parent="android:Widget.Button">
-        <item name="android:backgroundTint">#ff5722</item>
+        <item name="android:backgroundTint">@color/brightorange</item>
         <item name="android:layout_marginLeft">2dp</item>
         <item name="android:layout_marginRight">2dp</item>
         <item name="android:textColor">#FFF</item>

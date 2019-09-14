@@ -78,24 +78,24 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/color"
-                    android:text="Couleur"
+                    android:text="Couleur :"
                     app:layout_constraintBottom_toTopOf="@+id/upload_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/car_date_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/car_date_label"/>
 
             <EditText
                     android:id="@+id/current_miles"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Distance parcouru par l'automobile"
+                    android:hint="En Km"
                     android:inputType="numberDecimal"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/current_miles_label"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
                     app:layout_constraintTop_toTopOf="@+id/current_miles_label"
-                    app:setDouble="@={viewModel.newCarMiles}" />
+                    app:setDouble="@={viewModel.newCarMiles}"/>
 
             <Button
                     android:id="@+id/btnCancel"
@@ -104,13 +104,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
                     android:padding="16dp"
-                    android:text="Cancel"
+                    android:text="Annuler"
                     android:textSize="18sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/btnOk"
                     app:layout_constraintEnd_toStartOf="@+id/btnOk"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"/>
 
             <Button
                     android:id="@+id/btnOk"
@@ -120,12 +120,12 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:padding="16dp"
-                    android:text="Save"
+                    android:text="Terminer"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/btnCancel"
-                    app:layout_constraintTop_toBottomOf="@+id/btnImg" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnImg"/>
 
             <ImageButton
                     android:id="@+id/btnImg"
@@ -149,13 +149,13 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Upload Images"
+                    android:text="Année :"
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/color_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/color_label"/>
 
             <TextView
                     android:id="@+id/brand_label"
@@ -165,29 +165,26 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/model_spinner"
-                    android:text="Marque"
+                    android:text="Marque M"
                     app:layout_constraintBottom_toTopOf="@+id/brand_spinner_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintTop_toBottomOf="@+id/textView18"
                     app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintVertical_chainStyle="packed"/>
 
             <TextView
                     android:id="@+id/current_miles_label"
                     style="@style/MediumLight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/current_miles"
-                    android:text="Distance parcouru"
+                    android:text="Kilométrage :"
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toTopOf="@+id/price_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/version_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/version_label"/>
 
             <TextView
                     android:id="@+id/brand_spinner_label"
@@ -197,11 +194,11 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/model_spinner"
-                    android:text="Model"
+                    android:text="Modèle :"
                     android:textAlignment="textStart"
                     app:layout_constraintBottom_toTopOf="@+id/version_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/brand_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/brand_label"/>
 
             <TextView
                     android:id="@+id/price_label"
@@ -211,24 +208,24 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/price"
-                    android:text="Prix initial"
+                    android:text="Prix :"
                     app:layout_constraintBottom_toTopOf="@+id/car_date_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/current_miles_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/current_miles_label"/>
 
             <EditText
                     android:id="@+id/price"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Prix initial de l'automobile"
+                    android:hint="en Millions de centimes"
                     android:inputType="numberDecimal"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/price_label"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
                     app:layout_constraintTop_toTopOf="@+id/price_label"
-                    app:setDouble="@={viewModel.newCarPrice}" />
+                    app:setDouble="@={viewModel.newCarPrice}"/>
 
             <TextView
                     android:id="@+id/car_date_label"
@@ -251,7 +248,7 @@
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText.dialog_Input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="ex:2014-02-1"
+                    android:hint="20xx"
                     android:inputType="date"
                     android:text="@={viewModel.newCarDate}"
                     android:textSize="14sp"
@@ -259,7 +256,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.507"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toTopOf="@+id/car_date_label" />
+                    app:layout_constraintTop_toTopOf="@+id/car_date_label"/>
 
             <Spinner
                     android:id="@+id/version_spinner"
@@ -284,10 +281,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Version"
+                    android:text="Version M"
                     app:layout_constraintBottom_toTopOf="@+id/current_miles_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/brand_spinner_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/brand_spinner_label"/>
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline4"

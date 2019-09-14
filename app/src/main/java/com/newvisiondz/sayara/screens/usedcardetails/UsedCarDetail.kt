@@ -74,7 +74,7 @@ class UsedCarDetail : Fragment() {
             }
             dialog.dismiss()
         }
-        mView.cancel.setOnClickListener {
+        mView.annuler.setOnClickListener {
             dialog.cancel()
         }
     }

@@ -85,6 +85,7 @@ class UsedCars : Fragment() {
             isloading = false
             binding.swipeRefreshBids.isRefreshing = false
         }
+
         viewModel.errorObservable.observe(this, Observer {
             if (it == true) {
                 Toast.makeText(context, "Please fill all the inputs !", Toast.LENGTH_SHORT).show()
@@ -345,7 +346,7 @@ class UsedCars : Fragment() {
     private fun openImageSoureDialog() {
         val builder = AlertDialog.Builder(context!!)
         val mView = layoutInflater.inflate(R.layout.camera_gallery, null)
-        builder.setView(mView).setTitle("Chooose an Action").setCancelable(true)
+        builder.setView(mView).setTitle("Choisir entre :").setCancelable(true)
         builder.create().setCanceledOnTouchOutside(true)
         val dialog = builder.show()
         mView.cameraButton.setOnClickListener {
