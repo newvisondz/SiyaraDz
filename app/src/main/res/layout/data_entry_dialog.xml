@@ -32,13 +32,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/montserrat"
                     android:text="Poster une annonce"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#000000"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             <Spinner
                     android:id="@+id/brand_spinner"
@@ -46,14 +46,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
                     android:padding="16dp"
                     android:spinnerMode="dropdown"
                     app:layout_constraintBottom_toBottomOf="@+id/brand_label"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView18"/>
 
 
             <Button
@@ -68,20 +68,21 @@
                     app:layout_constraintBottom_toBottomOf="@+id/color_label"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toTopOf="@+id/color_label" />
+                    app:layout_constraintTop_toTopOf="@+id/color_label" android:backgroundTint="@color/brightorange"/>
 
             <TextView
                     android:id="@+id/color_label"
-                    style="@style/MediumLight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/color"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:text="Couleur :"
                     app:layout_constraintBottom_toTopOf="@+id/upload_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/car_date_label"/>
+                    app:layout_constraintTop_toBottomOf="@+id/car_date_label" android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
 
             <EditText
                     android:id="@+id/current_miles"
@@ -103,33 +104,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
-                    android:padding="16dp"
                     android:text="Annuler"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/btnOk"
                     app:layout_constraintEnd_toStartOf="@+id/btnOk"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent" android:backgroundTint="@color/brightorange"/>
 
             <Button
                     android:id="@+id/btnOk"
-                    style="@style/btn_colors"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
-                    android:padding="16dp"
                     android:text="Terminer"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/btnCancel"
-                    app:layout_constraintTop_toBottomOf="@+id/btnImg"/>
+                    app:layout_constraintTop_toBottomOf="@+id/btnImg"
+                    android:backgroundTint="@color/brightorange"/>
 
             <ImageButton
                     android:id="@+id/btnImg"
-                    style="@style/btn_colors"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -139,79 +137,84 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/upload_label"
-                    app:layout_constraintTop_toBottomOf="@+id/color" />
+                    app:layout_constraintTop_toBottomOf="@+id/color"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/upload_label"
+                    app:layout_constraintTop_toTopOf="@+id/upload_label" android:backgroundTint="@color/brightorange"/>
 
             <TextView
                     android:id="@+id/upload_label"
-                    style="@style/MediumLight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Année :"
+                    android:text="Photos :"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/color_label"/>
+                    app:layout_constraintTop_toBottomOf="@+id/color_label" android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
 
             <TextView
                     android:id="@+id/brand_label"
-                    style="@style/MediumLight"
                     android:layout_width="0dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/model_spinner"
-                    android:text="Marque M"
+                    android:text="Marque :"
                     app:layout_constraintBottom_toTopOf="@+id/brand_spinner_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintTop_toBottomOf="@+id/textView18"
                     app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintVertical_chainStyle="packed"/>
+                    app:layout_constraintVertical_chainStyle="packed" android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
 
             <TextView
                     android:id="@+id/current_miles_label"
-                    style="@style/MediumLight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/current_miles"
                     android:text="Kilométrage :"
                     android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintBottom_toTopOf="@+id/price_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/version_label"/>
+                    app:layout_constraintTop_toBottomOf="@+id/version_label" android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
 
             <TextView
                     android:id="@+id/brand_spinner_label"
-                    style="@style/MediumLight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/model_spinner"
                     android:text="Modèle :"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textAlignment="textStart"
                     app:layout_constraintBottom_toTopOf="@+id/version_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/brand_label"/>
+                    app:layout_constraintTop_toBottomOf="@+id/brand_label" android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
 
             <TextView
                     android:id="@+id/price_label"
-                    style="@style/MediumLight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:labelFor="@id/price"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:text="Prix :"
                     app:layout_constraintBottom_toTopOf="@+id/car_date_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/current_miles_label"/>
+                    app:layout_constraintTop_toBottomOf="@+id/current_miles_label"
+                    android:textColor="@android:color/black" android:textSize="14sp"/>
 
             <EditText
                     android:id="@+id/price"
@@ -229,19 +232,17 @@
 
             <TextView
                     android:id="@+id/car_date_label"
-                    style="@style/MediumLight"
                     android:layout_width="0dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Date d'achat"
+                    android:text="Année :"
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toTopOf="@+id/color_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/price_label" />
+                    app:layout_constraintTop_toBottomOf="@+id/price_label" android:textColor="@android:color/black"
+                    android:textSize="14sp"/>
 
             <EditText
                     android:id="@+id/car_date"
@@ -276,15 +277,16 @@
 
             <TextView
                     android:id="@+id/version_label"
-                    style="@style/MediumLight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Version M"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:text="Version :"
                     app:layout_constraintBottom_toTopOf="@+id/current_miles_label"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/brand_spinner_label"/>
+                    app:layout_constraintTop_toBottomOf="@+id/brand_spinner_label"
+                    android:textColor="@android:color/black" android:textSize="14sp"/>
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline4"
