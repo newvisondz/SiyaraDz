@@ -1,17 +1,18 @@
 package com.newvisiondz.sayara.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class Model {
+
+class Model(
     @SerializedName("id")
-    var id: String = ""
+    var id: String = "",
     @SerializedName("name")
-    var name = ""
+    var name: String = "",
     @SerializedName("colors")
-    var colors = mutableListOf<Color>()
+    var colors: MutableList<Color> = mutableListOf(),
     @SerializedName("options")
-    var options = mutableListOf<Option>()
+    var options: MutableList<Option> = mutableListOf(),
     @SerializedName("images")
-    var images = mutableListOf<String>()
-
-}
+    var images: MutableList<String> = mutableListOf()
+) : Serializable

@@ -122,6 +122,7 @@ class UsedCarsFragment : Fragment() {
                 //todo optimize this code
                 dialogNewUsedCar.let(AlertDialog::dismiss)
                 models.clear()
+                tmpUris.clear()
                 versions.clear()
             }
         })
@@ -195,6 +196,7 @@ class UsedCarsFragment : Fragment() {
                         id: Long
                     ) {
                         currentBrandId = brands[position].id
+                        currentBrandId = brands[position].id
                         viewModel.newItemServer.manufacturerId = currentBrandId
                         viewModel.newItemServer.manufacturer = brands[position].name
                         viewModel.getModelsList(currentBrandId)
@@ -263,11 +265,6 @@ class UsedCarsFragment : Fragment() {
             bindingDialog.carDate.setOnClickListener {
                 datePicker(bindingDialog.root.car_date, context!!)
             }
-        }
-
-
-        binding.searchFilter.setOnClickListener {
-            filterDialog(viewModel)
         }
         binding.usedCarsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -419,11 +416,6 @@ class UsedCarsFragment : Fragment() {
             }
             ).check()
     }
-
-    fun displayFilterDialog() {
-
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.filter_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -431,7 +423,6 @@ class UsedCarsFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.display_filter) {
-
             filterDialog(viewModel = viewModel)
             return true
         }

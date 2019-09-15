@@ -19,13 +19,15 @@ import com.newvisiondz.sayara.model.Color
 import com.newvisiondz.sayara.model.Command
 import com.newvisiondz.sayara.model.Value
 import com.newvisiondz.sayara.model.Version
+import com.newvisiondz.sayara.screens.modeltabs.ModelTabsArgs
 import com.newvisiondz.sayara.screens.versions.versionadapters.*
 
 
-class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.SingleClickListener,
-    FuelAdapter.SingleClickListener, ColorsAdapter.SingleClickListener, EnginePowerAdapter.SingleClickListener {
+class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.SingleClickListener,
+    FuelAdapter.SingleClickListener, ColorsAdapter.SingleClickListener,
+    EnginePowerAdapter.SingleClickListener {
 
-
+    private val argsRcv=args
     private var modelId = ""
     private var manufacturer = ""
     private var versionId = ""
@@ -51,19 +53,22 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
             DataBindingUtil.inflate(inflater, R.layout.fragment_versions, container, false)
         val application = requireNotNull(activity).application
         val viewModelFactory = VersionsViewModelFactory(application)
-        val versionViewModel = ViewModelProviders.of(this, viewModelFactory).get(VersionsViewModel::class.java)
+        val versionViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(VersionsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = versionViewModel
-        modelId = arguments?.getString("modelId")!!
-        manufacturer = arguments?.getString("manufacturerId")!!
-        modelImages = arguments?.getStringArrayList("modelImages")!!
+        argsRcv?.let {
+            modelId =   ModelTabsArgs.fromBundle(it).modelId
+            manufacturer = ModelTabsArgs.fromBundle(it).manufacturerId
+            modelImages = ModelTabsArgs.fromBundle(it).modelImages.toMutableList()
+        }!!
 
 
         binding.versionsSpinner.adapter =
             SpinnerAdapter(context!!, R.layout.spinner_element, versions)
         initializeAdapters(binding)
         binding.imageSlider.sliderAdapter =
-            SliderAdapter(context!!, modelImages,"${context!!.getString(R.string.baseUrl)}/")
+            SliderAdapter(context!!, modelImages, "${context!!.getString(R.string.baseUrl)}/")
         versionViewModel.getAllVersions(manufacturer, modelId)
 
         versionViewModel.version.observe(this, Observer { newVersion ->
@@ -114,7 +119,8 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
             if (command.cars.isNotEmpty()) {
                 displayDialog(command, versionViewModel)
             } else {
-                Toast.makeText(context, "Cette voiture n'est plus disponible", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Cette voiture n'est plus disponible", Toast.LENGTH_LONG)
+                    .show()
             }
         })
         versionViewModel.commandConfirmed.observe(this, Observer { confirmed ->
@@ -128,7 +134,12 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
         binding.orderVersion.setOnClickListener {
             //TODO do something about order Form
             //todo format String in the placesAdapter
-            versionViewModel.sendCommand(manufacturer, modelId, versionId, userChoices.values.toMutableList())
+            versionViewModel.sendCommand(
+                manufacturer,
+                modelId,
+                versionId,
+                userChoices.values.toMutableList()
+            )
         }
         binding.compareButton.setOnClickListener {
             it.findNavController().navigate(
@@ -139,14 +150,20 @@ class Versions : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.Si
             )
         }
 
-        binding.versionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                versionViewModel.getVersionDetails(manufacturer, modelId, versions[position].id)
-                versionId = versions[position].id
-            }
+        binding.versionsSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    versionViewModel.getVersionDetails(manufacturer, modelId, versions[position].id)
+                    versionId = versions[position].id
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
         return binding.root
     }
 

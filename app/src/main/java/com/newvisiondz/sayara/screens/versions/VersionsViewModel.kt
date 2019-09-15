@@ -8,6 +8,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.model.Command
+import com.newvisiondz.sayara.model.Model
 import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.getUserToken
@@ -30,8 +31,11 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
     private var userInfo: SharedPreferences? = null
     private val context: Context = application.applicationContext
 
-    private val _version = MutableLiveData<Version>()
-    val version: LiveData<Version>
+//    private val _version = MutableLiveData<Version>()
+//    val version: LiveData<Version>
+//        get() = _version
+private val _version = MutableLiveData<Model>()
+    val version: LiveData<Model>
         get() = _version
 
     private val _commandDetails = MutableLiveData<Command>()
@@ -75,15 +79,30 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
 
 
     fun getVersionDetails(manufacturer: String, modelId: String, versionId: String) {
-        val call = RetrofitClient(context).serverDataApi.getVersionDetails(
-            getUserToken(userInfo!!), manufacturer, modelId, versionId
+//        val call = RetrofitClient(context).serverDataApi.getVersionDetails(
+//            getUserToken(userInfo!!), manufacturer, modelId, versionId
+//        )
+//        call.enqueue(object : Callback<Version> {
+//            override fun onFailure(call: Call<Version>, t: Throwable) {
+//                t.printStackTrace()
+//            }
+//
+//            override fun onResponse(call: Call<Version>, response: Response<Version>) {
+//                if (response.isSuccessful) {
+//                    _version.value = response.body()!!
+//                }
+//            }
+//
+//        })
+        val call = RetrofitClient(context).serverDataApi.getModelDetails(
+            getUserToken(userInfo!!), manufacturer, modelId
         )
-        call.enqueue(object : Callback<Version> {
-            override fun onFailure(call: Call<Version>, t: Throwable) {
+        call.enqueue(object : Callback<Model> {
+            override fun onFailure(call: Call<Model>, t: Throwable) {
                 t.printStackTrace()
             }
 
-            override fun onResponse(call: Call<Version>, response: Response<Version>) {
+            override fun onResponse(call: Call<Model>, response: Response<Model>) {
                 if (response.isSuccessful) {
                     _version.value = response.body()!!
                 }

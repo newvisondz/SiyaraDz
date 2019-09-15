@@ -137,4 +137,10 @@ class InstrumentedTest {
         assertEquals("5d6456f6733e59001709a79d", body!![0].id)
     }
 
+
+    @Test
+    fun getModel(){
+//        val call=RetrofitClient(appContext).serverDataApi.getModel
+    }
+
 }

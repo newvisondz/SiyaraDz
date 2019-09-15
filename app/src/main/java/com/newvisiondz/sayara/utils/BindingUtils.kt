@@ -120,6 +120,18 @@ fun View.setBackgroundColor(usedCar: UsedCar?) {
     }
 }
 
+@BindingAdapter("setColor")
+fun View.setColor(color: String?) {
+    color?.let {
+        try {
+            setBackgroundColor(android.graphics.Color.parseColor(color))
+        } catch (e: java.lang.Exception) {
+
+        }
+
+    }
+}
+
 @BindingAdapter("setBidDate")
 fun TextView.setBidDate(usedCar: UsedCar?) {
     usedCar?.let {
@@ -174,6 +186,7 @@ fun RadioButton.setRadioColorChecked(item: Color?) {
         background = ColorDrawable(android.graphics.Color.parseColor(it.value))
     }
 }
+
 
 @BindingAdapter("setRadioEnginePowerChecked")
 fun RadioButton.setRadioEnginePowerChecked(item: Value?) {

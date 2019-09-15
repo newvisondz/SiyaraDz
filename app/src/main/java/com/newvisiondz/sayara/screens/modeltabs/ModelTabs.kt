@@ -1,32 +1,35 @@
-package com.newvisiondz.sayara.screens.tabs
+package com.newvisiondz.sayara.screens.modeltabs
 
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
-import com.newvisiondz.sayara.R
-import com.newvisiondz.sayara.databinding.FragmentTabsBinding
 
-class Tabs : Fragment() {
+import com.newvisiondz.sayara.R
+import com.newvisiondz.sayara.databinding.FragmentModelTabsBinding
+
+class ModelTabs : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentTabsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_tabs, container, false)
-        val adapter = TabPagerAdapter(childFragmentManager)
-        binding.pager.adapter = adapter
-        binding.pager.offscreenPageLimit = 2
-        binding.pager.addOnPageChangeListener(
+        val binding: FragmentModelTabsBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_model_tabs, container, false)
+        val adapter = ModelTabsPagerAdapter(childFragmentManager,arguments)
+        binding.modelTabsPager.adapter = adapter
+        binding.modelTabsPager.offscreenPageLimit = 2
+        binding.modelTabsPager.addOnPageChangeListener(
             TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout)
         )
         binding.tabLayout.addOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                binding.pager.currentItem = tab.position
+                binding.modelTabsPager.currentItem = tab.position
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -39,4 +42,6 @@ class Tabs : Fragment() {
         })
         return binding.root
     }
+
+
 }

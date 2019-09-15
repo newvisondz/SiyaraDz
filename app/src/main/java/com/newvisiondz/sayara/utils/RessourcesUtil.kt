@@ -3,6 +3,7 @@ package com.newvisiondz.sayara.utils
 import com.newvisiondz.sayara.model.Color
 
 val colorMap: Map<Int, Color> = mapOf(
+    Pair(0, Color(name = "bleu nuit ", value = "#191970")),
     Pair(1, Color(name = "noir ", value = "#000000")),
     Pair(2, Color(name = "gris ", value = "#808080")),
     Pair(3, Color(name = "gris argent ", value = "#C0C0C0")),
@@ -11,9 +12,8 @@ val colorMap: Map<Int, Color> = mapOf(
     Pair(6, Color(name = "gris champagne", value = "#b4a696")),
     Pair(7, Color(name = "gris aluminium ", value = "#8f8f8f")),
     Pair(8, Color(name = "bleu ", value = "#0000FF")),
-    Pair(0, Color(name = "blanc", value = "#FFFFFF")),
+    Pair(10, Color(name = "blanc", value = "#FFFFFF")),
     Pair(9, Color(name = "bleu ciel ", value = "#87CEEB")),
-    Pair(10, Color(name = "bleu nuit ", value = "#191970")),
     Pair(11, Color(name = "bleu turquoise", value = "#40E0D0")),
     Pair(12, Color(name = "bleu gauloise ", value = "#4169E1")),
     Pair(13, Color(name = "vert ", value = "#008000")),

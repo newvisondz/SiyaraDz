@@ -20,7 +20,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/max_filter">
+                app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/used_cars_list"
@@ -45,50 +45,6 @@
                 app:icon="@drawable/ic_add_circle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-
-        <EditText
-                android:id="@+id/max_filter"
-                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="max"
-                android:inputType="numberDecimal"
-                android:visibility="visible"
-                app:layout_constraintEnd_toStartOf="@+id/search_filter"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/min_filter"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-                android:id="@+id/min_filter"
-                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="min"
-                android:inputType="numberDecimal"
-                app:layout_constraintEnd_toStartOf="@+id/max_filter"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.Group
-                android:id="@+id/filters_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:constraint_referenced_ids="max_filter,min_filter,search_filter" />
-
-        <ImageButton
-                android:id="@+id/search_filter"
-                style="@android:style/Widget.Material.Light.ImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/swipeRefreshBids"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/max_filter"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

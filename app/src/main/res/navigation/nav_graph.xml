@@ -57,21 +57,15 @@
             app:exitAnim="@anim/fade_out">
         </action>
         <argument android:name="brandName" app:argType="string"/>
+        <action
+                android:id="@+id/action_models_to_modelTabs"
+                app:destination="@id/modelTabs" />
     </fragment>
     <fragment
         android:id="@+id/Versions"
         android:name="com.newvisiondz.sayara.screens.versions.Versions"
         android:label="fragment_model_view"
         tools:layout="@layout/fragment_versions">
-        <action
-            android:id="@+id/action_modelView_to_dataSheetView"
-            app:destination="@id/dataSheetView"
-            app:enterAnim="@anim/slide_up"
-            app:exitAnim="@anim/fade_out" >
-            <argument
-                android:name="modelId"
-                android:defaultValue="0" />
-        </action>
 
         <action android:id="@+id/action_Versions_to_compareVersions" app:destination="@id/compareVersions"/>
 
@@ -80,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/dataSheetView"
-        android:name="com.newvisiondz.sayara.screens.fragments.DataSheetView"
+        android:name="com.newvisiondz.sayara.screens.datasheet.DataSheetFragment"
         tools:layout="@layout/fragment_data_sheet_view"
         android:label="fragment_data_sheet_view"/>
     <fragment
@@ -155,5 +149,20 @@
         <action
             android:id="@+id/action_myOffers_to_bidView"
             app:destination="@id/UsedCarDetail" />
+    </fragment>
+    <fragment
+            android:id="@+id/modelTabs"
+            android:name="com.newvisiondz.sayara.screens.modeltabs.ModelTabs"
+            tools:layout="@layout/fragment_model_tabs"
+            android:label="ModelTabs" >
+        <argument
+                android:name="manufacturerId"
+                app:argType="string" />
+        <argument
+                android:name="modelId"
+                app:argType="string" />
+        <argument
+                android:name="modelImages"
+                app:argType="string[]" />
     </fragment>
 </navigation>

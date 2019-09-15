@@ -23,7 +23,8 @@ class ModelsAdapter(
     RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.fragment_model_card, viewGroup, false)
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.fragment_model_card, viewGroup, false)
         return ViewHolder(view)
     }
 
@@ -42,15 +43,18 @@ class ModelsAdapter(
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.modelImage)
         }
-//        viewHolder.modelAttribute.text = version.colors.name
-//        viewHolder.modelPrice.text = version.price
-//        viewHolder.modelImage.setImageResource(version.imageId)
         viewHolder.card.setOnClickListener {
             val args = Bundle()
             args.putString("manufacturerId", manufacturerId)
             args.putString("modelId", model.id)
             args.putStringArrayList("modelImages", model.images as ArrayList<String>?)
-            it.findNavController().navigate(R.id.action_models_to_modelView, args)
+            it.findNavController().navigate(
+                ModelsDirections.actionModelsToModelTabs(
+                    manufacturerId,
+                    model.id,
+                    model.images.toTypedArray()
+                )
+            )
         }
     }
 
