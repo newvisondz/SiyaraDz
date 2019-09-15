@@ -3,8 +3,10 @@ package com.newvisiondz.sayara.screens.myorders
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.*
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.model.CarInfo
 import com.newvisiondz.sayara.model.CommandConfirmed
@@ -50,5 +52,21 @@ class MyOrdersViewModel(application: Application) : AndroidViewModel(application
             }
 
         })
+    }
+
+     fun sendPayementTokentoBackend(commandId: String, creditCardToken: String) {
+        val json = JsonObject()
+        json.addProperty("token", creditCardToken)
+        call.sendCreditCardToken(token, commandId, body = json)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                    Log.i("payment", response.body().toString())
+                }
+
+            })
     }
 }

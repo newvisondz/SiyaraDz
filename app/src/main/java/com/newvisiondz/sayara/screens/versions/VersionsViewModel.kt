@@ -162,19 +162,5 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
         })
     }
 
-    fun sendPayementTokentoBackend(commandId: String, creditCardToken: String) {
-        val json = JsonObject()
-        json.addProperty("token", creditCardToken)
-        call.sendCreditCardToken(getUserToken(userInfo!!), commandId, body = json)
-            .enqueue(object : Callback<JsonElement> {
-                override fun onFailure(call: Call<JsonElement>, t: Throwable) {
 
-                }
-
-                override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
-                    Log.i("payment", response.body().toString())
-                }
-
-            })
-    }
 }

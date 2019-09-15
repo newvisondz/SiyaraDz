@@ -31,7 +31,6 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
     FuelAdapter.SingleClickListener, ColorsAdapter.SingleClickListener,
     EnginePowerAdapter.SingleClickListener {
 
-    private lateinit var stripe: Stripe
     private val argsRcv = args
     private var modelId = ""
     private var manufacturer = ""
@@ -58,7 +57,6 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
         val binding: FragmentVersionsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_versions, container, false)
         val application = requireNotNull(activity).application
-        stripe = Stripe(context!!, "pk_test_ZCo9GAsquoGzEJmQhXef01dq00nx22J82z")
 
         val viewModelFactory = VersionsViewModelFactory(application)
         versionViewModel = ViewModelProviders.of(this, viewModelFactory).get(VersionsViewModel::class.java)
@@ -132,7 +130,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
             }
         })
         versionViewModel.commandConfirmed.observe(this, Observer { confirmed ->
-            paymentDialog(confirmed)
+//            paymentDialog(confirmed)
 //todo fix naviagtion
         })
 
@@ -285,61 +283,5 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
         }
     }
 
-    fun paymentDialog(command: CommandConfirmed) {
-        val builder = androidx.appcompat.app.AlertDialog.Builder(context!!)
-        val mView = layoutInflater.inflate(R.layout.e_payment_layout, null)
-        builder.setView(mView).setCancelable(true)
-        builder.create().setCanceledOnTouchOutside(true)
-        val dialog = builder.show()
-        mView.payment_info_submit.setOnClickListener {
-            payWithCreditCard(mView,command)
-            dialog.dismiss()
-        }
-        mView.payment_info_cancel.setOnClickListener {
-            dialog.cancel()
-        }
-    }
 
-
-
-    private fun payWithCreditCard(
-        dialog: View,
-        command: CommandConfirmed
-    ) {
-        val card: Card = Card.create("4242424242424242", 12, 2020, "123")
-        tokenizeCard(card,command)
-//        val cardToSave: Card? = dialog.card_multiline_widget.card
-//        if (cardToSave == null) {
-//            SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
-//                .setTitleText("Invalid Card Data!")
-//                .show()
-//            return
-//        } else {
-//
-////            if (cardToSave.validateCVC()
-////                && cardToSave.validateCard()
-////                && cardToSave.validateExpiryDate()
-////                && cardToSave.validateNumber()
-////            ) {
-////
-////            }
-//        }
-    }
-
-    private fun tokenizeCard(card: Card, command: CommandConfirmed) {
-        stripe.createToken(
-            card,
-            object : ApiResultCallback<Token> {
-                override fun onError(e: Exception) {
-                    SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("A problem occured!")
-                        .show()
-                }
-
-                override fun onSuccess(token: Token) {
-                       versionViewModel.sendPayementTokentoBackend(command.id,token.id)
-                }
-            }
-        )
-    }
 }
