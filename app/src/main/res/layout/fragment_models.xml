@@ -22,7 +22,8 @@
 					android:id="@+id/models_list"
 					android:layout_width="wrap_content"
 					tools:listitem="@layout/fragment_model_card"
-					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+					app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+					app:spanCount="2"
 					android:layout_height="wrap_content"
 			/>
 		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide.*
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayara.R
@@ -32,8 +33,7 @@ class ModelsAdapter(
         val model = this.models[i]
         viewHolder.modelName.text = model.name
         if (model.images.size > 0) {
-            Glide.with(context)
-                .asBitmap()
+            with(context)
                 .load("${context.getString(R.string.baseUrl)}${model.images[0]}")
                 .apply(
                     RequestOptions()
@@ -67,7 +67,5 @@ class ModelsAdapter(
         val card = view.model_card!!
         val modelName = view.model_name!!
         val modelImage = view.model_image!!
-        val modelPrice = view.model_price!!
-        val modelAttribute = view.model_attribute!!
     }
 }

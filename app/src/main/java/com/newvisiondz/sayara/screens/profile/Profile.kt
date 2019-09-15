@@ -50,8 +50,8 @@ class Profile : Fragment() {
 //            it.findNavController().navigate(TabsDirections.actionTabsToMyModels())
         }
 
-        binding.buttonMyversions.setOnClickListener {
-//            it.findNavController().navigate(TabsDirections.actionTabsToMyVersions())
+        binding.buttonMyOrders.setOnClickListener {
+            it.findNavController().navigate(TabsDirections.actionTabsToMyOrders())
         }
         binding.buttonMyoffers.setOnClickListener {
             it.findNavController().navigate(TabsDirections.actionTabsToMyOffers())

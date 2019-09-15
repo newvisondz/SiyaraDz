@@ -13,24 +13,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.*
+import com.newvisiondz.sayara.screens.myorders.MyOrdersAdapter
 import com.newvisiondz.sayara.screens.usedcardetails.BidsAdapter
 import com.newvisiondz.sayara.screens.usedcars.UsedCarsAdapter
 
-
-@BindingAdapter("loadImageUrl")
-fun loadImageUrl(imgView: ImageView, usedCar: UsedCar?) {
-    usedCar?.let {
-        Glide.with(imgView.context)
-            .load(usedCar.images[0])
-            .apply(
-                RequestOptions()
-                    .placeholder(R.drawable.loading_animation)
-                    .error(R.drawable.ic_broken_image)
-            )
-            .into(imgView)
-
-    }
-}
 
 @BindingAdapter("loadLocalImage")
 fun loadLocalImage(imgView: ImageView, usedCar: UsedCar?) {
@@ -292,4 +278,39 @@ fun TextView.setUserEmail(user: User?) {
     user?.let {
         text = it.email
     }
+}
+
+@BindingAdapter("setPayedBoolean")
+fun TextView.setPayedBoolean(commandConfirmed: CommandConfirmed?) {
+    commandConfirmed?.let {
+        text = if (it.payed) {
+            "Deja payer"
+        } else {
+            "Pas encore !"
+        }
+    }
+}
+
+@BindingAdapter("setAcceptedBoolean")
+fun TextView.setAcceptedBoolean(commandConfirmed: CommandConfirmed?) {
+    commandConfirmed?.let {
+        text = if (it.accepted) {
+            "Commande accpete"
+        } else {
+            "Pas encore !"
+        }
+    }
+}
+
+@BindingAdapter("setCreationDateBoolean")
+fun TextView.setCreationDateBoolean(commandConfirmed: CommandConfirmed?) {
+    commandConfirmed?.let {
+        text = it.createdAt.toString().substring(0,16)
+    }
+}
+
+@BindingAdapter("commandsListItems")
+fun commandsListItems(recyclerView: RecyclerView, data: List<CommandConfirmed>?) {
+    val adapter = recyclerView.adapter as MyOrdersAdapter
+    adapter.submitList(data)
 }

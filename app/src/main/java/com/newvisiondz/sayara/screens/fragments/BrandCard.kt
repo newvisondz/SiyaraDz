@@ -16,7 +16,7 @@ class BrandCard : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_brand_card, container, false)
+        val view = inflater.inflate(R.layout.fragment_brands, container, false)
         val card = view?.findViewById<MaterialCardView>(R.id.model_card)
         card?.setOnClickListener {
             findNavController(this).navigate(R.id.action_tabs_to_models)

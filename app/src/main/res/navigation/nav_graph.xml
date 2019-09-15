@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_tabs_to_myOffers"
             app:destination="@id/myOffers" />
+        <action
+                android:id="@+id/action_tabs_to_my_orders"
+                app:destination="@id/my_orders" />
     </fragment>
 
 
@@ -86,9 +89,6 @@
             android:name="usedCar"
             app:argType="com.newvisiondz.sayara.model.UsedCar"
         />
-        <action
-            android:id="@+id/action_bidView_to_bidForm"
-            app:destination="@id/bidForm" />
         <argument
                 android:name="myUsedCar"
                 app:argType="boolean" />
@@ -102,10 +102,10 @@
         <argument android:name="modelId" app:argType="string"/>
     </fragment>
     <fragment
-        android:id="@+id/bidForm"
-        android:name="com.newvisiondz.sayara.screens.fragments.BidForm"
-        android:label="fragment_bid_form"
-        tools:layout="@layout/fragment_bid_form" />
+            android:id="@+id/my_orders"
+            android:name="com.newvisiondz.sayara.screens.myorders.MyOrders"
+            android:label="MyOrders"
+            tools:layout="@layout/fragment_my_orders" />
     <fragment
         android:id="@+id/profileForm"
         android:name="com.newvisiondz.sayara.screens.profileform.ProfileForm"

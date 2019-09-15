@@ -9,10 +9,11 @@
             android:id="@+id/bid_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_margin="8dp"
             android:clickable="true"
             android:focusable="true"
             app:cardCornerRadius="5dp"
+            app:cardElevation="4dp"
             tools:ignore="HardcodedText">
 
         <androidx.constraintlayout.widget.ConstraintLayout

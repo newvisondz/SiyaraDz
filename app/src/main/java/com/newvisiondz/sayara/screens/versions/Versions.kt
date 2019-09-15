@@ -133,12 +133,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
         })
         versionViewModel.commandConfirmed.observe(this, Observer { confirmed ->
             paymentDialog(confirmed)
-
-//            if (confirmed == true) {
-////                Navigation.findNavController(activity!!, R.id.action_Versions_to_tabs)
-//            } else if (confirmed == false) {
-//                Toast.makeText(context, "Try again later", Toast.LENGTH_SHORT).show()
-//            }
+//todo fix naviagtion
         })
 
         binding.orderVersion.setOnClickListener {
@@ -332,7 +327,6 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
     }
 
     private fun tokenizeCard(card: Card, command: CommandConfirmed) {
-//        val token = stripe.createTokenSynchronous(card)!!
         stripe.createToken(
             card,
             object : ApiResultCallback<Token> {

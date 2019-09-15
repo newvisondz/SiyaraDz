@@ -1,6 +1,7 @@
 package com.newvisiondz.sayara.model
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class Command(
     val id:String="",
@@ -13,8 +14,10 @@ data class Command(
 data class CommandConfirmed(
     val id:String="",
     val vehicle:String="",
+    val automobiliste:String="",
     val accepted:Boolean=false,
     val payed:Boolean=false,
     @SerializedName("amount")
-    val price: Double
+    val price: Double,
+    val createdAt:Date
 )

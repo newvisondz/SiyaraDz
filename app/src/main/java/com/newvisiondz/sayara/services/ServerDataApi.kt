@@ -213,7 +213,13 @@ interface ServerDataApi {
     fun sendCreditCardToken(
         @Header("Authorization") token: String,
         @Path("commandId") commandId: String,
-        @Query("token") tokenCreditCard: String="tok_visa",
+        @Query("token") tokenCreditCard: String = "tok_visa",
         @Body body: JsonObject
+    ): Call<JsonElement>
+
+
+    @GET("/commands/")
+    fun getUserCommands(
+        @Header("Authorization") token: String
     ): Call<JsonElement>
 }
