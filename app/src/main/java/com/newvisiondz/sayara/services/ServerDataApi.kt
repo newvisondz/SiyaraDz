@@ -7,6 +7,7 @@ import com.newvisiondz.sayara.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.http.*
 
 interface ServerDataApi {
@@ -93,14 +94,14 @@ interface ServerDataApi {
         @Path("manufacturerId") manufacturerName: String,
         @Path("modelId") modelId: String,
         @Path("versionId") versionId: String,
-        @Query("options[]") options: MutableList<String>
+        @Query("options[]") options: MutableList<String>?
     ): Call<Command>
 
     @POST("commands/")
     fun confirmUserCommande(
         @Header("Authorization") token: String,
         @Body body: JsonObject
-    ): Call<JsonObject>
+    ): Call<CommandConfirmed>
 
     @GET("manufacturers/{manufacturer_id}/models/{model_id}/versions/{version_id}/vehicles/{vehicle_id}")
     fun getDataSheetCar(
@@ -206,5 +207,13 @@ interface ServerDataApi {
         @Path("usedCarId") usedCarId: String,
         @Path("bidId") bidId: String,
         @Body body: JsonObject
-    ):Call<JsonElement>
+    ): Call<JsonElement>
+
+    @POST("/commands/{commandId}/payment")
+    fun sendCreditCardToken(
+        @Header("Authorization") token: String,
+        @Path("commandId") commandId: String,
+        @Query("token") tokenCreditCard: String="tok_visa",
+        @Body body: JsonObject
+    ): Call<JsonElement>
 }

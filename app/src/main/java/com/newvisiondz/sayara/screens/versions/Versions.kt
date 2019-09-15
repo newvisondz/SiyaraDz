@@ -11,23 +11,28 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentVersionsBinding
-import com.newvisiondz.sayara.model.Color
-import com.newvisiondz.sayara.model.Command
-import com.newvisiondz.sayara.model.Value
-import com.newvisiondz.sayara.model.Version
+import com.newvisiondz.sayara.model.*
 import com.newvisiondz.sayara.screens.modeltabs.ModelTabsArgs
 import com.newvisiondz.sayara.screens.versions.versionadapters.*
+import com.stripe.android.ApiResultCallback
+import com.stripe.android.Stripe
+import com.stripe.android.model.Card
+import com.stripe.android.model.Token
+import kotlinx.android.synthetic.main.e_payment_layout.view.*
+import java.lang.Exception
 
 
-class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener, EngineAdapter.SingleClickListener,
+class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
+    EngineAdapter.SingleClickListener,
     FuelAdapter.SingleClickListener, ColorsAdapter.SingleClickListener,
     EnginePowerAdapter.SingleClickListener {
 
-    private val argsRcv=args
+    private lateinit var stripe: Stripe
+    private val argsRcv = args
     private var modelId = ""
     private var manufacturer = ""
     private var versionId = ""
@@ -44,6 +49,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener, E
     private val tmpEnginePower = mutableListOf<Value>()
     private val tmpColor = mutableListOf<Color>()
     private val userChoices = mutableMapOf<String, String>()
+    private lateinit var  versionViewModel: VersionsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,13 +58,14 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener, E
         val binding: FragmentVersionsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_versions, container, false)
         val application = requireNotNull(activity).application
+        stripe = Stripe(context!!, "pk_test_ZCo9GAsquoGzEJmQhXef01dq00nx22J82z")
+
         val viewModelFactory = VersionsViewModelFactory(application)
-        val versionViewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(VersionsViewModel::class.java)
+        versionViewModel = ViewModelProviders.of(this, viewModelFactory).get(VersionsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = versionViewModel
         argsRcv?.let {
-            modelId =   ModelTabsArgs.fromBundle(it).modelId
+            modelId = ModelTabsArgs.fromBundle(it).modelId
             manufacturer = ModelTabsArgs.fromBundle(it).manufacturerId
             modelImages = ModelTabsArgs.fromBundle(it).modelImages.toMutableList()
         }!!
@@ -116,19 +123,22 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener, E
             (binding.versionsSpinner.adapter as SpinnerAdapter).notifyDataSetChanged()
         })
         versionViewModel.commandDetails.observe(this, Observer { command ->
+            displayDialog(command, versionViewModel)
+
             if (command.cars.isNotEmpty()) {
-                displayDialog(command, versionViewModel)
             } else {
                 Toast.makeText(context, "Cette voiture n'est plus disponible", Toast.LENGTH_LONG)
                     .show()
             }
         })
         versionViewModel.commandConfirmed.observe(this, Observer { confirmed ->
-            if (confirmed == true) {
-                Navigation.findNavController(activity!!, R.id.action_Versions_to_tabs)
-            } else if (confirmed == false) {
-                Toast.makeText(context, "Try again later", Toast.LENGTH_SHORT).show()
-            }
+            paymentDialog(confirmed)
+
+//            if (confirmed == true) {
+////                Navigation.findNavController(activity!!, R.id.action_Versions_to_tabs)
+//            } else if (confirmed == false) {
+//                Toast.makeText(context, "Try again later", Toast.LENGTH_SHORT).show()
+//            }
         })
 
         binding.orderVersion.setOnClickListener {
@@ -177,7 +187,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener, E
             .setCancelable(true)
             .setIcon(R.drawable.ic_money)
             .setPositiveButton("Proceed") { _, _ ->
-                versionViewModel.confirmCommande(command.cars[0])
+                versionViewModel.confirmCommande(command.cars[0], command.price)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.cancel()
@@ -278,5 +288,64 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener, E
                 userChoices["enginePower"] = tmpEnginePower[position].id
             }
         }
+    }
+
+    fun paymentDialog(command: CommandConfirmed) {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(context!!)
+        val mView = layoutInflater.inflate(R.layout.e_payment_layout, null)
+        builder.setView(mView).setCancelable(true)
+        builder.create().setCanceledOnTouchOutside(true)
+        val dialog = builder.show()
+        mView.payment_info_submit.setOnClickListener {
+            payWithCreditCard(mView,command)
+            dialog.dismiss()
+        }
+        mView.payment_info_cancel.setOnClickListener {
+            dialog.cancel()
+        }
+    }
+
+
+
+    private fun payWithCreditCard(
+        dialog: View,
+        command: CommandConfirmed
+    ) {
+        val card: Card = Card.create("4242424242424242", 12, 2020, "123")
+        tokenizeCard(card,command)
+//        val cardToSave: Card? = dialog.card_multiline_widget.card
+//        if (cardToSave == null) {
+//            SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+//                .setTitleText("Invalid Card Data!")
+//                .show()
+//            return
+//        } else {
+//
+////            if (cardToSave.validateCVC()
+////                && cardToSave.validateCard()
+////                && cardToSave.validateExpiryDate()
+////                && cardToSave.validateNumber()
+////            ) {
+////
+////            }
+//        }
+    }
+
+    private fun tokenizeCard(card: Card, command: CommandConfirmed) {
+//        val token = stripe.createTokenSynchronous(card)!!
+        stripe.createToken(
+            card,
+            object : ApiResultCallback<Token> {
+                override fun onError(e: Exception) {
+                    SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("A problem occured!")
+                        .show()
+                }
+
+                override fun onSuccess(token: Token) {
+                       versionViewModel.sendPayementTokentoBackend(command.id,token.id)
+                }
+            }
+        )
     }
 }

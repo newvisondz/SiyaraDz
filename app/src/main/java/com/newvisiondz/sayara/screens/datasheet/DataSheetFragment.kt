@@ -57,7 +57,6 @@ class DataSheetFragment(args: Bundle?) : Fragment() {
                     id: Long
                 ) {
                     viewModel.getVersionDetail(manufacturerId, modeId, versions[position].id)
-//                    versionId = versions[position].id
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}

@@ -37,39 +37,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/version_name_datasheet"
                 tools:listitem="@layout/spinner_element" />
 
-        <TextView
-                android:id="@+id/textView9"
-                style="@style/SmallLight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="véhicule"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_version_dataSheet" />
-
-        <TextView
-                android:id="@+id/car_name_datasheet"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="mercedes"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView9"
-                app:layout_constraintTop_toTopOf="@+id/textView9" />
-
         <LinearLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:background="@color/colorPrimaryDark"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/car_name_datasheet">
+                app:layout_constraintTop_toBottomOf="@+id/spinner_version_dataSheet">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -104,27 +79,27 @@
 
                 <TextView
                         android:id="@+id/textView8"
+                        style="@style/SmallDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/SmallDark"
                         android:layout_marginStart="8dp"
-                        tools:text="places"
-                        android:text="@={viewModel.places}"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
+                        android:text="@={viewModel.places}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="places" />
 
                 <TextView
                         style="@style/SmallDark"
                         android:layout_marginEnd="8dp"
-                        tools:text="Type du carburant"
                         android:text="@={viewModel.fuel}"
                         app:layout_constraintBottom_toBottomOf="@+id/textView8"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView8"
-                        app:layout_constraintTop_toTopOf="@+id/textView8" />
+                        app:layout_constraintTop_toTopOf="@+id/textView8"
+                        tools:text="Type du carburant" />
 
                 <View
                         android:layout_width="0dp"
@@ -147,21 +122,21 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:text="@={viewModel.engineType}"
-                        tools:text="Moteur"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Moteur" />
 
                 <TextView
                         android:id="@+id/textView11"
                         style="@style/SmallDark"
                         android:layout_marginEnd="8dp"
                         android:text="@={viewModel.enginePower}"
-                        tools:text="cheveaux"
                         app:layout_constraintBottom_toBottomOf="@+id/textView10"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView10"
-                        app:layout_constraintTop_toTopOf="@+id/textView10" />
+                        app:layout_constraintTop_toTopOf="@+id/textView10"
+                        tools:text="cheveaux" />
 
                 <View
                         android:layout_width="0dp"
@@ -193,14 +168,14 @@
                 <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        app:setColor="@{viewModel.color}"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:background="@color/colorPrimaryExtraDark"
                         app:layout_constraintBottom_toBottomOf="@+id/textView12"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textView12"
-                        app:layout_constraintTop_toTopOf="@+id/textView12" />
+                        app:layout_constraintTop_toTopOf="@+id/textView12"
+                        app:setColor="@{viewModel.color}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,6 +3,7 @@ package com.newvisiondz.sayara.screens.usedcardetails
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.*
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -120,11 +121,13 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
 
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
-                    _bidResponse.value=ownerResponse
+                    _bidResponse.value = ownerResponse
                 }
             }
 
         })
     }
+
+
 
 }

@@ -28,7 +28,12 @@ import com.newvisiondz.sayara.databinding.FragmentUsedCarDetailBinding
 import com.newvisiondz.sayara.exceptions.LowerAmount
 import com.newvisiondz.sayara.model.UsedCar
 import com.newvisiondz.sayara.screens.versions.SliderAdapter
+import com.stripe.android.ApiResultCallback
+import com.stripe.android.Stripe
+import com.stripe.android.model.Card
+import com.stripe.android.model.Token
 import kotlinx.android.synthetic.main.add_new_bid.view.*
+import kotlinx.android.synthetic.main.e_payment_layout.view.*
 
 
 class UsedCarDetailFragment : Fragment() {
@@ -39,6 +44,7 @@ class UsedCarDetailFragment : Fragment() {
     private var usedCarId = ""
     private var bidId = ""
     private var acceptOrRefuse: Boolean? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +63,7 @@ class UsedCarDetailFragment : Fragment() {
                 BidsAdapter.Listener {
                     bidId = it.bidId
                     acceptOrRefuse = true
+//                    paymentDialog()
                     viewModel?.acceptBid(acceptOrRefuse!!, usedCarId, bidId)
                 }, BidsAdapter.Listener {
                     bidId = it.bidId
@@ -164,4 +171,5 @@ class UsedCarDetailFragment : Fragment() {
             .setContentText(message)
             .show()
     }
+
 }

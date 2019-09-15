@@ -3,15 +3,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
 
     <TextView
             android:id="@+id/color_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="0dp"
-            android:fontFamily="@font/krona_one"
+            android:fontFamily="@font/leaguespartan_bold"
             android:text="Rouge"
             app:layout_constraintEnd_toStartOf="@+id/guidline_color_spinner"
             app:layout_constraintTop_toTopOf="parent" />
@@ -20,8 +20,8 @@
             android:id="@+id/color_preview"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:layout_weight="1"
             android:layout_marginStart="8dp"
+            android:layout_weight="1"
             android:background="@drawable/circle_white"
             app:layout_constraintStart_toStartOf="@+id/guidline_color_spinner"
             app:layout_constraintTop_toTopOf="parent" />

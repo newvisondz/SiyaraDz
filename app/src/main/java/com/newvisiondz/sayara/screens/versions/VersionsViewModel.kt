@@ -3,11 +3,14 @@ package com.newvisiondz.sayara.screens.versions
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.*
 import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.newvisiondz.sayara.model.Command
+import com.newvisiondz.sayara.model.CommandConfirmed
 import com.newvisiondz.sayara.model.Model
 import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.services.RetrofitClient
@@ -30,11 +33,13 @@ class VersionsViewModelFactory(var application: Application) : ViewModelProvider
 class VersionsViewModel(application: Application) : AndroidViewModel(application) {
     private var userInfo: SharedPreferences? = null
     private val context: Context = application.applicationContext
+    val call = RetrofitClient(context).serverDataApi
 
-//    private val _version = MutableLiveData<Version>()
+
+    //    private val _version = MutableLiveData<Version>()
 //    val version: LiveData<Version>
 //        get() = _version
-private val _version = MutableLiveData<Model>()
+    private val _version = MutableLiveData<Model>()
     val version: LiveData<Model>
         get() = _version
 
@@ -42,27 +47,30 @@ private val _version = MutableLiveData<Model>()
     val commandDetails: LiveData<Command>
         get() = _commandDetails
 
+    private val _commandConfirmed = MutableLiveData<CommandConfirmed>()
+    val commandConfirmed: LiveData<CommandConfirmed>
+        get() = _commandConfirmed
+
     private val _versionList = MutableLiveData<MutableList<Version>>()
     val versionList: LiveData<MutableList<Version>>
         get() = _versionList
 
-    private val _commandConfirmed = MutableLiveData<Boolean>()
-    val commandConfirmed: LiveData<Boolean>
-        get() = _commandConfirmed
+//    private val _commandConfirmed = MutableLiveData<Boolean>()
+//    val commandConfirmed: LiveData<Boolean>
+//        get() = _commandConfirmed
     val price: LiveData<Double> = Transformations.map(commandDetails) {
         it.price
     }
 
     init {
         userInfo = application.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-        _commandConfirmed.value = null
+//        _commandConfirmed.value = null
     }
 
     fun getAllVersions(manufacturer: String, modelId: String) {
-        val call = RetrofitClient(context).serverDataApi.getAllVersion(
+        call.getAllVersion(
             getUserToken(userInfo!!), manufacturer, modelId
-        )
-        call.enqueue(object : Callback<JsonArray> {
+        ).enqueue(object : Callback<JsonArray> {
             override fun onFailure(call: Call<JsonArray>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -94,10 +102,9 @@ private val _version = MutableLiveData<Model>()
 //            }
 //
 //        })
-        val call = RetrofitClient(context).serverDataApi.getModelDetails(
+        call.getModelDetails(
             getUserToken(userInfo!!), manufacturer, modelId
-        )
-        call.enqueue(object : Callback<Model> {
+        ).enqueue(object : Callback<Model> {
             override fun onFailure(call: Call<Model>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -111,11 +118,15 @@ private val _version = MutableLiveData<Model>()
         })
     }
 
-    fun sendCommand(manufacturer: String, modelId: String, versionId: String, queries: MutableList<String>) {
-        val call = RetrofitClient(context).serverDataApi.sendUserCommand(
-            getUserToken(userInfo!!), manufacturer, modelId, versionId, queries
-        )
-        call.enqueue(object : Callback<Command> {
+    fun sendCommand(
+        manufacturer: String,
+        modelId: String,
+        versionId: String,
+        queries: MutableList<String>
+    ) {
+        call.sendUserCommand(
+            getUserToken(userInfo!!), manufacturer, modelId, versionId,null
+        ).enqueue(object : Callback<Command> {
             override fun onFailure(call: Call<Command>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -127,25 +138,43 @@ private val _version = MutableLiveData<Model>()
         })
     }
 
-    fun confirmCommande(carId: String) {
+    fun confirmCommande(carId: String, price: Double) {
         val jsonObject = JsonObject()
         jsonObject.addProperty("vehicle", carId)
+        jsonObject.addProperty("amount", price)
         val call = RetrofitClient(context).serverDataApi.confirmUserCommande(
             getUserToken(userInfo!!), jsonObject
         )
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+        call.enqueue(object : Callback<CommandConfirmed> {
+            override fun onFailure(call: Call<CommandConfirmed>, t: Throwable) {
                 t.printStackTrace()
             }
 
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+            override fun onResponse(call: Call<CommandConfirmed>, response: Response<CommandConfirmed>) {
                 if (response.isSuccessful) {
-//                    _commandConfirmed.value = (response.body()?.get("ok")?.asString == "1")
-                    _commandConfirmed.value = true
+                    _commandConfirmed.value = response.body()
+
+//                    _commandConfirmed.value = true
                     //TODO navigate to Tabs
                 }
             }
 
         })
+    }
+
+    fun sendPayementTokentoBackend(commandId: String, creditCardToken: String) {
+        val json = JsonObject()
+        json.addProperty("token", creditCardToken)
+        call.sendCreditCardToken(getUserToken(userInfo!!), commandId, body = json)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                    Log.i("payment", response.body().toString())
+                }
+
+            })
     }
 }
