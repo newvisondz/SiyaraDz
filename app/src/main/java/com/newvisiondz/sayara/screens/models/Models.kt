@@ -27,7 +27,7 @@ class Models : Fragment() {
     private var visibleItemsCount: Int = 0
     private var totalItemsCount: Int = 0
     private var previousTotal: Int = 0
-    private var viewThreshold = 6
+    private var viewThreshold = 30
 
 
     var mViewModel: ModelsViewModel? = null
@@ -76,6 +76,7 @@ class Models : Fragment() {
                 }
             }
         })
+        //todo query version option
         binding.swipeRefreshModels.setOnRefreshListener {
             models.clear()
             mViewModel!!.getModelData(brandName)

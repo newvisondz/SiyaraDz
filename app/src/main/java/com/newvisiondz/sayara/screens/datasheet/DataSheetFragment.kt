@@ -21,7 +21,7 @@ class DataSheetFragment(args: Bundle?) : Fragment() {
     var manufacturerId = ""
     var modeId = ""
     private val argsRcv = args
-
+        //todo color list
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +44,7 @@ class DataSheetFragment(args: Bundle?) : Fragment() {
             SpinnerAdapter(context!!, R.layout.spinner_element, versions)
         viewModel.getVersionList(manufacturerId,modeId)
         viewModel.versionsList.observe(this, Observer {list->
+            versions.clear()
             versions.addAll(list)
             (binding.spinnerVersionDataSheet.adapter as SpinnerAdapter).notifyDataSetChanged()
         })

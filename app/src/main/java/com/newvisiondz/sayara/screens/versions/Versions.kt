@@ -17,6 +17,7 @@ import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentVersionsBinding
 import com.newvisiondz.sayara.model.*
 import com.newvisiondz.sayara.screens.modeltabs.ModelTabsArgs
+import com.newvisiondz.sayara.screens.modeltabs.ModelTabsDirections
 import com.newvisiondz.sayara.screens.versions.versionadapters.*
 import com.stripe.android.ApiResultCallback
 import com.stripe.android.Stripe
@@ -48,7 +49,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
     private val tmpEnginePower = mutableListOf<Value>()
     private val tmpColor = mutableListOf<Color>()
     private val userChoices = mutableMapOf<String, String>()
-    private lateinit var  versionViewModel: VersionsViewModel
+    private lateinit var versionViewModel: VersionsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +60,8 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
         val application = requireNotNull(activity).application
 
         val viewModelFactory = VersionsViewModelFactory(application)
-        versionViewModel = ViewModelProviders.of(this, viewModelFactory).get(VersionsViewModel::class.java)
+        versionViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(VersionsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = versionViewModel
         argsRcv?.let {
@@ -73,7 +75,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
             SpinnerAdapter(context!!, R.layout.spinner_element, versions)
         initializeAdapters(binding)
         binding.imageSlider.sliderAdapter =
-            SliderAdapter(context!!, modelImages, "${context!!.getString(R.string.baseUrl)}/")
+            SliderAdapter(context!!, modelImages, "${context!!.getString(R.string.baseUrl)}")
         versionViewModel.getAllVersions(manufacturer, modelId)
 
         versionViewModel.version.observe(this, Observer { newVersion ->
@@ -115,6 +117,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
                 }
             }
         })
+        //todo try catch
         versionViewModel.versionList.observe(this, Observer { newVersions ->
             versions.clear()
             versions.addAll(newVersions)
@@ -130,7 +133,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
             }
         })
         versionViewModel.commandConfirmed.observe(this, Observer { confirmed ->
-//            paymentDialog(confirmed)
+            //            paymentDialog(confirmed)
 //todo fix naviagtion
         })
 
@@ -146,7 +149,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
         }
         binding.compareButton.setOnClickListener {
             it.findNavController().navigate(
-                VersionsDirections.actionVersionsToCompareVersions(
+                ModelTabsDirections.actionModelTabsToCompareVersions(
                     manufacturer,
                     modelId
                 )
@@ -162,6 +165,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
                     id: Long
                 ) {
                     versionViewModel.getVersionDetails(manufacturer, modelId, versions[position].id)
+                    //todo yacine
                     versionId = versions[position].id
                 }
 

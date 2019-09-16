@@ -125,7 +125,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
         queries: MutableList<String>
     ) {
         call.sendUserCommand(
-            getUserToken(userInfo!!), manufacturer, modelId, versionId,null
+            getUserToken(userInfo!!), manufacturer, modelId, versionId,queries
         ).enqueue(object : Callback<Command> {
             override fun onFailure(call: Call<Command>, t: Throwable) {
                 t.printStackTrace()

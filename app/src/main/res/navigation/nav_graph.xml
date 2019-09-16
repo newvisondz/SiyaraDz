@@ -164,5 +164,8 @@
         <argument
                 android:name="modelImages"
                 app:argType="string[]" />
+        <action
+                android:id="@+id/action_modelTabs_to_compareVersions"
+                app:destination="@id/compareVersions" />
     </fragment>
 </navigation>

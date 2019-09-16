@@ -9,7 +9,4 @@ class Brand {
     var name = ""
     @SerializedName("logo")
     var logo = ""
-
-    //  var manufacturer = ""
-
 }
