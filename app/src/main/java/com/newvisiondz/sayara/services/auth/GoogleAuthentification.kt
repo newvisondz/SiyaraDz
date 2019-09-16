@@ -14,11 +14,13 @@ import com.google.android.gms.common.api.Scope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.messaging.FirebaseMessagingService
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.Token
 import com.newvisiondz.sayara.screens.entryScreens.MainActivity
 import com.newvisiondz.sayara.services.RetrofitClient
 import com.newvisiondz.sayara.utils.setUserPrefrences
+import com.newvisiondz.sayara.utils.subscribe
 import com.newvisiondz.sayara.utils.updateNotificationToken
 import retrofit2.Call
 import retrofit2.Callback
@@ -67,20 +69,41 @@ class GoogleAuthentification(private var context: Context, private var auth: Fir
                         if (task.isSuccessful) {
                             val idToken = task.result?.token
                             idToken?.let {
-                                RetrofitClient(context).authentificationApi.sendKeyFirebase(it).enqueue(
-                                    object : Callback<Token> {
-                                        override fun onFailure(call: Call<Token>, t: Throwable) {}
-                                        override fun onResponse(call: Call<Token>, response: Response<Token>) {
-                                            if (response.isSuccessful) {
-                                                setUserPrefrences(userInfo, response.body()!!, acct)
-                                                val intent = Intent(context, MainActivity::class.java)
-                                                context.startActivity(intent)
-                                                updateNotificationToken(context)
-                                                context.finish()
+                                RetrofitClient(context).authentificationApi.sendKeyFirebase(it)
+                                    .enqueue(
+                                        object : Callback<Token> {
+                                            override fun onFailure(
+                                                call: Call<Token>,
+                                                t: Throwable
+                                            ) {
                                             }
-                                        }
 
-                                    })
+                                            override fun onResponse(
+                                                call: Call<Token>,
+                                                response: Response<Token>
+                                            ) {
+                                                if (response.isSuccessful) {
+                                                    setUserPrefrences(
+                                                        userInfo,
+                                                        response.body()!!,
+                                                        acct
+                                                    )
+                                                    subscribe(response.body()!!.id, context)
+                                                    val intent =
+                                                        Intent(context, MainActivity::class.java)
+                                                    context.startService(
+                                                        Intent(
+                                                            context,
+                                                            FirebaseMessagingService::class.java
+                                                        )
+                                                    )
+                                                    context.startActivity(intent)
+                                                    updateNotificationToken(context)
+                                                    context.finish()
+                                                }
+                                            }
+
+                                        })
                             }
                         } else {
                             Log.w(TAG, "signInWithBackend:failure", task.exception)

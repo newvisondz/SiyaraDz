@@ -30,6 +30,10 @@ class MyOrdersViewModel(application: Application) : AndroidViewModel(application
     val myOrders: LiveData<MutableList<CommandConfirmed>>
         get() = _myOrders
 
+    private val _paymentAccepted = MutableLiveData<JsonObject>()
+    val paymentAccepted: LiveData<JsonObject>
+        get() = _paymentAccepted
+
     private val context = application.applicationContext
     val call = RetrofitClient(context).serverDataApi
     val userInfo: SharedPreferences = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
@@ -38,6 +42,7 @@ class MyOrdersViewModel(application: Application) : AndroidViewModel(application
     init {
         getMyPreviousOrders()
     }
+
     private fun getMyPreviousOrders() {
         call.getUserCommands(token).enqueue(object : Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
@@ -47,23 +52,31 @@ class MyOrdersViewModel(application: Application) : AndroidViewModel(application
             override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
                 if (response.isSuccessful) {
                     val listType = object : TypeToken<MutableList<CommandConfirmed>>() {}.type
-                    _myOrders.value = response.body()?.let { listFormatter(it, listType, "commandes") }
+                    _myOrders.value =
+                        response.body()?.let { listFormatter(it, listType, "commandes") }
                 }
             }
 
         })
     }
 
-     fun sendPayementTokentoBackend(commandId: String, creditCardToken: String) {
+    fun sendPayementTokentoBackend(commandId: String, creditCardToken: String) {
         val json = JsonObject()
         json.addProperty("token", creditCardToken)
         call.sendCreditCardToken(token, commandId, body = json)
-            .enqueue(object : Callback<JsonElement> {
-                override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+            .enqueue(object : Callback<JsonObject> {
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
                 }
 
-                override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        //{"success":true}
+                        val res: String = response.body()!!.get("success").asString
+                        if (res == "true") {
+
+                        }
+                    }
                     Log.i("payment", response.body().toString())
                 }
 

@@ -12,19 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentVersionsBinding
-import com.newvisiondz.sayara.model.*
+import com.newvisiondz.sayara.model.Color
+import com.newvisiondz.sayara.model.Command
+import com.newvisiondz.sayara.model.Value
+import com.newvisiondz.sayara.model.Version
 import com.newvisiondz.sayara.screens.modeltabs.ModelTabsArgs
 import com.newvisiondz.sayara.screens.modeltabs.ModelTabsDirections
 import com.newvisiondz.sayara.screens.versions.versionadapters.*
-import com.stripe.android.ApiResultCallback
-import com.stripe.android.Stripe
-import com.stripe.android.model.Card
-import com.stripe.android.model.Token
-import kotlinx.android.synthetic.main.e_payment_layout.view.*
-import java.lang.Exception
 
 
 class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
@@ -117,6 +113,7 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
                 }
             }
         })
+
         //todo try catch
         versionViewModel.versionList.observe(this, Observer { newVersions ->
             versions.clear()
@@ -133,8 +130,13 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
             }
         })
         versionViewModel.commandConfirmed.observe(this, Observer { confirmed ->
-            //            paymentDialog(confirmed)
-//todo fix naviagtion
+            val alertDialog = AlertDialog.Builder(context).create()
+            alertDialog.setTitle("Commande Created ")
+            alertDialog.setMessage("Votre commande a ete cree avec success !")
+            alertDialog.setButton(
+                AlertDialog.BUTTON_NEUTRAL, "OK"
+            ) { dialog, which -> dialog.dismiss() }
+            alertDialog.show()
         })
 
         binding.orderVersion.setOnClickListener {

@@ -23,7 +23,7 @@ class SayaraFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         remoteMessage.notification?.let {
-            Log.d(Brands.TAG, "Message Notification Body: ${it.body}")
+            Log.d(Brands.TAG, "FCM${it.body}")
             sendNotification(it.body.toString())
         }
     }

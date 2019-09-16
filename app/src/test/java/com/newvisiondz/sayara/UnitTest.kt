@@ -45,11 +45,7 @@ class UnitTest {
     }
 
 
-    @Test
-    fun parseCommande() {
-        val test ="{\"id\":\"5d7e6d0802a1c80017920e1c\",\"automobiliste\":\"5d5fedff35dcee0017275e29\",\"amount\":2500,\"vehicle\":\"5d7d6b9ca787e225bb17e89b\",\"accepted\":null,\"payed\":false,\"createdAt\":\"2019-09-15T16:55:36.732Z\",\"updatedAt\":\"2019-09-15T16:55:36.732Z\"}"
-        val listType = object : TypeToken<Command>() {}.type
-        val res = Gson().fromJson<Command>(JsonParser().parse(test), listType)
-        print(res.id)
-    }
+
+    //
+
 }

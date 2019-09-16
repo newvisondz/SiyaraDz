@@ -97,6 +97,15 @@ interface ServerDataApi {
         @Query("options[]") options: MutableList<String>?
     ): Call<Command>
 
+    @GET("/manufacturers/{manufacturerId}/models/{modelId}/versions/{versionId}/vehicles/compose")
+    fun composeCar(
+        @Header("Authorization") token: String,
+        @Path("manufacturerId") manufacturerName: String,
+        @Path("modelId") modelId: String,
+        @Path("versionId") versionId: String,
+        @Query("options[]") options: MutableList<String>?
+    ): Call<Command>
+
     @POST("commands/")
     fun confirmUserCommande(
         @Header("Authorization") token: String,
@@ -215,7 +224,7 @@ interface ServerDataApi {
         @Path("commandId") commandId: String,
         @Query("token") tokenCreditCard: String = "tok_visa",
         @Body body: JsonObject
-    ): Call<JsonElement>
+    ): Call<JsonObject>
 
 
     @GET("/commands/")

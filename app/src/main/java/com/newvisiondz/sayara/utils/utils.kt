@@ -9,8 +9,10 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonObject
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.*
@@ -50,6 +52,7 @@ fun setUserPrefrences(userInfo: SharedPreferences, account: Token, acc: GoogleSi
     editor.putString("userimg", acc.photoUrl.toString())
     editor.putString("userlastname", acc.displayName)
     editor.putString("userfirstname", acc.familyName)
+    editor.putString("id", account.id)
     editor.putString("token", account.token)
     editor.putString("type", "google")
     editor.apply()
@@ -79,6 +82,7 @@ fun setUserPrefrences(userInfo: SharedPreferences, account: Token, jsonObject: J
     editor.putString("userimg", jsonObject.getString("id"))
     editor.putString("userlastname", jsonObject.getString("name"))
     editor.putString("token", account.token)
+    editor.putString("id", account.id)
     editor.putString("type", "facebook")
     editor.apply()
 }
@@ -147,7 +151,7 @@ fun optionsMapping(list1: Version): MutableList<VersionCompare> {
 //                    getOptionWithName(list2, "places")?.values?.let { getOptionListAsString(it) }!!
             }
             "Type du carburant" -> {
-                itemRes.optionName = "Type du carburant"
+                itemRes.optionName = "Fuel"
                 itemRes.firstValue = getOptionListAsString(item.values)
 //                itemRes.secondValue =
 //                    getOptionWithName(
@@ -236,5 +240,17 @@ fun convertBitmapToFile(context: Context, photoURI: Uri, index: Int): File {
     fos.flush()
     fos.close()
     return file
+}
+
+fun subscribe(userId: String,context: Context) {
+    FirebaseMessaging.getInstance().subscribeToTopic(userId)
+        .addOnCompleteListener { task ->
+            //                var msg = getString(R.string.msg_subscribed)
+//                if (!task.isSuccessful) {
+//                    msg = getString(R.string.msg_subscribe_failed)
+//                }
+//                Log.d(TAG, msg)
+            Toast.makeText(context, "You now can get notifications too !", Toast.LENGTH_SHORT).show()
+        }
 }
 

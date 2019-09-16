@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.newvisiondz.sayara.R
@@ -36,6 +38,10 @@ class MyOrders : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+
+        viewModel.paymentAccepted.observe(this, Observer {
+            Toast.makeText(context, "Payed With Success", Toast.LENGTH_LONG).show()
+        })
         binding.commandeList.adapter = MyOrdersAdapter(MyOrdersAdapter.Listener {
             paymentDialog(it)
         })

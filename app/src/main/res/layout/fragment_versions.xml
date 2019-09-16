@@ -27,10 +27,11 @@
                         android:layout_margin="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                     <com.smarteist.autoimageslider.SliderView
                             android:id="@+id/imageSlider"
                             android:layout_width="match_parent"
-                            android:layout_height="180dp"
+                            android:layout_height="220dp"
                             app:sliderAutoCycleDirection="back_and_forth"
                             app:sliderAutoCycleEnabled="true"
                             app:sliderCircularHandlerEnabled="true"
@@ -38,11 +39,11 @@
                             app:sliderIndicatorMargin="15dp"
                             app:sliderIndicatorOrientation="horizontal"
                             app:sliderIndicatorPadding="3dp"
-                            app:sliderScrollTimeInSec="5"
                             app:sliderIndicatorRadius="2dp"
                             app:sliderIndicatorSelectedColor="@color/colorAccent"
                             app:sliderIndicatorUnselectedColor="#FFF"
-                            app:sliderStartAutoCycle="false"/>
+                            app:sliderScrollTimeInSec="5"
+                            app:sliderStartAutoCycle="false" />
                 </androidx.cardview.widget.CardView>
 
                 <LinearLayout
@@ -241,23 +242,24 @@
 
         <Button
                 android:id="@+id/compare_button"
-                android:text="COMPARER"
+                style="@style/btn_colors"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:padding="8dp"
+                android:text="COMPARER"
                 android:textColor="#FFF"
                 android:textSize="@dimen/font_medium"
-                style="@style/btn_colors"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/order_version"/>
+                app:layout_constraintEnd_toStartOf="@+id/order_version"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
 
         <Button
                 android:id="@+id/order_version"
                 style="@style/btn_colors"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:padding="8dp"
                 android:text="COMMANDER"
                 android:textColor="#FFF"
                 android:textSize="@dimen/font_medium"

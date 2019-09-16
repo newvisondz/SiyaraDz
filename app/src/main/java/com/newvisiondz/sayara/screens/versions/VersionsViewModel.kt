@@ -55,7 +55,7 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
     val versionList: LiveData<MutableList<Version>>
         get() = _versionList
 
-//    private val _commandConfirmed = MutableLiveData<Boolean>()
+    //    private val _commandConfirmed = MutableLiveData<Boolean>()
 //    val commandConfirmed: LiveData<Boolean>
 //        get() = _commandConfirmed
     val price: LiveData<Double> = Transformations.map(commandDetails) {
@@ -124,18 +124,34 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
         versionId: String,
         queries: MutableList<String>
     ) {
-        call.sendUserCommand(
-            getUserToken(userInfo!!), manufacturer, modelId, versionId,queries
-        ).enqueue(object : Callback<Command> {
-            override fun onFailure(call: Call<Command>, t: Throwable) {
-                t.printStackTrace()
-            }
+        if (queries.size == 0) {
+            call.sendUserCommand(
+                getUserToken(userInfo!!), manufacturer, modelId, versionId, null
+            ).enqueue(object : Callback<Command> {
+                override fun onFailure(call: Call<Command>, t: Throwable) {
+                    t.printStackTrace()
+                }
 
-            override fun onResponse(call: Call<Command>, response: Response<Command>) {
-                _commandDetails.value = response.body()
+                override fun onResponse(call: Call<Command>, response: Response<Command>) {
+                    _commandDetails.value = response.body()
 //                _price.value = response.body()?.price
-            }
-        })
+                }
+            })
+        } else {
+            call.composeCar(
+                getUserToken(userInfo!!), manufacturer, modelId, versionId, queries
+            ).enqueue(object : Callback<Command> {
+                override fun onFailure(call: Call<Command>, t: Throwable) {
+                    t.printStackTrace()
+                }
+
+                override fun onResponse(call: Call<Command>, response: Response<Command>) {
+                    _commandDetails.value = response.body()
+//                _price.value = response.body()?.price
+                }
+            })
+        }
+
     }
 
     fun confirmCommande(carId: String, price: Double) {
@@ -150,7 +166,10 @@ class VersionsViewModel(application: Application) : AndroidViewModel(application
                 t.printStackTrace()
             }
 
-            override fun onResponse(call: Call<CommandConfirmed>, response: Response<CommandConfirmed>) {
+            override fun onResponse(
+                call: Call<CommandConfirmed>,
+                response: Response<CommandConfirmed>
+            ) {
                 if (response.isSuccessful) {
                     _commandConfirmed.value = response.body()
 
