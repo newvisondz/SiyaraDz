@@ -175,14 +175,14 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
         versionViewModel: VersionsViewModel
     ) {
         val dialogBuilder = AlertDialog.Builder(context)
-            .setMessage("Le prix estime est ${command.price}")
+            .setMessage("Le prix estimé est de ${command.price}")
             .setTitle("Confirmation d'achat")
             .setCancelable(true)
             .setIcon(R.drawable.ic_money)
-            .setPositiveButton("Proceed") { _, _ ->
+            .setPositiveButton("Continuer") { _, _ ->
                 versionViewModel.confirmCommande(command.cars[0], command.price)
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton("Annuler") { dialog, _ ->
                 dialog.cancel()
             }
         val alert = dialogBuilder.create()

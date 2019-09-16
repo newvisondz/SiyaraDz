@@ -20,10 +20,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Choisir Une version "
+                android:text="Choisir une version "
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <Spinner
                 android:id="@+id/spinner_version_dataSheet"
@@ -56,10 +56,10 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="8dp"
-                        android:text="Info"
+                        android:text="Informations"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                 <View
                         android:id="@+id/view"
@@ -89,7 +89,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="places" />
+                        tools:text="Places"/>
 
                 <TextView
                         style="@style/SmallDark"
@@ -159,10 +159,10 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:text="color"
+                        android:text="Couleur :"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
 
                 <View

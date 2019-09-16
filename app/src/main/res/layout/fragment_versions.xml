@@ -55,7 +55,7 @@
                         <TextView
                                 android:id="@+id/user_dis_name"
                                 style="@style/MediumDarkBold"
-                                android:text="Versions"
+                                android:text="Version :"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -76,7 +76,7 @@
 
                         <TextView
                                 android:id="@+id/textView11"
-                                android:text="Couleurs"
+                                android:text="Couleurs :"
                                 style="@style/MediumDarkBold"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"/>
@@ -103,7 +103,7 @@
                         <TextView
                                 android:id="@+id/textView12"
                                 style="@style/MediumDarkBold"
-                                android:text="Types du Carburant"
+                                android:text="Types du Carburant :"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -222,10 +222,10 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Total HT"
+                    android:text="Total HT :"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                     android:id="@+id/textView17"

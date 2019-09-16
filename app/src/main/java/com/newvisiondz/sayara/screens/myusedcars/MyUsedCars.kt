@@ -55,12 +55,12 @@ class MyUsedCars : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val alertDialog = AlertDialog.Builder(context!!,R.style.DialogTheme).create()
-                alertDialog.setTitle("Attenetion")
+                alertDialog.setTitle("Attention !")
                 alertDialog.setMessage("Voue êtes entrain de supprimer cet élément !")
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Cancel") { dialog, which ->
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Annuler") { dialog, which ->
                     binding.myBidsList.adapter?.notifyItemChanged(viewHolder.adapterPosition)
                 }
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK") { dialog, which ->
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Terminer") { dialog, which ->
                     if (isOnline(context!!)) {
                         mViewModel.deleteUsedCarAd(viewHolder.adapterPosition)
                     } else Toast.makeText(

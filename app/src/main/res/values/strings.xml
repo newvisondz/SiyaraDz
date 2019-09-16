@@ -20,19 +20,19 @@
     <string name="brand_detail">By %1$s</string>
     <string name="date_format">%1$d-%2$d-%3$d</string>
     <string name="msg_token_fmt">Msg Token is : %s</string>
-    <string name="bid_price_text">from %s M</string>
+    <string name="bid_price_text">A partir de %s M</string>
 
     <string name="login_fb_btn_label">"S'autentifier avec Facebook"</string>
     <string name="login_google_btn_label">"S'autentifier  avec Google"</string>
-    <string name="manufacturer">Manufacturer : %s</string>
-    <string name="model">Model : %s</string>
+    <string name="manufacturer">Marque : %s</string>
+    <string name="model">Modèle : %s</string>
     <string name="version">Version : %s</string>
-    <string name="registration_date">Annee : %s</string>
-    <string name="color">Color : </string>
+    <string name="registration_date">Année : %s</string>
+    <string name="color">Couleur : </string>
     <string name="firstLastName">%s</string>
-    <string name="miles">kilometrage : %s</string>
-    <string name="filter_dialog_title">Filter Options</string>
-    <string name="filter_text">brand,model,version or title</string>
+    <string name="miles">Kilométrage : %s</string>
+    <string name="filter_dialog_title">Filtrer Options</string>
+    <string name="filter_text">Marque, Modèle, Version ou Titre</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

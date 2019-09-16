@@ -89,14 +89,14 @@ class UsedCarDetailFragment : Fragment() {
         binding.lifecycleOwner = this
         viewModel?.createWithSuccess?.observe(this, Observer {
             if (it == true) {
-                Toast.makeText(context, "Created with Success !", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Crée avec Succes !", Toast.LENGTH_SHORT).show()
             }
         })
         viewModel?.bidResponse?.observe(this, Observer {
             if (it == true) {
-                displayMessage("Accepted")
+                displayMessage("Acceptée")
             } else if (it == false) {
-                displayMessage("Rejected !")
+                displayMessage("Refusée!")
             }
         })
 
@@ -156,7 +156,7 @@ class UsedCarDetailFragment : Fragment() {
                 Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 e.printStackTrace()
-                Toast.makeText(context, "Insert a valid price", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Inserer un prix valide", Toast.LENGTH_SHORT).show()
             }
             dialog.dismiss()
         }
