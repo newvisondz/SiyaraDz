@@ -197,9 +197,9 @@ fun TextView.setCompareVersionText(item: VersionCompare?) {
             R.id.spinner_v1 -> {
                 text = item.firstValue
             }
-            R.id.spinner_v2 -> {
-                text = item.secondValue
-            }
+//            R.id.spinner_v2 -> {
+//                text = item.secondValue
+//            }
         }
     }
 }

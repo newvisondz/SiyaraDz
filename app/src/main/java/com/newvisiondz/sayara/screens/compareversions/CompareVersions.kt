@@ -17,8 +17,9 @@ import com.newvisiondz.sayara.model.VersionCompare
 import com.newvisiondz.sayara.utils.optionsMapping
 
 class CompareVersions : Fragment() {
-    private val versions = mutableListOf<Version>()
+    private val version1 = mutableListOf<Version>()
     private var compareList = mutableListOf<VersionCompare>()
+    private var compareList2 = mutableListOf<VersionCompare>()
     private lateinit var v1: Version
     private lateinit var v2: Version
     override fun onCreateView(
@@ -30,53 +31,79 @@ class CompareVersions : Fragment() {
         val application = requireNotNull(activity).application
         val manufacturer = arguments?.getString("brandName")
         val modelId = arguments?.getString("modelId")
-        val viewModelFactory = CompareVersionViewModelFactory(
-            application,
-            manufacturer!!,
-            modelId!!
-        )
+        val viewModelFactory = CompareVersionViewModelFactory(application)
         val versionCompareViewModel =
             ViewModelProviders.of(this, viewModelFactory).get(CompareVersionViewModel::class.java)
-        binding.lifecycleOwner = this
         binding.viewModel = versionCompareViewModel
+        binding.lifecycleOwner = this
+        versionCompareViewModel.getAllVersions(manufacturer!!, modelId!!)
         binding.spinnerV1.adapter =
-            SpinnerAdapter(context!!, R.layout.spinner_element, versions)
+            SpinnerAdapter(context!!, R.layout.spinner_element, version1)
         binding.spinnerV2.adapter =
-            SpinnerAdapter(context!!, R.layout.spinner_element, versions)
-        val adapter = CompareVersionAdapter()
-        binding.optionsList.adapter = adapter
-        versionCompareViewModel.doneGettingResult.observe(this, Observer {
-            if (it == true) {
-                compareList = optionsMapping(v1, v2)
-                adapter.submitList(compareList)
-            }
-        })
-
+            SpinnerAdapter(context!!, R.layout.spinner_element, version1)
+        val adapter1 = CompareVersionAdapter(compareList)
+        val adapter2 = CompareVersionAdapter(compareList2)
+        binding.optionsListSpinner1.adapter = adapter1
+        binding.optionsListSpinner2.adapter = adapter2
         versionCompareViewModel.versionList.observe(this, Observer { list ->
-            versions.clear()
-            versions.addAll(list)
-            v1 = versions[0]
-            v2 = versions[0]
+            version1.clear()
+            version1.addAll(list)
+            compareList = optionsMapping(version1[0])
+            compareList2 = optionsMapping(version1[0])
+            adapter1.items=compareList
+            adapter2.items=compareList2
+            (binding.optionsListSpinner1.adapter as CompareVersionAdapter).notifyDataSetChanged()
+            (binding.optionsListSpinner2.adapter as CompareVersionAdapter).notifyDataSetChanged()
+
             (binding.spinnerV1.adapter as SpinnerAdapter).notifyDataSetChanged()
             (binding.spinnerV2.adapter as SpinnerAdapter).notifyDataSetChanged()
         })
-        versionCompareViewModel.versionDetails1.observe(this, Observer { v1Res ->
+        versionCompareViewModel.versionDetails2.observe(this, Observer { v1Res ->
             v1 = v1Res
+            compareList.clear()
+            compareList.addAll(optionsMapping(v1Res))
+            adapter1.items=compareList
+            (binding.optionsListSpinner1.adapter as CompareVersionAdapter).notifyDataSetChanged()
         })
-        versionCompareViewModel.versionDetails2.observe(this, Observer { v2Res ->
+        versionCompareViewModel.versionDetails1.observe(this, Observer { v2Res ->
             v2 = v2Res
+            compareList2.clear()
+            compareList2.addAll(optionsMapping(v2Res))
+            adapter2.items=compareList2
+            (binding.optionsListSpinner2.adapter as CompareVersionAdapter).notifyDataSetChanged()
+
         })
 
         binding.spinnerV2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                versionCompareViewModel.getVersionDetails(manufacturer, modelId, versions[position].id, 1)
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                versionCompareViewModel.getVersionDetails(
+                    manufacturer,
+                    modelId,
+                    version1[position].id,
+                    0
+                )
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         binding.spinnerV1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                versionCompareViewModel.getVersionDetails(manufacturer, modelId, versions[position].id, 2)
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                versionCompareViewModel.getVersionDetails(
+                    manufacturer!!,
+                    modelId!!,
+                    version1[position].id,
+                    1
+                )
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

@@ -1,47 +1,40 @@
 package com.newvisiondz.sayara.screens.compareversions
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.newvisiondz.sayara.databinding.CompareItemBinding
+import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.model.VersionCompare
+import kotlinx.android.synthetic.main.compare_item.view.*
 
-class CompareVersionAdapter : ListAdapter<VersionCompare, CompareVersionAdapter.ViewHolder>(
-    VersionCompareDiffUtil()
-) {
+class CompareVersionAdapter(var items:MutableList<VersionCompare>) : RecyclerView.Adapter<CompareVersionAdapter.ViewHolder>() {
+    override fun getItemCount(): Int =items.size
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val version=items[position]
+        holder.bind(version)
     }
 
-    class ViewHolder private constructor(val binding: CompareItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val value: TextView =itemView.spinner_v1
+        private val optionName: TextView =itemView.option_name
         fun bind(option: VersionCompare) {
-            binding.versionCompare = option
-            binding.executePendingBindings()
+            value.text = option.firstValue
+            optionName.text=option.optionName
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CompareItemBinding.inflate(layoutInflater, parent, false)
+                val binding = LayoutInflater.from(parent.context).inflate(R.layout.compare_item,parent, false)
                 return ViewHolder(binding)
             }
         }
     }
 }
 
-class VersionCompareDiffUtil :
-    DiffUtil.ItemCallback<VersionCompare>() {
-    override fun areItemsTheSame(oldItem: VersionCompare, newItem: VersionCompare): Boolean {
-        return oldItem.optionName == newItem.optionName
-    }
-
-    override fun areContentsTheSame(oldItem: VersionCompare, newItem: VersionCompare): Boolean {
-        return newItem == oldItem
-    }
-}

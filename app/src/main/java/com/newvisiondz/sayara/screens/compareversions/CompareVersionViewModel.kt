@@ -14,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CompareVersionViewModel(application: Application, manufacturer: String, modelId: String) :
+class CompareVersionViewModel(application: Application) :
     AndroidViewModel(application) {
     private var userInfo: SharedPreferences? = null
     private val context: Context = application.applicationContext
@@ -37,11 +37,10 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
 
     init {
         userInfo = application.getSharedPreferences("userinfo", Context.MODE_PRIVATE)
-        getAllVersions(manufacturer, modelId)
         _doneGettingResult.value = null
     }
 
-    private fun getAllVersions(manufacturer: String, modelId: String) {
+    fun getAllVersions(manufacturer: String, modelId: String) {
         val call = RetrofitClient(context).serverDataApi.getAllVersion(
             getUserToken(userInfo!!), manufacturer, modelId
         )
@@ -62,7 +61,7 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
     }
 
     fun getVersionDetails(manufacturer: String, modelId: String, versionId: String, spinnerId: Int) {
-        _doneGettingResult.value = false
+//        _doneGettingResult.value = false
         val call = RetrofitClient(context).serverDataApi.getVersionDetails(
             getUserToken(userInfo!!), manufacturer, modelId, versionId
         )
@@ -73,9 +72,13 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
 
             override fun onResponse(call: Call<Version>, response: Response<Version>) {
                 if (response.isSuccessful) {
-                    if (spinnerId == 0) _versionDetails1.value = response.body()!!
-                    else _versionDetails2.value = response.body()!!
-                    _doneGettingResult.value = true
+                    if (spinnerId == 0) {
+                        _versionDetails1.value = response.body()!!
+                    }
+                    else if (spinnerId == 1){
+                        _versionDetails2.value = response.body()!!
+                    }
+//                    _doneGettingResult.value = true
                 }
             }
 
@@ -85,15 +88,13 @@ class CompareVersionViewModel(application: Application, manufacturer: String, mo
 }
 
 class CompareVersionViewModelFactory(
-    private val application: Application, private val manufacturer: String, private val modelId: String
+    private val application: Application
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CompareVersionViewModel::class.java)) {
             return CompareVersionViewModel(
-                application,
-                manufacturer,
-                modelId
+                application
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

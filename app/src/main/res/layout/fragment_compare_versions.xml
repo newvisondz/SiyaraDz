@@ -4,52 +4,86 @@
     <data>
         <variable name="viewModel" type="com.newvisiondz.sayara.screens.compareversions.CompareVersionViewModel"/>
     </data>
-    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
+
             <Spinner
+                    android:id="@+id/spinnerV1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:paddingStart="8dp"
-                    tools:listitem="@layout/spinner_element"
-                    android:layout_height="wrap_content" android:id="@+id/spinnerV1"
+                    app:layout_constraintBottom_toTopOf="@+id/view"
+                    app:layout_constraintEnd_toStartOf="@+id/spinnerV2"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/view" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" app:layout_constraintEnd_toStartOf="@+id/spinnerV2"/>
+                    tools:listitem="@layout/spinner_element" />
+
             <Spinner
-                    tools:listitem="@layout/spinner_element"
+                    android:id="@+id/spinnerV2"
                     android:layout_width="0dp"
-                    android:paddingStart="8dp"
-                    android:layout_height="wrap_content" android:id="@+id/spinnerV2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintStart_toEndOf="@+id/spinnerV1" app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintBottom_toBottomOf="@+id/spinnerV1"/>
+                    android:paddingStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerV1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/spinnerV1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/spinner_element" />
 
             <View
+                    android:id="@+id/view"
                     android:layout_width="0dp"
                     android:layout_height="8dp"
-                    android:padding="3dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:background="#FFC107"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerV1" android:id="@+id/view"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                    app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp"/>
+                    android:padding="3dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerV1" />
+
             <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/options_list_spinner1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/options_list_spinner2"
+                    app:layout_constraintHorizontal_bias="0.5"
                     tools:listitem="@layout/compare_item"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/options_list_spinner2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/compare_item"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/options_list" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/view" android:layout_height="wrap_content"
-                    app:layout_constraintVertical_bias="0.0"/>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/options_list_spinner1"
+                    app:layout_constraintTop_toTopOf="@+id/options_list_spinner1" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
