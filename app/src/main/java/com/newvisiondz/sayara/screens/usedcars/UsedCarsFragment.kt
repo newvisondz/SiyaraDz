@@ -341,7 +341,7 @@ class UsedCarsFragment : Fragment() {
     private fun openImageSoureDialog() {
         val builder = AlertDialog.Builder(context!!)
         val mView = layoutInflater.inflate(R.layout.camera_gallery, null)
-        builder.setView(mView).setTitle("Chooose an Action").setCancelable(true)
+        builder.setView(mView).setTitle("Choisir entre").setCancelable(true)
         builder.create().setCanceledOnTouchOutside(true)
         val dialog = builder.show()
         mView.cameraButton.setOnClickListener {

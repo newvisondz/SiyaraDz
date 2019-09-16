@@ -86,7 +86,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/guideline3"
                     app:layout_constraintTop_toBottomOf="@+id/imageSlider"
                     app:setStringType="@{String.valueOf(userBid.price)}"
-                    tools:text="My Offer " />
+                    tools:text="Mes offres"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

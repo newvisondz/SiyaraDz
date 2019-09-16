@@ -148,7 +148,7 @@
                         app:layout_constraintStart_toStartOf="@+id/left_used_car_detail_guidline"
                         app:layout_constraintTop_toTopOf="parent"
                         app:setUserName="@{viewModel.userInfoServer}"
-                        tools:text="Owner :" />
+                        tools:text="Utilisateur :"/>
 
                 <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/left_used_car_detail_guidline"

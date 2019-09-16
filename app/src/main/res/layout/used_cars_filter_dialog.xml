@@ -47,9 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="price"
+                android:text="Prix :"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/filter_string" />
+                app:layout_constraintTop_toBottomOf="@+id/filter_string"/>
 
         <EditText
                 android:id="@+id/filter_min_price"
@@ -85,9 +85,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Distance"
+                android:text="Kilométrage :"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/filter_min_price" />
+                app:layout_constraintTop_toBottomOf="@+id/filter_min_price"/>
 
         <EditText
                 android:id="@+id/filter_min_distance"
@@ -121,12 +121,12 @@
                 style="@style/btn_colors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/com_facebook_loginview_cancel_action"
+                android:text="Annuler"
                 app:layout_constraintBaseline_toBaselineOf="@+id/filter_filterSubmit"
                 app:layout_constraintEnd_toStartOf="@+id/filter_filterSubmit"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
                 android:id="@+id/filter_filterSubmit"
@@ -135,11 +135,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="Fitler"
+                android:text="Filtrer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/filter_cancel"
-                app:layout_constraintTop_toBottomOf="@+id/filter_max_distance" />
+                app:layout_constraintTop_toBottomOf="@+id/filter_max_distance"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
