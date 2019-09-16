@@ -81,7 +81,6 @@ class UsedCarDetailViewModel(application: Application) : AndroidViewModel(applic
         jsonObject.addProperty("car", carId)
         jsonObject.addProperty("price", price)
         try {
-//            if (price < )
             call.createNewBid(token, carId, jsonObject).enqueue(object : Callback<Bid> {
                 override fun onFailure(call: Call<Bid>, t: Throwable) {
 

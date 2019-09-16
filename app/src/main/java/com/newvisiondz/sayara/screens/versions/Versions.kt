@@ -14,13 +14,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.newvisiondz.sayara.R
 import com.newvisiondz.sayara.databinding.FragmentVersionsBinding
-import com.newvisiondz.sayara.model.Color
-import com.newvisiondz.sayara.model.Command
-import com.newvisiondz.sayara.model.Value
-import com.newvisiondz.sayara.model.Version
+import com.newvisiondz.sayara.model.*
 import com.newvisiondz.sayara.screens.modeltabs.ModelTabsArgs
 import com.newvisiondz.sayara.screens.modeltabs.ModelTabsDirections
 import com.newvisiondz.sayara.screens.versions.versionadapters.*
+import java.lang.Exception
 
 
 class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
@@ -80,37 +78,10 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
             userChoices.remove("color")
             ColorsAdapter.sSelected = -1
             binding.carsColorsList.adapter?.notifyDataSetChanged()
-            for (item in newVersion.options) {
-                when (item.name) {
-                    "places" -> {
-                        tmpPlaces.clear()
-                        PlacesAdapter.sSelected = -1
-                        userChoices.remove("place")
-                        tmpPlaces.addAll(item.values)
-                        binding.placesList.adapter?.notifyDataSetChanged()
-                    }
-                    "Type du carburant" -> {
-                        tmpFuel.clear()
-                        tmpFuel.addAll(item.values)
-                        FuelAdapter.sSelected = -1
-                        userChoices.remove("fuel")
-                        binding.engineTypeList.adapter?.notifyDataSetChanged()
-                    }
-                    "moteur" -> {
-                        tmpEnginePower.clear()
-                        tmpEnginePower.addAll(item.values)
-                        EnginePowerAdapter.sSelected = -1
-                        userChoices.remove("enginePower")
-                        binding.enginePower.adapter?.notifyDataSetChanged()
-                    }
-                    "Boite" -> {
-                        tmpEngine.clear()
-                        tmpEngine.addAll(item.values)
-                        EngineAdapter.sSelected = -1
-                        userChoices.remove("engine")
-                        binding.engineBoxList.adapter?.notifyDataSetChanged()
-                    }
-                }
+            try {
+                inflateOptions(newVersion, binding)
+            } catch (e: Exception) {
+                Toast.makeText(context, "Something went wrong !", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -129,13 +100,13 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
                     .show()
             }
         })
-        versionViewModel.commandConfirmed.observe(this, Observer { confirmed ->
+        versionViewModel.commandConfirmed.observe(this, Observer { confirmed: CommandConfirmed ->
             val alertDialog = AlertDialog.Builder(context).create()
             alertDialog.setTitle("Commande Created ")
             alertDialog.setMessage("Votre commande a ete cree avec success !")
             alertDialog.setButton(
                 AlertDialog.BUTTON_NEUTRAL, "OK"
-            ) { dialog, which -> dialog.dismiss() }
+            ) { dialog, _ -> dialog.dismiss() }
             alertDialog.show()
         })
 
@@ -174,6 +145,44 @@ class Versions(args: Bundle?) : Fragment(), PlacesAdapter.SingleClickListener,
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
         return binding.root
+    }
+
+    private fun inflateOptions(
+        newVersion: Model,
+        binding: FragmentVersionsBinding
+    ) {
+        for (item in newVersion.options) {
+            when (item.name) {
+                "places" -> {
+                    tmpPlaces.clear()
+                    PlacesAdapter.sSelected = -1
+                    userChoices.remove("place")
+                    tmpPlaces.addAll(item.values)
+                    binding.placesList.adapter?.notifyDataSetChanged()
+                }
+                "Type du carburant" -> {
+                    tmpFuel.clear()
+                    tmpFuel.addAll(item.values)
+                    FuelAdapter.sSelected = -1
+                    userChoices.remove("fuel")
+                    binding.engineTypeList.adapter?.notifyDataSetChanged()
+                }
+                "moteur" -> {
+                    tmpEnginePower.clear()
+                    tmpEnginePower.addAll(item.values)
+                    EnginePowerAdapter.sSelected = -1
+                    userChoices.remove("enginePower")
+                    binding.enginePower.adapter?.notifyDataSetChanged()
+                }
+                "Boite" -> {
+                    tmpEngine.clear()
+                    tmpEngine.addAll(item.values)
+                    EngineAdapter.sSelected = -1
+                    userChoices.remove("engine")
+                    binding.engineBoxList.adapter?.notifyDataSetChanged()
+                }
+            }
+        }
     }
 
     private fun displayDialog(

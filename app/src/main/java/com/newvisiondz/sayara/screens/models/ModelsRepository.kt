@@ -41,7 +41,7 @@ class ModelsRepository(private var context: Context) {
     fun getModelData(brandName: String) {
         val call = RetrofitClient(context)
             .serverDataApi
-            .getAllModels(getUserToken(userInfo), brandName, 1, 2)
+            .getAllModels(getUserToken(userInfo), brandName, 1, 30)
 
         call.enqueue(object : retrofit2.Callback<JsonElement> {
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {

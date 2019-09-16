@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content">
 
                 <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/data_sheet_place"
                         style="@style/SmallDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -92,13 +92,14 @@
                         tools:text="Places"/>
 
                 <TextView
+                        android:id="@+id/data_sheet_fuel_type"
                         style="@style/SmallDark"
                         android:layout_marginEnd="8dp"
                         android:text="@={viewModel.fuel}"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                        app:layout_constraintBottom_toBottomOf="@+id/data_sheet_place"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textView8"
-                        app:layout_constraintTop_toTopOf="@+id/textView8"
+                        app:layout_constraintStart_toEndOf="@+id/data_sheet_place"
+                        app:layout_constraintTop_toTopOf="@+id/data_sheet_place"
                         tools:text="Type du carburant" />
 
                 <View
@@ -108,7 +109,7 @@
                         android:background="@color/colorPrimaryExtraDark"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                        app:layout_constraintTop_toBottomOf="@+id/data_sheet_place" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,7 +117,7 @@
                     android:layout_height="wrap_content">
 
                 <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/data_sheet_box"
                         style="@style/SmallDark"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
@@ -128,14 +129,14 @@
                         tools:text="Moteur" />
 
                 <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/data_sheet_engine_power"
                         style="@style/SmallDark"
                         android:layout_marginEnd="8dp"
                         android:text="@={viewModel.enginePower}"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                        app:layout_constraintBottom_toBottomOf="@+id/data_sheet_box"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textView10"
-                        app:layout_constraintTop_toTopOf="@+id/textView10"
+                        app:layout_constraintStart_toEndOf="@+id/data_sheet_box"
+                        app:layout_constraintTop_toTopOf="@+id/data_sheet_box"
                         tools:text="cheveaux" />
 
                 <View
@@ -145,7 +146,7 @@
                         android:background="@color/colorPrimaryExtraDark"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                        app:layout_constraintTop_toBottomOf="@+id/data_sheet_box" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

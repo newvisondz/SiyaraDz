@@ -39,7 +39,7 @@ interface ServerDataApi {
         @Header("Authorization") token: String,
         @Path("manufacturerName") manufacturerName: String,
         @Query("page") page: Int,
-        @Query("limit") perPage: Int
+        @Query("limit") limit: Int
     ): Call<JsonElement>
 
     @GET("manufacturers/{manufacturerId}/models")
